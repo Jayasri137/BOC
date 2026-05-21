@@ -1,0 +1,1 @@
+<?php $country_slug = 'latvia'; require_once 'country-template.php'; ?>

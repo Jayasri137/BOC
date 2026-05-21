@@ -1,0 +1,47 @@
+*.zip
+bluestonewias_new (4).zip
+
+
+# Node
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+package-lock.json
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+logs/
+debug.log
+
+# System files
+.DS_Store
+Thumbs.db
+
+# PHP / Composer
+vendor/
+
+# Backup / archives
+*.zip
+*.tar.gz
+*.rar
+
+# Build files
+dist/
+build/
+
+# IDE files
+.vscode/
+.idea/
+
+# OS
+ehthumbs.db
+desktop.ini
+.env.examplesss
+.env.testss
+.env.example

@@ -1,0 +1,1 @@
+<?php $country_slug = 'south-korea'; require_once 'country-template.php'; ?>

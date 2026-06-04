@@ -99,11 +99,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Fetch all services
+// Fetch all services with pagination
 $services = [];
 $setupNeeded = false;
 try {
-    $stmt = $pdo->query("SELECT * FROM services ORDER BY id ASC");
+    $countQuery = $pdo->query("SELECT COUNT(*) FROM services");
+    $totalCount = intval($countQuery->fetchColumn());
+    
+    $pagination = get_pagination_params($totalCount, 10);
+    $limit = $pagination['limit'];
+    $offset = $pagination['offset'];
+    $page = $pagination['page'];
+    $totalPages = $pagination['totalPages'];
+    
+    $stmt = $pdo->prepare("SELECT * FROM services ORDER BY id ASC LIMIT :limit OFFSET :offset");
+    $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+    $stmt->execute();
     $services = $stmt->fetchAll();
 } catch (PDOException $e) {
     $setupNeeded = true;
@@ -147,6 +159,8 @@ try {
     </div>
 <?php else: ?>
 
+    <?php echo render_limit_dropdown($limit); ?>
+
     <?php if (empty($services)): ?>
         <div class="panel-card" style="text-align: center; padding: 5rem 2rem; color: var(--text-secondary);">
             <i class="fa-solid fa-folder-open" style="font-size: 3rem; margin-bottom: 1.5rem; color: var(--text-muted);"></i>
@@ -188,6 +202,7 @@ try {
                 </div>
             <?php endforeach; ?>
         </div>
+        <?php echo render_pagination_buttons($page, $totalPages); ?>
     <?php endif; ?>
 
 <?php endif; ?>

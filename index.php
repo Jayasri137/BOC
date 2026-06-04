@@ -105,6 +105,8 @@ require_once 'includes/header.php';
     </div>
   </div>
 </section>
+
+
 <!-- HOME ENQUIRY SECTION (IDP STYLE) -->
 <section class="home-enquiry section">
   <div class="container">
@@ -222,16 +224,57 @@ require_once 'includes/header.php';
           }
       } catch (PDOException $e) {
           $services = [
-              ['fa-user-graduate','Student Counselling','Personalised guidance to help you choose the right course and institution matching your academic goals and budget.','services.php?s=counselling','blue'],
-              ['fa-university','University Selection','We help identify the best-fit universities across 20+ countries based on your profile and aspirations.','services.php?s=university','purple'],
-              ['fa-file-contract','Admission Processing','Expert application management ensuring all documents are accurate, complete and submitted on time.','services.php?s=admission','orange'],
-              ['fa-hand-holding-dollar','Financial Assistance','Guidance on scholarships, student loans and funding options to make your dream affordable.','services.php?s=financial','teal'],
-              ['fa-passport','Visa Processing','End-to-end visa assistance with a 98% success rate, navigating complex immigration requirements.','services.php?s=visa','pink'],
-              ['fa-house','Accommodation & Travel','We help arrange housing and travel plans so you arrive and settle comfortably in your new country.','services.php?s=accommodation','gold'],
+              ['fa-user-graduate','Student Counselling','Personalised guidance to help you choose the right course and institution matching your academic goals and budget.','student-counselling.php','blue'],
+              ['fa-university','University Selection','We help identify the best-fit universities across 20+ countries based on your profile and aspirations.','university-selection.php','purple'],
+              ['fa-file-contract','Admission Processing','Expert application management ensuring all documents are accurate, complete and submitted on time.','admission-processing.php','orange'],
+              ['fa-hand-holding-dollar','Financial Assistance','Guidance on scholarships, student loans and funding options to make your dream affordable.','financial-assistance.php','teal'],
+              ['fa-passport','Visa Processing','End-to-end visa assistance with a 98% success rate, navigating complex immigration requirements.','visa-processing.php','pink'],
+              ['fa-house','Accommodation & Travel','We help arrange housing and travel plans so you arrive and settle comfortably in your new country.','accommodation.php','gold'],
               ['fa-pen-to-square','Test Preparation','Specialised coaching for IELTS, TOEFL and PTE to achieve the scores required by top universities.','test-prep.php','blue'],
-              ['fa-briefcase','Part-Time Job Help','Guidance on finding legal part-time work opportunities abroad to support yourself financially.','services.php?s=jobs','purple'],
+              ['fa-briefcase','Part-Time Job Help','Guidance on finding legal part-time work opportunities abroad to support yourself financially.','part-time-jobs.php','purple'],
           ];
       }
+
+      // Dynamic URL normalization mapping to ensure DB records also link directly to dedicated pages
+      $linkMap = [
+          'services.php?s=counselling' => 'student-counselling.php',
+          'services.php?s=university' => 'university-selection.php',
+          'services.php?s=admission' => 'admission-processing.php',
+          'services.php?s=financial' => 'financial-assistance.php',
+          'services.php?s=visa' => 'visa-processing.php',
+          'services.php?s=accommodation' => 'accommodation.php',
+          'services.php?s=jobs' => 'part-time-jobs.php'
+      ];
+      $titleMap = [
+          'student counselling' => 'student-counselling.php',
+          'university selection' => 'university-selection.php',
+          'application assistance' => 'admission-processing.php',
+          'admission processing' => 'admission-processing.php',
+          'scholarship assistance' => 'financial-assistance.php',
+          'financial assistance' => 'financial-assistance.php',
+          'visa guidance' => 'visa-processing.php',
+          'visa processing' => 'visa-processing.php',
+          'travel & accommodation' => 'accommodation.php',
+          'accommodation & travel' => 'accommodation.php',
+          'pre-departure briefing' => 'accommodation.php',
+          'ielts/toefl coaching' => 'test-prep.php',
+          'test preparation' => 'test-prep.php',
+          'part-time job help' => 'part-time-jobs.php',
+          'part-time job assistance' => 'part-time-jobs.php'
+      ];
+      foreach ($services as &$s_item) {
+          $currentLink = $s_item[3];
+          $titleLower = strtolower(trim($s_item[1]));
+          if (isset($linkMap[$currentLink])) {
+              $s_item[3] = $linkMap[$currentLink];
+          } elseif ($currentLink === '#' || strpos($currentLink, 'services.php') !== false) {
+              if (isset($titleMap[$titleLower])) {
+                  $s_item[3] = $titleMap[$titleLower];
+              }
+          }
+      }
+      unset($s_item); // break loop reference safety
+
       foreach($services as $i=>[$icon,$title,$desc,$link,$color]):
       ?>
       <div class="s-card-premium animate-on-scroll delay-<?= $i%4 ?>">
@@ -436,6 +479,7 @@ require_once 'includes/header.php';
     </div>
   </div>
 </section>
+
 <!-- PROCESS -->
 <section class="section process-section">
   <div class="container">
@@ -465,6 +509,7 @@ require_once 'includes/header.php';
     </div>
   </div>
 </section>
+
 <!-- TEST PREP -->
 <section class="section" style="background:linear-gradient(135deg,#f8fafc,#f0fdf4)">
   <div class="container">

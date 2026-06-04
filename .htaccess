@@ -1,15 +1,41 @@
-# <IfModule mod_rewrite.c>
-#     RewriteEngine on
-#     RewriteCond %{REQUEST_FILENAME} !-f
-#     RewriteRule ^(.*)$ public/$1 [L]
-#   </IfModule>
+<IfModule mod_rewrite.c>
+  RewriteEngine On
 
-  <Files .env>
-    Order allow,deny
-    Deny from all
-  </Files>
+  # Redirect legacy privacy and terms
+  RewriteRule ^privacy\.php$ privacy-policy.php [R=301,L,NC]
+  RewriteRule ^terms\.php$ terms-and-conditions.php [R=301,L,NC]
 
-  <Files composer.json>
-    Order allow,deny
-    Deny from all
-  </Files>
+  # Redirect legacy branches to new unified branch page
+  RewriteRule ^(coimbatore|chennai|salem|erode|namakkal|nepal|canada-brand|canada_branch|tirunelveli|thirunelveli)\.php$ branch.php [R=301,L,NC]
+
+  # Special cases for country spelling corrections
+  RewriteRule ^swedan\.php$ study-in-sweden.php [R=301,L,NC]
+  RewriteRule ^newzeland\.php$ study-in-new-zealand.php [R=301,L,NC]
+  RewriteRule ^philipines\.php$ study-in-philippines.php [R=301,L,NC]
+
+  # Redirect legacy countries to their new pages
+  RewriteRule ^(usa|uk|canada|australia|ireland|germany|france|italy|singapore|malaysia|denmark|bulgaria|russia|switzerland|south-korea|netherlands|uae)\.php$ study-in-$1.php [R=301,L,NC]
+
+  # Redirect legacy tests
+  RewriteRule ^(ielts-test|ielts_test)\.php$ ielts.php [R=301,L,NC]
+
+  # Redirect legacy pages
+  RewriteRule ^about-us\.php$ About_us.php [R=301,L,NC]
+  RewriteRule ^award-achievements\.php$ About_us.php [R=301,L,NC]
+  RewriteRule ^contact-us\.php$ contact.php [R=301,L,NC]
+  RewriteRule ^services-1\.php$ services.php [R=301,L,NC]
+  RewriteRule ^event-mod\.php$ events.php [R=301,L,NC]
+
+  # Redirect legacy blogs
+  RewriteRule ^(ourblog|new_blog|myblog)\d*\.php$ Blog.php [R=301,L,NC]
+</IfModule>
+
+<Files .env>
+  Order allow,deny
+  Deny from all
+</Files>
+
+<Files composer.json>
+  Order allow,deny
+  Deny from all
+</Files>

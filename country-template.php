@@ -44,6 +44,7 @@ $all_countries = [
             'January - Second Intake'
         ]
     ],
+
     'canada' => [
         'name' => 'Canada',
         'full_name' => 'Canada',
@@ -65,6 +66,7 @@ $all_countries = [
             'May - Summer'
         ]
     ],
+
     'australia' => [
         'name' => 'Australia',
         'full_name' => 'Australia',
@@ -85,6 +87,7 @@ $all_countries = [
             'July - Second Intake'
         ]
     ],
+    
     'germany' => [
         'name' => 'Germany',
         'full_name' => 'Germany',

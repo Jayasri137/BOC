@@ -2,6 +2,26 @@
 require_once 'includes/config.php';
 
 $slugRaw = trim($_GET['s'] ?? '');
+$redirects = [
+    'counselling' => 'student-counselling.php',
+    'university' => 'university-selection.php',
+    'admission' => 'admission-processing.php',
+    'financial' => 'financial-assistance.php',
+    'visa' => 'visa-processing.php',
+    'accommodation' => 'accommodation.php',
+    'jobs' => 'part-time-jobs.php'
+];
+if (isset($redirects[$slugRaw])) {
+    $target = $redirects[$slugRaw];
+    $params = $_GET;
+    unset($params['s']);
+    if (!empty($params)) {
+        $target .= '?' . http_build_query($params);
+    }
+    header("Location: " . $target, true, 301);
+    exit;
+}
+
 $slugAliases = [
     'university-selection' => 'university',
     'admission-processing' => 'admission',
@@ -182,15 +202,25 @@ require_once 'includes/header.php';
           <?php 
           $colors = ['blue', 'purple', 'orange', 'teal', 'pink', 'gold', 'blue'];
           $i = 0;
+          $redirects = [
+              'counselling' => 'student-counselling.php',
+              'university' => 'university-selection.php',
+              'admission' => 'admission-processing.php',
+              'financial' => 'financial-assistance.php',
+              'visa' => 'visa-processing.php',
+              'accommodation' => 'accommodation.php',
+              'jobs' => 'part-time-jobs.php'
+          ];
           foreach($services_data as $s => $data): 
             $color = $colors[$i % count($colors)];
             $i++;
+            $dedicatedLink = $redirects[$s] ?? "services.php?s={$s}";
           ?>
-            <div class="service-card animate-on-scroll" onclick="location.href='services.php?s=<?= $s ?>'">
+            <div class="service-card animate-on-scroll" onclick="location.href='<?= $dedicatedLink ?>'">
               <div class="service-card__icon service-card__icon--<?= $color ?>"><i class="fa-solid <?= $data['icon'] ?>"></i></div>
               <h3><?= $data['name'] ?></h3>
               <p><?= substr($data['desc'], 0, 100) ?>...</p>
-              <a href="services.php?s=<?= $s ?>" class="btn btn--outline btn--sm" style="margin-top:1.5rem">Learn More</a>
+              <a href="<?= $dedicatedLink ?>" class="btn btn--outline btn--sm" style="margin-top:1.5rem">Learn More</a>
             </div>
           <?php endforeach; ?>
         </div>

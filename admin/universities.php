@@ -253,20 +253,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Fetch all universities under the selected country with course counts
+// Fetch all universities under the selected country with course counts and pagination
 $universities = [];
+$totalCount = 0;
+$totalPages = 1;
+$page = 1;
+$limit = 10;
+$offset = 0;
+
 if ($selected_country_id > 0) {
     try {
-        $stmt = $pdo->prepare("
-            SELECT u.*, (SELECT COUNT(*) FROM courses WHERE university_id = u.id) as course_count 
-            FROM universities u 
-            WHERE u.country_id = :cid 
-            ORDER BY u.name ASC
-        ");
-        $stmt->execute(['cid' => $selected_country_id]);
+        $countStmt = $pdo->prepare("SELECT COUNT(*) FROM universities WHERE country_id = :cid");
+        $countStmt->execute(['cid' => $selected_country_id]);
+        $totalCount = intval($countStmt->fetchColumn());
+
+        $pagination = get_pagination_params($totalCount, 10);
+        $limit = $pagination['limit'];
+        $offset = $pagination['offset'];
+        $page = $pagination['page'];
+        $totalPages = $pagination['totalPages'];
+
+        if ($limit === 999999) {
+            $stmt = $pdo->prepare("
+                SELECT u.*, (SELECT COUNT(*) FROM courses WHERE university_id = u.id) as course_count 
+                FROM universities u 
+                WHERE u.country_id = :cid 
+                ORDER BY u.name ASC
+            ");
+            $stmt->bindValue(':cid', $selected_country_id, PDO::PARAM_INT);
+        } else {
+            $stmt = $pdo->prepare("
+                SELECT u.*, (SELECT COUNT(*) FROM courses WHERE university_id = u.id) as course_count 
+                FROM universities u 
+                WHERE u.country_id = :cid 
+                ORDER BY u.name ASC
+                LIMIT :limit OFFSET :offset
+            ");
+            $stmt->bindValue(':cid', $selected_country_id, PDO::PARAM_INT);
+            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+            $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        }
+        $stmt->execute();
         $universities = $stmt->fetchAll();
     } catch (PDOException $e) {
         $alertError = 'Failed to load universities: ' . $e->getMessage();
+        $totalCount = 0;
+        $totalPages = 1;
+        $page = 1;
+        $limit = 10;
     }
 }
 ?>
@@ -390,7 +424,16 @@ if ($selected_country_id > 0) {
             </select>
         </div>
         <div style="font-size: 0.9rem; color: var(--text-secondary);">
-            Active Universities in selected destination: <strong><?php echo count($universities); ?></strong>
+            Active Universities in selected destination: <strong><?php echo $totalCount; ?></strong>
+        </div>
+        <div class="filter-group" style="flex-direction: row; align-items: center; gap: 0.5rem; margin-bottom: 0; margin-left: auto; display: inline-flex;">
+            <label for="limit_select" style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0;">Show:</label>
+            <select name="limit" id="limit_select" class="filter-control" onchange="this.form.submit()" style="padding: 0.35rem 2rem 0.35rem 0.75rem; font-size: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border); min-width: auto; background-color: rgba(15,23,42,0.6); color: var(--text-primary); border-color: var(--border); cursor: pointer;">
+                <option value="10" <?php echo $limit === 10 ? 'selected' : ''; ?>>10 entries</option>
+                <option value="20" <?php echo $limit === 20 ? 'selected' : ''; ?>>20 entries</option>
+                <option value="50" <?php echo $limit === 50 ? 'selected' : ''; ?>>50 entries</option>
+                <option value="all" <?php echo $limit === 999999 ? 'selected' : ''; ?>>Show All</option>
+            </select>
         </div>
     </form>
 </div>
@@ -568,6 +611,13 @@ if ($selected_country_id > 0) {
                 </div>
             <?php endforeach; ?>
         </div>
+        <?php 
+        $limitParam = ($limit === 999999) ? 'all' : $limit;
+        echo render_pagination_buttons($page, $totalPages, [
+            'country_id' => $selected_country_id,
+            'limit' => $limitParam
+        ]); 
+        ?>
     <?php endif; ?>
 
 <?php endif; ?>

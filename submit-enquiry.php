@@ -45,7 +45,7 @@ try {
             'name'           => $fullName,
             'email'          => $email,
             'phone'          => $phone,
-            'business_focus' => 'Overseas Consulting',
+            'business_focus' => 'Overseas Consulting', 
             'message'        => $message
         ]);
         
@@ -184,6 +184,8 @@ function forwardToCRM($payload) {
     $jsonData = json_encode($payload);
     
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
     curl_setopt($ch, CURLOPT_HTTPHEADER, [

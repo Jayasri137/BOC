@@ -251,7 +251,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $countries = [];
 $setupNeeded = false;
 try {
-    $stmt = $pdo->query("SELECT * FROM countries ORDER BY name ASC");
+    $total_count = $pdo->query("SELECT COUNT(*) FROM countries")->fetchColumn();
+    $pag = get_pagination_params($total_count, 10);
+    $limit = $pag['limit'];
+    $page = $pag['page'];
+    $totalPages = $pag['totalPages'];
+    $offset = $pag['offset'];
+
+    if ($limit === 999999) {
+        $stmt = $pdo->query("SELECT * FROM countries ORDER BY name ASC");
+    } else {
+        $stmt = $pdo->prepare("SELECT * FROM countries ORDER BY name ASC LIMIT :limit OFFSET :offset");
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+    }
     $countries = $stmt->fetchAll();
 } catch (PDOException $e) {
     $setupNeeded = true;
@@ -321,6 +335,10 @@ try {
             <p style="margin-top: 0.5rem; font-size: 0.9rem;">Click the "Add Destination Country" button to create your first country!</p>
         </div>
     <?php else: ?>
+        <?php 
+        $limitParam = ($limit === 999999) ? 'all' : $limit;
+        echo render_limit_dropdown($limit); 
+        ?>
         <div class="crud-grid">
             <?php foreach ($countries as $c): 
                 $isActive = intval($c['is_active']) === 1;
@@ -364,6 +382,9 @@ try {
                 </div>
             <?php endforeach; ?>
         </div>
+        <?php 
+        echo render_pagination_buttons($page, $totalPages, ['limit' => $limitParam]); 
+        ?>
     <?php endif; ?>
 
 <?php endif; ?>

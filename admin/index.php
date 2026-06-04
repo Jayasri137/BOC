@@ -67,7 +67,7 @@ try {
 
     <!-- KPI Dashboard Grid -->
     <div class="stats-grid">
-        <div class="stat-card">
+        <a href="leads.php" class="stat-card" style="text-decoration: none;">
             <div class="stat-info">
                 <div class="stat-label">Total Enquiries</div>
                 <div class="stat-value"><?php echo number_format($stats['total_leads']); ?></div>
@@ -75,9 +75,9 @@ try {
             <div class="stat-icon-wrap icon-blue">
                 <i class="fa-solid fa-users"></i>
             </div>
-        </div>
+        </a>
         
-        <div class="stat-card">
+        <a href="leads.php?status=New" class="stat-card" style="text-decoration: none;">
             <div class="stat-info">
                 <div class="stat-label">New Leads</div>
                 <div class="stat-value" style="color: var(--accent);"><?php echo number_format($stats['new_leads']); ?></div>
@@ -85,9 +85,9 @@ try {
             <div class="stat-icon-wrap icon-purple">
                 <i class="fa-solid fa-user-plus"></i>
             </div>
-        </div>
+        </a>
         
-        <div class="stat-card">
+        <a href="services.php" class="stat-card" style="text-decoration: none;">
             <div class="stat-info">
                 <div class="stat-label">Active Services</div>
                 <div class="stat-value"><?php echo $stats['services_active']; ?> <span style="font-size: 1rem; color: var(--text-muted); font-weight: 400;">/ <?php echo $stats['services_total']; ?></span></div>
@@ -95,9 +95,9 @@ try {
             <div class="stat-icon-wrap icon-orange">
                 <i class="fa-solid fa-graduation-cap"></i>
             </div>
-        </div>
+        </a>
         
-        <div class="stat-card">
+        <a href="countries.php" class="stat-card" style="text-decoration: none;">
             <div class="stat-info">
                 <div class="stat-label">Destinations</div>
                 <div class="stat-value"><?php echo $stats['countries_active']; ?> <span style="font-size: 1rem; color: var(--text-muted); font-weight: 400;">/ <?php echo $stats['countries_total']; ?></span></div>
@@ -105,9 +105,9 @@ try {
             <div class="stat-icon-wrap icon-teal">
                 <i class="fa-solid fa-earth-americas"></i>
             </div>
-        </div>
+        </a>
 
-        <div class="stat-card">
+        <a href="testimonials.php" class="stat-card" style="text-decoration: none;">
             <div class="stat-info">
                 <div class="stat-label">Reviews</div>
                 <div class="stat-value"><?php echo $stats['testimonials_active']; ?> <span style="font-size: 1rem; color: var(--text-muted); font-weight: 400;">/ <?php echo $stats['testimonials_total']; ?></span></div>
@@ -115,7 +115,7 @@ try {
             <div class="stat-icon-wrap icon-pink">
                 <i class="fa-solid fa-star"></i>
             </div>
-        </div>
+        </a>
     </div>
 
     <!-- Main Dashboard Section -->

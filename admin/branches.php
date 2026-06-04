@@ -94,10 +94,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Fetch all branches
+// Fetch all branches with pagination
 $branches = [];
 try {
-    $stmt = $pdo->query("SELECT * FROM branches ORDER BY id ASC");
+    $countQuery = $pdo->query("SELECT COUNT(*) FROM branches");
+    $totalCount = intval($countQuery->fetchColumn());
+    
+    $pagination = get_pagination_params($totalCount, 10);
+    $limit = $pagination['limit'];
+    $offset = $pagination['offset'];
+    $page = $pagination['page'];
+    $totalPages = $pagination['totalPages'];
+    
+    $stmt = $pdo->prepare("SELECT * FROM branches ORDER BY id ASC LIMIT :limit OFFSET :offset");
+    $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+    $stmt->execute();
     $branches = $stmt->fetchAll();
 } catch (PDOException $e) {
     $alertError = 'Could not fetch branches: ' . $e->getMessage();
@@ -128,6 +140,8 @@ try {
         <span><?php echo clean_output($alertError); ?></span>
     </div>
 <?php endif; ?>
+
+<?php echo render_limit_dropdown($limit); ?>
 
 <?php if (empty($branches)): ?>
     <div class="panel-card" style="text-align: center; padding: 5rem 2rem; color: var(--text-secondary);">
@@ -171,6 +185,7 @@ try {
             </div>
         <?php endforeach; ?>
     </div>
+    <?php echo render_pagination_buttons($page, $totalPages); ?>
 <?php endif; ?>
 
 <!-- 1. ADD / EDIT DIALOG MODAL -->

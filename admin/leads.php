@@ -75,12 +75,6 @@ $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 $statusFilter = isset($_GET['status']) ? trim($_GET['status']) : '';
 $sourceFilter = isset($_GET['source']) ? trim($_GET['source']) : '';
 
-// Pagination
-$limit = 10;
-$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-if ($page < 1) $page = 1;
-$offset = ($page - 1) * $limit;
-
 // SQL Builder
 $whereClauses = ["is_active = 1"];
 $params = [];
@@ -111,22 +105,41 @@ try {
     $countStmt = $pdo->prepare("SELECT COUNT(*) FROM leads WHERE $whereSQL");
     $countStmt->execute($params);
     $totalRows = $countStmt->fetchColumn();
-    $totalPages = ceil($totalRows / $limit);
-    if ($totalPages < 1) $totalPages = 1;
-    if ($page > $totalPages) {
-        $page = $totalPages;
-        $offset = ($page - 1) * $limit;
-    }
+    
+    // Get pagination parameters
+    $pag = get_pagination_params($totalRows, 10);
+    $limit = $pag['limit'];
+    $page = $pag['page'];
+    $totalPages = $pag['totalPages'];
+    $offset = $pag['offset'];
     
     // Get paginated leads
-    $leadsStmt = $pdo->prepare("SELECT * FROM leads WHERE $whereSQL ORDER BY created_at DESC, id DESC LIMIT $limit OFFSET $offset");
-    $leadsStmt->execute($params);
+    if ($limit === 999999) {
+        $leadsStmt = $pdo->prepare("SELECT * FROM leads WHERE $whereSQL ORDER BY created_at DESC, id DESC");
+    } else {
+        $leadsStmt = $pdo->prepare("SELECT * FROM leads WHERE $whereSQL ORDER BY created_at DESC, id DESC LIMIT :limit OFFSET :offset");
+    }
+    
+    // Bind dynamic filter parameters
+    foreach ($params as $key => $value) {
+        $leadsStmt->bindValue(':' . $key, $value);
+    }
+    
+    // Bind limit & offset as integers if paginated
+    if ($limit !== 999999) {
+        $leadsStmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $leadsStmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+    }
+    
+    $leadsStmt->execute();
     $leads = $leadsStmt->fetchAll();
     
 } catch (PDOException $e) {
     $leads = [];
     $totalRows = 0;
     $totalPages = 1;
+    $limit = 10;
+    $page = 1;
     $alertError = 'Unable to fetch leads from database: ' . $e->getMessage() . '. Have you initialized tables inside the setup?';
 }
 ?>
@@ -179,6 +192,14 @@ try {
             <option value="">All Sources</option>
             <option value="Website Enquiry" <?php echo $sourceFilter === 'Website Enquiry' ? 'selected' : ''; ?>>Website Enquiry</option>
             <option value="Website Contact" <?php echo $sourceFilter === 'Website Contact' ? 'selected' : ''; ?>>Website Contact</option>
+        </select>
+    <div class="filter-group">
+        <label for="limit">Show</label>
+        <select name="limit" id="limit" class="filter-control" onchange="this.form.submit()">
+            <option value="10" <?php echo $limit === 10 ? 'selected' : ''; ?>>10 entries</option>
+            <option value="20" <?php echo $limit === 20 ? 'selected' : ''; ?>>20 entries</option>
+            <option value="50" <?php echo $limit === 50 ? 'selected' : ''; ?>>50 entries</option>
+            <option value="all" <?php echo $limit === 999999 ? 'selected' : ''; ?>>Show All</option>
         </select>
     </div>
     
@@ -279,25 +300,15 @@ try {
 </div>
 
 <!-- Pagination container -->
-<?php if ($totalPages > 1): ?>
-    <div class="pagination">
-        <!-- Previous Page -->
-        <a href="leads.php?page=<?php echo $page - 1; ?>&search=<?php echo urlencode($search); ?>&status=<?php echo urlencode($statusFilter); ?>&source=<?php echo urlencode($sourceFilter); ?>" class="page-btn <?php echo $page === 1 ? 'disabled' : ''; ?>">
-            <i class="fa-solid fa-angle-left"></i>
-        </a>
-        
-        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-            <a href="leads.php?page=<?php echo $i; ?>&search=<?php echo urlencode($search); ?>&status=<?php echo urlencode($statusFilter); ?>&source=<?php echo urlencode($sourceFilter); ?>" class="page-btn <?php echo $page === $i ? 'active' : ''; ?>">
-                <?php echo $i; ?>
-            </a>
-        <?php endfor; ?>
-        
-        <!-- Next Page -->
-        <a href="leads.php?page=<?php echo $page + 1; ?>&search=<?php echo urlencode($search); ?>&status=<?php echo urlencode($statusFilter); ?>&source=<?php echo urlencode($sourceFilter); ?>" class="page-btn <?php echo $page === $totalPages ? 'disabled' : ''; ?>">
-            <i class="fa-solid fa-angle-right"></i>
-        </a>
-    </div>
-<?php endif; ?>
+<?php 
+$limitParam = ($limit === 999999) ? 'all' : $limit;
+echo render_pagination_buttons($page, $totalPages, [
+    'search' => $search,
+    'status' => $statusFilter,
+    'source' => $sourceFilter,
+    'limit' => $limitParam
+]); 
+?>
 
 <!-- 1. VIEW / EDIT DETAILS MODAL -->
 <div class="modal-overlay" id="leadModal">

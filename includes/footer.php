@@ -10,7 +10,7 @@
       <div class="footer-col footer-brand">
         <a href="index.php" class="footer-logo">
           <!-- Premium transparent bird logo -->
-          <img src="assets/images/logo.png" alt="Bluestone Overseas Consultants" style="height: 82px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.06));">
+          <img src="assets/images/Logo_old.png" alt="Bluestone Overseas Consultants" style="height: 95px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.06));">
         </a>
         <p>The most eminent Visa and Immigration Consultant service provider in major metros and overseas. Empowering global educational dreams with absolute reliability and trust since 2015.</p>
         <div class="footer-social">
@@ -66,7 +66,7 @@
         <div class="footer-contact-info">
           <a href="tel:+919342899904" class="fc-link"><i class="fa-solid fa-phone"></i> +91 93428 99904</a>
           <a href="mailto:info@bluestoneocs.com" class="fc-link"><i class="fa-solid fa-envelope"></i> info@bluestoneocs.com</a>
-          <div class="fc-time"><i class="fa-regular fa-clock"></i> Mon–Fri: 09:00 AM – 06:30 PM</div>
+          <div class="fc-time"><i class="fa-regular fa-clock"></i> <?= SITE_HOURS ?></div>
         </div>
       </div>
 
@@ -100,8 +100,8 @@
         <p style="margin-top: 0.25rem;">Crafted by <a href="https://bluestonetechpark.com" target="_blank" class="credit-link techpark">Bluestone Techpark</a></p>
       </div>
       <div class="footer-bottom-links">
-        <a href="privacy.php">Privacy Policy</a>
-        <a href="terms.php">Terms &amp; Conditions</a>
+        <a href="privacy-policy.php">Privacy Policy</a>
+        <a href="terms-and-conditions.php">Terms &amp; Conditions</a>
         <a href="sitemap.php">Sitemap</a>
       </div>
       <div class="fb-right">

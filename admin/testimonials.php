@@ -121,11 +121,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Fetch all testimonials
+// Fetch all testimonials with pagination
 $testimonials = [];
 $setupNeeded = false;
 try {
-    $stmt = $pdo->query("SELECT * FROM testimonials ORDER BY id ASC");
+    $countQuery = $pdo->query("SELECT COUNT(*) FROM testimonials");
+    $totalCount = intval($countQuery->fetchColumn());
+    
+    $pagination = get_pagination_params($totalCount, 10);
+    $limit = $pagination['limit'];
+    $offset = $pagination['offset'];
+    $page = $pagination['page'];
+    $totalPages = $pagination['totalPages'];
+    
+    $stmt = $pdo->prepare("SELECT * FROM testimonials ORDER BY id ASC LIMIT :limit OFFSET :offset");
+    $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+    $stmt->execute();
     $testimonials = $stmt->fetchAll();
 } catch (PDOException $e) {
     $setupNeeded = true;
@@ -168,6 +180,8 @@ try {
         <a href="setup.php" class="btn-pill" style="padding: 1rem 2rem;"><i class="fa-solid fa-screwdriver-wrench"></i> Run Database Installer</a>
     </div>
 <?php else: ?>
+
+    <?php echo render_limit_dropdown($limit); ?>
 
     <?php if (empty($testimonials)): ?>
         <div class="panel-card" style="text-align: center; padding: 5rem 2rem; color: var(--text-secondary);">
@@ -220,6 +234,7 @@ try {
                 </div>
             <?php endforeach; ?>
         </div>
+        <?php echo render_pagination_buttons($page, $totalPages); ?>
     <?php endif; ?>
 
 <?php endif; ?>

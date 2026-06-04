@@ -173,7 +173,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Fetch all articles
 $articles = [];
 try {
-    $stmt = $pdo->query("SELECT * FROM news_articles ORDER BY id DESC");
+    $total_count = $pdo->query("SELECT COUNT(*) FROM news_articles")->fetchColumn();
+    $pag = get_pagination_params($total_count, 10);
+    $limit = $pag['limit'];
+    $page = $pag['page'];
+    $totalPages = $pag['totalPages'];
+    $offset = $pag['offset'];
+
+    if ($limit === 999999) {
+        $stmt = $pdo->query("SELECT * FROM news_articles ORDER BY id DESC");
+    } else {
+        $stmt = $pdo->prepare("SELECT * FROM news_articles ORDER BY id DESC LIMIT :limit OFFSET :offset");
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+    }
     $articles = $stmt->fetchAll();
 } catch (PDOException $e) {
     $alertError = 'Could not fetch articles: ' . $e->getMessage();
@@ -212,6 +226,10 @@ try {
         <p style="margin-top: 0.5rem; font-size: 0.9rem;">Click "Add New Article" to compose your first blog post!</p>
     </div>
 <?php else: ?>
+    <?php 
+    $limitParam = ($limit === 999999) ? 'all' : $limit;
+    echo render_limit_dropdown($limit); 
+    ?>
     <div class="crud-grid">
         <?php foreach ($articles as $art): 
             $isActive = intval($art['is_active']) === 1;
@@ -258,6 +276,9 @@ try {
             </div>
         <?php endforeach; ?>
     </div>
+    <?php 
+    echo render_pagination_buttons($page, $totalPages, ['limit' => $limitParam]); 
+    ?>
 <?php endif; ?>
 
 <!-- 1. ADD / EDIT DIALOG MODAL -->

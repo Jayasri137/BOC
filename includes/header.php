@@ -35,11 +35,11 @@ if (preg_match('/^(ielts-test|ielts_test)\.php$/i', $script_name)) {
     header("Location: ielts.php", true, 301);
     exit();
 }
-if (strcasecmp($script_name, 'TOEFL.php') === 0) {
+if (strcasecmp($script_name, 'toefl.php') === 0 && $script_name !== 'toefl.php') {
     header("Location: toefl.php", true, 301);
     exit();
 }
-if (strcasecmp($script_name, 'PTE.php') === 0) {
+if (strcasecmp($script_name, 'pte.php') === 0 && $script_name !== 'pte.php') {
     header("Location: pte.php", true, 301);
     exit();
 }
@@ -78,10 +78,28 @@ if (preg_match('/^(ourblog|new_blog|myblog)\d*\.php$/i', $script_name)) {
 
 // Canonical URL calculation
 $canonical_path = rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+
+// Strip local development folder from canonical path
+$canonical_path = preg_replace('#^/bluestone(?:%20|\s|_|-)*overseas#i', '', $canonical_path);
+
+if (strtolower($canonical_path) === '/index.php') {
+    $canonical_path = '';
+}
 $canonical_url = 'https://www.bluestoneoverseas.com' . $canonical_path;
 if ($canonical_url === 'https://www.bluestoneoverseas.com') {
     $canonical_url .= '/';
 }
+
+// Dynamic SEO Fallback for pages that don't explicitly set them
+if (!isset($pageTitle) || empty(trim($pageTitle))) {
+    $generatedTitle = ucwords(str_replace(['-', '_'], ' ', $currentPage));
+    $pageTitle = $generatedTitle . ' | ' . SITE_NAME;
+}
+if (!isset($pageDesc) || empty(trim($pageDesc))) {
+    $generatedTitle = ucwords(str_replace(['-', '_'], ' ', $currentPage ?? ''));
+    $pageDesc = "Learn more about {$generatedTitle} at " . SITE_NAME . ". Trusted study abroad consultants offering expert guidance, university admissions support, and visa services.";
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -99,6 +117,16 @@ if ($canonical_url === 'https://www.bluestoneoverseas.com') {
     /* Google Ads */
     gtag('config', 'AW-17065954362');
     gtag('config', 'AW-16603743701');
+  </script>
+
+  <!-- Google tag (gtag.js) for EO purpose -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PZF0HBPB7K"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-PZF0HBPB7K');
   </script>
 
   <!-- Facebook Pixel Code -->
@@ -138,13 +166,15 @@ if ($canonical_url === 'https://www.bluestoneoverseas.com') {
   <meta name="google-site-verification" content="uufHadHWr1VYTfMfUrK7gzYjZ31PS6C9M1ZcJHA5Au4">
   <meta name="google-site-verification" content="XnLIPxSb1zS2cMqVAY2vq9EDrDmyJ7dPKCELSHbh0c8" />
 
+  <!-- Bing Site Verification -->
+  <meta name="msvalidate.01" content="52C70BEE0123E3EB38EDEDF48C48849D" />
+
   <!-- Canonical & Verification -->
   <link rel="canonical" href="<?= htmlspecialchars($canonical_url, ENT_QUOTES, 'UTF-8') ?>" />
 
   <!-- Primary SEO -->
-  <title><?= htmlspecialchars($pageTitle ?? SITE_NAME . ' | Study Abroad Consultants') ?></title>
-  <meta name="description" content="<?= htmlspecialchars($pageDesc ?? 'Bluestone Overseas Consultancy – trusted study abroad consultants offering expert guidance, university admissions support, and visa services for Indian students.') ?>">
-  <meta name="keywords" content="study abroad, overseas consultants, IELTS, TOEFL, visa processing, UK USA Canada Australia Germany">
+  <title><?= htmlspecialchars($pageTitle) ?></title>
+  <meta name="description" content="<?= htmlspecialchars($pageDesc) ?>">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:title" content="<?= htmlspecialchars($pageTitle ?? SITE_NAME) ?>">

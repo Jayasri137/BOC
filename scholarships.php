@@ -148,9 +148,9 @@ if ($selected_country_id > 0) {
       <?php else: ?>
         <!-- Default Content when no filter selected -->
         <div class="grid grid--2 gap--4 align-center">
-          <div class="animate-on-scroll">
-            <div class="v-icon" style="width:120px; height:120px; font-size:3rem; margin:0; background: #fffbeb; color: #f59e0b;"><i class="fa-solid fa-graduation-cap"></i></div>
-            <h2 class="section__title" style="text-align:left; margin-top:2rem">Fund Your <span>Future</span></h2>
+          <div class="col-lg-6 mb-4 mb-lg-0 animate-on-scroll">
+            <h1 class="section__title" style="text-align:left; margin-top:2rem">Fund Your <span>Future</span></h1>
+            <p class="lead">We help you discover and apply for exclusive scholarships, grants, and bursaries offered by universities and governments across the globe.</p>
             <p style="color:var(--gray); margin-top:1rem; line-height:1.6;">
               In association with <strong>Bluestone Overseas</strong> and drawing inspiration from global standards set by leaders like <strong>IDP.com</strong>, we help you identify and apply for scholarships that can fund up to 100% of your tuition.
             </p>

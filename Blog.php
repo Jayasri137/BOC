@@ -16,10 +16,13 @@ require_once 'includes/header.php';
             $db_blogs = [];
         }
         
+        $db_blogs = array_values(array_filter($db_blogs, function ($art) {
+            return !is_hidden_news_article($art);
+        }));
+
         if (empty($db_blogs)) {
             $db_blogs = [
-                ['title' => 'Why Malta Is the Smart Choice for International Students?', 'date_string' => 'April 2025', 'tag' => 'Study Abroad', 'excerpt' => 'Malta is quickly emerging as one of Europe\'s most affordable destinations...', 'link' => 'blog-details.php?id=14', 'emoji' => '🇲🇹'],
-                ['title' => 'Why New Zealand Is a Smart Choice for Higher Education', 'date_string' => 'March 2025', 'tag' => 'Destination Guide', 'excerpt' => 'New Zealand offers world-class education and stunning landscapes...', 'link' => 'blog-details.php?id=13', 'emoji' => '🇳🇿']
+                ['title' => 'Top 5 Scholarships for Indian Students in UK', 'date_string' => 'November 2024', 'tag' => 'Scholarships', 'excerpt' => 'Explore the best funding options for your master\'s degree in the UK...', 'link' => 'blog-details.php?id=9', 'emoji' => '🇬🇧']
             ];
         }
         

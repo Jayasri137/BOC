@@ -182,9 +182,9 @@ require_once 'includes/header.php';
         <?php endif; ?>
 
         <div class="grid grid--2 gap--4 align-center">
-          <div class="animate-on-scroll">
-            <div class="v-icon" style="width:120px; height:120px; font-size:3rem; margin:0"><i class="fa-solid <?= $service['icon'] ?>"></i></div>
-            <h2 class="section__title" style="text-align:left; margin-top:2rem">What we cover in <span><?= $service['name'] ?></span></h2>
+          <div class="col-lg-6 mb-4 mb-lg-0 animate-on-scroll">
+            <h1 class="section__title" style="text-align:left; margin-top:2rem">What we cover in <span><?= $service['name'] ?></span></h1>
+            <p class="lead"><?= clean_output($service['description'] ?? '') ?></p>
           </div>
           <div class="animate-on-scroll delay-1">
             <div class="service-details grid grid--1 gap--1">

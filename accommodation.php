@@ -1,6 +1,7 @@
 <?php
 require_once 'includes/config.php';
-$pageTitle = 'Accommodation & Travel | Bluestone Overseas Consultants';
+$pageTitle = 'Study Abroad Accommodation Assistance | Bluestone Overseas';
+$pageDesc = 'Secure comfortable student accommodation abroad with expert guidance. Assistance with housing, travel arrangements and a smooth study abroad transition.';
 require_once 'includes/header.php';
 ?>
 <main>

@@ -9,7 +9,7 @@ require_once 'includes/header.php';
   <div class="container">
     <div class="contact-grid">
       <div>
-        <h3>Talk to Our <span class="text-gradient">Experts</span></h3>
+        <h1 style="font-size: 2rem; font-weight: 700; margin-bottom: 1rem;">Talk to Our <span class="text-gradient">Experts</span></h1>
         <p>Whether you&rsquo;re just starting your study abroad journey or need help with a visa application, our counsellors are here to help — for free.</p>
         <div class="contact-cards">
           <div class="contact-card"><i class="fa-solid fa-phone"></i><div><h4>Call Us</h4><a href="tel:+919342899904">+91 93428 99904</a></div></div>

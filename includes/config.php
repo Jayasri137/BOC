@@ -24,6 +24,60 @@ if (!function_exists('clean_output')) {
     }
 }
 
+if (!function_exists('is_hidden_partner')) {
+    function is_hidden_partner($partner) {
+        $hiddenTerms = ['ifs', 'nhs', 'uschip', 'bupa', 'credila', 'unionbank', 'sbi', 'poonawalla', 'avanse', 'cibc', 'icici', 'tdbank', 'wsfx', 'convera', 'simplii', 'ebixcash', 'flywire'];
+        $subject = '';
+
+        if (is_array($partner)) {
+            $subject = strtolower(implode(' ', array_filter([
+                $partner['partner_name'] ?? '',
+                $partner['logo_path'] ?? '',
+                $partner['link'] ?? '',
+                $partner['country_name'] ?? '',
+                $partner['features'] ?? ''
+            ])));
+        } else {
+            $subject = strtolower((string) $partner);
+        }
+
+        foreach ($hiddenTerms as $term) {
+            if (strpos($subject, $term) !== false) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}
+
+if (!function_exists('is_hidden_news_article')) {
+    function is_hidden_news_article($article) {
+        $hiddenIds = [9, 10, 11, 12, 13, 14];
+        if (is_array($article)) {
+            if (isset($article['id']) && in_array((int) $article['id'], $hiddenIds, true)) {
+                return true;
+            }
+
+            $subject = strtolower(implode(' ', array_filter([
+                $article['link'] ?? '',
+                $article['title'] ?? '',
+                $article['excerpt'] ?? '',
+                $article['tag'] ?? '',
+                $article['emoji'] ?? ''
+            ])));
+
+            foreach ($hiddenIds as $id) {
+                if (strpos($subject, 'blog-details.php?id=' . $id) !== false) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+}
+
 if (!function_exists('resolve_country_slug')) {
     function resolve_country_slug($slug) {
         $slug = strtolower(trim($slug ?? ''));

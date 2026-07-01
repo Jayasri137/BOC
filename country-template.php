@@ -430,8 +430,12 @@ try {
 // 2. Fetch from static config as a fallback
 $country = $all_countries[$country_slug] ?? $all_countries['usa'];
 
-$pageTitle = 'Study in ' . ($db_country ? $db_country['name'] : $country['name']) . ' | Bluestone Overseas Consultants';
-$pageDesc = $db_country ? $db_country['description'] : $country['desc'];
+if (!isset($pageTitle)) {
+    $pageTitle = 'Study in ' . ($db_country ? $db_country['name'] : $country['name']) . ' | Bluestone Overseas Consultants';
+}
+if (!isset($pageDesc)) {
+    $pageDesc = $db_country ? $db_country['description'] : $country['desc'];
+}
 require_once 'includes/header.php';
 ?>
 

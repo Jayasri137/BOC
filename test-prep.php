@@ -130,10 +130,10 @@ require_once 'includes/header.php';
           </div>
           <div class="animate-on-scroll delay-1">
             <div class="image-stack" style="position:relative; margin-bottom:2rem;">
-              <img src="<?= !empty($test['image_path']) ? $test['image_path'] : 'assets/images/lh1.jpg' ?>" alt="Test Prep Sessions" style="width:100%; max-height: 400px; object-fit: cover; border-radius:15px; box-shadow:var(--shadow-lg);">
+              <img src="<?= !empty($test['image_path']) ? $test['image_path'] : 'assets/images/lh1.jpg' ?>" alt="Test Prep Sessions for IELTS, TOEFL and PTE at Bluestone Overseas" style="width:100%; max-height: 400px; object-fit: cover; border-radius:15px; box-shadow:var(--shadow-lg);">
               <?php if (empty($test['image_path'])): ?>
                 <div style="position:absolute; bottom:-20px; right:-20px; width:60%; border:5px solid #fff; border-radius:15px; overflow:hidden; box-shadow:var(--shadow);">
-                  <img src="assets/images/lh2.jpg" alt="Classroom" style="width:100%;">
+                  <img src="assets/images/lh2.jpg" alt="Bluestone Overseas English Test Preparation Classroom" style="width:100%;">
                 </div>
               <?php endif; ?>
             </div>

@@ -1,6 +1,7 @@
 <?php
 require_once 'includes/config.php';
-$pageTitle = 'Admission Processing | Bluestone Overseas Consultants';
+$pageTitle = 'Admission Processing for Study Abroad | Bluestone Overseas';
+$pageDesc = 'Apply to top universities with confidence. Expert admission processing, application support, document verification and university admission guidance.';
 require_once 'includes/header.php';
 ?>
 <main>

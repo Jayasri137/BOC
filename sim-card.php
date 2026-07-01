@@ -41,6 +41,9 @@ require_once 'includes/header.php';
                 $stmt = $pdo->prepare($query);
                 $stmt->execute($params);
                 $partners = $stmt->fetchAll();
+                $partners = array_values(array_filter($partners, function ($p) {
+                    return !is_hidden_partner($p);
+                }));
 
                 if ($partners):
                     foreach ($partners as $p):

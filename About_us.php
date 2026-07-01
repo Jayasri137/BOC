@@ -9,8 +9,8 @@ require_once 'includes/header.php';
     <div class="container">
       <div class="about-grid">
         <div class="about-img-wrap animate-on-scroll">
-          <div class="img-frame">
-            <img src="assets/images/ocs3.png" alt="Bluestone Overseas Team" style="width:100%; height:100%; object-fit:cover; border-radius:15px;">
+          <div class="img-frame" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg, rgba(14,165,233,.12), rgba(139,92,246,.12)); border:1px solid rgba(14,165,233,.16); color:var(--primary); font-weight:700; text-align:center; padding:2rem;">
+            Trusted by 10k+ students worldwide
           </div>
           <div class="experience-badge animate-on-scroll delay-2">
             <span class="num">10k+</span>
@@ -25,7 +25,7 @@ require_once 'includes/header.php';
         </div>
         <div class="animate-on-scroll delay-1">
           <span class="section__tag">Our Story</span>
-          <h2 class="section__title" style="text-align:left;margin-top:.75rem">A Beacon of Hope for <span>Global Aspirations</span></h2>
+          <h1 class="section__title" style="text-align:left;margin-top:.75rem">A Beacon of Hope for <span>Global Aspirations</span></h1>
           <p class="p-lead">Bluestones Overseas Consultants is a top-tier visa and immigration consultancy known for its dedicated and personalized client support.</p>
           <div class="story-content">
             <p>Established in 2015, our firm has become a beacon of hope for individuals aspiring to navigate the complexities of immigration processes across major global destinations.</p>
@@ -123,7 +123,7 @@ require_once 'includes/header.php';
       <div class="leadership-wrapper">
         <div class="leadership-image-col animate-on-scroll">
           <div class="leadership-image-frame">
-            <img src="assets/images/MD.jpeg" alt="Mr. Kumaresan - Managing Director">
+            <img src="assets/images/MD.jpeg" alt="Mr. Kumaresan - Managing Director of Bluestone Overseas Consultants">
             <div class="leadership-experience">
               <span class="exp-num">10+</span>
               <span class="exp-text">Years of Excellence</span>

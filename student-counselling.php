@@ -1,6 +1,7 @@
 <?php
 require_once 'includes/config.php';
-$pageTitle = 'Student Counselling | Bluestone Overseas Consultants';
+$pageTitle = 'Free Study Abroad Counselling in Coimbatore | Bluestone Overseas';
+$pageDesc = 'Get free study abroad counselling in Coimbatore. Expert guidance for admissions, student visas, scholarships, IELTS, PTE and top universities abroad.';
 require_once 'includes/header.php';
 ?>
 <main>

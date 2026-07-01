@@ -143,12 +143,9 @@ if ($selected_country_id > 0) {
       <?php else: ?>
         <!-- Default Content when no filter selected -->
         <div class="grid grid--2 gap--4 align-center">
-          <div class="animate-on-scroll">
-            <div class="v-icon" style="width:120px; height:120px; font-size:3rem; margin:0"><i class="fa-solid fa-book-open"></i></div>
-            <h2 class="section__title" style="text-align:left; margin-top:2rem">Find the Perfect <span>Program</span></h2>
-            <p style="color:var(--gray); margin-top:1rem; line-height:1.6;">
-              In association with <strong>Bluestone Overseas</strong> and drawing inspiration from global standards set by leaders like <strong>IDP.com</strong>, we guide you through a vast selection of courses to align with your career ambitions.
-            </p>
+          <div class="col-lg-6 mb-4 mb-lg-0 animate-on-scroll">
+            <h1 class="section__title" style="text-align:left; margin-top:2rem">Find the Perfect <span>Program</span></h1>
+            <p class="lead">Explore thousands of courses across top universities globally. Whether you are looking for STEM, Business, Arts, or Medicine, we have the right fit for your career goals.</p>
           </div>
           <div class="animate-on-scroll delay-1">
             <div class="service-details grid grid--1 gap--1">

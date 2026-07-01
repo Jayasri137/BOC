@@ -1,7 +1,7 @@
 <?php
 require_once 'includes/config.php';
-$pageTitle = 'Step-by-Step Guide to Studying Abroad | Bluestone Overseas';
-$pageDesc = 'Navigate your study abroad journey with our comprehensive 8-step guide. From research to departure, Bluestone is with you.';
+$pageTitle = 'Free Study Abroad Counselling in Coimbatore | Overseas Education Consultants';
+$pageDesc = 'Book a free study abroad counselling session in Coimbatore. Get expert guidance on admissions, scholarships, student visas, IELTS, PTE, and study opportunities in Canada, UK, USA, Australia & Europe.';
 require_once 'includes/header.php';
 ?>
 

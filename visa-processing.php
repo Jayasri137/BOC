@@ -1,6 +1,7 @@
 <?php
 require_once 'includes/config.php';
-$pageTitle = 'Visa Processing | Bluestone Overseas Consultants';
+$pageTitle = 'Student Visa Processing for Study Abroad | Expert Visa Assistance';
+$pageDesc = 'Need help with your student visa? Get expert visa processing, documentation, application support and interview guidance for study abroad success.';
 require_once 'includes/header.php';
 ?>
 <main>

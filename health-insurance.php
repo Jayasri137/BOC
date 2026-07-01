@@ -41,6 +41,9 @@ require_once 'includes/header.php';
                 $stmt = $pdo->prepare($query);
                 $stmt->execute($params);
                 $partners = $stmt->fetchAll();
+                $partners = array_values(array_filter($partners, function ($p) {
+                    return !is_hidden_partner($p);
+                }));
 
                 if ($partners):
                     foreach ($partners as $p):
@@ -91,13 +94,10 @@ require_once 'includes/header.php';
                     </p>
                 </div>
                 <div class="animate-on-scroll delay-1">
-                    <div class="image-stack" style="position:relative; height:400px;">
-                        <div style="position:absolute; top:0; right:0; width:80%; height:80%; border-radius:20px; overflow:hidden; box-shadow:var(--shadow-lg);">
-                            <img src="assets/images/img3.png" alt="Happy Students" style="width:100%; height:100%; object-fit:cover;">
-                        </div>
-                        <div style="position:absolute; bottom:0; left:0; width:60%; height:60%; border-radius:20px; overflow:hidden; border:10px solid #fff; box-shadow:var(--shadow-lg);">
-                            <img src="assets/images/img2.png" alt="Health Care" style="width:100%; height:100%; object-fit:cover;">
-                        </div>
+                    <div class="service-card" style="padding:2rem; border-radius:20px; box-shadow:var(--shadow-lg); border:1px solid #f1f5f9; background:#fff;">
+                        <div class="v-icon" style="width:72px; height:72px; font-size:1.75rem; margin:0 0 1rem; color:var(--primary);"><i class="fa-solid fa-shield-heart"></i></div>
+                        <h3 style="margin-bottom:0.75rem; color:var(--dark);">Reliable support for every visa requirement</h3>
+                        <p style="color:var(--gray); line-height:1.7; margin:0;">We guide you through mandatory cover, premium comparison, and claim support so your move abroad is stress-free.</p>
                     </div>
                 </div>
             </div>

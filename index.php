@@ -42,7 +42,11 @@ require_once 'includes/header.php';
           <?php if (!empty($slide['badge'])): ?>
             <span class="hero-idp__badge animate-up" style="display:inline-block; background:rgba(239, 68, 68, 0.1); color:var(--primary); padding:0.35rem 0.85rem; border-radius:50px; font-weight:600; font-size:0.8rem; margin-bottom:1rem; border:1px solid rgba(239, 68, 68, 0.15);"><?= clean_output($slide['badge']) ?></span>
           <?php endif; ?>
-          <div class="hero-idp__title animate-up"><?= $slide['title'] ?></div>
+          <?php if ($i === 0): ?>
+            <h1 class="hero-idp__title animate-up"><?= $slide['title'] ?></h1>
+          <?php else: ?>
+            <h2 class="hero-idp__title animate-up"><?= $slide['title'] ?></h2>
+          <?php endif; ?>
           <p class="hero-idp__desc animate-up"><?= clean_output($slide['description']) ?></p>
           <div class="hero__actions animate-up">
             <a href="consultation.php" class="btn btn--primary btn--lg pulse-btn"><i class="fa-solid fa-calendar-check"></i> <?= clean_output($slide['button_text']) ?></a>
@@ -52,7 +56,7 @@ require_once 'includes/header.php';
         
         <div class="hero-idp__image-col animate-on-scroll">
           <div class="hero-idp__image-wrap">
-            <img src="<?= clean_output($slide['image_path']) ?>" alt="Bluestone Education">
+            <img src="<?= clean_output($slide['image_path']) ?>" alt="Bluestone Overseas Consultant Global Education">
           </div>
         </div>
       </div>
@@ -191,7 +195,7 @@ require_once 'includes/header.php';
         </div>
       </div>
       <div class="home-enquiry__image animate-on-scroll">
-        <img src="assets/images/form.png" alt="Study Abroad Expert" width="100%" height="150%">
+        <img src="assets/images/form.png" alt="Study Abroad Expert Counsellor helping student" width="100%" height="150%">
       </div>
     </div>
   </div>
@@ -472,7 +476,7 @@ require_once 'includes/header.php';
         </div>
       </div>
       <div class="why-image" style="display:block; margin-top:3rem;">
-        <img src="assets/images/ocs.png" alt="Bluestone Placement Seminar" style="border-radius:20px; width:100%; height:100%; object-fit:cover;">
+        <img src="assets/images/ocs.png" alt="Bluestone Overseas Award Winning Consultancy Event" style="border-radius:20px; width:100%; height:100%; object-fit:cover;">
         <div class="why-badge why-badge--tl"><i class="fa-solid fa-trophy"></i><span>Award Winning<br>Consultancy</span></div>
         <div class="why-badge why-badge--br"><i class="fa-solid fa-star"></i><span>Since 2015<br>Trusted Brand</span></div>
       </div>

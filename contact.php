@@ -1,10 +1,12 @@
 <?php
 require_once 'includes/config.php';
-$pageTitle = 'Contact Us | Bluestone Overseas Consultants';
-$pageDesc = 'Contact Bluestone Overseas Consultants for study abroad guidance. Offices in Coimbatore, Chennai, Salem, Erode, Namakkal, Tirunelveli, Nepal and Canada.';
+$pageTitle = 'Contact Bluestone Overseas | Study Abroad Consultants';
+$pageDesc = 'Get in touch with our team for admissions, visas, coaching, and study abroad support.';
 require_once 'includes/header.php';
 ?>
 <main>
+<div class="container" style="padding-top: 2rem; padding-bottom: 1rem;"><h1 class="section__title" style="text-align:center; margin:0; font-size: 2.2rem;">Contact Our Overseas Education Experts</h1></div>
+
 <section class="section contact-section">
   <div class="container">
     <div class="contact-grid">

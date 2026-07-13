@@ -1,11 +1,13 @@
 <?php
 require_once 'includes/config.php';
-$pageTitle = 'Free Study Abroad Counselling in Coimbatore | Overseas Education Consultants';
-$pageDesc = 'Book a free study abroad counselling session in Coimbatore. Get expert guidance on admissions, scholarships, student visas, IELTS, PTE, and study opportunities in Canada, UK, USA, Australia & Europe.';
+$pageTitle = 'Free Study Abroad Counselling in Coimbatore | Bluestone Overseas';
+$pageDesc = 'Receive expert counselling on universities, courses, scholarships, and student visas.';
 require_once 'includes/header.php';
 ?>
 
 <main>
+<div class="container" style="padding-top: 2rem; padding-bottom: 1rem;"><h1 class="section__title" style="text-align:center; margin:0; font-size: 2.2rem;">Free Overseas Education Counselling</h1></div>
+
     <!-- HERO SECTION -->
     <!-- 8 STEPS JOURNEY -->
     <section class="section" style="background: #fff;">

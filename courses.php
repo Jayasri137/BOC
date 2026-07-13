@@ -1,6 +1,7 @@
 <?php
 require_once 'includes/config.php';
-$pageTitle = 'Explore Courses | Bluestone Overseas Consultants';
+$pageTitle = 'Best Courses to Study Abroad | Bluestone Overseas';
+$pageDesc = 'Discover top undergraduate, postgraduate, diploma, and professional courses abroad.';
 require_once 'includes/header.php';
 
 // Fetch active countries for the filter
@@ -40,6 +41,8 @@ if ($selected_country_id > 0) {
 ?>
 
 <main>
+<div class="container" style="padding-top: 2rem; padding-bottom: 1rem;"><h1 class="section__title" style="text-align:center; margin:0; font-size: 2.2rem;">Explore Courses for International Education</h1></div>
+
   <!-- DESTINATION FILTER SECTION -->
   <section class="section filter-section" style="padding-bottom: 2rem; background: #fff;">
     <div class="container">

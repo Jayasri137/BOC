@@ -1,11 +1,13 @@
 <?php
 require_once 'includes/config.php';
-$pageTitle = 'International SIM Cards for Students | Bluestone Overseas';
-$pageDesc = 'Get your international SIM card before you depart India. Stay connected with family from the moment you land with our affordable student mobile plans.';
+$pageTitle = 'International SIM Card for Students Studying Abroad | Bluestone Overseas';
+$pageDesc = 'Stay connected overseas with affordable international SIM cards designed for students studying abroad.';
 require_once 'includes/header.php';
 ?>
 
 <main>
+<div class="container" style="padding-top: 2rem; padding-bottom: 1rem;"><h1 class="section__title" style="text-align:center; margin:0; font-size: 2.2rem;">International SIM Card Services for Students</h1></div>
+
     <section class="section">
         <div class="container">
             <!-- Destination Filter -->

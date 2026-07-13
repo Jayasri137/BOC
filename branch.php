@@ -23,14 +23,17 @@ $branches_data = [
 $branch = $branches_data[$slug] ?? null;
 
 if (!$branch) {
-    $pageTitle = 'Our Branches | Bluestone Overseas Consultants';
-} else {
+    } else {
     $pageTitle = $branch['name'] . ' | Bluestone Overseas Consultants';
 }
 
+$pageTitle = 'Bluestone Overseas Branches | Visit Our Offices';
+$pageDesc = 'Locate the nearest Bluestone Overseas office for expert study abroad guidance.';
 require_once 'includes/header.php';
 ?>
 <main>
+<div class="container" style="padding-top: 2rem; padding-bottom: 1rem;"><h1 class="section__title" style="text-align:center; margin:0; font-size: 2.2rem;">Our Branch Locations</h1></div>
+
   <section class="section">
     <div class="container">
       <?php if ($branch): ?>

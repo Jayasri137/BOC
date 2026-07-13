@@ -1,10 +1,12 @@
 <?php
 require_once 'includes/config.php';
-$pageTitle = 'Admission Processing for Study Abroad | Bluestone Overseas';
-$pageDesc = 'Apply to top universities with confidence. Expert admission processing, application support, document verification and university admission guidance.';
+$pageTitle = 'Study Abroad Admission Processing Services | Bluestone Overseas';
+$pageDesc = 'Simplify your study abroad journey with professional admission processing and application support.';
 require_once 'includes/header.php';
 ?>
 <main>
+<div class="container" style="padding-top: 2rem; padding-bottom: 1rem;"><h1 class="section__title" style="text-align:center; margin:0; font-size: 2.2rem;">Admission Processing for Overseas Education</h1></div>
+
   <section class="section">
     <div class="container">
       <!-- Destination Filter -->

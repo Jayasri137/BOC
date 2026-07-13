@@ -1,10 +1,12 @@
 <?php
 require_once 'includes/config.php';
-$pageTitle = 'Free Consultation | Bluestone Overseas Consultants';
-$pageDesc = 'Book a free study abroad consultation with our expert counsellors. Start your global education journey today.';
+$pageTitle = 'Free Study Abroad Consultation in Coimbatore | Bluestone Overseas';
+$pageDesc = 'Book a free consultation with expert study abroad advisors for university selection, admissions, and visas.';
 require_once 'includes/header.php';
 ?>
 <main>
+<div class="container" style="padding-top: 2rem; padding-bottom: 1rem;"><h1 class="section__title" style="text-align:center; margin:0; font-size: 2.2rem;">Free Overseas Education Consultation</h1></div>
+
   <section class="section">
     <div class="container">
       <div class="grid grid--2 gap--4">

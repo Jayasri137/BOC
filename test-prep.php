@@ -97,15 +97,36 @@ if (empty($slug) && empty($all_tests)) {
     $all_tests = $tests_data;
 }
 
-if (!$test) {
-    $pageTitle = 'Test Preparation | Bluestone Overseas Consultants';
-} else {
-    $pageTitle = $test['name'] . ' Coaching | Bluestone Overseas Consultants';
+
+$seo_data = [
+    'toefl' => [
+        'title' => 'TOEFL Coaching in Coimbatore | Expert TOEFL Training',
+        'desc' => 'Prepare for TOEFL with experienced trainers, mock tests, and personalized guidance.',
+        'h1' => 'TOEFL Coaching for Higher Scores'
+    ],
+    'ielts' => [
+        'title' => 'IELTS Coaching in Coimbatore | Expert IELTS Training',
+        'desc' => 'Boost your IELTS score with comprehensive coaching, practice tests, and expert guidance.',
+        'h1' => 'IELTS Coaching for Study Abroad Success'
+    ]
+];
+
+$pageTitle = 'IELTS, TOEFL & Test Preparation Coaching | Bluestone Overseas';
+$pageDesc = 'Achieve your target scores with expert coaching for IELTS, TOEFL, PTE, and other study abroad exams.';
+$pageH1 = 'Test Preparation for Study Abroad Exams';
+
+if (!empty($slug) && isset($seo_data[$slug])) {
+    $pageTitle = $seo_data[$slug]['title'];
+    $pageDesc = $seo_data[$slug]['desc'];
+    $pageH1 = $seo_data[$slug]['h1'];
 }
 
 require_once 'includes/header.php';
+
 ?>
 <main>
+<div class="container" style="padding-top: 2rem; padding-bottom: 1rem;"><h1 class="section__title" style="text-align:center; margin:0; font-size: 2.2rem;"><?= $pageH1 ?></h1></div>
+
   <?php
     $hero_img = 'assets/images/lh1.jpg';
     if ($test && !empty($test['image_path'])) {

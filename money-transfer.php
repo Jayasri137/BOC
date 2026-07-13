@@ -1,11 +1,13 @@
 <?php
 require_once 'includes/config.php';
-$pageTitle = 'International Money Transfer & Forex | Bluestone Overseas';
-$pageDesc = 'Pay your tuition fees and send living expenses abroad with Bluestone Overseas. Fast, secure, and affordable international money transfers at the best exchange rates.';
+$pageTitle = 'International Money Transfer & Forex Services | Bluestone Overseas';
+$pageDesc = 'Get competitive forex rates and hassle free international money transfer services for your overseas education needs.';
 require_once 'includes/header.php';
 ?>
 
 <main>
+<div class="container" style="padding-top: 2rem; padding-bottom: 1rem;"><h1 class="section__title" style="text-align:center; margin:0; font-size: 2.2rem;">Secure International Money Transfer & Forex Services</h1></div>
+
     <section class="section">
         <div class="container">
             <!-- Destination Filter -->

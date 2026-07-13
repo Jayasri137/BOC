@@ -1,10 +1,12 @@
 <?php
 require_once 'includes/config.php';
-$pageTitle = 'Events & Seminars | Bluestone Overseas Consultants';
-$pageDesc = 'Stay updated with upcoming study abroad seminars, university fairs, and workshops hosted by Bluestone Overseas.';
+$pageTitle = 'Study Abroad Events, Seminars & Webinars | Bluestone Overseas';
+$pageDesc = 'Join our events and seminars to connect with universities and study abroad experts.';
 require_once 'includes/header.php';
 ?>
 <main>
+<div class="container" style="padding-top: 2rem; padding-bottom: 1rem;"><h1 class="section__title" style="text-align:center; margin:0; font-size: 2.2rem;">Upcoming Study Abroad Events & Seminars</h1></div>
+
   <section class="section">
     <div class="container">
       <div class="section__header animate-on-scroll">

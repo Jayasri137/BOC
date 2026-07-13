@@ -1,10 +1,12 @@
 <?php
 require_once 'includes/config.php';
-$pageTitle = 'Student Visa Processing for Study Abroad | Expert Visa Assistance';
-$pageDesc = 'Need help with your student visa? Get expert visa processing, documentation, application support and interview guidance for study abroad success.';
+$pageTitle = 'Student Visa Processing Services | Study Abroad Visa Experts';
+$pageDesc = 'Maximize your visa success with professional documentation and application support.';
 require_once 'includes/header.php';
 ?>
 <main>
+<div class="container" style="padding-top: 2rem; padding-bottom: 1rem;"><h1 class="section__title" style="text-align:center; margin:0; font-size: 2.2rem;">Student Visa Assistance for Overseas Education</h1></div>
+
   <section class="section">
     <div class="container">
       <div class="grid grid--2 gap--4 align-center">

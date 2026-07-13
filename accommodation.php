@@ -1,10 +1,12 @@
 <?php
 require_once 'includes/config.php';
-$pageTitle = 'Study Abroad Accommodation Assistance | Bluestone Overseas';
-$pageDesc = 'Secure comfortable student accommodation abroad with expert guidance. Assistance with housing, travel arrangements and a smooth study abroad transition.';
+$pageTitle = 'Student Accommodation Assistance Abroad | Bluestone Overseas';
+$pageDesc = 'Get help finding affordable and comfortable accommodation near your university.';
 require_once 'includes/header.php';
 ?>
 <main>
+<div class="container" style="padding-top: 2rem; padding-bottom: 1rem;"><h1 class="section__title" style="text-align:center; margin:0; font-size: 2.2rem;">Find Safe Student Accommodation Abroad</h1></div>
+
   <section class="section">
     <div class="container">
       <div class="grid grid--2 gap--4 align-center">

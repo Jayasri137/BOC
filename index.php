@@ -1,7 +1,6 @@
 <?php
 require_once 'includes/config.php';
-$pageTitle = 'Bluestone Overseas | Study Abroad Consultants';
-$pageDesc = 'Expert study abroad guidance for USA, UK, Canada, Australia & more. Book a free consultation today.';
+$pageTitle = 'Study Abroad Consultants in Coimbatore | Bluestone Overseas';
 require_once 'includes/header.php';
 ?>
 <main>
@@ -451,7 +450,7 @@ require_once 'includes/header.php';
     <div class="why-grid">
       <div>
         <span class="section__tag" style="background:rgba(14,165,233,.2);color:var(--primary)">Why Bluestone</span>
-        <h2 class="section__title" style="margin-top:.75rem">Why <span>10,000+ Students</span><br>Trust Us?</h2>
+        <h1 class="section__title" style="margin-top:.75rem; font-size: 2rem;">Achieve your dream of studying abroad with expert admission, visa, IELTS, and university guidance from Bluestone Overseas.</h1>
         <p style="margin-bottom:2rem">Since 2015, we have been guiding students from across India to their dream universities abroad. Our team of experienced counsellors ensures every student gets personalised, honest advice.</p>
         <div class="why-features">
           <?php

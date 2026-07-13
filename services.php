@@ -95,14 +95,17 @@ if ($slug === 'university' || $slug === 'admission') {
 }
 
 if (!$service) {
-    $pageTitle = 'Our Services | Bluestone Overseas Consultants';
-} else {
+    } else {
     $pageTitle = $service['name'] . ' | Bluestone Overseas Consultants';
 }
 
+$pageTitle = 'Complete Study Abroad Services in Coimbatore | Bluestone Overseas';
+$pageDesc = 'From counselling to visa approval, explore end-to-end overseas education services.';
 require_once 'includes/header.php';
 ?>
 <main>
+<div class="container" style="padding-top: 2rem; padding-bottom: 1rem;"><h1 class="section__title" style="text-align:center; margin:0; font-size: 2.2rem;">Our Study Abroad Services</h1></div>
+
   <section class="section">
     <div class="container">
       <?php if ($service): ?>

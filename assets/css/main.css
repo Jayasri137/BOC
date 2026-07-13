@@ -307,7 +307,7 @@ ul {
 }
 
 .navbar__logo-img {
-  height: 200px !important;
+  height: 240px !important;
   width: auto !important;
   object-fit: contain;
   margin: 0 !important;
@@ -3081,7 +3081,11 @@ ul {
 /* PAGE HERO */
 .page-hero {
   background: linear-gradient(135deg, #0ea5e9, #0284c7);
-  padding: 10rem 0 10rem;
+  height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 0;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -3098,6 +3102,7 @@ ul {
 .page-hero__inner {
   position: relative;
   z-index: 1;
+  width: 100%;
 }
 
 .page-hero h1 {

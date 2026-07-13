@@ -32,16 +32,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $qs = isset($_POST['qs_ranking']) ? trim($_POST['qs_ranking']) : '';
         $spec = isset($_POST['specialization']) ? trim($_POST['specialization']) : '';
         
+        $image_url = null;
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = '../assets/images/universities/';
+            if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
+            $fileName = time() . '_' . basename($_FILES['image']['name']);
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadDir . $fileName)) {
+                $image_url = 'assets/images/universities/' . $fileName;
+            }
+        }
+        
         if ($c_id <= 0 || empty($name)) {
             $alertError = 'University Name and valid Country are required.';
         } else {
             try {
-                $stmt = $pdo->prepare("INSERT INTO universities (country_id, name, qs_ranking, specialization, is_active) VALUES (:cid, :name, :qs, :spec, 1)");
+                $stmt = $pdo->prepare("INSERT INTO universities (country_id, name, qs_ranking, specialization, image_url, is_active) VALUES (:cid, :name, :qs, :spec, :img, 1)");
                 $stmt->execute([
                     'cid' => $c_id,
                     'name' => $name,
                     'qs' => $qs,
-                    'spec' => $spec
+                    'spec' => $spec,
+                    'img' => $image_url
                 ]);
                 $alertSuccess = 'University added successfully!';
                 $selected_country_id = $c_id; // Keep user on the same country
@@ -59,17 +70,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $qs = isset($_POST['qs_ranking']) ? trim($_POST['qs_ranking']) : '';
         $spec = isset($_POST['specialization']) ? trim($_POST['specialization']) : '';
         
+        $image_sql = "";
+        $params = [
+            'name' => $name,
+            'qs' => $qs,
+            'spec' => $spec,
+            'id' => $uni_id
+        ];
+
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = '../assets/images/universities/';
+            if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
+            $fileName = time() . '_' . basename($_FILES['image']['name']);
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadDir . $fileName)) {
+                $image_sql = ", image_url = :img";
+                $params['img'] = 'assets/images/universities/' . $fileName;
+            }
+        }
+        
         if ($uni_id <= 0 || empty($name)) {
             $alertError = 'University Name is required.';
         } else {
             try {
-                $stmt = $pdo->prepare("UPDATE universities SET name = :name, qs_ranking = :qs, specialization = :spec WHERE id = :id");
-                $stmt->execute([
-                    'name' => $name,
-                    'qs' => $qs,
-                    'spec' => $spec,
-                    'id' => $uni_id
-                ]);
+                $stmt = $pdo->prepare("UPDATE universities SET name = :name, qs_ranking = :qs, specialization = :spec{$image_sql} WHERE id = :id");
+                $stmt->execute($params);
                 $alertSuccess = 'University details updated successfully!';
                 if ($c_id > 0) $selected_country_id = $c_id;
             } catch (PDOException $e) {
@@ -500,11 +524,16 @@ if ($selected_country_id > 0) {
                     
                     <!-- Courses Expandable Accordion Block -->
                     <div class="accordion-content" id="accordion-<?php echo $uniId; ?>">
-                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
                             <h4 style="color: var(--accent); font-weight: 600;"><i class="fa-solid fa-graduation-cap"></i> Course Catalog for <?php echo clean_output($uni['name']); ?></h4>
-                            <button class="btn-pill" onclick="openAddCourseModal(<?php echo $uniId; ?>, '<?php echo clean_output($uni['name']); ?>')" style="padding: 0.4rem 1rem; font-size: 0.75rem;">
-                                <i class="fa-solid fa-plus"></i> Add Study Program / Course
-                            </button>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button class="btn-pill" onclick="autoFetchCourses(<?php echo $uniId; ?>, '<?php echo addslashes(clean_output($uni['name'])); ?>', this)" style="padding: 0.4rem 1rem; font-size: 0.75rem; background: #8b5cf6; border-color: #8b5cf6; box-shadow: 0 4px 10px rgba(139, 92, 246, 0.3);">
+                                    <i class="fa-solid fa-cloud-arrow-down"></i> Auto-Fetch Courses (Web Search)
+                                </button>
+                                <button class="btn-pill" onclick="openAddCourseModal(<?php echo $uniId; ?>, '<?php echo clean_output($uni['name']); ?>')" style="padding: 0.4rem 1rem; font-size: 0.75rem;">
+                                    <i class="fa-solid fa-plus"></i> Add Manual
+                                </button>
+                            </div>
                         </div>
                         
                         <?php if (empty($coursesList)): ?>
@@ -633,7 +662,7 @@ if ($selected_country_id > 0) {
             <h3 class="modal-title" id="uniModalTitle">Add Partner University</h3>
             <span class="modal-close" onclick="closeUniModal()">&times;</span>
         </div>
-        <form action="universities.php" method="POST">
+        <form action="universities.php" method="POST" enctype="multipart/form-data">
             <div class="modal-body">
                 <input type="hidden" name="action" id="uniModalAction" value="add_uni">
                 <input type="hidden" name="country_id" value="<?php echo $selected_country_id; ?>">
@@ -652,6 +681,11 @@ if ($selected_country_id > 0) {
                 <div class="form-group">
                     <label for="u_spec" class="form-label">Key Strengths / Specializations</label>
                     <input type="text" name="specialization" id="u_spec" class="form-control" placeholder="e.g., Medicine, Psychology, Law">
+                </div>
+                
+                <div class="form-group">
+                    <label for="u_image" class="form-label">University Image (Optional)</label>
+                    <input type="file" name="image" id="u_image" class="form-control" accept="image/*">
                 </div>
             </div>
             <div class="modal-footer">
@@ -991,6 +1025,41 @@ function triggerDeleteScholarship(id, name) {
 
 function closeDeleteScholModal() {
     document.getElementById('deleteScholModal').classList.remove('active');
+}
+
+// Auto Fetch Courses via AJAX
+function autoFetchCourses(uniId, uniName, btn) {
+    if (!confirm('This will search the web and automatically generate courses for ' + uniName + '. This may take a few seconds. Continue?')) {
+        return;
+    }
+    
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Fetching...';
+    btn.disabled = true;
+
+    fetch('ajax_fetch_courses.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'uni_id=' + encodeURIComponent(uniId) + '&uni_name=' + encodeURIComponent(uniName)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(data.message);
+            window.location.reload();
+        } else {
+            alert('Error: ' + data.message);
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        }
+    })
+    .catch(err => {
+        alert('A network error occurred. Please try again.');
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+    });
 }
 </script>
 

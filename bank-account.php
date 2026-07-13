@@ -1,11 +1,13 @@
 <?php
 require_once 'includes/config.php';
-$pageTitle = 'International Bank Account Opening | Bluestone Overseas';
-$pageDesc = 'Open your international bank account before you arrive. Assistance for student banking in UK, Canada, Australia, and USA with leading global banks.';
+$pageTitle = 'International Student Bank Account Opening Assistance';
+$pageDesc = 'Get support opening overseas student bank accounts before you travel abroad.';
 require_once 'includes/header.php';
 ?>
 
 <main>
+<div class="container" style="padding-top: 2rem; padding-bottom: 1rem;"><h1 class="section__title" style="text-align:center; margin:0; font-size: 2.2rem;">Open an International Bank Account for Students</h1></div>
+
     <section class="section">
         <div class="container">
             <!-- Destination Filter -->

@@ -1,10 +1,12 @@
 <?php
 require_once 'includes/config.php';
-$pageTitle = 'Gallery | Bluestone Overseas Consultants';
-$pageDesc = 'View photos of our offices, student visa successes, university seminars, and pre-departure briefings.';
+$pageTitle = 'Bluestone Overseas Gallery | Student Success Stories';
+$pageDesc = 'Explore photos, student success stories, events, and overseas education milestones.';
 require_once 'includes/header.php';
 ?>
 <main>
+<div class="container" style="padding-top: 2rem; padding-bottom: 1rem;"><h1 class="section__title" style="text-align:center; margin:0; font-size: 2.2rem;">Gallery & Student Achievements</h1></div>
+
   <section class="section">
     <div class="container">
       <div class="gallery-filters animate-on-scroll">

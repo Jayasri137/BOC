@@ -54,14 +54,16 @@ $country = $countries_data[$slug] ?? null;
 
 if (!$country) {
     // If no slug, show all countries
-    $pageTitle = 'Study Destinations | Bluestone Overseas Consultants';
-} else {
-    $pageTitle = 'Study in ' . $country['name'] . ' | Bluestone Overseas Consultants';
-}
+    } else {
+    }
 
+$pageTitle = 'Top Study Abroad Destinations for Indian Students | Bluestone Overseas';
+$pageDesc = 'Discover the best countries for higher education, career opportunities, and global exposure.';
 require_once 'includes/header.php';
 ?>
 <main>
+<div class="container" style="padding-top: 2rem; padding-bottom: 1rem;"><h1 class="section__title" style="text-align:center; margin:0; font-size: 2.2rem;">Explore Popular Study Abroad Destinations</h1></div>
+
  
 
   <section class="section">

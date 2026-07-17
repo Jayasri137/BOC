@@ -9,19 +9,10 @@ require_once 'includes/header.php';
     <div class="container">
       <div class="about-grid">
         <div class="about-img-wrap animate-on-scroll">
-          <div class="img-frame" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg, rgba(14,165,233,.12), rgba(139,92,246,.12)); border:1px solid rgba(14,165,233,.16); color:var(--primary); font-weight:700; text-align:center; padding:2rem;">
-            Trusted by 10k+ students worldwide
+          <div class="img-frame" style="border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <img src="assets/images/ocs1.png" alt="Bluestone Overseas Consultants" style="width: 100%; height: 100%; object-fit: cover; display: block;">
           </div>
-          <div class="experience-badge animate-on-scroll delay-2">
-            <span class="num">10k+</span>
-            <span class="label">Success<br>Stories</span>
-          </div>
-          <div class="floating-stats glass animate-on-scroll delay-3">
-            <div class="f-stat">
-              <i class="fa-solid fa-graduation-cap"></i>
-              <span><strong>700+</strong> Universities</span>
-            </div>
-          </div>
+
         </div>
         <div class="animate-on-scroll delay-1">
           <span class="section__tag">Our Story</span>

@@ -747,17 +747,19 @@ require_once 'includes/header.php';
       <div class="t-list">
         <?php foreach($others as $i => $video): 
             $v_src = clean_output($video['youtube_url']);
-            // Extract YT ID for thumbnail
-            $yt_id = "";
-            if (preg_match('/embed\/([^\/\?]+)/', $v_src, $matches)) {
-                $yt_id = $matches[1];
-            }
-            $thumb = !empty($yt_id) ? "https://img.youtube.com/vi/$yt_id/mqdefault.jpg" : "assets/images/logo.png";
         ?>
         <div class="t-item-small animate-on-scroll delay-<?= $i ?>" onclick="window.location.href='testimonial-videos.php'">
-          <div class="t-item-small__thumb">
-            <img src="<?= $thumb ?>" alt="<?= clean_output($video['student_name']) ?>">
-            <i class="fa-solid fa-circle-play"></i>
+          <div class="t-item-small__thumb" style="position: relative; overflow: hidden;">
+            <div style="pointer-events: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                <?php if (strpos($v_src, 'uploads/') === 0): ?>
+                    <video src="<?= $v_src ?>" style="width: 100%; height: 100%; border: none; object-fit: cover;"></video>
+                <?php else: ?>
+                    <iframe src="<?= $v_src ?>" style="width: 100%; height: 100%; border: none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <?php endif; ?>
+            </div>
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center;">
+                <i class="fa-solid fa-circle-play" style="position: static; transform: none; font-size: 1.5rem;"></i>
+            </div>
           </div>
           <div class="t-item-small__content">
             <div class="visa-badge" style="padding: 0.15rem 0.4rem; font-size: 0.65rem;"><i class="fa-solid fa-circle-check"></i> Success</div>

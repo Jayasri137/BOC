@@ -8,9 +8,9 @@
 
       <!-- Brand Column -->
       <div class="footer-col footer-brand">
-        <a href="index.php" class="footer-logo">
+        <a href="index.php" class="footer-logo" style="display: block; margin-top: -70px; margin-bottom: -60px; margin-left: -20px;">
           <!-- Premium transparent bird logo -->
-          <img src="assets/images/Logo_old.png" alt="Bluestone Overseas Consultants" style="height: 95px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.06));">
+          <img src="assets/images/Logo_old.png" alt="Bluestone Overseas Consultants" style="height: 250px; width: auto; object-fit: contain;">
         </a>
         <p>The most eminent Visa and Immigration Consultant service provider in major metros and overseas. Empowering global educational dreams with absolute reliability and trust since 2015.</p>
         <div class="footer-social">

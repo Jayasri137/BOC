@@ -1,125 +1,299 @@
 <?php
 require_once 'includes/config.php';
 $pageTitle = 'Study Abroad Consultants in Coimbatore | Bluestone Overseas';
+
+// Fetch active hero slides from admin panel
+$heroSlides = [];
+try {
+    $stmt = $pdo->prepare("SELECT * FROM hero_slides WHERE is_active = 1 ORDER BY id ASC");
+    $stmt->execute();
+    $heroSlides = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    // Silently ignore if table doesn't exist or error occurs
+}
+
 require_once 'includes/header.php';
 ?>
 <main>
-<!-- REDESIGNED COMPACT HERO SLIDER -->
-<section class="hero-idp hero-slider" id="home">
-  <!-- Blurred Background Shapes -->
-  <div class="hero-idp__blur-bg">
-    <div class="blur-shape blur-shape--1"></div>
-    <div class="blur-shape blur-shape--2"></div>
-    <div class="blur-shape blur-shape--3"></div>
+<section class="hero-sky" id="home">
+  <!-- Sky background image -->
+  <div class="hero-sky__bg"></div>
+
+  <!-- Subtle world map overlay (decorative) -->
+  <div class="hero-sky__map-overlay" aria-hidden="true">
+    <svg viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <g fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round">
+        <path d="M60 200 C140 140 260 120 360 140 C460 160 580 140 700 120 C820 100 940 120 1080 160" opacity="0.9" />
+      </g>
+      <g fill="currentColor" opacity="0.85">
+        <!-- simple continent shapes as stylized blobs -->
+        <ellipse cx="180" cy="190" rx="70" ry="30" />
+        <ellipse cx="420" cy="160" rx="60" ry="28" />
+        <ellipse cx="700" cy="180" rx="90" ry="36" />
+        <ellipse cx="980" cy="170" rx="50" ry="22" />
+      </g>
+    </svg>
   </div>
 
-  <div class="slider-container">
-    <?php
-    try {
-        $stmt = $pdo->query("SELECT * FROM hero_slides WHERE is_active = 1 ORDER BY id ASC");
-        $db_slides = $stmt->fetchAll();
-    } catch (PDOException $e) {
-        $db_slides = [];
-    }
-    
-    if (empty($db_slides)) {
-        $db_slides = [
-            [
-                'image_path' => 'assets/images/img4.png',
-                'badge' => 'Biggest Education Fair',
-                'title' => 'Scholarships – Attend <span>Bluestone’s Biggest</span> Education Fair',
-                'description' => 'USA | UK | Canada | Australia | New Zealand | Germany | Ireland',
-                'button_text' => 'Secure your spot'
-            ]
-        ];
-    }
-    foreach($db_slides as $i => $slide):
-    ?>
-    <div class="slide <?= $i===0?'active':'' ?>">
-      <div class="container hero-idp__inner">
-        <div class="hero-idp__content animate-on-scroll">
-          <?php if (!empty($slide['badge'])): ?>
-            <span class="hero-idp__badge animate-up" style="display:inline-block; background:rgba(239, 68, 68, 0.1); color:var(--primary); padding:0.35rem 0.85rem; border-radius:50px; font-weight:600; font-size:0.8rem; margin-bottom:1rem; border:1px solid rgba(239, 68, 68, 0.15);"><?= clean_output($slide['badge']) ?></span>
-          <?php endif; ?>
-          <?php if ($i === 0): ?>
-            <h1 class="hero-idp__title animate-up"><?= $slide['title'] ?></h1>
-          <?php else: ?>
-            <h2 class="hero-idp__title animate-up"><?= $slide['title'] ?></h2>
-          <?php endif; ?>
-          <p class="hero-idp__desc animate-up"><?= clean_output($slide['description']) ?></p>
-          <div class="hero__actions animate-up">
-            <a href="consultation.php" class="btn btn--primary btn--lg pulse-btn"><i class="fa-solid fa-calendar-check"></i> <?= clean_output($slide['button_text']) ?></a>
-            <a href="country.php" class="btn btn--outline btn--lg"><i class="fa-solid fa-earth-americas"></i> Explore Countries</a>
+
+  <div class="hero-sky__arc-container">
+    <svg class="hero-sky__arc-svg" viewBox="0 0 1000 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <mask id="path-mask">
+          <path id="mask-path" d="M -200 250 C 400 250, 300 50, 1200 50" stroke="white" stroke-width="20" fill="none" stroke-linecap="round" />
+        </mask>
+      </defs>
+      <!-- Dashed trail -->
+      <path id="sky-arc-path" d="M -200 250 C 400 250, 300 50, 1200 50" />
+    </svg>
+
+    <!-- Original plane image -->
+    <div class="hero-sky__plane-on-arc" aria-hidden="true">
+      <img src="assets/images/plane.png" alt="Airplane">
+    </div>
+  </div>
+
+  <div class="container hero-sky__inner">
+    <!-- Center Content Slider -->
+    <div class="hero-slider-container">
+      <!-- Left Arrow -->
+      <button class="hero-slider-arrow hero-slider-prev" aria-label="Previous Slide"><i class="fa-solid fa-chevron-left"></i></button>
+
+      <div class="hero-slider-track">
+        <!-- Slide 1: Original Fixed Content -->
+        <div class="hero-slide active">
+          <div class="hero-sky__content text-center">
+            <span class="hero-sky__badge">
+              <i class="fa-solid fa-graduation-cap" style="color: #0d315c; margin-right: 0.4rem;"></i>
+              Top Overseas Study Partner
+            </span>
+            <h1 class="hero-sky__title">
+              Best <span class="serif-italic">Overseas</span> Education<br>Consultants in India.
+            </h1>
+            <div class="hero-sky__actions">
+              <a href="consultation.php" class="btn-sky-pill btn-sky-pill--solid">
+                <i class="fa-solid fa-phone" style="margin-right: 0.5rem;"></i> Request a Call back
+              </a>
+              <a href="testimonial-videos.php" class="btn-sky-pill btn-sky-pill--outline">
+                <i class="fa-solid fa-circle-play" style="margin-right: 0.5rem;"></i> Get Free Counselling
+              </a>
+            </div>
           </div>
         </div>
-        
-        <div class="hero-idp__image-col animate-on-scroll">
-          <div class="hero-idp__image-wrap">
-            <img src="<?= clean_output($slide['image_path']) ?>" alt="Bluestone Overseas Consultant Global Education">
+
+        <!-- Dynamic Admin Slides -->
+        <?php foreach($heroSlides as $slide): ?>
+          <div class="hero-slide">
+            <div class="hero-slide-split" style="display: flex; align-items: center; justify-content: <?= !empty($slide['image_path']) ? 'space-between' : 'center' ?>; gap: 2rem; max-width: 1000px; margin: 0 auto; text-align: <?= !empty($slide['image_path']) ? 'left' : 'center' ?>;">
+              
+              <!-- Left Text Content -->
+              <div class="hero-slide-text" style="flex: 1; max-width: 600px;">
+                <?php if (!empty($slide['badge'])): ?>
+                  <span class="hero-sky__badge" style="margin-bottom: 1rem;">
+                    <i class="fa-solid fa-star" style="color: #0d315c; margin-right: 0.4rem;"></i>
+                    <?= htmlspecialchars($slide['badge']) ?>
+                  </span>
+                <?php endif; ?>
+                
+                <h1 class="hero-sky__title" style="margin-bottom: 1rem; font-size: clamp(1.2rem, 2.5vw, 2.2rem);">
+                  <?= str_replace(['&lt;span&gt;', '&lt;/span&gt;'], ['<span class="serif-italic">', '</span>'], htmlspecialchars($slide['title'])) ?>
+                </h1>
+                
+                <?php if (!empty($slide['description'])): ?>
+                  <p class="hero-sky__desc" style="color: rgba(13, 49, 92, 0.85); font-size: 1.1rem; margin-bottom: 1.5rem; font-weight: 500;">
+                    <?= htmlspecialchars($slide['description']) ?>
+                  </p>
+                <?php endif; ?>
+
+                <div class="hero-sky__actions" style="justify-content: <?= !empty($slide['image_path']) ? 'flex-start' : 'center' ?>;">
+                  <a href="consultation.php" class="btn-sky-pill btn-sky-pill--solid">
+                    <?= htmlspecialchars($slide['button_text']) ?: 'Get Started' ?> <i class="fa-solid fa-arrow-right" style="margin-left: 0.5rem;"></i>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Right Image Content -->
+              <?php if (!empty($slide['image_path'])): ?>
+                <div class="hero-slide-image" style="flex: 0 0 45%; max-width: 450px; text-align: right;">
+                  <img src="<?= htmlspecialchars($slide['image_path']) ?>" alt="Slide Image" style="max-height: 280px; width: 100%; object-fit: contain; filter: drop-shadow(0 15px 25px rgba(0,0,0,0.25)); border-radius: 10px;">
+                </div>
+              <?php endif; ?>
+              
+            </div>
+          </div>
+        <?php endforeach; ?>
+      </div>
+
+      <!-- Right Arrow -->
+      <button class="hero-slider-arrow hero-slider-next" aria-label="Next Slide"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+
+    <!-- Destination 3D Pop-out Cards — Arc Fan (Rotates automatically like a clock) -->
+    <div class="hero-sky__cards-row" id="skyCardsCarousel">
+      <!-- 1. Australia -->
+      <div class="sky-card sky-card--sydney active" data-index="0">
+        <div class="sky-card__body">
+          <div class="sky-card__header">AUSTRALIA</div>
+          <div class="sky-card__image-wrapper">
+            <img src="assets/images/aus.png" alt="Sydney Opera House 3D Pop-out">
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. China -->
+      <div class="sky-card sky-card--china" data-index="1">
+        <div class="sky-card__body">
+          <div class="sky-card__header">CHINA</div>
+          <div class="sky-card__image-wrapper">
+            <img src="assets/images/rus.png" alt="China Pagoda 3D Pop-out">
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Dubai -->
+      <div class="sky-card sky-card--paris" data-index="2">
+        <div class="sky-card__body">
+          <div class="sky-card__header">DUBAI</div>
+          <div class="sky-card__image-wrapper">
+            <img src="assets/images/3d_eiffel_tower.png" alt="Luxembourg Tower 3D Pop-out">
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Singapore -->
+      <div class="sky-card sky-card--singapore" data-index="3">
+        <div class="sky-card__body">
+          <div class="sky-card__header">SINGAPORE</div>
+          <div class="sky-card__image-wrapper">
+            <img src="assets/images/3d_st_basil.png" alt="Singapore 3D Pop-out">
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Russia -->
+      <div class="sky-card sky-card--russia" data-index="4">
+        <div class="sky-card__body">
+          <div class="sky-card__header">RUSSIA</div>
+          <div class="sky-card__image-wrapper">
+            <img src="assets/images/3d_st_basil.png" alt="Russia Kremlin 3D Pop-out">
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Spain -->
+      <div class="sky-card sky-card--spain" data-index="5">
+        <div class="sky-card__body">
+          <div class="sky-card__header">SPAIN</div>
+          <div class="sky-card__image-wrapper">
+            <img src="assets/images/3d_eiffel_tower.png" alt="Spain Palace 3D Pop-out">
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. UK -->
+      <div class="sky-card sky-card--china" data-index="6">
+        <div class="sky-card__body">
+          <div class="sky-card__header">UK</div>
+          <div class="sky-card__image-wrapper">
+            <img src="assets/images/rus.png" alt="Moldova Castle 3D Pop-out">
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. Canada -->
+      <div class="sky-card sky-card--london" data-index="7">
+        <div class="sky-card__body">
+          <div class="sky-card__header">CANADA</div>
+          <div class="sky-card__image-wrapper">
+            <img src="assets/images/3d_canada.png" alt="Canada CN Tower 3D Pop-out">
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. Japan -->
+      <div class="sky-card sky-card--london" data-index="8">
+        <div class="sky-card__body">
+          <div class="sky-card__header">JAPAN</div>
+          <div class="sky-card__image-wrapper">
+            <img src="assets/images/3d_tower_bridge.png" alt="Ukraine Monument 3D Pop-out">
+          </div>
+        </div>
+      </div>
+
+      <!-- 10. Germany -->
+      <div class="sky-card sky-card--sydney" data-index="9">
+        <div class="sky-card__body">
+          <div class="sky-card__header">GERMANY</div>
+          <div class="sky-card__image-wrapper">
+            <img src="assets/images/3d_germany.png" alt="Germany Brandenburg Gate 3D Pop-out">
           </div>
         </div>
       </div>
     </div>
-    <?php endforeach; ?>
-  </div>
 
-  <!-- Slider Dots -->
-  <div class="slider-nav">
-    <div class="slider-dots"></div>
-  </div>
-
-  <!-- OVERLAPPING STATS CARD -->
-  <div class="hero-stats-card animate-on-scroll">
-    <div class="hero-stats-card__grid">
-      <div class="h-stat-item animate-up">
-        <div class="h-stat-icon h-stat-icon--blue"><i class="fa-solid fa-graduation-cap"></i></div>
-        <div class="h-stat-num">5,000+</div>
-        <div class="h-stat-label">scholarships awarded through<br>Bluestone in one year</div>
-      </div>
-      <div class="h-stat-item animate-up" style="transition-delay: 0.1s;">
-        <div class="h-stat-icon h-stat-icon--purple"><i class="fa-solid fa-globe"></i></div>
-        <div class="h-stat-num">50,000</div>
-        <div class="h-stat-label">students went to study abroad<br>with Bluestone in last 3 years</div>
-      </div>
-      <div class="h-stat-item animate-up" style="transition-delay: 0.2s;">
-        <div class="h-stat-icon h-stat-icon--orange"><i class="fa-solid fa-building-columns"></i></div>
-        <div class="h-stat-num">1000+</div>
-        <div class="h-stat-label">Bluestone's prestigious<br>university partners</div>
-      </div>
-      <div class="h-stat-item animate-up" style="transition-delay: 0.3s;">
-        <div class="h-stat-icon h-stat-icon--teal"><i class="fa-solid fa-users"></i></div>
-        <div class="h-stat-num">FREE</div>
-        <div class="h-stat-label">counselling for students &<br>parents</div>
-      </div>
+    <!-- Country Pill Badges Grid -->
+    <div class="hero-sky__countries-grid">
+      <a href="Australia.php" class="country-pill-badge">
+        <span class="flag-emoji">🇦🇺</span> Australia
+      </a>
+      <a href="study-in-china.php" class="country-pill-badge">
+        <span class="flag-emoji">🇨🇳</span> China
+      </a>
+      <a href="study-in-luxembourg.php" class="country-pill-badge active">
+        <span class="flag-emoji">🇱🇺</span> Luxembourg
+      </a>
+      <a href="study-in-kazakhstan.php" class="country-pill-badge">
+        <span class="flag-emoji">🇰🇿</span> Kazakhstan
+      </a>
+      <a href="Russia.php" class="country-pill-badge">
+        <span class="flag-emoji">🇷🇺</span> Russia
+      </a>
+      <a href="study-in-spain.php" class="country-pill-badge">
+        <span class="flag-emoji">🇪🇸</span> Spain
+      </a>
+      <a href="index.php" class="country-pill-badge">
+        <span class="flag-emoji">🇲🇩</span> Moldova
+      </a>
+      <a href="canada.php" class="country-pill-badge">
+        <span class="flag-emoji">🇨🇦</span> Canada
+      </a>
+      <a href="index.php" class="country-pill-badge">
+        <span class="flag-emoji">🇺🇦</span> Ukraine
+      </a>
+      <a href="Germany.php" class="country-pill-badge">
+        <span class="flag-emoji">🇩🇪</span> Germany
+      </a>
     </div>
   </div>
-
-  <!-- HERO QUICK LINKS -->
-  <div class="hero-links animate-up" style="transition-delay: 0.4s;">
-    <div class="container">
-      <div class="hero-links__inner">
-        <a href="courses.php">Courses <i class="fa-solid fa-chevron-right"></i></a>
-        <a href="scholarships.php">Scholarships <i class="fa-solid fa-chevron-right"></i></a>
-        <a href="universities.php">Universities <i class="fa-solid fa-chevron-right"></i></a>
-        <a href="events.php">Events <i class="fa-solid fa-chevron-right"></i></a>
-        <a href="guide-me.php">Guide me <i class="fa-solid fa-chevron-right"></i></a>
-        <a href="consultation.php">Get instant offer <i class="fa-solid fa-chevron-right"></i></a>
-      </div>
-    </div>
+  <!-- Bottom Concave Curve -->
+  <div class="hero-sky__bottom-curve">
+    <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,0 C480,100 960,100 1440,0 L1440,120 L0,120 Z" fill="#ffffff"/>
+    </svg>
   </div>
 </section>
 
 
+
+
 <!-- HOME ENQUIRY SECTION (IDP STYLE) -->
-<section class="home-enquiry section">
+<section class="home-enquiry section" style="background: #ffffff;">
   <div class="container">
     <div class="home-enquiry__grid">
-      <div class="home-enquiry__form-col animate-on-scroll">
-        <div class="section__header" style="text-align: left; margin-bottom: 2.5rem; max-width: 100%;">
-          <span class="section__tag">Direct Admission & Counselling</span>
+      <!-- LEFT: Heading + Image -->
+      <div class="home-enquiry__image-col animate-on-scroll">
+        <div class="section__header" style="text-align: left; margin-bottom: 2rem; max-width: 100%;">
+          <span class="section__tag">Direct Admission &amp; Counselling</span>
           <h2 class="section__title" style="margin-top: 1rem;">Interested in <span>Studying Abroad</span> with Bluestone?</h2>
           <p>Enter your details below and our expert study abroad counsellor will contact you shortly to guide you through every step.</p>
         </div>
+        <div class="home-enquiry__image">
+          <img src="assets/images/cont.png" alt="Study Abroad Expert Counsellor helping student">
+        </div>
+      </div>
+
+      <!-- RIGHT: Form Card Only -->
+      <div class="home-enquiry__form-col animate-on-scroll">
         <div class="home-enquiry__form-card">
           <!-- Background Glowing Blobs -->
           <div class="form-blobs">
@@ -180,170 +354,96 @@ require_once 'includes/header.php';
                 <textarea name="message" placeholder="Message"></textarea>
               
             </div>
-<!-- 
-            <div class="cf-group"><label>How would you fund your education?*</label>
-              <select name="funding_mode" required>
-                <option value="" disabled selected>Select</option>
-                <option>Self-funded</option><option>Student Loan</option><option>Scholarship</option><option>Parents/Guardian</option>
-              </select>
-            </div> -->
 
-            <button type="submit" class="btn btn--primary btn--lg" style="width: 100%; justify-content: center; margin-top: 1.5rem; height: 56px;">Help me study abroad</button>
-            <p style="font-size: 0.75rem; color: #94a3b8; margin-top: 1.5rem; text-align: center;">Bluestone Overseas will use your information to contact you for study abroad services.</p>
+            <button type="submit" class="btn btn--primary btn--md" style="width: 100%; justify-content: center; margin-top: 1rem; height: 46px;">Help me study abroad</button>
+            <p style="font-size: 0.75rem; color: #94a3b8; margin-top: 1rem; text-align: center;">Bluestone Overseas will use your information to contact you for study abroad services.</p>
           </form>
         </div>
       </div>
-      <div class="home-enquiry__image animate-on-scroll">
-        <img src="assets/images/form.png" alt="Study Abroad Expert Counsellor helping student" width="100%" height="150%">
-      </div>
     </div>
   </div>
 </section>
 
 
-<!-- SERVICES -->
-<section class="section services-section" id="services">
+<section class="section why-elite-section" id="about" style="background: var(--light); padding: 5rem 0; overflow: hidden;">
   <div class="container">
-    <div class="section__header animate-on-scroll">
-      <span class="section__tag">What We Do</span>
-      <h2 class="section__title">Comprehensive <span>Study Abroad</span> Services</h2>
-      <p class="section__subtitle">From counselling to visa processing &mdash; we support you at every step of your international education journey.</p>
-      <div class="accent-bar"></div>
-    </div>
-    <div class="services-grid-new">
-      <?php
-      try {
-          $stmt = $pdo->query("SELECT * FROM services WHERE is_active = 1 ORDER BY id ASC");
-          $services_db = $stmt->fetchAll();
-          $services = [];
-          foreach ($services_db as $s) {
-              $services[] = [
-                  $s['icon'],
-                  $s['title'],
-                  $s['description'],
-                  $s['link'],
-                  $s['color']
-              ];
-          }
-      } catch (PDOException $e) {
-          $services = [
-              ['fa-user-graduate','Student Counselling','Personalised guidance to help you choose the right course and institution matching your academic goals and budget.','student-counselling.php','blue'],
-              ['fa-university','University Selection','We help identify the best-fit universities across 20+ countries based on your profile and aspirations.','university-selection.php','purple'],
-              ['fa-file-contract','Admission Processing','Expert application management ensuring all documents are accurate, complete and submitted on time.','admission-processing.php','orange'],
-              ['fa-hand-holding-dollar','Financial Assistance','Guidance on scholarships, student loans and funding options to make your dream affordable.','financial-assistance.php','teal'],
-              ['fa-passport','Visa Processing','End-to-end visa assistance with a 98% success rate, navigating complex immigration requirements.','visa-processing.php','pink'],
-              ['fa-house','Accommodation & Travel','We help arrange housing and travel plans so you arrive and settle comfortably in your new country.','accommodation.php','gold'],
-              ['fa-pen-to-square','Test Preparation','Specialised coaching for IELTS, TOEFL and PTE to achieve the scores required by top universities.','test-prep.php','blue'],
-              ['fa-briefcase','Part-Time Job Help','Guidance on finding legal part-time work opportunities abroad to support yourself financially.','part-time-jobs.php','purple'],
-          ];
-      }
+    <div style="background: var(--gradient); border-radius: 40px; padding: 4rem; box-shadow: 0 20px 50px rgba(204, 35, 102, 0.25); position: relative; overflow: hidden;">
+      
+      <!-- Decorative faint background shapes -->
+      <div style="position: absolute; top: -50px; right: -50px; width: 300px; height: 300px; background: rgba(255,255,255,0.05); border-radius: 50%; pointer-events: none;"></div>
+      <div style="position: absolute; bottom: -100px; left: 20%; width: 400px; height: 400px; background: rgba(255,255,255,0.05); border-radius: 50%; pointer-events: none;"></div>
 
-      // Dynamic URL normalization mapping to ensure DB records also link directly to dedicated pages
-      $linkMap = [
-          'services.php?s=counselling' => 'student-counselling.php',
-          'services.php?s=university' => 'university-selection.php',
-          'services.php?s=admission' => 'admission-processing.php',
-          'services.php?s=financial' => 'financial-assistance.php',
-          'services.php?s=visa' => 'visa-processing.php',
-          'services.php?s=accommodation' => 'accommodation.php',
-          'services.php?s=jobs' => 'part-time-jobs.php'
-      ];
-      $titleMap = [
-          'student counselling' => 'student-counselling.php',
-          'university selection' => 'university-selection.php',
-          'application assistance' => 'admission-processing.php',
-          'admission processing' => 'admission-processing.php',
-          'scholarship assistance' => 'financial-assistance.php',
-          'financial assistance' => 'financial-assistance.php',
-          'visa guidance' => 'visa-processing.php',
-          'visa processing' => 'visa-processing.php',
-          'travel & accommodation' => 'accommodation.php',
-          'accommodation & travel' => 'accommodation.php',
-          'pre-departure briefing' => 'accommodation.php',
-          'ielts/toefl coaching' => 'test-prep.php',
-          'test preparation' => 'test-prep.php',
-          'part-time job help' => 'part-time-jobs.php',
-          'part-time job assistance' => 'part-time-jobs.php'
-      ];
-      foreach ($services as &$s_item) {
-          $currentLink = $s_item[3];
-          $titleLower = strtolower(trim($s_item[1]));
-          if (isset($linkMap[$currentLink])) {
-              $s_item[3] = $linkMap[$currentLink];
-          } elseif ($currentLink === '#' || strpos($currentLink, 'services.php') !== false) {
-              if (isset($titleMap[$titleLower])) {
-                  $s_item[3] = $titleMap[$titleLower];
-              }
-          }
-      }
-      unset($s_item); // break loop reference safety
-
-      foreach($services as $i=>[$icon,$title,$desc,$link,$color]):
-      ?>
-      <div class="s-card-premium animate-on-scroll delay-<?= $i%4 ?>">
-        <div class="s-card-premium__inner">
-          <div class="s-card-premium__front">
-            <div class="s-card-premium__icon s-card-premium__icon--<?= $color ?>"><i class="fa-solid <?= $icon ?>"></i></div>
-            <h3><?= $title ?></h3>
+      <div class="why-elite-grid" style="position: relative; z-index: 1;">
+        <!-- LEFT COLUMN -->
+        <div class="why-elite-content animate-on-scroll">
+          <span class="section__tag" style="background: rgba(255,255,255,0.2); color: #fff; border-color: rgba(255,255,255,0.3);">Why Bluestone</span>
+          <h2 class="section__title" style="margin-bottom: 1rem; color: #fff;">The Bluestone <span style="color: #0ea5e9;">Advantage</span></h2>
+          <p class="section__subtitle" style="margin-bottom: 2.5rem; color: rgba(255,255,255,0.9);">Achieve your dream of studying abroad with expert admission, visa, IELTS, and university guidance.</p>
+          
+          <div class="elite-features-grid">
+            <!-- Feature 1 -->
+            <div style="display: flex; flex-direction: column; gap: 1rem; align-items: flex-start; background: rgba(255, 255, 255, 0.1); padding: 1.5rem; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.background='rgba(255, 255, 255, 0.2)';" onmouseout="this.style.transform='translateY(0)'; this.style.background='rgba(255, 255, 255, 0.1)';">
+              <div style="width: 50px; height: 50px; border-radius: 14px; background: rgba(255,255,255,0.2); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; transition: all 0.3s ease;"><i class="fa-solid fa-trophy"></i></div>
+              <div>
+                <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff;">Award Winning Consultancy</h4>
+                <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8); line-height: 1.5; margin: 0;">Trusted brand since 2015, offering honest and accurate guidance. No false promises.</p>
+              </div>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div style="display: flex; flex-direction: column; gap: 1rem; align-items: flex-start; background: rgba(255, 255, 255, 0.1); padding: 1.5rem; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.background='rgba(255, 255, 255, 0.2)';" onmouseout="this.style.transform='translateY(0)'; this.style.background='rgba(255, 255, 255, 0.1)';">
+              <div style="width: 50px; height: 50px; border-radius: 14px; background: rgba(255,255,255,0.2); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; transition: all 0.3s ease;"><i class="fa-solid fa-headset"></i></div>
+              <div>
+                <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff;">Dedicated Counsellors</h4>
+                <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8); line-height: 1.5; margin: 0;">Each student is assigned a personal counsellor who guides from start to finish.</p>
+              </div>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div style="display: flex; flex-direction: column; gap: 1rem; align-items: flex-start; background: rgba(255, 255, 255, 0.1); padding: 1.5rem; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.background='rgba(255, 255, 255, 0.2)';" onmouseout="this.style.transform='translateY(0)'; this.style.background='rgba(255, 255, 255, 0.1)';">
+              <div style="width: 50px; height: 50px; border-radius: 14px; background: rgba(255,255,255,0.2); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; transition: all 0.3s ease;"><i class="fa-solid fa-handshake"></i></div>
+              <div>
+                <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff;">500+ University Tie-ups</h4>
+                <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8); line-height: 1.5; margin: 0;">Direct partnerships with universities for faster admissions & scholarships.</p>
+              </div>
+            </div>
+            
+            <!-- Feature 4 -->
+            <div style="display: flex; flex-direction: column; gap: 1rem; align-items: flex-start; background: rgba(255, 255, 255, 0.1); padding: 1.5rem; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.background='rgba(255, 255, 255, 0.2)';" onmouseout="this.style.transform='translateY(0)'; this.style.background='rgba(255, 255, 255, 0.1)';">
+              <div style="width: 50px; height: 50px; border-radius: 14px; background: rgba(255,255,255,0.2); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; transition: all 0.3s ease;"><i class="fa-solid fa-passport"></i></div>
+              <div>
+                <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff;">98% Visa Success Rate</h4>
+                <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8); line-height: 1.5; margin: 0;">Our visa team has an exceptional track record across all major destinations.</p>
+              </div>
+            </div>
           </div>
-          <div class="s-card-premium__back">
-            <p><?= $desc ?></p>
-            <a href="<?= $link ?>" class="btn btn--white btn--sm">Explore Details <i class="fa-solid fa-arrow-right"></i></a>
+
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <a href="About_us.php" class="btn btn--primary" style="background: var(--primary); border-color: var(--primary); color: #fff;"><i class="fa-solid fa-circle-info"></i> Learn About Us</a>
+            <a href="consultation.php" class="btn" style="border: 1px solid rgba(255,255,255,0.5); color: #fff; background: transparent; transition: all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.borderColor='#fff';" onmouseout="this.style.background='transparent'; this.style.borderColor='rgba(255,255,255,0.5)';"><i class="fa-solid fa-phone"></i> Talk to Expert</a>
           </div>
         </div>
+        
+        <!-- RIGHT COLUMN (IMAGE) -->
+        <div class="why-elite-image animate-on-scroll delay-2" style="position: relative; min-height: 500px; display: flex; align-items: center; justify-content: center;">
+          
+          <!-- Background Shape Blob (matches the light purple blob from reference) -->
+          <div style="position: absolute; right: 5%; top: 5%; width: 85%; height: 85%; background: var(--primary); border-radius: 41% 59% 43% 57% / 46% 38% 62% 54%; transform: rotate(-15deg); z-index: 1; transition: all 3s ease-in-out;" onmouseover="this.style.borderRadius='57% 43% 59% 41% / 54% 62% 38% 46%'; this.style.transform='rotate(5deg) scale(1.05)';" onmouseout="this.style.borderRadius='41% 59% 43% 57% / 46% 38% 62% 54%'; this.style.transform='rotate(-15deg) scale(1)';"></div>
+          
+          <!-- Foreground Circular Image -->
+          <div style="position: relative; z-index: 2; width: 380px; height: 380px; border-radius: 50%; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.25); transform: translate(-10%, 10%); border: 10px solid rgba(255,255,255,0.1); transition: transform 0.5s ease;" onmouseover="this.style.transform='translate(-10%, 10%) scale(1.03)';" onmouseout="this.style.transform='translate(-10%, 10%) scale(1)';">
+            <img src="assets/images/ocs.png" alt="Consultancy Event" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          </div>
+          
+        </div>
       </div>
-      <?php endforeach; ?>
     </div>
   </div>
 </section>
 
-<!-- STUDENT JOURNEY (NEW SECTION) -->
-<section class="section journey-section">
-  <div class="container">
-    <div class="section__header animate-on-scroll">
-      <span class="section__tag">The Roadmap</span>
-      <h2 class="section__title">Your <span>Success Journey</span> with Us</h2>
-      <p class="section__subtitle">A clear, step-by-step path to your dream international university.</p>
-    </div>
-    
-    <div class="journey-path">
-      <div class="journey-step animate-on-scroll">
-        <div class="journey-step__icon journey-step__icon--blue"><i class="fa-solid fa-comments"></i></div>
-        <div class="journey-step__content">
-          <span class="journey-step__num">01</span>
-          <h4>Initial Counselling</h4>
-          <p>Talk to our experts to discover your potential and explore study options.</p>
-        </div>
-      </div>
-      <div class="journey-step animate-on-scroll delay-1">
-        <div class="journey-step__icon journey-step__icon--purple"><i class="fa-solid fa-file-signature"></i></div>
-        <div class="journey-step__content">
-          <span class="journey-step__num">02</span>
-          <h4>Application & Admission</h4>
-          <p>We handle all paperwork and secure your spot in top universities.</p>
-        </div>
-      </div>
-      <div class="journey-step animate-on-scroll delay-2">
-        <div class="journey-step__icon journey-step__icon--orange"><i class="fa-solid fa-passport"></i></div>
-        <div class="journey-step__content">
-          <span class="journey-step__num">03</span>
-          <h4>Visa Processing</h4>
-          <p>High success rate in securing visas through expert documentation.</p>
-        </div>
-      </div>
-      <div class="journey-step animate-on-scroll delay-3">
-        <div class="journey-step__icon journey-step__icon--teal"><i class="fa-solid fa-plane-departure"></i></div>
-        <div class="journey-step__content">
-          <span class="journey-step__num">04</span>
-          <h4>Pre-Departure Support</h4>
-          <p>From flights to accommodation, we prepare you for your new life.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+
 <!-- COUNTRIES -->
-<section class="section countries-section" id="destinations">
+<section class="section countries-section" id="destinations" style="background: #ffffff;">
   <div class="container">
     <div class="section__header animate-on-scroll">
       <span class="section__tag">Study Destinations</span>
@@ -398,19 +498,15 @@ require_once 'includes/header.php';
       <div class="country-marquee-wrapper">
         <div class="country-marquee-track marquee-left">
           <?php foreach (array_merge($row1, $row1) as $i => [$slug, $name, $flag, $desc]): ?>
-            <div class="country-card-minimal">
+            <a href="study-in-<?= $slug ?>.php" class="country-card-minimal">
               <div class="country-card-minimal__img">
                 <img src="<?= get_country_image_url($slug) ?>" alt="<?= $name ?>">
-                <div class="country-card-minimal__flag"><?= $flag ?></div>
-              </div>
-              <div class="country-card-minimal__content">
-                <h3>Study in <?= $name ?></h3>
-                <p><?= $desc ?></p>
-                <div class="country-card-minimal__footer">
-                  <a href="study-in-<?= $slug ?>.php" class="country-link-btn">Explore Opportunities <i class="fa-solid fa-arrow-right-long"></i></a>
+                <div class="country-card-minimal__content">
+                  <h3><?= $name ?></h3>
+                  <p><?= $desc ?></p>
                 </div>
               </div>
-            </div>
+            </a>
           <?php endforeach; ?>
         </div>
       </div>
@@ -419,19 +515,15 @@ require_once 'includes/header.php';
       <div class="country-marquee-wrapper" style="margin-top: 1.5rem;">
         <div class="country-marquee-track marquee-right">
           <?php foreach (array_merge($row2, $row2) as $i => [$slug, $name, $flag, $desc]): ?>
-            <div class="country-card-minimal">
+            <a href="study-in-<?= $slug ?>.php" class="country-card-minimal">
               <div class="country-card-minimal__img">
                 <img src="<?= get_country_image_url($slug) ?>" alt="<?= $name ?>">
-                <div class="country-card-minimal__flag"><?= $flag ?></div>
-              </div>
-              <div class="country-card-minimal__content">
-                <h3>Study in <?= $name ?></h3>
-                <p><?= $desc ?></p>
-                <div class="country-card-minimal__footer">
-                  <a href="study-in-<?= $slug ?>.php" class="country-link-btn">Explore Opportunities <i class="fa-solid fa-arrow-right-long"></i></a>
+                <div class="country-card-minimal__content">
+                  <h3><?= $name ?></h3>
+                  <p><?= $desc ?></p>
                 </div>
               </div>
-            </div>
+            </a>
           <?php endforeach; ?>
         </div>
       </div>
@@ -444,182 +536,313 @@ require_once 'includes/header.php';
     </div>
   </div>
 </section>
-<!-- WHY US -->
-<section class="section why-us" id="about">
+<!-- PROCESS -->
+<section class="section process-section" style="background: #ffffff; padding: 4rem 0;">
   <div class="container">
-    <div class="why-grid">
-      <div>
-        <span class="section__tag" style="background:rgba(14,165,233,.2);color:var(--primary)">Why Bluestone</span>
-        <h1 class="section__title" style="margin-top:.75rem; font-size: 2rem;">Achieve your dream of studying abroad with expert admission, visa, IELTS, and university guidance from Bluestone Overseas.</h1>
-        <p style="margin-bottom:2rem">Since 2015, we have been guiding students from across India to their dream universities abroad. Our team of experienced counsellors ensures every student gets personalised, honest advice.</p>
-        <div class="why-features">
+    <div style="background: #579df9ff; border-radius: 30px; padding: 4rem; position: relative; overflow: hidden; box-shadow: 0 20px 40px rgba(24, 119, 242, 0.25);">
+      
+      <!-- Decorative faint background shapes -->
+      <div style="position: absolute; top: -50px; right: -50px; width: 300px; height: 300px; background: rgba(255,255,255,0.05); border-radius: 50%; pointer-events: none;"></div>
+      <div style="position: absolute; bottom: -100px; left: 20%; width: 400px; height: 400px; background: rgba(255,255,255,0.05); border-radius: 50%; pointer-events: none;"></div>
+
+      <div style="position: relative; z-index: 1;">
+        
+        <div class="section__header animate-on-scroll" style="text-align: center; margin-bottom: 3rem;">
+          <span class="section__tag" style="background: rgba(255,255,255,0.2); color: #fff; margin-bottom: 1rem; display: inline-block;">How It Works</span>
+          <h2 class="section__title" style="color: #fff; font-size: 2.8rem; line-height: 1.2;">Your Journey to <span style="color: #FDE047;">Global Education</span></h2>
+        </div>
+        
+        <div class="process-steps" style="justify-content: center; gap: 2rem; margin-top: 0;">
           <?php
-          $features=[
-            ['fa-shield-halved','Honest &amp; Accurate Guidance','No false promises. We assess your profile realistically and suggest the best options.','blue'],
-            ['fa-headset','Dedicated Counsellors','Each student is assigned a personal counsellor who guides from start to finish.','purple'],
-            ['fa-handshake','500+ University Tie-ups','Direct partnerships with universities for faster admissions and exclusive scholarships.','orange'],
-            ['fa-passport','98% Visa Success Rate','Our visa team has an exceptional track record across all major destinations.','teal'],
-            ['fa-location-dot','8 Branches + Global Support','Local support from our offices across Tamil Nadu, Nepal and Canada.','pink'],
+          $steps=[
+            ['fa-comments','Free Counselling','Book a free session with our expert counsellor who assesses your profile and goals.','blue'],
+            ['fa-magnifying-glass','Course & Country Selection','We shortlist the best universities and programs matching your ambitions and budget.','purple'],
+            ['fa-file-contract','Application Filing','Our team prepares and submits your application with a flawless SOP and documents.','orange'],
+            ['fa-passport','Visa Processing','Get expert help with student visa applications, ensuring all requirements are met.','teal'],
+            ['fa-plane-departure','Fly Abroad!','Pre-departure briefing, accommodation guidance and you are off to your dream university!','pink'],
           ];
-          foreach($features as [$icon,$title,$desc,$color]):
+          foreach($steps as $i=>[$icon,$title,$desc,$color]):
           ?>
-          <div class="why-feature">
-            <div class="why-feature__icon why-feature__icon--<?= $color ?>"><i class="fa-solid <?= $icon ?>"></i></div>
-            <div><h4><?= $title ?></h4><p><?= $desc ?></p></div>
+          <div class="process-step animate-on-scroll delay-<?= $i ?>" style="flex: 1 1 160px; max-width: 220px; text-align: center;">
+            <div class="process-step__image-box" style="width: 140px; height: 140px; margin: 0 auto 1.5rem;">
+              <img src="assets/images/img<?= $i+1 ?>.png" alt="<?= $title ?>">
+              <div class="process-step__badge" style="bottom: -12px; width: 28px; height: 28px; font-size: 0.85rem; line-height: 28px;"><?= str_pad($i+1, 2, '0', STR_PAD_LEFT) ?></div>
+            </div>
+            <h4 style="color: #ffffff; font-size: 1.1rem; margin-bottom: 0.5rem;"><?= $title ?></h4>
+            <p style="color: rgba(255,255,255,0.85); font-size: 0.9rem; line-height: 1.4;"><?= $desc ?></p>
           </div>
           <?php endforeach; ?>
         </div>
-        <div style="margin-top:2rem; display:flex; gap:1rem; flex-wrap:wrap;">
-          <a href="About_us.php" class="btn btn--primary"><i class="fa-solid fa-circle-info"></i> Learn About Us</a>
-          <a href="consultation.php" class="btn btn--outline"><i class="fa-solid fa-phone"></i> Talk to Expert</a>
-        </div>
-      </div>
-      <div class="why-image" style="display:block; margin-top:3rem;">
-        <img src="assets/images/ocs.png" alt="Bluestone Overseas Award Winning Consultancy Event" style="border-radius:20px; width:100%; height:100%; object-fit:cover;">
-        <div class="why-badge why-badge--tl"><i class="fa-solid fa-trophy"></i><span>Award Winning<br>Consultancy</span></div>
-        <div class="why-badge why-badge--br"><i class="fa-solid fa-star"></i><span>Since 2015<br>Trusted Brand</span></div>
+
       </div>
     </div>
   </div>
 </section>
 
-<!-- PROCESS -->
-<section class="section process-section">
+<section class="section services-bento" id="services" style="background: #ffffff;">
   <div class="container">
-    <div class="section__header animate-on-scroll">
-      <span class="section__tag">How It Works</span>
-      <h2 class="section__title">Your Journey to <span>Global Education</span></h2>
-      <div class="accent-bar"></div>
+    <div class="section__header animate-on-scroll" style="text-align: center; margin-bottom: 3rem;">
+      <span class="section__tag" style="background: rgba(124,58,237,0.1); color: #7c3aed; border-radius: 20px; padding: 5px 15px; font-weight: 600; display: inline-block; margin-bottom: 1rem; text-transform: none;">What We Do</span>
+      <h2 class="section__title" style="text-transform: none; font-size: 2.8rem; font-weight: 500; color: #1e293b; line-height: 1.2;">Comprehensive <span class="serif-italic" style="color: #6366f1; font-weight: 400; font-size: 1.1em;">Study Abroad</span> Services</h2>
+      <p class="section__subtitle">From counselling to visa processing &mdash; we support you at every step of your international education journey.</p>
     </div>
-    <div class="process-steps">
+
+    <!-- Full-width grid container -->
+    <div style="width: 100%; overflow: hidden;">
       <?php
-      $steps=[
-        ['fa-comments','Free Counselling','Book a free session with our expert counsellor who assesses your profile and goals.','blue'],
-        ['fa-magnifying-glass','Course & Country Selection','We shortlist the best universities and programs matching your ambitions and budget.','purple'],
-        ['fa-file-contract','Application Filing','Our team prepares and submits your application with a flawless SOP and documents.','orange'],
-        ['fa-passport','Visa Processing','Get expert help with student visa applications, ensuring all requirements are met.','teal'],
-        ['fa-plane-departure','Fly Abroad!','Pre-departure briefing, accommodation guidance and you are off to your dream university!','pink'],
+      try {
+          $stmt = $pdo->query("SELECT * FROM services WHERE is_active = 1 ORDER BY id ASC");
+          $services_db = $stmt->fetchAll();
+          $services = [];
+          foreach ($services_db as $s) {
+              $services[] = [
+                  $s['icon'],
+                  $s['title'],
+                  $s['description'],
+                  $s['link'],
+                  $s['color']
+              ];
+          }
+      } catch (PDOException $e) {
+          $services = [
+              ['fa-user-graduate','Student Counselling','Personalised guidance to help you choose the right course and institution matching your academic goals and budget.','student-counselling.php','blue'],
+              ['fa-university','University Selection','We help identify the best-fit universities across 20+ countries based on your profile and aspirations.','university-selection.php','purple'],
+              ['fa-file-contract','Admission Processing','Expert application management ensuring all documents are accurate, complete and submitted on time.','admission-processing.php','orange'],
+              ['fa-hand-holding-dollar','Financial Assistance','Guidance on scholarships, student loans and funding options to make your dream affordable.','financial-assistance.php','teal'],
+              ['fa-passport','Visa Processing','End-to-end visa assistance with a 98% success rate, navigating complex immigration requirements.','visa-processing.php','pink'],
+              ['fa-house','Accommodation & Travel','We help arrange housing and travel plans so you arrive and settle comfortably in your new country.','accommodation.php','gold'],
+              ['fa-pen-to-square','Test Preparation','Specialised coaching for IELTS, TOEFL and PTE to achieve the scores required by top universities.','test-prep.php','blue'],
+              ['fa-briefcase','Part-Time Job Help','Guidance on finding legal part-time work opportunities abroad to support yourself financially.','part-time-jobs.php','purple'],
+          ];
+      }
+
+      // Dynamic URL normalization mapping to ensure DB records also link directly to dedicated pages
+      $linkMap = [
+          'services.php?s=counselling' => 'student-counselling.php',
+          'services.php?s=university' => 'university-selection.php',
+          'services.php?s=admission' => 'admission-processing.php',
+          'services.php?s=financial' => 'financial-assistance.php',
+          'services.php?s=visa' => 'visa-processing.php',
+          'services.php?s=accommodation' => 'accommodation.php',
+          'services.php?s=jobs' => 'part-time-jobs.php'
       ];
-      foreach($steps as $i=>[$icon,$title,$desc,$color]):
+      $titleMap = [
+          'student counselling' => 'student-counselling.php',
+          'university selection' => 'university-selection.php',
+          'application assistance' => 'admission-processing.php',
+          'admission processing' => 'admission-processing.php',
+          'scholarship assistance' => 'financial-assistance.php',
+          'financial assistance' => 'financial-assistance.php',
+          'visa guidance' => 'visa-processing.php',
+          'visa processing' => 'visa-processing.php',
+          'travel & accommodation' => 'accommodation.php',
+          'accommodation & travel' => 'accommodation.php',
+          'pre-departure briefing' => 'accommodation.php',
+          'ielts/toefl coaching' => 'test-prep.php',
+          'part-time job help' => 'part-time-jobs.php',
+          'part-time job assistance' => 'part-time-jobs.php'
+      ];
+      
+      $imageMap = [
+          'student counselling' => 's7.jpg',
+          'university selection' => 's2.png',
+          'admission processing' => 's3.jpg',
+          'application assistance' => 's3.jpg',
+          'financial assistance' => 's5.jpg',
+          'scholarship assistance' => 's5.jpg',
+          'visa processing' => 's5.jpg',
+          'visa guidance' => 's5.jpg',
+          'accommodation & travel' => 's9.webp',
+          'travel & accommodation' => 's9.webp',
+          'pre-departure briefing' => 's9.webp',
+          'test preparation' => 's6.jpg',
+          'ielts/toefl coaching' => 's6.jpg',
+          'part-time job help' => 's6.jpg',
+          'part-time job assistance' => 's6.jpg'
+      ];
+
+      foreach ($services as &$s_item) {
+          $currentLink = $s_item[3];
+          $titleLower = strtolower(trim($s_item[1]));
+          if (isset($linkMap[$currentLink])) {
+              $s_item[3] = $linkMap[$currentLink];
+          } elseif ($currentLink === '#' || strpos($currentLink, 'services.php') !== false) {
+              if (isset($titleMap[$titleLower])) {
+                  $s_item[3] = $titleMap[$titleLower];
+              }
+          }
+      }
+      unset($s_item); // break loop reference safety
       ?>
-      <div class="process-step animate-on-scroll delay-<?= $i ?>">
-        <div class="process-step__num"><?= $i+1 ?></div>
-        <div class="stat-icon stat-icon--<?= $color ?>" style="margin: 0 auto 1.25rem;"><i class="fa-solid <?= $icon ?>"></i></div>
-        <h4><?= $title ?></h4>
-        <p><?= $desc ?></p>
-      </div>
+      <div class="portfolio-grid">
+      <?php
+      // Varying heights to create the masonry effect
+      $heights = ['300px', '400px', '350px', '450px', '320px', '380px', '420px', '280px'];
+      foreach($services as $i=>[$icon,$title,$desc,$link,$color]):
+          $imgHeight = $heights[$i % 8];
+          $titleLower = strtolower(trim($title));
+          $imgSrc = isset($imageMap[$titleLower]) ? $imageMap[$titleLower] : "img".(($i % 8) + 1).".png";
+      ?>
+      <a href="<?= $link ?>" class="portfolio-card animate-on-scroll delay-<?= $i%4 ?>" style="height: <?= $imgHeight ?>;">
+        <img src="assets/images/<?= $imgSrc ?>" alt="<?= $title ?>" class="portfolio-card__bg">
+        <div class="portfolio-card__overlay"></div>
+        <div class="portfolio-card__content">
+          <h3 class="portfolio-card__title"><?= $title ?></h3>
+          <p class="portfolio-card__desc"><?= $desc ?></p>
+        </div>
+      </a>
       <?php endforeach; ?>
-    </div>
+      </div>
   </div>
 </section>
 
 <!-- TEST PREP -->
-<section class="section" style="background:linear-gradient(135deg,#f8fafc,#f0fdf4)">
+<section class="section" style="background: #ffffff; padding: 4rem 0;">
   <div class="container">
-    <div class="section__header animate-on-scroll">
-      <span class="section__tag">Test Preparation</span>
-      <h2 class="section__title">Ace Your <span>English Tests</span></h2>
-      <p class="section__subtitle">Expert coaching for IELTS, TOEFL and PTE to maximise your scores and secure university offers.</p>
-      <div class="accent-bar"></div>
-    </div>
-    <div class="test-cards">
-      <?php
-      try {
-          $stmt = $pdo->query("SELECT * FROM test_preps WHERE is_active = 1 ORDER BY id ASC");
-          $db_tests = $stmt->fetchAll();
-      } catch (PDOException $e) {
-          $db_tests = [];
-      }
+    <div style="background: #e481ebff; border-radius: 30px; padding: 4rem; position: relative; overflow: hidden; box-shadow: 0 20px 40px rgba(124, 58, 237, 0.25);">
       
-      if (empty($db_tests)) {
-          $db_tests = [
-              [
-                  'slug' => 'ielts',
-                  'name' => 'IELTS',
-                  'icon' => 'fa-pen-to-square',
-                  'description' => 'International English Language Testing System',
-                  'feature1' => 'Band 7+ Achievers',
-                  'feature2' => 'Expert Trainers',
-                  'feature3' => 'Full Mock Tests',
-                  'feature4' => 'Study Material Included',
-                  'color' => 'blue'
-              ]
-          ];
-      }
-      
-      foreach($db_tests as $test):
-          $slug = clean_output($test['slug']);
-          $name = clean_output($test['name']);
-          $icon = clean_output($test['icon']);
-          $desc = clean_output($test['description']);
-          $color = clean_output($test['color']);
-          
-          $features = [];
-          for ($f = 1; $f <= 4; $f++) {
-              if (!empty($test["feature$f"])) {
-                  $features[] = $test["feature$f"];
-              }
+      <!-- Decorative faint background shapes -->
+      <div style="position: absolute; top: -50px; right: -50px; width: 300px; height: 300px; background: rgba(255,255,255,0.05); border-radius: 50%; pointer-events: none;"></div>
+      <div style="position: absolute; bottom: -100px; left: 20%; width: 400px; height: 400px; background: rgba(255,255,255,0.05); border-radius: 50%; pointer-events: none;"></div>
+
+      <div style="position: relative; z-index: 1;">
+        
+        <div class="section__header animate-on-scroll" style="text-align: center; margin-bottom: 3rem;">
+          <span class="section__tag" style="background: rgba(255,255,255,0.2); color: #fff; border-radius: 20px; padding: 0.5rem 1rem; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+            <i class="fa-solid fa-bolt"></i> Coachings
+          </span>
+          <h2 class="section__title" style="color: #fff; font-size: 2.8rem; line-height: 1.2;">Discover the elite training<br><span style="color: #FDE047;">Program you need</span></h2>
+        </div>
+
+        <div class="test-cards-new">
+          <?php
+          try {
+              $stmt = $pdo->query("SELECT * FROM test_preps WHERE is_active = 1 ORDER BY id ASC LIMIT 3");
+              $db_tests = $stmt->fetchAll();
+          } catch (PDOException $e) {
+              $db_tests = [];
           }
-      ?>
-      <div class="test-card animate-on-scroll" style="display: flex; flex-direction: column; overflow: hidden; border-radius: 16px; background: #fff; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.05);">
-        <?php if (!empty($test['image_path'])): ?>
-          <div style="height: 160px; width: 100%; overflow: hidden;">
-            <img src="<?= clean_output($test['image_path']) ?>" alt="<?= $name ?>" style="width: 100%; height: 100%; object-fit: cover;">
+          
+          if (count($db_tests) < 3) {
+              $db_tests = [
+                  [
+                      'slug' => 'ielts',
+                      'name' => 'IELTS',
+                      'icon' => 'fa-pen-to-square',
+                      'description' => 'Master the IELTS exam with our comprehensive training and expert guidance.',
+                      'image_path' => 'assets/images/service_coaching_3d.png'
+                  ],
+                  [
+                      'slug' => 'toefl',
+                      'name' => 'TOEFL',
+                      'icon' => 'fa-globe',
+                      'description' => 'Ace the TOEFL with proven strategies and extensive practice tests.',
+                      'image_path' => 'assets/images/service_university_3d.png'
+                  ],
+                  [
+                      'slug' => 'pte',
+                      'name' => 'PTE',
+                      'icon' => 'fa-computer',
+                      'description' => 'Achieve your desired PTE score with our specialized computer-based training.',
+                      'image_path' => 'assets/images/service_guidance_3d.png'
+                  ]
+              ];
+          }
+          
+          $bg_classes = ['test-card-new--yellow', 'test-card-new--orange', 'test-card-new--purple', 'test-card-new--teal'];
+          $fallback_images = ['assets/images/service_coaching_3d.png', 'assets/images/service_guidance_3d.png', 'assets/images/service_university_3d.png', 'assets/images/service_visa_3d.png'];
+          foreach($db_tests as $index => $test):
+              $slug = clean_output($test['slug']);
+              $name = clean_output($test['name']);
+              $desc = clean_output($test['description']);
+              $bg_class = $bg_classes[$index % count($bg_classes)];
+              $img_src = !empty($test['image_path']) ? clean_output($test['image_path']) : $fallback_images[$index % count($fallback_images)];
+          ?>
+          <div class="test-card-new <?= $bg_class ?> animate-on-scroll delay-<?= $index ?>">
+            <div class="test-card-new__img">
+              <img src="<?= $img_src ?>" alt="<?= $name ?>">
+            </div>
+            <div class="test-card-new__content">
+              <!-- App Header -->
+              <div class="app-header">
+                <div class="app-avatar"><i class="fa-solid fa-graduation-cap"></i></div>
+                <div class="app-title-area">
+                  <span class="app-subtitle">Course Overview</span>
+                  <strong class="app-title"><?= $name ?> Coaching</strong>
+                </div>
+              </div>
+              
+              <!-- App Widgets Grid -->
+              <div class="app-widgets-grid">
+                <div class="app-widget">
+                  <i class="fa-solid fa-star" style="color: #F59E0B;"></i>
+                  <span>Band 7+</span>
+                </div>
+                <div class="app-widget">
+                  <i class="fa-solid fa-laptop" style="color: #3B82F6;"></i>
+                  <span>Mock Tests</span>
+                </div>
+                <div class="app-widget">
+                  <i class="fa-solid fa-book" style="color: #10B981;"></i>
+                  <span>Materials</span>
+                </div>
+                <div class="app-widget">
+                  <i class="fa-solid fa-user-tie" style="color: #8B5CF6;"></i>
+                  <span>Experts</span>
+                </div>
+              </div>
+              
+              <a href="test-prep.php?t=<?= $slug ?>" class="btn test-card-new__btn">START LEARNING</a>
+            </div>
           </div>
-        <?php endif; ?>
-        <div class="test-card__header test-card__header--<?= $slug ?>" style="padding: 2rem 2rem 1rem; text-align: center; flex-grow: 1;">
-          <?php if (empty($test['image_path'])): ?>
-            <div class="stat-icon stat-icon--<?= $color ?>" style="margin: 0 auto 1.25rem;"><i class="fa-solid <?= $icon ?>"></i></div>
-          <?php endif; ?>
-          <h3 style="font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem;"><?= $name ?></h3>
-          <p style="color: #fff; font-size: 0.9rem; line-height: 1.6;"><?= $desc ?></p>
-        </div>
-        <div class="test-card__body" style="padding: 0 2rem 2rem; text-align: center;">
-          <?php foreach($features as $f): ?>
-          <div class="test-feature" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 0.4rem; color: var(--gray); font-size: 0.85rem;"><i class="fa-solid fa-check-circle" style="color: var(--success);"></i><span><?= clean_output($f) ?></span></div>
           <?php endforeach; ?>
-          <a href="test-prep.php?t=<?= $slug ?>" class="btn btn--outline" style="width:100%;justify-content:center;margin-top:1.25rem">Learn More</a>
         </div>
+
       </div>
-      <?php endforeach; ?>
     </div>
   </div>
 <!-- GALLERY SECTION -->
-<section class="section gallery-section" style="background:#f8fafc">
+<section class="section gallery-section" style="background: #ffffff;">
   <div class="container">
     <div class="section__header animate-on-scroll">
       <span class="section__tag">Success Stories</span>
       <h2 class="section__title">Glimpses of our <span>Success Events</span></h2>
       <div class="accent-bar"></div>
     </div>
-    <div class="masonry-gallery animate-on-scroll delay-1">
+    <div class="collage-gallery animate-on-scroll delay-1">
       <?php
       try {
-          $stmt = $pdo->query("SELECT * FROM gallery_items WHERE is_active = 1 ORDER BY id ASC LIMIT 5");
+          $stmt = $pdo->query("SELECT * FROM gallery_items WHERE is_active = 1 ORDER BY id ASC LIMIT 7");
           $db_gallery = $stmt->fetchAll();
       } catch (PDOException $e) {
           $db_gallery = [];
       }
       
-      if (empty($db_gallery)) {
-          $db_gallery = [
-              ['image_path' => 'assets/images/md-gallery5.png', 'title' => 'Student Seminar Event', 'category' => 'Events'],
-              ['image_path' => 'assets/images/ias5.png', 'title' => 'IELTS Coaching Session', 'category' => 'Training'],
-              ['image_path' => 'assets/images/start.png', 'title' => 'Pre-Departure Briefing', 'category' => 'Workshops'],
-              ['image_path' => 'assets/images/img1.png', 'title' => 'Visa Success Meet', 'category' => 'Success'],
-              ['image_path' => 'assets/images/placement.jpeg', 'title' => 'Placement Seminar', 'category' => 'Events']
-          ];
+      $fallbacks = [
+          ['image_path' => 'assets/images/md-gallery5.png', 'title' => 'Student Seminar Event'],
+          ['image_path' => 'assets/images/ias5.png', 'title' => 'IELTS Coaching Session'],
+          ['image_path' => 'assets/images/start.png', 'title' => 'Pre-Departure Briefing'],
+          ['image_path' => 'assets/images/img1.png', 'title' => 'Visa Success Meet'],
+          ['image_path' => 'assets/images/placement.jpeg', 'title' => 'Placement Seminar'],
+          ['image_path' => 'assets/images/img2.png', 'title' => 'University Tour'],
+          ['image_path' => 'assets/images/img3.png', 'title' => 'Admission Success']
+      ];
+      
+      $items = [];
+      for ($i=0; $i<7; $i++) {
+          if (isset($db_gallery[$i])) {
+              $items[] = $db_gallery[$i];
+          } else {
+              $items[] = $fallbacks[$i % count($fallbacks)];
+          }
       }
       
-      foreach($db_gallery as $item):
+      foreach($items as $i => $item):
       ?>
-      <div class="masonry-item">
+      <div class="collage-item collage-item-<?= $i+1 ?>">
         <img src="<?= clean_output($item['image_path']) ?>" alt="<?= clean_output($item['title']) ?>">
-        <div class="masonry-overlay">
-          <div class="masonry-info">
-            <span class="masonry-cat"><?= clean_output($item['category'] ?? 'Gallery') ?></span>
-            <h4 class="masonry-title"><?= clean_output($item['title']) ?></h4>
-          </div>
+        <div class="collage-overlay">
+          <h4 class="collage-title"><?= clean_output($item['title']) ?></h4>
         </div>
       </div>
       <?php endforeach; ?>
@@ -631,65 +854,77 @@ require_once 'includes/header.php';
 </section>
 
 <!-- CONTACT SECTION -->
-<section class="section contact-section" id="contact-home" style="background:#fff">
+<section class="section contact-section" id="contact-home" style="background: #ffffff; padding: 4rem 0;">
   <div class="container">
-    <div class="section__header animate-on-scroll">
-      <span class="section__tag">Contact Us</span>
-      <h2 class="section__title">Get a Free <span>Consultation</span></h2>
-      <p class="section__subtitle">Reach out to our experts and start your journey today. We respond within 24 hours.</p>
-      <div class="accent-bar"></div>
-    </div>
-    <div class="contact-grid">
-      <div class="animate-on-scroll">
-        <h3>Talk to Our <span class="text-gradient">Experts</span></h3>
-        <p>Whether you&rsquo;re just starting your study abroad journey or need help with a visa application, our counsellors are here to help — for free.</p>
-        <div class="contact-cards">
-          <div class="contact-card">
-            <div class="stat-icon stat-icon--blue" style="width:40px;height:40px;font-size:1rem"><i class="fa-solid fa-phone"></i></div>
-            <div><h4>Call Us</h4><a href="tel:+919342899904">+91 93428 99904</a></div>
+    <div style="background: #14b8a6; border-radius: 30px; padding: 4rem; position: relative; overflow: hidden; box-shadow: 0 20px 40px rgba(20, 184, 166, 0.25);">
+      
+      <!-- Decorative faint background shapes -->
+      <div style="position: absolute; top: -50px; right: -50px; width: 300px; height: 300px; background: rgba(255,255,255,0.05); border-radius: 50%; pointer-events: none;"></div>
+      <div style="position: absolute; bottom: -100px; left: 20%; width: 400px; height: 400px; background: rgba(255,255,255,0.05); border-radius: 50%; pointer-events: none;"></div>
+
+      <div style="position: relative; z-index: 1;">
+        <div class="section__header animate-on-scroll" style="text-align: center; margin-bottom: 3rem;">
+          <span class="section__tag" style="background: rgba(255,255,255,0.2); color: #fff;">Contact Us</span>
+          <h2 class="section__title" style="color: #fff;">Get a Free <span style="color: #FDE047;">Consultation</span></h2>
+          <p class="section__subtitle" style="color: rgba(255,255,255,0.9);">Reach out to our experts and start your journey today. We respond within 24 hours.</p>
+        </div>
+        
+        <div class="contact-grid">
+          <div class="animate-on-scroll">
+            <h3 style="color: #fff; margin-bottom: 1rem; font-size: 2rem;">Talk to Our <span style="color: #FDE047;">Experts</span></h3>
+            <p style="color: rgba(255,255,255,0.9); margin-bottom: 2rem;">Whether you&rsquo;re just starting your study abroad journey or need help with a visa application, our counsellors are here to help — for free.</p>
+            
+            <div class="contact-cards">
+              <div class="contact-card contact-card--glass">
+                <div class="stat-icon stat-icon--glass" style="width:40px;height:40px;font-size:1rem"><i class="fa-solid fa-phone"></i></div>
+                <div><h4>Call Us</h4><a href="tel:+919342899904">+91 93428 99904</a></div>
+              </div>
+              <div class="contact-card contact-card--glass">
+                <div class="stat-icon stat-icon--glass" style="width:40px;height:40px;font-size:1rem"><i class="fa-solid fa-envelope"></i></div>
+                <div><h4>Email Us</h4><a href="mailto:info@bluestoneocs.com">info@bluestoneocs.com</a></div>
+              </div>
+              <div class="contact-card contact-card--glass">
+                <div class="stat-icon stat-icon--glass" style="width:40px;height:40px;font-size:1rem"><i class="fa-regular fa-clock"></i></div>
+                <div><h4>Working Hours</h4><p>Mon–Fri: 09:00 AM – 6:30 PM</p></div>
+              </div>
+            </div>
+            
+            <a href="<?= SITE_MAP_LINK ?>" target="_blank" style="display:block;margin-top:2rem;padding:1.5rem;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border-radius:var(--radius);border:1px solid rgba(255,255,255,0.2);text-decoration:none;color:#fff;transition:transform 0.3s ease,background 0.3s ease;" class="hover-scale-card glass-link">
+              <h4 style="margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;color:#fff;"><i class="fa-solid fa-location-dot" style="color:#FDE047;"></i> Head Office – Coimbatore</h4>
+              <p style="font-size:.875rem;color:rgba(255,255,255,0.9);line-height:1.7">Renaissance Terrace, NO.126L, 2nd Floor, Opp. Bishop Appasamy College, Coimbatore, TN - 641018</p>
+            </a>
           </div>
-          <div class="contact-card" style="border-left-color:var(--accent)">
-            <div class="stat-icon stat-icon--pink" style="width:40px;height:40px;font-size:1rem"><i class="fa-solid fa-envelope"></i></div>
-            <div><h4>Email Us</h4><a href="mailto:info@bluestoneocs.com">info@bluestoneocs.com</a></div>
-          </div>
-          <div class="contact-card" style="border-left-color:var(--teal)">
-            <div class="stat-icon stat-icon--teal" style="width:40px;height:40px;font-size:1rem"><i class="fa-regular fa-clock"></i></div>
-            <div><h4>Working Hours</h4><p>Mon–Fri: 09:00 AM – 6:30 PM</p></div>
+          
+          <div class="contact-form-wrap animate-on-scroll delay-1" style="background: #ffffff; border: none; box-shadow: 0 25px 50px rgba(0,0,0,0.15);">
+            <form id="contactHomeForm" onsubmit="return handleFormSubmit(event)">
+              <input type="hidden" name="form_type" value="contact">
+              <div class="cf-grid-2">
+                <div class="cf-group"><label>First Name *</label><input type="text" name="first_name" placeholder="John" required></div>
+                <div class="cf-group"><label>Last Name *</label><input type="text" name="last_name" placeholder="Doe" required></div>
+              </div>
+              <div class="cf-grid-2">
+                <div class="cf-group"><label>Email *</label><input type="email" name="email" placeholder="john@email.com" required></div>
+                <div class="cf-group"><label>Phone *</label><input type="tel" name="phone" placeholder="+91 98765 43210" required></div>
+              </div>
+              <div class="cf-group"><label>Preferred Country</label>
+                <select name="destination"><option value="">Select Country</option><option>USA</option><option>UK</option><option>Canada</option><option>Australia</option><option>Germany</option><option>Ireland</option><option>New Zealand</option><option>Singapore</option></select>
+              </div>
+              <div class="cf-group"><label>Your Message</label>
+                <textarea name="query" rows="4" placeholder="How can we help you?"></textarea>
+              </div>
+              <button type="submit" class="btn btn--primary btn--lg" style="width:100%;justify-content:center">
+                <i class="fa-solid fa-paper-plane"></i> Send Message
+              </button>
+            </form>
           </div>
         </div>
-        <a href="<?= SITE_MAP_LINK ?>" target="_blank" style="display:block;margin-top:2rem;padding:1.5rem;background:linear-gradient(135deg,rgba(14,165,233,.08),rgba(139,92,246,.08));border-radius:var(--radius);border:1px solid rgba(14,165,233,.15);text-decoration:none;color:inherit;transition:transform 0.3s ease,border-color 0.3s ease;" class="hover-scale-card">
-          <h4 style="margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;"><i class="fa-solid fa-location-dot" style="color:var(--primary)"></i> Head Office – Coimbatore</h4>
-          <p style="font-size:.875rem;color:var(--gray);line-height:1.7">Renaissance Terrace, NO.126L, 2nd Floor, Opp. Bishop Appasamy College, Coimbatore, TN - 641018</p>
-        </a>
-      </div>
-      <div class="contact-form-wrap animate-on-scroll delay-1">
-        <form id="contactHomeForm" onsubmit="return handleFormSubmit(event)">
-          <input type="hidden" name="form_type" value="contact">
-          <div class="cf-grid-2">
-            <div class="cf-group"><label>First Name *</label><input type="text" name="first_name" placeholder="John" required></div>
-            <div class="cf-group"><label>Last Name *</label><input type="text" name="last_name" placeholder="Doe" required></div>
-          </div>
-          <div class="cf-grid-2">
-            <div class="cf-group"><label>Email *</label><input type="email" name="email" placeholder="john@email.com" required></div>
-            <div class="cf-group"><label>Phone *</label><input type="tel" name="phone" placeholder="+91 98765 43210" required></div>
-          </div>
-          <div class="cf-group"><label>Preferred Country</label>
-            <select name="destination"><option value="">Select Country</option><option>USA</option><option>UK</option><option>Canada</option><option>Australia</option><option>Germany</option><option>Ireland</option><option>New Zealand</option><option>Singapore</option></select>
-          </div>
-          <div class="cf-group"><label>Your Message</label>
-            <textarea name="query" rows="4" placeholder="How can we help you?"></textarea>
-          </div>
-          <button type="submit" class="btn btn--primary btn--lg" style="width:100%;justify-content:center">
-            <i class="fa-solid fa-paper-plane"></i> Send Message
-          </button>
-        </form>
       </div>
     </div>
   </div>
 </section>
 
 <!-- VIDEO TESTIMONIALS -->
-<section class="section testimonials-section" id="testimonials" style="background:#fff">
+<section class="section testimonials-section" id="testimonials" style="background: #ffffff;">
   <div class="container">
     <div class="section__header animate-on-scroll" style="text-align: center; margin-bottom: 3.5rem;">
       <span class="section__tag">Success Stories</span>
@@ -777,90 +1012,363 @@ require_once 'includes/header.php';
   </div>
 </section>
 <!-- CTA BANNER -->
-<section class="cta-banner">
-  <div class="container cta-banner__inner animate-on-scroll">
-    <h2>Ready to Begin Your Global Education Journey?</h2>
-    <p>Join 5,000+ students who transformed their future with Bluestone Overseas Consultants.<br>Book your FREE consultation today &mdash; no commitment required!</p>
-    <div class="cta-buttons">
-      <a href="consultation.php" class="btn btn--white btn--lg"><i class="fa-solid fa-calendar-check"></i> Book Free Consultation</a>
-      <a href="tel:+919342899904" class="btn btn--ghost btn--lg"><i class="fa-solid fa-phone"></i> Call +91 93428 99904</a>
+<section class="cta-banner-wrapper" style="padding: 4rem 1rem;">
+  <div class="container cta-banner animate-on-scroll">
+    <div class="cta-banner__left">
+      <h2>Ready to Begin Your Global Education Journey?</h2>
+      <p>Join 5,000+ students who transformed their future with Bluestone Overseas Consultants.<br>Book your FREE consultation today &mdash; no commitment required!</p>
+      
+      <div class="cta-buttons">
+        <a href="consultation.php" class="btn btn--cyan"><i class="fa-solid fa-graduation-cap"></i> Book Free Consultation</a>
+        <a href="tel:+919342899904" class="btn btn--orange"><i class="fa-solid fa-phone"></i> Call +91 93428 99904</a>
+      </div>
+
+      <div class="cta-tags">
+        <span class="cta-tag"><i class="fa-solid fa-fire" style="color: #fbbf24;"></i> Trending</span>
+        <span class="cta-tag">Data Science</span>
+        <span class="cta-tag">MBA</span>
+        <span class="cta-tag">Computer Science</span>
+        <span class="cta-tag">Nursing</span>
+      </div>
+    </div>
+    <div class="cta-banner__right">
+      <div class="cta-image-circle">
+        <img src="assets/images/cont.png" alt="Happy Student">
+      </div>
     </div>
   </div>
 </section>
 
-<!-- SPECIALIST SERVICES (PR, JOBS & VISITOR VISAS) -->
-<section class="section" style="background:#f8fafc">
-  <div class="container">
-    <div class="section__header animate-on-scroll">
-      <span class="section__tag">Global Opportunities</span>
-      <h2 class="section__title">Specialist <span>Services</span></h2>
-      <p class="section__subtitle">Explore our elite pathways for professional settlement, global careers, and stress-free international travel.</p>
-      <div class="accent-bar"></div>
+
+
+<?php
+// Fetch active popups
+$popups = [];
+if (isset($pdo)) {
+    try {
+        $stmt = $pdo->query("SELECT * FROM site_popup WHERE is_active = 1 ORDER BY id DESC");
+        $popups = $stmt->fetchAll();
+    } catch (PDOException $e) {
+        $popups = [];
+    }
+}
+$popupCount = count($popups);
+?>
+
+<?php if ($popupCount > 0): ?>
+<div id="sitePopupModal" class="site-popup-overlay">
+    <!-- Reduced container size to 400px for smaller posts -->
+    <div class="site-popup-container">
+        <button id="sitePopupClose" class="site-popup-close">&times;</button>
+        
+        <?php if ($popupCount === 1): 
+            $popup = $popups[0];
+        ?>
+            <div class="single-popup-card">
+                <?php if (!empty($popup['link_url'])): ?>
+                    <a href="<?php echo htmlspecialchars($popup['link_url']); ?>" target="_blank">
+                        <img src="<?php echo htmlspecialchars(BASE_URL . $popup['image_path']); ?>" alt="Social Media Business Post">
+                    </a>
+                <?php else: ?>
+                    <img src="<?php echo htmlspecialchars(BASE_URL . $popup['image_path']); ?>" alt="Social Media Business Post">
+                <?php endif; ?>
+            </div>
+            
+        <?php else: ?>
+            <div class="stack-slider-container">
+                <?php foreach ($popups as $index => $popup): ?>
+                    <div class="stack-card" data-index="<?= $index ?>">
+                        <?php if (!empty($popup['link_url'])): ?>
+                            <a href="<?php echo htmlspecialchars($popup['link_url']); ?>" target="_blank">
+                                <img src="<?php echo htmlspecialchars(BASE_URL . $popup['image_path']); ?>" alt="Social Media Business Post">
+                            </a>
+                        <?php else: ?>
+                            <img src="<?php echo htmlspecialchars(BASE_URL . $popup['image_path']); ?>" alt="Social Media Business Post">
+                        <?php endif; ?>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
     </div>
-    
-    <div class="services-grid">
-      <?php
-      try {
-          $stmt = $pdo->query("SELECT * FROM specialist_services WHERE is_active = 1 ORDER BY id ASC");
-          $db_specs = $stmt->fetchAll();
-      } catch (PDOException $e) {
-          $db_specs = [];
-      }
-      
-      foreach($db_specs as $spec):
-          $color = clean_output($spec['color']);
-          $icon = clean_output($spec['icon']);
-          $title = clean_output($spec['title']);
-          $tag = clean_output($spec['category_tag']);
-          $desc = clean_output($spec['description']);
-          $btn = clean_output($spec['button_text']);
-          $link = clean_output($spec['button_link']);
-          
-          $bullets = [];
-          for ($b = 1; $b <= 3; $b++) {
-              if (!empty($spec["bullet$b"])) {
-                  $bullets[] = $spec["bullet$b"];
-              }
-          }
-          
-          $sideColor = 'var(--primary)';
-          $bgColor = 'rgba(239, 68, 68, 0.1)';
-          if ($color === 'purple') {
-              $sideColor = 'var(--accent)';
-              $bgColor = 'rgba(139, 92, 246, 0.1)';
-          } elseif ($color === 'orange') {
-              $sideColor = '#f97316';
-              $bgColor = 'rgba(249, 115, 22, 0.1)';
-          } elseif ($color === 'teal') {
-              $sideColor = '#14b8a6';
-              $bgColor = 'rgba(20, 184, 166, 0.1)';
-          } elseif ($color === 'pink') {
-              $sideColor = '#ec4899';
-              $bgColor = 'rgba(236, 72, 153, 0.1)';
-          } elseif ($color === 'gold') {
-              $sideColor = '#eab308';
-              $bgColor = 'rgba(234, 179, 8, 0.1)';
-          }
-      ?>
-      <div class="service-card-new animate-on-scroll" style="background: #fff; border-radius: 16px; padding: 2.25rem 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.04); border: 1px solid rgba(14, 165, 233, 0.08); display: flex; flex-direction: column; transition: all 0.3s ease; position: relative; overflow: hidden;">
-        <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: <?= $sideColor ?>;"></div>
-        <div class="service-card-new__icon" style="width: 60px; height: 60px; border-radius: 12px; background: <?= $bgColor ?>; display: grid; place-items: center; font-size: 1.75rem; color: <?= $sideColor ?>; margin-bottom: 1.5rem;">
-          <i class="fa-solid <?= $icon ?>"></i>
-        </div>
-        <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: #64748b; letter-spacing: 1px; margin-bottom: 0.5rem; display: block;"><?= $tag ?></span>
-        <h3 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 1rem; color: var(--dark);"><?= $title ?></h3>
-        <p style="font-size: 0.9rem; color: #64748b; line-height: 1.6; margin-bottom: 1.5rem;"><?= $desc ?></p>
-        <ul style="list-style: none; padding: 0; margin: 0 0 2rem 0; display: flex; flex-direction: column; gap: 0.75rem;">
-          <?php foreach($bullets as $bText): ?>
-            <li style="font-size: 0.85rem; color: #334155; display: flex; align-items: center; gap: 0.5rem;"><i class="fa-solid fa-circle-check" style="color: #22c55e;"></i> <?= clean_output($bText) ?></li>
-          <?php endforeach; ?>
-        </ul>
-        <a href="<?= $link ?>" class="btn" style="margin-top: auto; justify-content: center; width: 100%; background: <?= $sideColor ?>; color: #fff;"><?= $btn ?> <i class="fa-solid fa-arrow-right"></i></a>
-      </div>
-      <?php endforeach; ?>
-    </div>
-  </div>
-</section>
+</div>
+
+<style>
+.site-popup-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 99999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    backdrop-filter: blur(5px);
+}
+.site-popup-overlay.show {
+    display: flex;
+    opacity: 1;
+}
+.site-popup-container {
+    position: relative;
+    max-width: 540px; /* Slightly larger to allow buffer room */
+    width: 85%;
+    max-height: 85vh;
+    background: transparent;
+    /* Removed border-radius and overflow to prevent browser from clipping child layers */
+    transform: scale(0.9);
+    transition: transform 0.4s ease;
+    margin: 20px;
+}
+.site-popup-overlay.show .site-popup-container {
+    transform: scale(1);
+}
+
+.single-popup-card {
+    background: #fff;
+    border: 8px solid #fff;
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    overflow: hidden;
+}
+.single-popup-card img {
+    width: 100%;
+    max-height: 80vh;
+    display: block;
+    object-fit: contain;
+}
+
+.stack-slider-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/5;
+    max-height: 80vh;
+    margin: 0 auto;
+    perspective: 1200px;
+    transform-style: preserve-3d;
+    overflow: visible !important;
+}
+.stack-card {
+    position: absolute;
+    top: 5%; left: 5%;
+    width: 90%; height: 90%;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+    transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1), opacity 0.6s ease;
+    border: 8px solid #fff;
+    overflow: hidden;
+    transform-origin: center center;
+}
+.stack-card a, .single-popup-card a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.stack-card img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    background: #f8fafc;
+}
+
+.site-popup-close {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s, transform 0.3s;
+}
+.site-popup-close:hover {
+    background: #dc2626;
+    transform: scale(1.1);
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function() {
+        const popup = document.getElementById('sitePopupModal');
+        if (popup) {
+            popup.classList.add('show');
+            
+            // Initialize stacked card slider if it exists
+            const stackCards = document.querySelectorAll('.stack-card');
+            if (stackCards.length > 0) {
+                let currentIndex = 0;
+                const totalCards = stackCards.length;
+                
+                function updateStack() {
+                    stackCards.forEach((card, i) => {
+                        let offset = i - currentIndex;
+                        if (offset < 0) offset += totalCards;
+                        
+                        if (offset === 0) {
+                            // Front active card
+                            card.style.transform = 'translateZ(0) rotate(0deg) scale(1)';
+                            card.style.zIndex = 100;
+                            card.style.opacity = 1;
+                        } else if (offset === 1) {
+                            // First card behind
+                            card.style.transform = 'translateZ(-50px) translateX(15px) rotate(10deg) scale(0.95)';
+                            card.style.zIndex = 90;
+                            card.style.opacity = 0.9;
+                        } else if (offset === 2) {
+                            // Second card behind
+                            card.style.transform = 'translateZ(-100px) translateX(-15px) rotate(-15deg) scale(0.9)';
+                            card.style.zIndex = 80;
+                            card.style.opacity = 0.8;
+                        } else {
+                            // Hidden behind
+                            card.style.transform = 'translateZ(-150px) scale(0.8)';
+                            card.style.zIndex = 10;
+                            card.style.opacity = 0;
+                        }
+                    });
+                }
+                
+                // Initial update
+                setTimeout(updateStack, 50);
+                
+                // Auto-slide every 3 seconds
+                setInterval(() => {
+                    currentIndex = (currentIndex + 1) % totalCards;
+                    updateStack();
+                }, 3000);
+            }
+        }
+    }, 3000); // 3 second delay
+
+    const closeBtn = document.getElementById('sitePopupClose');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+            document.getElementById('sitePopupModal').classList.remove('show');
+            setTimeout(() => {
+                document.getElementById('sitePopupModal').style.display = 'none';
+            }, 400);
+        });
+    }
+
+    // ── Country Cards Carousel — Smooth Circular Scroll ──
+    // Each card waiting off-stage is parked at the nearest entry/exit edge
+    // (slots ±3, opacity 0). When the carousel advances, every card slides
+    // continuously from its current position to the next — no jumping ever.
+    const carouselContainer = document.getElementById('skyCardsCarousel');
+    if (carouselContainer) {
+        const cards  = Array.from(carouselContainer.querySelectorAll('.sky-card'));
+        const badges = Array.from(document.querySelectorAll('.hero-sky__countries-grid .country-pill-badge'));
+        let focus = 0;
+        const total = cards.length;
+
+        // Slot definitions — 7 visible slots plus two invisible staging slots at ±3
+        // Cards ≥4 away park at the ±3 staging slot (opacity 0) on the correct side,
+        // so they slide IN smoothly when they become visible.
+        const SLOTS = {
+            '-3': { x: -520, y: 90, r: -38, s: 0.60, o: 0,    z: 0  }, // staging / exit left
+            '-2': { x: -310, y: 42, r: -24, s: 0.80, o: 0.68, z: 1  },
+            '-1': { x: -160, y: 10, r: -12, s: 0.90, o: 0.87, z: 2  },
+             '0': { x:    0, y:-35, r:   0, s: 1.12, o: 1.00, z: 10 }, // focused centre
+             '1': { x:  160, y: 10, r:  12, s: 0.90, o: 0.87, z: 2  },
+             '2': { x:  310, y: 42, r:  24, s: 0.80, o: 0.68, z: 1  },
+             '3': { x:  520, y: 90, r:  38, s: 0.60, o: 0,    z: 0  }, // staging / exit right
+        };
+
+        // Ease-out-quart — fast start, smooth deceleration
+        const EASING = 'cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        const DURATION = 750; // ms
+
+        function setTransition(card, on) {
+            card.style.transition = on
+                ? `transform ${DURATION}ms ${EASING}, opacity ${DURATION * 0.7}ms ease-out`
+                : 'none';
+        }
+
+        function applyCard(card, dist) {
+            // Clamp to staging slot if the card is far off-stage,
+            // parking it on the side it will enter from.
+            const key = Math.max(-3, Math.min(3, dist));
+            const slot = SLOTS[String(key)];
+            card.style.transform     = `translateX(${slot.x}px) translateY(${slot.y}px) rotate(${slot.r}deg) scale(${slot.s})`;
+            card.style.opacity       = String(slot.o);
+            card.style.zIndex        = String(slot.z);
+            card.style.pointerEvents = dist === 0 ? 'auto' : 'none';
+        }
+
+        function shortDist(i) {
+            // Circular shortest-path distance from focus
+            let d = i - focus;
+            if (d >  Math.floor(total / 2)) d -= total;
+            if (d < -Math.floor(total / 2)) d += total;
+            return d;
+        }
+
+        function render(animated) {
+            cards.forEach((card, i) => {
+                setTransition(card, animated);
+                const d = shortDist(i);
+                applyCard(card, d);
+                d === 0 ? card.classList.add('active') : card.classList.remove('active');
+            });
+            badges.forEach((b, i) => {
+                i === focus ? b.classList.add('active') : b.classList.remove('active');
+            });
+        }
+
+        // ── Bootstrap: park all cards at their initial positions without animation ──
+        render(false);
+        // Then unlock transitions one frame later
+        requestAnimationFrame(() => render(true));
+
+        // ── Auto-advance ──
+        let timer = setInterval(() => {
+            focus = (focus + 1) % total;
+            render(true);
+        }, 3500);
+
+        function resetTimer() {
+            clearInterval(timer);
+            timer = setInterval(() => {
+                focus = (focus + 1) % total;
+                render(true);
+            }, 3500);
+        }
+
+        // ── Click pill badge → jump to that card ──
+        badges.forEach((badge, i) => {
+            badge.addEventListener('click', e => {
+                e.preventDefault();
+                focus = i;
+                render(true);
+                resetTimer();
+            });
+        });
+
+        // ── Click a side card → bring it to centre ──
+        cards.forEach((card, i) => {
+            card.addEventListener('click', () => {
+                if (shortDist(i) !== 0) {
+                    focus = i;
+                    render(true);
+                    resetTimer();
+                }
+            });
+        });
+    }
+});
+</script>
+<?php endif; ?>
 
 </main>
 <?php require_once 'includes/footer.php'; ?>
+

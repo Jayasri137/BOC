@@ -209,3 +209,159 @@ function handleFormSubmit(e) {
 
   return false;
 }
+
+// Animate plane naturally along the SVG arc path
+function initPlaneOnArc() {
+  const svg       = document.querySelector('.hero-sky__arc-svg');
+  const path      = svg?.querySelector('#sky-arc-path');
+  const maskPath  = svg?.querySelector('#mask-path');
+  const plane     = document.querySelector('.hero-sky__plane-on-arc');
+  const container = document.querySelector('.hero-sky__arc-container');
+  if (!svg || !path || !plane || !container) return;
+
+  const pathLen = path.getTotalLength();
+  const DURATION = 9000;   // ms for one full pass — slower = more majestic
+  const SAMPLE   = 8;      // px look-ahead for heading calculation
+  
+  if (maskPath) {
+    maskPath.style.strokeDasharray = pathLen;
+    maskPath.style.strokeDashoffset = pathLen;
+  }
+
+  // Ease in-out sine: starts slow, accelerates in middle, slows at end
+  function easeInOutSine(t) {
+    return -(Math.cos(Math.PI * t) - 1) / 2;
+  }
+
+  // Get curvature-based bank angle (how much the plane leans into turns)
+  function getBankAngle(dist) {
+    const d1 = Math.max(0, dist - SAMPLE);
+    const d2 = Math.min(pathLen, dist + SAMPLE);
+    const pA  = path.getPointAtLength(d1);
+    const pB  = path.getPointAtLength(d2);
+    // Direction vector change approximates curvature
+    const dx  = pB.x - pA.x;
+    const dy  = pB.y - pA.y;
+    const len = Math.hypot(dx, dy) || 1;
+    // curvature direction in normalised coords
+    const curv = (dx / len) * 18; // ±18° max bank
+    return curv;
+  }
+
+  let startTime = null;
+  let lastElapsed = 0;
+
+  function tick(now) {
+    if (!startTime) startTime = now;
+    const elapsed = (now - startTime) % DURATION;
+    
+    // If elapsed jumps backwards, the loop has restarted
+    if (elapsed < lastElapsed - 1000) {
+      document.dispatchEvent(new Event('planeLoopRestart'));
+    }
+    lastElapsed = elapsed;
+
+    const raw = elapsed / DURATION;              // 0..1 linear
+    const t   = easeInOutSine(raw);             // eased 0..1
+    // Travel left→right: start at dist=0, end at dist=pathLen
+    const dist = t * pathLen;
+
+    // Current position point
+    const p = path.getPointAtLength(dist);
+    
+    // Draw trail exactly up to plane
+    if (maskPath) {
+      maskPath.style.strokeDashoffset = pathLen - dist;
+    }
+
+    // Look-ahead point for heading angle (sample AHEAD in travel direction)
+    const aheadDist = Math.min(pathLen, dist + SAMPLE);
+    const p2 = path.getPointAtLength(aheadDist);
+
+    // Convert SVG coords → screen → container-relative
+    const svgPt = svg.createSVGPoint();
+    svgPt.x = p.x; svgPt.y = p.y;
+    const screen = svgPt.matrixTransform(svg.getScreenCTM());
+    const rect   = container.getBoundingClientRect();
+
+    const cx = screen.x - rect.left;
+    const cy = screen.y - rect.top;
+
+    // Very subtle altitude bob (simulates air pocket turbulence)
+    const bob = Math.sin(now / 600) * 1.8;
+
+    plane.style.left      = `${cx}px`;
+    plane.style.top       = `${cy + bob}px`;
+    plane.style.transform = `translate(-50%, -50%)`;
+
+    requestAnimationFrame(tick);
+  }
+
+  requestAnimationFrame(tick);
+}
+
+window.addEventListener('load', initPlaneOnArc);
+
+
+/* --- HERO SLIDER LOGIC --- */
+function initHeroSlider() {
+  const slides = document.querySelectorAll('.hero-slide');
+  if (slides.length <= 1) return; // No slider needed if only 1 slide
+
+  let currentSlide = 0;
+  let isPaused = false;
+
+  const nextBtn = document.querySelector('.hero-slider-next');
+  const prevBtn = document.querySelector('.hero-slider-prev');
+
+  function updateArrows() {
+    if (currentSlide === 0) {
+      if (nextBtn) nextBtn.style.display = 'none';
+      if (prevBtn) prevBtn.style.display = 'none';
+    } else {
+      if (nextBtn) nextBtn.style.display = 'flex';
+      if (prevBtn) prevBtn.style.display = 'flex';
+    }
+  }
+
+  function nextSlide() {
+    slides[currentSlide].classList.remove('active');
+    currentSlide = (currentSlide + 1) % slides.length;
+    slides[currentSlide].classList.add('active');
+    updateArrows();
+  }
+
+  function prevSlide() {
+    slides[currentSlide].classList.remove('active');
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    slides[currentSlide].classList.add('active');
+    updateArrows();
+  }
+
+  // Initial arrow state
+  updateArrows();
+
+  // Sync banner change exactly when the airplane finishes its flyby
+  document.addEventListener('planeLoopRestart', () => {
+    if (!isPaused) nextSlide();
+  });
+
+  // Manual Navigation
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      nextSlide();
+      isPaused = true; // Pause auto-sync temporarily on manual click
+      setTimeout(() => isPaused = false, 15000); // Resume sync after 15 seconds
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      prevSlide();
+      isPaused = true;
+      setTimeout(() => isPaused = false, 15000);
+    });
+  }
+}
+
+window.addEventListener('DOMContentLoaded', initHeroSlider);

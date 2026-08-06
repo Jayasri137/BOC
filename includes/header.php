@@ -288,8 +288,10 @@ if (!isset($pageDesc) || empty(trim($pageDesc))) {
   </script>
   <?php endif; ?>
 </head>
-<body>
+<body class="<?= $currentPage === 'index' ? 'page-home' : '' ?>">
 
+<!-- Header Wrapper for Absolute Overlay on Homepage -->
+<div class="header-wrapper">
 <!-- Top Bar -->
 <div class="topbar">
   <div class="container topbar__inner">
@@ -303,7 +305,7 @@ if (!isset($pageDesc) || empty(trim($pageDesc))) {
       <a href="<?= SITE_INSTAGRAM ?>" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
       <a href="<?= SITE_YOUTUBE ?>" target="_blank" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
       <a href="<?= SITE_LINKEDIN ?>" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-      <a href="https://wa.me/919342899904" target="_blank" class="topbar__wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+      <a href="https://wa.me/919342899904" target="_blank" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
     </div>
   </div>
 </div>
@@ -323,7 +325,7 @@ if (!isset($pageDesc) || empty(trim($pageDesc))) {
       <ul class="nav-list">
         <!-- Study abroad steps -->
         <li class="has-dropdown">
-          <a href="services.php">Study abroad steps <i class="fa-solid fa-chevron-down"></i></a>
+          <a href="services.php">Study Abroad Steps <i class="fa-solid fa-chevron-down"></i></a>
           <div class="dropdown">
             <a href="guide-me.php" class="dropdown-item">
               <span class="di-icon"><i class="fa-solid fa-route"></i></span>
@@ -354,7 +356,7 @@ if (!isset($pageDesc) || empty(trim($pageDesc))) {
 
         <!-- Study destinations -->
         <li class="has-dropdown <?= isset($isStudyAbroad) && $isStudyAbroad ? 'active' : '' ?>">
-          <a href="country.php">Study destinations <i class="fa-solid fa-chevron-down"></i></a>
+          <a href="country.php">Study Destinations <i class="fa-solid fa-chevron-down"></i></a>
           <div class="dropdown mega-dropdown mega-countries">
             <p class="mega-label">Popular Destinations</p>
             <div class="countries-grid">
@@ -415,7 +417,7 @@ if (!isset($pageDesc) || empty(trim($pageDesc))) {
 
         <!-- Find a course -->
         <li class="has-dropdown">
-          <a href="#">Find a course <i class="fa-solid fa-chevron-down"></i></a>
+          <a href="#">Find a Course <i class="fa-solid fa-chevron-down"></i></a>
           <div class="dropdown">
             <a href="courses.php" class="dropdown-item">
               <span class="di-icon"><i class="fa-solid fa-book-open"></i></span>
@@ -528,6 +530,6 @@ if (!isset($pageDesc) || empty(trim($pageDesc))) {
       <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
-    </div>
   </div>
 </header>
+</div>

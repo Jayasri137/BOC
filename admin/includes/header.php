@@ -76,6 +76,11 @@ $initials = strtoupper(substr($initials, 0, 2));
                 <span>Hero Slides</span>
             </a>
 
+            <a href="site_popup.php" class="menu-item <?php echo $currentPage === 'site_popup.php' ? 'active' : ''; ?>">
+                <i class="fa-solid fa-window-restore"></i>
+                <span>Site Popup</span>
+            </a>
+
             <a href="services.php" class="menu-item <?php echo $currentPage === 'services.php' ? 'active' : ''; ?>">
                 <i class="fa-solid fa-graduation-cap"></i>
                 <span>Services Cards</span>

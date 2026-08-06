@@ -114,11 +114,8 @@ require_once 'includes/header.php';
       <div class="leadership-wrapper">
         <div class="leadership-image-col animate-on-scroll">
           <div class="leadership-image-frame">
-            <img src="assets/images/MD.jpeg" alt="Mr. Kumaresan - Managing Director of Bluestone Overseas Consultants">
-            <div class="leadership-experience">
-              <span class="exp-num">10+</span>
-              <span class="exp-text">Years of Excellence</span>
-            </div>
+            <img src="assets/images/MD1.jpeg" alt="Mr. Kumaresan - Managing Director of Bluestone Overseas Consultants">
+           
             <div class="leadership-image-dots"></div>
           </div>
         </div>

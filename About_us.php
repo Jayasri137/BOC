@@ -16,7 +16,7 @@ require_once 'includes/header.php';
         </div>
         <div class="animate-on-scroll delay-1">
           <span class="section__tag">Our Story</span>
-          <h1 class="section__title" style="text-align:left;margin-top:.75rem">A Beacon of Hope for <span>Global Aspirations</span></h1>
+          <h2 class="section__title" style="text-align:left;margin-top:.75rem">A Beacon of Hope for <span>Global Aspirations</span></h2>
           <p class="p-lead">Bluestones Overseas Consultants is a top-tier visa and immigration consultancy known for its dedicated and personalized client support.</p>
           <div class="story-content">
             <p>Established in 2015, our firm has become a beacon of hope for individuals aspiring to navigate the complexities of immigration processes across major global destinations.</p>

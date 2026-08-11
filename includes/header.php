@@ -533,3 +533,97 @@ if (!isset($pageDesc) || empty(trim($pageDesc))) {
   </div>
 </header>
 </div>
+
+<?php if ($currentPage !== 'index'): ?>
+<!-- Global Page Hero for Internal Pages -->
+<section class="page-hero">
+  
+  <div class="container page-hero__inner">
+    <!-- Left Column: Content -->
+    <div class="page-hero__content animate-on-scroll">
+      <?php 
+        // Clean up title for hero display
+        $displayTitle = isset($pageTitle) ? explode('|', $pageTitle)[0] : 'Welcome';
+        $displayTitle = trim($displayTitle);
+      ?>
+      <h1 class="page-hero__title"><?= htmlspecialchars($displayTitle) ?></h1>
+      
+      <!-- Breadcrumbs -->
+      <nav aria-label="breadcrumb" class="page-hero__breadcrumb">
+        <ol>
+          <li><a href="index.php"><i class="fa-solid fa-house"></i> Home</a></li>
+          <li class="separator"><i class="fa-solid fa-chevron-right"></i></li>
+          <li aria-current="page"><?= htmlspecialchars($displayTitle) ?></li>
+        </ol>
+      </nav>
+
+      <?php if (!empty($pageDesc)): ?>
+        <p class="page-hero__desc"><?= htmlspecialchars($pageDesc) ?></p>
+      <?php endif; ?>
+    </div>
+    
+    <!-- Right Column: Image -->
+    <div class="page-hero__image-col animate-on-scroll delay-1">
+      <?php 
+        // Intelligent dynamic image mapping
+        if (isset($pageHeroImage)) {
+            $heroImg = $pageHeroImage;
+        } else {
+            $heroImg = 'assets/images/cont.png'; // Fallback
+            $pageStr = strtolower($currentPage);
+            
+            // Map based on keywords in the page name
+            if (strpos($pageStr, 'uk') !== false && $pageStr !== 'uk-template') {
+                $heroImg = 'assets/images/3d_tower_bridge.png';
+            } elseif (strpos($pageStr, 'usa') !== false) {
+                $heroImg = 'assets/images/3d_usa.png';
+            } elseif (strpos($pageStr, 'canada') !== false) {
+                $heroImg = 'assets/images/3d_canada.png';
+            } elseif (strpos($pageStr, 'australia') !== false) {
+                $heroImg = 'assets/images/3d_sydney_opera.png';
+            } elseif (strpos($pageStr, 'new-zealand') !== false || strpos($pageStr, 'nz') !== false) {
+                $heroImg = 'assets/images/3d_new_zealand.png';
+            } elseif (strpos($pageStr, 'ireland') !== false) {
+                $heroImg = 'assets/images/3d_ireland.png';
+            } elseif (strpos($pageStr, 'germany') !== false) {
+                $heroImg = 'assets/images/3d_germany.png';
+            } elseif (strpos($pageStr, 'france') !== false) {
+                $heroImg = 'assets/images/3d_eiffel_tower.png';
+            } elseif (strpos($pageStr, 'visa') !== false) {
+                $heroImg = 'assets/images/service_visa_3d.png';
+            } elseif (strpos($pageStr, 'financial') !== false || strpos($pageStr, 'loan') !== false || strpos($pageStr, 'scholarship') !== false) {
+                $heroImg = 'assets/images/service_financing_3d.png';
+            } elseif (strpos($pageStr, 'admission') !== false || strpos($pageStr, 'university') !== false || strpos($pageStr, 'universities') !== false) {
+                $heroImg = 'assets/images/service_university_3d.png';
+            } elseif (strpos($pageStr, 'coaching') !== false || strpos($pageStr, 'ielts') !== false || strpos($pageStr, 'toefl') !== false || strpos($pageStr, 'pte') !== false) {
+                $heroImg = 'assets/images/service_coaching_3d.png';
+            } elseif (strpos($pageStr, 'mbbs') !== false) {
+                $heroImg = 'assets/images/service_mbbs_3d.png';
+            } elseif ($pageStr === 'services') {
+                $heroImg = 'assets/images/services_banner.png';
+            } elseif ($pageStr === 'contact' || strpos($pageStr, 'branch') !== false) {
+                $heroImg = 'assets/images/hero-counselling.png';
+            } elseif ($pageStr === 'about_us' || $pageStr === 'about') {
+                $heroImg = 'assets/images/woman-hero.png';
+            } elseif ($pageStr === 'student-counselling' || strpos($pageStr, 'guide') !== false) {
+                $heroImg = 'assets/images/img10.png';
+            }
+        }
+      ?>
+      <div class="page-hero__image-wrapper">
+        <!-- Organic Morphing Blob Background -->
+        <div class="page-hero__blob"></div>
+        
+        <img src="<?= htmlspecialchars($heroImg) ?>" alt="<?= htmlspecialchars($displayTitle) ?>" class="page-hero__image">
+      </div>
+    </div>
+  </div>
+  
+  <!-- Bottom Curve matching site background -->
+  <div class="page-hero__curve">
+    <svg viewBox="0 0 1440 100" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,100 C480,0 960,0 1440,100 L1440,100 L0,100 Z" fill="currentColor"/>
+    </svg>
+  </div>
+</section>
+<?php endif; ?>

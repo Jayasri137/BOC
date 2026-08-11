@@ -5,7 +5,6 @@ $pageDesc = 'Get in touch with our team for admissions, visas, coaching, and stu
 require_once 'includes/header.php';
 ?>
 <main>
-<div class="container" style="padding-top: 2rem; padding-bottom: 1rem;"><h1 class="section__title" style="text-align:center; margin:0; font-size: 2.2rem;">Contact Our Overseas Education Experts</h1></div>
 
 <section class="section contact-section">
   <div class="container">

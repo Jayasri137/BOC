@@ -104,7 +104,6 @@ $pageDesc = 'From counselling to visa approval, explore end-to-end overseas educ
 require_once 'includes/header.php';
 ?>
 <main>
-<div class="container" style="padding-top: 2rem; padding-bottom: 1rem;"><h1 class="section__title" style="text-align:center; margin:0; font-size: 2.2rem;">Our Study Abroad Services</h1></div>
 
   <section class="section">
     <div class="container">
@@ -186,7 +185,7 @@ require_once 'includes/header.php';
 
         <div class="grid grid--2 gap--4 align-center">
           <div class="col-lg-6 mb-4 mb-lg-0 animate-on-scroll">
-            <h1 class="section__title" style="text-align:left; margin-top:2rem">What we cover in <span><?= $service['name'] ?></span></h1>
+            <h2 class="section__title" style="text-align:left; margin-top:2rem">What we cover in <span><?= $service['name'] ?></span></h2>
             <p class="lead"><?= clean_output($service['description'] ?? '') ?></p>
           </div>
           <div class="animate-on-scroll delay-1">

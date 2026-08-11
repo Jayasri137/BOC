@@ -5,7 +5,6 @@ $pageDesc = 'Join our events and seminars to connect with universities and study
 require_once 'includes/header.php';
 ?>
 <main>
-<div class="container" style="padding-top: 2rem; padding-bottom: 1rem;"><h1 class="section__title" style="text-align:center; margin:0; font-size: 2.2rem;">Upcoming Study Abroad Events & Seminars</h1></div>
 
   <section class="section">
     <div class="container">

@@ -34,7 +34,6 @@ if ($selected_country_id > 0) {
 ?>
 
 <main>
-<div class="container" style="padding-top: 2rem; padding-bottom: 1rem;"><h1 class="section__title" style="text-align:center; margin:0; font-size: 2.2rem;">Explore Global Universities</h1></div>
 
   <!-- DESTINATION FILTER SECTION -->
   <section class="section filter-section" style="padding-bottom: 2rem; background: #fff;">

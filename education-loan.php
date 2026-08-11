@@ -5,7 +5,6 @@ $pageDesc = 'Secure education loans with expert guidance for tuition fees and li
 require_once 'includes/header.php';
 ?>
 <main>
-<div class="container" style="padding-top: 2rem; padding-bottom: 1rem;"><h1 class="section__title" style="text-align:center; margin:0; font-size: 2.2rem;">Education Loan Support for International Students</h1></div>
 
   <section class="section">
     <div class="container">

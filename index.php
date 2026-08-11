@@ -53,9 +53,9 @@ require_once 'includes/header.php';
     </div>
   </div>
 
-  <div class="container hero-sky__inner">
+  <div class="container hero-sky__inner" style="flex-shrink: 0; min-height: max-content; padding-bottom: 2rem;">
     <!-- Center Content Slider -->
-    <div class="hero-slider-container">
+    <div class="hero-slider-container" style="flex-shrink: 0;">
       <!-- Left Arrow -->
       <button class="hero-slider-arrow hero-slider-prev" aria-label="Previous Slide"><i class="fa-solid fa-chevron-left"></i></button>
 
@@ -129,11 +129,12 @@ require_once 'includes/header.php';
     </div>
 
     <!-- Destination 3D Pop-out Cards — Arc Fan (Rotates automatically like a clock) -->
-    <div class="hero-sky__cards-row" id="skyCardsCarousel">
+    <div class="hero-sky__cards-row" id="skyCardsCarousel" style="flex-shrink: 0;">
       <!-- 1. Australia -->
       <div class="sky-card sky-card--sydney active" data-index="0">
         <div class="sky-card__body">
           <div class="sky-card__header">AUSTRALIA</div>
+          <div class="sky-card__subtitle">Top Universities</div>
           <div class="sky-card__image-wrapper">
             <img src="assets/images/aus.png" alt="Sydney Opera House 3D Pop-out">
           </div>
@@ -144,6 +145,7 @@ require_once 'includes/header.php';
       <div class="sky-card sky-card--china" data-index="1">
         <div class="sky-card__body">
           <div class="sky-card__header">CHINA</div>
+          <div class="sky-card__subtitle">Global Hub</div>
           <div class="sky-card__image-wrapper">
             <img src="assets/images/rus.png" alt="China Pagoda 3D Pop-out">
           </div>
@@ -154,6 +156,7 @@ require_once 'includes/header.php';
       <div class="sky-card sky-card--paris" data-index="2">
         <div class="sky-card__body">
           <div class="sky-card__header">DUBAI</div>
+          <div class="sky-card__subtitle">Rapid Growth</div>
           <div class="sky-card__image-wrapper">
             <img src="assets/images/3d_eiffel_tower.png" alt="Luxembourg Tower 3D Pop-out">
           </div>
@@ -164,6 +167,7 @@ require_once 'includes/header.php';
       <div class="sky-card sky-card--singapore" data-index="3">
         <div class="sky-card__body">
           <div class="sky-card__header">SINGAPORE</div>
+          <div class="sky-card__subtitle">Asian Gateway</div>
           <div class="sky-card__image-wrapper">
             <img src="assets/images/3d_st_basil.png" alt="Singapore 3D Pop-out">
           </div>
@@ -174,6 +178,7 @@ require_once 'includes/header.php';
       <div class="sky-card sky-card--russia" data-index="4">
         <div class="sky-card__body">
           <div class="sky-card__header">RUSSIA</div>
+          <div class="sky-card__subtitle">Medical Hub</div>
           <div class="sky-card__image-wrapper">
             <img src="assets/images/3d_st_basil.png" alt="Russia Kremlin 3D Pop-out">
           </div>
@@ -184,6 +189,7 @@ require_once 'includes/header.php';
       <div class="sky-card sky-card--spain" data-index="5">
         <div class="sky-card__body">
           <div class="sky-card__header">SPAIN</div>
+          <div class="sky-card__subtitle">Cultural Vibe</div>
           <div class="sky-card__image-wrapper">
             <img src="assets/images/3d_eiffel_tower.png" alt="Spain Palace 3D Pop-out">
           </div>
@@ -194,6 +200,7 @@ require_once 'includes/header.php';
       <div class="sky-card sky-card--china" data-index="6">
         <div class="sky-card__body">
           <div class="sky-card__header">UK</div>
+          <div class="sky-card__subtitle">Historic Excellence</div>
           <div class="sky-card__image-wrapper">
             <img src="assets/images/rus.png" alt="Moldova Castle 3D Pop-out">
           </div>
@@ -204,6 +211,7 @@ require_once 'includes/header.php';
       <div class="sky-card sky-card--london" data-index="7">
         <div class="sky-card__body">
           <div class="sky-card__header">CANADA</div>
+          <div class="sky-card__subtitle">Welcoming Culture</div>
           <div class="sky-card__image-wrapper">
             <img src="assets/images/3d_canada.png" alt="Canada CN Tower 3D Pop-out">
           </div>
@@ -214,6 +222,7 @@ require_once 'includes/header.php';
       <div class="sky-card sky-card--london" data-index="8">
         <div class="sky-card__body">
           <div class="sky-card__header">JAPAN</div>
+          <div class="sky-card__subtitle">Tech & Tradition</div>
           <div class="sky-card__image-wrapper">
             <img src="assets/images/3d_tower_bridge.png" alt="Ukraine Monument 3D Pop-out">
           </div>
@@ -224,6 +233,7 @@ require_once 'includes/header.php';
       <div class="sky-card sky-card--sydney" data-index="9">
         <div class="sky-card__body">
           <div class="sky-card__header">GERMANY</div>
+          <div class="sky-card__subtitle">Engineering Hub</div>
           <div class="sky-card__image-wrapper">
             <img src="assets/images/3d_germany.png" alt="Germany Brandenburg Gate 3D Pop-out">
           </div>
@@ -232,7 +242,7 @@ require_once 'includes/header.php';
     </div>
 
     <!-- Country Pill Badges Grid -->
-    <div class="hero-sky__countries-grid">
+    <div class="hero-sky__countries-grid" style="flex-shrink: 0; position: relative; z-index: 20;">
       <a href="Australia.php" class="country-pill-badge">
         <span class="flag-emoji">🇦🇺</span> Australia
       </a>
@@ -281,7 +291,7 @@ require_once 'includes/header.php';
   <div class="container">
     <div class="home-enquiry__grid">
       <!-- LEFT: Heading + Image -->
-      <div class="home-enquiry__image-col animate-on-scroll">
+      <div class="home-enquiry__image-col">
         <div class="section__header" style="text-align: left; margin-bottom: 2rem; max-width: 100%;">
           <span class="section__tag">Direct Admission &amp; Counselling</span>
           <h2 class="section__title" style="margin-top: 1rem;">Interested in <span>Studying Abroad</span> with Bluestone?</h2>
@@ -293,7 +303,7 @@ require_once 'includes/header.php';
       </div>
 
       <!-- RIGHT: Form Card Only -->
-      <div class="home-enquiry__form-col animate-on-scroll">
+      <div class="home-enquiry__form-col">
         <div class="home-enquiry__form-card">
           <!-- Background Glowing Blobs -->
           <div class="form-blobs">
@@ -554,13 +564,28 @@ require_once 'includes/header.php';
         
         <div class="process-steps" style="justify-content: center; gap: 2rem; margin-top: 0;">
           <?php
-          $steps=[
-            ['fa-comments','Free Counselling','Book a free session with our expert counsellor who assesses your profile and goals.','blue'],
-            ['fa-magnifying-glass','Course & Country Selection','We shortlist the best universities and programs matching your ambitions and budget.','purple'],
-            ['fa-file-contract','Application Filing','Our team prepares and submits your application with a flawless SOP and documents.','orange'],
-            ['fa-passport','Visa Processing','Get expert help with student visa applications, ensuring all requirements are met.','teal'],
-            ['fa-plane-departure','Fly Abroad!','Pre-departure briefing, accommodation guidance and you are off to your dream university!','pink'],
-          ];
+          try {
+              $stmt = $pdo->query("SELECT icon, title, description, color FROM process_steps WHERE is_active = 1 ORDER BY id ASC LIMIT 5");
+              $db_steps = $stmt->fetchAll();
+              if (count($db_steps) > 0) {
+                  $steps = [];
+                  foreach ($db_steps as $s) {
+                      $steps[] = [$s['icon'], $s['title'], $s['description'], $s['color']];
+                  }
+              }
+          } catch (PDOException $e) {
+              // Fallback is handled below if $steps is not set
+          }
+
+          if (!isset($steps) || count($steps) == 0) {
+              $steps=[
+                ['fa-comments','Free Counselling','Book a free session with our expert counsellor who assesses your profile and goals.','blue'],
+                ['fa-magnifying-glass','Course & Country Selection','We shortlist the best universities and programs matching your ambitions and budget.','purple'],
+                ['fa-file-contract','Application Filing','Our team prepares and submits your application with a flawless SOP and documents.','orange'],
+                ['fa-passport','Visa Processing','Get expert help with student visa applications, ensuring all requirements are met.','teal'],
+                ['fa-plane-departure','Fly Abroad!','Pre-departure briefing, accommodation guidance and you are off to your dream university!','pink'],
+              ];
+          }
           foreach($steps as $i=>[$icon,$title,$desc,$color]):
           ?>
           <div class="process-step animate-on-scroll delay-<?= $i ?>" style="flex: 1 1 160px; max-width: 220px; text-align: center;">
@@ -591,7 +616,7 @@ require_once 'includes/header.php';
     <div style="width: 100%; overflow: hidden;">
       <?php
       try {
-          $stmt = $pdo->query("SELECT * FROM services WHERE is_active = 1 ORDER BY id ASC");
+          $stmt = $pdo->query("SELECT * FROM services WHERE is_active = 1 ORDER BY id ASC LIMIT 8");
           $services_db = $stmt->fetchAll();
           $services = [];
           foreach ($services_db as $s) {
@@ -1063,27 +1088,32 @@ $popupCount = count($popups);
         
         <?php if ($popupCount === 1): 
             $popup = $popups[0];
+            $imgPath = $popup['image_path'];
+            if (strpos($imgPath, 'assets/') !== 0) $imgPath = 'assets/images/uploads/' . ltrim($imgPath, '/');
         ?>
             <div class="single-popup-card">
                 <?php if (!empty($popup['link_url'])): ?>
                     <a href="<?php echo htmlspecialchars($popup['link_url']); ?>" target="_blank">
-                        <img src="<?php echo htmlspecialchars(BASE_URL . $popup['image_path']); ?>" alt="Social Media Business Post">
+                        <img src="<?php echo htmlspecialchars(BASE_URL . $imgPath); ?>" alt="Social Media Business Post">
                     </a>
                 <?php else: ?>
-                    <img src="<?php echo htmlspecialchars(BASE_URL . $popup['image_path']); ?>" alt="Social Media Business Post">
+                    <img src="<?php echo htmlspecialchars(BASE_URL . $imgPath); ?>" alt="Social Media Business Post">
                 <?php endif; ?>
             </div>
             
         <?php else: ?>
             <div class="stack-slider-container">
-                <?php foreach ($popups as $index => $popup): ?>
+                <?php foreach ($popups as $index => $popup): 
+                    $imgPath = $popup['image_path'];
+                    if (strpos($imgPath, 'assets/') !== 0) $imgPath = 'assets/images/uploads/' . ltrim($imgPath, '/');
+                ?>
                     <div class="stack-card" data-index="<?= $index ?>">
                         <?php if (!empty($popup['link_url'])): ?>
                             <a href="<?php echo htmlspecialchars($popup['link_url']); ?>" target="_blank">
-                                <img src="<?php echo htmlspecialchars(BASE_URL . $popup['image_path']); ?>" alt="Social Media Business Post">
+                                <img src="<?php echo htmlspecialchars(BASE_URL . $imgPath); ?>" alt="Social Media Business Post">
                             </a>
                         <?php else: ?>
-                            <img src="<?php echo htmlspecialchars(BASE_URL . $popup['image_path']); ?>" alt="Social Media Business Post">
+                            <img src="<?php echo htmlspecialchars(BASE_URL . $imgPath); ?>" alt="Social Media Business Post">
                         <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
@@ -1195,180 +1225,58 @@ $popupCount = count($popups);
     transform: scale(1.1);
 }
 </style>
+<?php endif; ?>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
+// ── Popup Modal ──
+<?php if ($popupCount > 0): ?>
+document.addEventListener('DOMContentLoaded', function() {
     setTimeout(function() {
-        const popup = document.getElementById('sitePopupModal');
-        if (popup) {
-            popup.classList.add('show');
-            
-            // Initialize stacked card slider if it exists
-            const stackCards = document.querySelectorAll('.stack-card');
-            if (stackCards.length > 0) {
-                let currentIndex = 0;
-                const totalCards = stackCards.length;
-                
-                function updateStack() {
-                    stackCards.forEach((card, i) => {
-                        let offset = i - currentIndex;
-                        if (offset < 0) offset += totalCards;
-                        
-                        if (offset === 0) {
-                            // Front active card
-                            card.style.transform = 'translateZ(0) rotate(0deg) scale(1)';
-                            card.style.zIndex = 100;
-                            card.style.opacity = 1;
-                        } else if (offset === 1) {
-                            // First card behind
-                            card.style.transform = 'translateZ(-50px) translateX(15px) rotate(10deg) scale(0.95)';
-                            card.style.zIndex = 90;
-                            card.style.opacity = 0.9;
-                        } else if (offset === 2) {
-                            // Second card behind
-                            card.style.transform = 'translateZ(-100px) translateX(-15px) rotate(-15deg) scale(0.9)';
-                            card.style.zIndex = 80;
-                            card.style.opacity = 0.8;
-                        } else {
-                            // Hidden behind
-                            card.style.transform = 'translateZ(-150px) scale(0.8)';
-                            card.style.zIndex = 10;
-                            card.style.opacity = 0;
-                        }
-                    });
-                }
-                
-                // Initial update
-                setTimeout(updateStack, 50);
-                
-                // Auto-slide every 3 seconds
-                setInterval(() => {
-                    currentIndex = (currentIndex + 1) % totalCards;
-                    updateStack();
-                }, 3000);
-            }
-        }
-    }, 3000); // 3 second delay
+        var popup = document.getElementById('sitePopupModal');
+        if (!popup) return;
+        popup.classList.add('show');
 
-    const closeBtn = document.getElementById('sitePopupClose');
+        var stackCards = document.querySelectorAll('.stack-card');
+        if (stackCards.length > 0) {
+            var currentIndex = 0;
+            var totalCards = stackCards.length;
+            function updateStack() {
+                stackCards.forEach(function(card, i) {
+                    var offset = i - currentIndex;
+                    if (offset < 0) offset += totalCards;
+                    if (offset === 0) {
+                        card.style.transform = 'translateZ(0) rotate(0deg) scale(1)';
+                        card.style.zIndex = 100; card.style.opacity = 1;
+                    } else if (offset === 1) {
+                        card.style.transform = 'translateZ(-50px) translateX(15px) rotate(10deg) scale(0.95)';
+                        card.style.zIndex = 90; card.style.opacity = 0.9;
+                    } else if (offset === 2) {
+                        card.style.transform = 'translateZ(-100px) translateX(-15px) rotate(-15deg) scale(0.9)';
+                        card.style.zIndex = 80; card.style.opacity = 0.8;
+                    } else {
+                        card.style.transform = 'translateZ(-150px) scale(0.8)';
+                        card.style.zIndex = 10; card.style.opacity = 0;
+                    }
+                });
+            }
+            setTimeout(updateStack, 50);
+            setInterval(function() { currentIndex = (currentIndex + 1) % totalCards; updateStack(); }, 3000);
+        }
+    }, 3000);
+
+    var closeBtn = document.getElementById('sitePopupClose');
     if (closeBtn) {
         closeBtn.addEventListener('click', function() {
-            document.getElementById('sitePopupModal').classList.remove('show');
-            setTimeout(() => {
-                document.getElementById('sitePopupModal').style.display = 'none';
-            }, 400);
-        });
-    }
-
-    // ── Country Cards Carousel — Smooth Circular Scroll ──
-    // Each card waiting off-stage is parked at the nearest entry/exit edge
-    // (slots ±3, opacity 0). When the carousel advances, every card slides
-    // continuously from its current position to the next — no jumping ever.
-    const carouselContainer = document.getElementById('skyCardsCarousel');
-    if (carouselContainer) {
-        const cards  = Array.from(carouselContainer.querySelectorAll('.sky-card'));
-        const badges = Array.from(document.querySelectorAll('.hero-sky__countries-grid .country-pill-badge'));
-        let focus = 0;
-        const total = cards.length;
-
-        // Slot definitions — 7 visible slots plus two invisible staging slots at ±3
-        // Cards ≥4 away park at the ±3 staging slot (opacity 0) on the correct side,
-        // so they slide IN smoothly when they become visible.
-        const SLOTS = {
-            '-3': { x: -520, y: 90, r: -38, s: 0.60, o: 0,    z: 0  }, // staging / exit left
-            '-2': { x: -310, y: 42, r: -24, s: 0.80, o: 0.68, z: 1  },
-            '-1': { x: -160, y: 10, r: -12, s: 0.90, o: 0.87, z: 2  },
-             '0': { x:    0, y:-35, r:   0, s: 1.12, o: 1.00, z: 10 }, // focused centre
-             '1': { x:  160, y: 10, r:  12, s: 0.90, o: 0.87, z: 2  },
-             '2': { x:  310, y: 42, r:  24, s: 0.80, o: 0.68, z: 1  },
-             '3': { x:  520, y: 90, r:  38, s: 0.60, o: 0,    z: 0  }, // staging / exit right
-        };
-
-        // Ease-out-quart — fast start, smooth deceleration
-        const EASING = 'cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        const DURATION = 750; // ms
-
-        function setTransition(card, on) {
-            card.style.transition = on
-                ? `transform ${DURATION}ms ${EASING}, opacity ${DURATION * 0.7}ms ease-out`
-                : 'none';
-        }
-
-        function applyCard(card, dist) {
-            // Clamp to staging slot if the card is far off-stage,
-            // parking it on the side it will enter from.
-            const key = Math.max(-3, Math.min(3, dist));
-            const slot = SLOTS[String(key)];
-            card.style.transform     = `translateX(${slot.x}px) translateY(${slot.y}px) rotate(${slot.r}deg) scale(${slot.s})`;
-            card.style.opacity       = String(slot.o);
-            card.style.zIndex        = String(slot.z);
-            card.style.pointerEvents = dist === 0 ? 'auto' : 'none';
-        }
-
-        function shortDist(i) {
-            // Circular shortest-path distance from focus
-            let d = i - focus;
-            if (d >  Math.floor(total / 2)) d -= total;
-            if (d < -Math.floor(total / 2)) d += total;
-            return d;
-        }
-
-        function render(animated) {
-            cards.forEach((card, i) => {
-                setTransition(card, animated);
-                const d = shortDist(i);
-                applyCard(card, d);
-                d === 0 ? card.classList.add('active') : card.classList.remove('active');
-            });
-            badges.forEach((b, i) => {
-                i === focus ? b.classList.add('active') : b.classList.remove('active');
-            });
-        }
-
-        // ── Bootstrap: park all cards at their initial positions without animation ──
-        render(false);
-        // Then unlock transitions one frame later
-        requestAnimationFrame(() => render(true));
-
-        // ── Auto-advance ──
-        let timer = setInterval(() => {
-            focus = (focus + 1) % total;
-            render(true);
-        }, 3500);
-
-        function resetTimer() {
-            clearInterval(timer);
-            timer = setInterval(() => {
-                focus = (focus + 1) % total;
-                render(true);
-            }, 3500);
-        }
-
-        // ── Click pill badge → jump to that card ──
-        badges.forEach((badge, i) => {
-            badge.addEventListener('click', e => {
-                e.preventDefault();
-                focus = i;
-                render(true);
-                resetTimer();
-            });
-        });
-
-        // ── Click a side card → bring it to centre ──
-        cards.forEach((card, i) => {
-            card.addEventListener('click', () => {
-                if (shortDist(i) !== 0) {
-                    focus = i;
-                    render(true);
-                    resetTimer();
-                }
-            });
+            var modal = document.getElementById('sitePopupModal');
+            if (modal) {
+                modal.classList.remove('show');
+                setTimeout(function() { modal.style.display = 'none'; }, 400);
+            }
         });
     }
 });
-</script>
 <?php endif; ?>
-
+</script>
 </main>
 <?php require_once 'includes/footer.php'; ?>
 

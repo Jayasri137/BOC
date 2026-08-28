@@ -1,8 +1,8 @@
 <?php
 require_once 'includes/config.php';
 $pageTitle = 'Study Abroad Consultants in Coimbatore | Bluestone Overseas';
-
-// Fetch active hero slides from admin panel
+$pageDesc = 'Trusted UK Education Consultants in Coimbatore offering expert university selection, admissions, scholarships, visa guidance and complete study abroad support.';
+$pageKeywords = 'UK Education Consultants in Coimbatore, Australia Education Consultants in Coimbatore, New Zealand Education Consultants in Coimbatore, UG Programs Abroad, PG Programs Abroad, Study Abroad Consultants in Coimbatore, IELTS Coaching in Coimbatore, IELTS classes in Coimbatore, Best IELTS Coaching in Coimbatore, IELTS Training in Coimbatore, German language course, Japanese language course, German language classes, Japanese language classes, German Language Course in Coimbatore, Japanese Language Course in Coimbatore, German Language Training Centre in Coimbatore, Japanese Language Training Centre in Coimbatore, Postgraduate study in UK, Postgraduate study in Australia, Postgraduate study in New Zealand, Undergraduate study in Australia, Undergraduate study in UK, Undergraduate study in New Zealand, Postgraduate Study in UK – Coimbatore, Postgraduate Study in Australia – Coimbatore, Undergraduate Study in UK – Coimbatore, Undergraduate Study in Australia – Coimbatore, Postgraduate Study in New Zealand – Coimbatore, Undergraduate Study in New Zealand – Coimbatore';
 $heroSlides = [];
 try {
     $stmt = $pdo->prepare("SELECT * FROM hero_slides WHERE is_active = 1 ORDER BY id ASC");
@@ -72,11 +72,8 @@ require_once 'includes/header.php';
             </h1>
             <div class="hero-sky__actions">
               <a href="consultation.php" class="btn-sky-pill btn-sky-pill--solid">
-                <i class="fa-solid fa-phone" style="margin-right: 0.5rem;"></i> Request a Call back
-              </a>
-              <a href="testimonial-videos.php" class="btn-sky-pill btn-sky-pill--outline">
-                <i class="fa-solid fa-circle-play" style="margin-right: 0.5rem;"></i> Get Free Counselling
-              </a>
+                <i class="fa-solid fa-phone" style="margin-right: 0.5rem;"></i> Get Free Counselling
+</a>
             </div>
           </div>
         </div>
@@ -105,7 +102,7 @@ require_once 'includes/header.php';
                   </p>
                 <?php endif; ?>
 
-                <div class="hero-sky__actions" style="justify-content: <?= !empty($slide['image_path']) ? 'flex-start' : 'center' ?>;">
+                <div class="hero-sky__actions" style="justify-content: flex-start;">
                   <a href="consultation.php" class="btn-sky-pill btn-sky-pill--solid">
                     <?= htmlspecialchars($slide['button_text']) ?: 'Get Started' ?> <i class="fa-solid fa-arrow-right" style="margin-left: 0.5rem;"></i>
                   </a>
@@ -131,7 +128,7 @@ require_once 'includes/header.php';
     <!-- Destination 3D Pop-out Cards — Arc Fan (Rotates automatically like a clock) -->
     <div class="hero-sky__cards-row" id="skyCardsCarousel" style="flex-shrink: 0;">
       <!-- 1. Australia -->
-      <div class="sky-card sky-card--sydney active" data-index="0">
+      <div class="sky-card sky-card--sydney active" data-index="0" onclick="window.location.href='study-in-australia.php'" style="cursor: pointer;">
         <div class="sky-card__body">
           <div class="sky-card__header">AUSTRALIA</div>
           <div class="sky-card__subtitle">Top Universities</div>
@@ -142,7 +139,7 @@ require_once 'includes/header.php';
       </div>
 
       <!-- 2. China -->
-      <div class="sky-card sky-card--china" data-index="1">
+      <div class="sky-card sky-card--china" data-index="1" onclick="window.location.href='study-in-china.php'" style="cursor: pointer;">
         <div class="sky-card__body">
           <div class="sky-card__header">CHINA</div>
           <div class="sky-card__subtitle">Global Hub</div>
@@ -153,7 +150,7 @@ require_once 'includes/header.php';
       </div>
 
       <!-- 3. Dubai -->
-      <div class="sky-card sky-card--paris" data-index="2">
+      <div class="sky-card sky-card--paris" data-index="2" onclick="window.location.href='study-in-uae.php'" style="cursor: pointer;">
         <div class="sky-card__body">
           <div class="sky-card__header">DUBAI</div>
           <div class="sky-card__subtitle">Rapid Growth</div>
@@ -164,7 +161,7 @@ require_once 'includes/header.php';
       </div>
 
       <!-- 4. Singapore -->
-      <div class="sky-card sky-card--singapore" data-index="3">
+      <div class="sky-card sky-card--singapore" data-index="3" onclick="window.location.href='study-in-singapore.php'" style="cursor: pointer;">
         <div class="sky-card__body">
           <div class="sky-card__header">SINGAPORE</div>
           <div class="sky-card__subtitle">Asian Gateway</div>
@@ -175,7 +172,7 @@ require_once 'includes/header.php';
       </div>
 
       <!-- 5. Russia -->
-      <div class="sky-card sky-card--russia" data-index="4">
+      <div class="sky-card sky-card--russia" data-index="4" onclick="window.location.href='study-in-russia.php'" style="cursor: pointer;">
         <div class="sky-card__body">
           <div class="sky-card__header">RUSSIA</div>
           <div class="sky-card__subtitle">Medical Hub</div>
@@ -186,7 +183,7 @@ require_once 'includes/header.php';
       </div>
 
       <!-- 6. Spain -->
-      <div class="sky-card sky-card--spain" data-index="5">
+      <div class="sky-card sky-card--spain" data-index="5" onclick="window.location.href='study-in-spain.php'" style="cursor: pointer;">
         <div class="sky-card__body">
           <div class="sky-card__header">SPAIN</div>
           <div class="sky-card__subtitle">Cultural Vibe</div>
@@ -197,7 +194,7 @@ require_once 'includes/header.php';
       </div>
 
       <!-- 7. UK -->
-      <div class="sky-card sky-card--china" data-index="6">
+      <div class="sky-card sky-card--china" data-index="6" onclick="window.location.href='study-in-uk.php'" style="cursor: pointer;">
         <div class="sky-card__body">
           <div class="sky-card__header">UK</div>
           <div class="sky-card__subtitle">Historic Excellence</div>
@@ -208,7 +205,7 @@ require_once 'includes/header.php';
       </div>
 
       <!-- 8. Canada -->
-      <div class="sky-card sky-card--london" data-index="7">
+      <div class="sky-card sky-card--london" data-index="7" onclick="window.location.href='study-in-canada.php'" style="cursor: pointer;">
         <div class="sky-card__body">
           <div class="sky-card__header">CANADA</div>
           <div class="sky-card__subtitle">Welcoming Culture</div>
@@ -219,7 +216,7 @@ require_once 'includes/header.php';
       </div>
 
       <!-- 9. Japan -->
-      <div class="sky-card sky-card--london" data-index="8">
+      <div class="sky-card sky-card--london" data-index="8" onclick="window.location.href='study-in-japan.php'" style="cursor: pointer;">
         <div class="sky-card__body">
           <div class="sky-card__header">JAPAN</div>
           <div class="sky-card__subtitle">Tech & Tradition</div>
@@ -386,8 +383,8 @@ require_once 'includes/header.php';
       <div class="why-elite-grid" style="position: relative; z-index: 1;">
         <!-- LEFT COLUMN -->
         <div class="why-elite-content animate-on-scroll">
-          <span class="section__tag" style="background: rgba(255,255,255,0.2); color: #fff; border-color: rgba(255,255,255,0.3);">Why Bluestone</span>
-          <h2 class="section__title" style="margin-bottom: 1rem; color: #fff;">The Bluestone <span style="color: #0ea5e9;">Advantage</span></h2>
+          <span class="section__tag" style="background: rgba(255,255,255,0.2); color: #fff; border-color: rgba(255,255,255,0.3);">Why Choose</span>
+          <h2 class="section__title" style="margin-bottom: 1rem; color: #fff;">Bluestone </h2>
           <p class="section__subtitle" style="margin-bottom: 2.5rem; color: rgba(255,255,255,0.9);">Achieve your dream of studying abroad with expert admission, visa, IELTS, and university guidance.</p>
           
           <div class="elite-features-grid">
@@ -422,7 +419,7 @@ require_once 'includes/header.php';
             <div style="display: flex; flex-direction: column; gap: 1rem; align-items: flex-start; background: rgba(255, 255, 255, 0.1); padding: 1.5rem; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.background='rgba(255, 255, 255, 0.2)';" onmouseout="this.style.transform='translateY(0)'; this.style.background='rgba(255, 255, 255, 0.1)';">
               <div style="width: 50px; height: 50px; border-radius: 14px; background: rgba(255,255,255,0.2); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; transition: all 0.3s ease;"><i class="fa-solid fa-passport"></i></div>
               <div>
-                <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff;">98% Visa Success Rate</h4>
+                <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff;">99% Visa Success Rate</h4>
                 <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8); line-height: 1.5; margin: 0;">Our visa team has an exceptional track record across all major destinations.</p>
               </div>
             </div>
@@ -435,14 +432,14 @@ require_once 'includes/header.php';
         </div>
         
         <!-- RIGHT COLUMN (IMAGE) -->
-        <div class="why-elite-image animate-on-scroll delay-2" style="position: relative; min-height: 500px; display: flex; align-items: center; justify-content: center;">
+        <div class="why-elite-image animate-on-scroll delay-2">
           
-          <!-- Background Shape Blob (matches the light purple blob from reference) -->
-          <div style="position: absolute; right: 5%; top: 5%; width: 85%; height: 85%; background: var(--primary); border-radius: 41% 59% 43% 57% / 46% 38% 62% 54%; transform: rotate(-15deg); z-index: 1; transition: all 3s ease-in-out;" onmouseover="this.style.borderRadius='57% 43% 59% 41% / 54% 62% 38% 46%'; this.style.transform='rotate(5deg) scale(1.05)';" onmouseout="this.style.borderRadius='41% 59% 43% 57% / 46% 38% 62% 54%'; this.style.transform='rotate(-15deg) scale(1)';"></div>
+          <!-- Background Shape Blob -->
+          <div class="why-elite-blob" onmouseover="this.style.borderRadius='57% 43% 59% 41% / 54% 62% 38% 46%'; this.style.transform='rotate(5deg) scale(1.05)';" onmouseout="this.style.borderRadius='41% 59% 43% 57% / 46% 38% 62% 54%'; this.style.transform='rotate(-15deg) scale(1)';"></div>
           
           <!-- Foreground Circular Image -->
-          <div style="position: relative; z-index: 2; width: 380px; height: 380px; border-radius: 50%; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.25); transform: translate(-10%, 10%); border: 10px solid rgba(255,255,255,0.1); transition: transform 0.5s ease;" onmouseover="this.style.transform='translate(-10%, 10%) scale(1.03)';" onmouseout="this.style.transform='translate(-10%, 10%) scale(1)';">
-            <img src="assets/images/ocs.png" alt="Consultancy Event" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          <div class="why-elite-circle" onmouseover="this.style.transform='translate(-10%, 10%) scale(1.03)';" onmouseout="this.style.transform='translate(-10%, 10%) scale(1)';">
+            <img src="assets/images/seminar.png" alt="Consultancy Event" style="width: 100%; height: 100%; object-fit: cover; display: block;">
           </div>
           
         </div>
@@ -598,6 +595,12 @@ require_once 'includes/header.php';
           </div>
           <?php endforeach; ?>
         </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+          <a href="consultation.php" class="btn btn--primary" style="background: var(--primary); color: #fff; padding: 1rem 2.5rem; border-radius: 50px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.3s ease; box-shadow: 0 10px 20px rgba(30, 41, 59, 0.2);" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 15px 25px rgba(30, 41, 59, 0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 20px rgba(30, 41, 59, 0.2)';">
+          Talk to Expert <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
 
       </div>
     </div>
@@ -736,46 +739,60 @@ require_once 'includes/header.php';
           <span class="section__tag" style="background: rgba(255,255,255,0.2); color: #fff; border-radius: 20px; padding: 0.5rem 1rem; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
             <i class="fa-solid fa-bolt"></i> Coachings
           </span>
-          <h2 class="section__title" style="color: #fff; font-size: 2.8rem; line-height: 1.2;">Discover the elite training<br><span style="color: #FDE047;">Program you need</span></h2>
+          <h2 class="section__title coaching-title" style="color: #fff; line-height: 1.2;">Discover the elite training<br><span style="color: #FDE047;">Program you need</span></h2>
         </div>
 
         <div class="test-cards-new">
           <?php
           try {
-              $stmt = $pdo->query("SELECT * FROM test_preps WHERE is_active = 1 ORDER BY id ASC LIMIT 3");
+              $stmt = $pdo->query("SELECT * FROM test_preps WHERE is_active = 1 ORDER BY id ASC LIMIT 5");
               $db_tests = $stmt->fetchAll();
           } catch (PDOException $e) {
               $db_tests = [];
           }
           
-          if (count($db_tests) < 3) {
+          if (count($db_tests) < 5) {
               $db_tests = [
-                  [
-                      'slug' => 'ielts',
-                      'name' => 'IELTS',
-                      'icon' => 'fa-pen-to-square',
-                      'description' => 'Master the IELTS exam with our comprehensive training and expert guidance.',
-                      'image_path' => 'assets/images/service_coaching_3d.png'
-                  ],
                   [
                       'slug' => 'toefl',
                       'name' => 'TOEFL',
                       'icon' => 'fa-globe',
-                      'description' => 'Ace the TOEFL with proven strategies and extensive practice tests.',
+                      'description' => 'Ace the TOEFL with proven strategies.',
                       'image_path' => 'assets/images/service_university_3d.png'
                   ],
                   [
                       'slug' => 'pte',
                       'name' => 'PTE',
                       'icon' => 'fa-computer',
-                      'description' => 'Achieve your desired PTE score with our specialized computer-based training.',
+                      'description' => 'Achieve your desired PTE score with specialized training.',
                       'image_path' => 'assets/images/service_guidance_3d.png'
+                  ],
+                  [
+                      'slug' => 'ielts',
+                      'name' => 'IELTS',
+                      'icon' => 'fa-pen-to-square',
+                      'description' => 'Master the IELTS exam with our comprehensive training.',
+                      'image_path' => 'assets/images/service_coaching_3d.png'
+                  ],
+                  [
+                      'slug' => 'japanese',
+                      'name' => 'Japanese',
+                      'icon' => 'fa-language',
+                      'description' => 'Learn from basics to JLPT mastery.',
+                      'image_path' => 'assets/images/service_visa_3d.png'
+                  ],
+                  [
+                      'slug' => 'german',
+                      'name' => 'German',
+                      'icon' => 'fa-language',
+                      'description' => 'Master German language for your global career.',
+                      'image_path' => 'assets/images/service_university_3d.png'
                   ]
               ];
           }
           
-          $bg_classes = ['test-card-new--yellow', 'test-card-new--orange', 'test-card-new--purple', 'test-card-new--teal'];
-          $fallback_images = ['assets/images/service_coaching_3d.png', 'assets/images/service_guidance_3d.png', 'assets/images/service_university_3d.png', 'assets/images/service_visa_3d.png'];
+          $bg_classes = ['test-card-new--orange', 'test-card-new--blue', 'test-card-new--green', 'test-card-new--pink', 'test-card-new--purple'];
+          $fallback_images = ['assets/images/service_university_3d.png', 'assets/images/service_guidance_3d.png', 'assets/images/service_coaching_3d.png', 'assets/images/service_visa_3d.png', 'assets/images/service_university_3d.png'];
           foreach($db_tests as $index => $test):
               $slug = clean_output($test['slug']);
               $name = clean_output($test['name']);
@@ -783,46 +800,81 @@ require_once 'includes/header.php';
               $bg_class = $bg_classes[$index % count($bg_classes)];
               $img_src = !empty($test['image_path']) ? clean_output($test['image_path']) : $fallback_images[$index % count($fallback_images)];
           ?>
-          <div class="test-card-new <?= $bg_class ?> animate-on-scroll delay-<?= $index ?>">
+          <div class="test-card-new <?= $bg_class ?>" data-pos="<?= $index + 1 ?>">
             <div class="test-card-new__img">
               <img src="<?= $img_src ?>" alt="<?= $name ?>">
             </div>
             <div class="test-card-new__content">
-              <!-- App Header -->
-              <div class="app-header">
-                <div class="app-avatar"><i class="fa-solid fa-graduation-cap"></i></div>
-                <div class="app-title-area">
-                  <span class="app-subtitle">Course Overview</span>
-                  <strong class="app-title"><?= $name ?> Coaching</strong>
-                </div>
+              
+              <div class="app-title-area text-center" style="margin-bottom: 1rem;">
+                <h3 class="app-title" style="font-weight: 800; font-size: 1.5rem; color: #1f2937; margin-bottom: 0.5rem;"><?= $name ?></h3>
+                <p class="app-subtitle" style="font-size: 0.9rem; color: #6b7280; line-height: 1.4; height: 40px; overflow: hidden;"><?= $desc ?></p>
               </div>
               
               <!-- App Widgets Grid -->
               <div class="app-widgets-grid">
                 <div class="app-widget">
-                  <i class="fa-solid fa-star" style="color: #F59E0B;"></i>
-                  <span>Band 7+</span>
+                  <i class="fa-solid fa-star" style="color: #F59E0B; font-size: 1.25rem; margin-bottom: 0.5rem;"></i>
+                  <span style="font-size: 0.75rem; font-weight: 700; color: #374151;">Top Rated</span>
                 </div>
                 <div class="app-widget">
-                  <i class="fa-solid fa-laptop" style="color: #3B82F6;"></i>
-                  <span>Mock Tests</span>
+                  <i class="fa-solid fa-laptop" style="color: #3B82F6; font-size: 1.25rem; margin-bottom: 0.5rem;"></i>
+                  <span style="font-size: 0.75rem; font-weight: 700; color: #374151;">Mock Tests</span>
                 </div>
                 <div class="app-widget">
-                  <i class="fa-solid fa-book" style="color: #10B981;"></i>
-                  <span>Materials</span>
+                  <i class="fa-solid fa-book" style="color: #10B981; font-size: 1.25rem; margin-bottom: 0.5rem;"></i>
+                  <span style="font-size: 0.75rem; font-weight: 700; color: #374151;">Materials</span>
                 </div>
                 <div class="app-widget">
-                  <i class="fa-solid fa-user-tie" style="color: #8B5CF6;"></i>
-                  <span>Experts</span>
+                  <i class="fa-solid fa-user-tie" style="color: #8B5CF6; font-size: 1.25rem; margin-bottom: 0.5rem;"></i>
+                  <span style="font-size: 0.75rem; font-weight: 700; color: #374151;">Experts</span>
                 </div>
               </div>
               
-              <a href="test-prep.php?t=<?= $slug ?>" class="btn test-card-new__btn">START LEARNING</a>
+              <a href="test-prep.php?t=<?= $slug ?>" class="btn test-card-new__btn" style="width: 100%; justify-content: center; background: #111827; color: white; border-radius: 12px; padding: 1rem; margin-top: 1rem; font-weight: 700;">Start Learning</a>
             </div>
           </div>
           <?php endforeach; ?>
+          
+          <button class="card-slider-nav card-slider-prev"><i class="fa-solid fa-chevron-left"></i></button>
+          <button class="card-slider-nav card-slider-next"><i class="fa-solid fa-chevron-right"></i></button>
         </div>
+        
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var cards = document.querySelectorAll('.test-card-new');
+            var prevBtn = document.querySelector('.card-slider-prev');
+            var nextBtn = document.querySelector('.card-slider-next');
+            var autoRotate;
 
+            function shiftCards(direction) {
+                cards.forEach(function(card) {
+                    var currentPos = parseInt(card.getAttribute('data-pos'));
+                    var newPos = currentPos + direction;
+                    if (newPos < 1) newPos = cards.length;
+                    if (newPos > cards.length) newPos = 1;
+                    card.setAttribute('data-pos', newPos);
+                });
+            }
+
+            if (cards.length > 0) {
+                autoRotate = setInterval(function() {
+                    shiftCards(-1);
+                }, 3000);
+
+                if(prevBtn && nextBtn) {
+                    prevBtn.addEventListener('click', function() {
+                        clearInterval(autoRotate);
+                        shiftCards(1);
+                    });
+                    nextBtn.addEventListener('click', function() {
+                        clearInterval(autoRotate);
+                        shiftCards(-1);
+                    });
+                }
+            }
+        });
+        </script>
       </div>
     </div>
   </div>
@@ -837,7 +889,7 @@ require_once 'includes/header.php';
     <div class="collage-gallery animate-on-scroll delay-1">
       <?php
       try {
-          $stmt = $pdo->query("SELECT * FROM gallery_items WHERE is_active = 1 ORDER BY id ASC LIMIT 7");
+          $stmt = $pdo->query("SELECT * FROM gallery_items WHERE is_active = 1 ORDER BY id DESC LIMIT 7");
           $db_gallery = $stmt->fetchAll();
       } catch (PDOException $e) {
           $db_gallery = [];
@@ -845,10 +897,10 @@ require_once 'includes/header.php';
       
       $fallbacks = [
           ['image_path' => 'assets/images/md-gallery5.png', 'title' => 'Student Seminar Event'],
-          ['image_path' => 'assets/images/ias5.png', 'title' => 'IELTS Coaching Session'],
+          ['image_path' => 'assets/images/ocs5.png', 'title' => 'IELTS Coaching Session'],
           ['image_path' => 'assets/images/start.png', 'title' => 'Pre-Departure Briefing'],
           ['image_path' => 'assets/images/img1.png', 'title' => 'Visa Success Meet'],
-          ['image_path' => 'assets/images/placement.jpeg', 'title' => 'Placement Seminar'],
+          ['image_path' => 'assets/images/ocs.png', 'title' => 'Placement Seminar'],
           ['image_path' => 'assets/images/img2.png', 'title' => 'University Tour'],
           ['image_path' => 'assets/images/img3.png', 'title' => 'Admission Success']
       ];
@@ -866,9 +918,7 @@ require_once 'includes/header.php';
       ?>
       <div class="collage-item collage-item-<?= $i+1 ?>">
         <img src="<?= clean_output($item['image_path']) ?>" alt="<?= clean_output($item['title']) ?>">
-        <div class="collage-overlay">
-          <h4 class="collage-title"><?= clean_output($item['title']) ?></h4>
-        </div>
+
       </div>
       <?php endforeach; ?>
     </div>
@@ -890,13 +940,13 @@ require_once 'includes/header.php';
       <div style="position: relative; z-index: 1;">
         <div class="section__header animate-on-scroll" style="text-align: center; margin-bottom: 3rem;">
           <span class="section__tag" style="background: rgba(255,255,255,0.2); color: #fff;">Contact Us</span>
-          <h2 class="section__title" style="color: #fff;">Get a Free <span style="color: #FDE047;">Consultation</span></h2>
+          <h2 class="section__title" style="color: #fff;">Get a Free <span style="color: #FDE047; background: none; -webkit-text-fill-color: initial;">Consultation</span></h2>
           <p class="section__subtitle" style="color: rgba(255,255,255,0.9);">Reach out to our experts and start your journey today. We respond within 24 hours.</p>
         </div>
         
         <div class="contact-grid">
           <div class="animate-on-scroll">
-            <h3 style="color: #fff; margin-bottom: 1rem; font-size: 2rem;">Talk to Our <span style="color: #FDE047;">Experts</span></h3>
+            <h3 style="color: #fff; margin-bottom: 1rem; font-size: 2rem;">Talk to Our <span style="color: #FDE047; background: none; -webkit-text-fill-color: initial;">Experts</span></h3>
             <p style="color: rgba(255,255,255,0.9); margin-bottom: 2rem;">Whether you&rsquo;re just starting your study abroad journey or need help with a visa application, our counsellors are here to help — for free.</p>
             
             <div class="contact-cards">
@@ -1036,6 +1086,236 @@ require_once 'includes/header.php';
     </div>
   </div>
 </section>
+<!-- TEAM MEMBERS SECTION -->
+<section id="team" class="section team-section bg-light" style="padding: 5rem 1rem; background: #f8fafc; position: relative;">
+  <div class="container">
+    <div class="section__header animate-on-scroll" style="text-align: center; margin-bottom: 3.5rem;">
+      <span class="section__tag">Our Leadership</span>
+      <h2 class="section__title">Meet Our <span>Team</span></h2>
+      <p class="section__subtitle" style="margin: 0.5rem auto 0; max-width: 600px;">The experienced professionals dedicated to making your global education dreams a reality.</p>
+      <div class="accent-bar" style="margin: 1rem auto 0;"></div>
+    </div>
+    
+    <div style="position: relative; padding: 0 40px;">
+      <!-- Navigation Buttons -->
+      <button id="teamPrev" class="team-nav-btn" style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); z-index: 10; background: white; border: 1px solid var(--border); width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.2rem; transition: all 0.3s ease;">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <button id="teamNext" class="team-nav-btn" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); z-index: 10; background: white; border: 1px solid var(--border); width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.2rem; transition: all 0.3s ease;">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+
+      <!-- Slider Container -->
+      <div id="teamSlider" class="team-slider" style="display: flex; gap: 2rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 2rem 5px 3rem; scrollbar-width: none; -ms-overflow-style: none; align-items: flex-end;">
+        <style>
+          .team-slider::-webkit-scrollbar { display: none; }
+          .team-nav-btn:hover { background: var(--primary); color: white !important; }
+
+          .wave-card {
+            min-width: 300px;
+            max-width: 320px;
+            flex: 0 0 auto;
+            scroll-snap-align: center;
+            background: #0f172a;
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+            height: 420px;
+          }
+
+          .wave-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+          }
+
+          .wave-card__full-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            transition: transform 0.5s ease;
+          }
+
+          .wave-card:hover .wave-card__full-img {
+            transform: scale(1.08);
+          }
+
+          .wave-card__overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Darken the bottom so the name/role is readable */
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0) 60%);
+            z-index: 1;
+            pointer-events: none;
+          }
+
+          .wave-card__bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 260px; 
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+          }
+
+          .wave-card:hover .wave-card__bottom {
+            transform: translateY(0);
+          }
+
+          .wave-card__info {
+            position: absolute;
+            top: -110px; /* Sits above the wave */
+            left: 0;
+            width: 100%;
+            text-align: center;
+            z-index: 5;
+            padding: 0 1rem;
+          }
+
+          .wave-card__title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin: 0;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+          }
+
+          .wave-card__role-top {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            margin: 0.25rem 0 0 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+          }
+
+          .wave-svg {
+            position: absolute;
+            top: -45px;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            display: block;
+            pointer-events: none;
+          }
+
+          .wave-card__content {
+            position: relative;
+            padding: 0 1.5rem 1.5rem;
+            color: white;
+            text-align: center;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            overflow-y: auto;
+            scrollbar-width: none; /* Firefox */
+          }
+          
+          .wave-card__content::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+          }
+
+          .wave-card__desc {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 0;
+            padding-top: 1rem;
+          }
+
+          /* Gradients for cards */
+          .bg-grad-0 { background: linear-gradient(135deg, #a78bfa 0%, #c084fc 100%); }
+          .bg-grad-0 .wave-svg { color: #a78bfa; }
+          
+          .bg-grad-1 { background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); }
+          .bg-grad-1 .wave-svg { color: #fb923c; }
+          
+          .bg-grad-2 { background: linear-gradient(135deg, #2dd4bf 0%, #14b8a6 100%); }
+          .bg-grad-2 .wave-svg { color: #2dd4bf; }
+          
+          .bg-grad-3 { background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%); }
+          .bg-grad-3 .wave-svg { color: #60a5fa; }
+
+          @media(max-width: 768px) { .wave-card { min-width: 280px; } }
+        </style>
+
+        <?php
+        try {
+            $stmt = $pdo->query("SELECT * FROM team_members WHERE is_active = 1 ORDER BY display_order ASC, id ASC");
+            $team_members = $stmt->fetchAll();
+        } catch (PDOException $e) {
+            $team_members = [];
+        }
+        
+        foreach($team_members as $index => $member):
+            $gradClass = "bg-grad-" . ($index % 4);
+        ?>
+        <div class="wave-card animate-on-scroll" style="animation-delay: <?= $index * 100 ?>ms;">
+          
+          <img src="<?= clean_output($member['image_path']) ?>" alt="<?= clean_output($member['name']) ?>" class="wave-card__full-img">
+          <div class="wave-card__overlay"></div>
+
+          <div class="wave-card__bottom <?= $gradClass ?>">
+            <!-- Name and Role pinned above the wave -->
+            <div class="wave-card__info">
+              <h3 class="wave-card__title"><?= clean_output($member['name']) ?></h3>
+              <p class="wave-card__role-top"><?= clean_output($member['role']) ?></p>
+            </div>
+
+            <!-- SVG Wave shape -->
+            <svg class="wave-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+              <path fill="currentColor" fill-opacity="1" d="M0,128L48,144C96,160,192,192,288,181.3C384,171,480,117,576,117.3C672,117,768,171,864,192C960,213,1056,203,1152,176C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+            
+            <div class="wave-card__content">
+              <p class="wave-card__desc"><?= nl2br(clean_output($member['description'])) ?></p>
+            </div>
+          </div>
+          
+        </div>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const teamSlider = document.getElementById('teamSlider');
+    const teamPrev = document.getElementById('teamPrev');
+    const teamNext = document.getElementById('teamNext');
+
+    if(teamSlider && teamPrev && teamNext) {
+      teamPrev.addEventListener('click', () => {
+        const cardWidth = teamSlider.querySelector('.wave-card').offsetWidth + 32; // width + gap
+        teamSlider.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+      });
+
+      teamNext.addEventListener('click', () => {
+        const cardWidth = teamSlider.querySelector('.wave-card').offsetWidth + 32; // width + gap
+        teamSlider.scrollBy({ left: cardWidth, behavior: 'smooth' });
+      });
+    }
+  });
+</script>
+
 <!-- CTA BANNER -->
 <section class="cta-banner-wrapper" style="padding: 4rem 1rem;">
   <div class="container cta-banner animate-on-scroll">

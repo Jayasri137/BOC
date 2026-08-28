@@ -6,23 +6,21 @@ require_once 'includes/header.php';
 ?>
 <main>
 
-  <section class="section">
-    <div class="container">
-      <div class="grid grid--2 gap--4 align-center">
-        <div class="animate-on-scroll">
-          <div class="v-icon" style="width:120px; height:120px; font-size:3rem; margin:0"><i class="fa-solid fa-briefcase"></i></div>
-          <h2 class="section__title" style="text-align:left; margin-top:2rem">Earn While You <span>Learn</span></h2>
-          <p style="color:var(--gray); margin-top:1rem; line-height:1.6;">
-            In association with <strong>Bluestone Overseas</strong>, we prepare you for the global job market. Understand your work rights and equip yourself to gain valuable international work experience.
-          </p>
-        </div>
-        <div class="animate-on-scroll delay-1">
-          <div class="service-details grid grid--1 gap--1">
-            <div class="a-feat"><i class="fa-solid fa-check-circle"></i><span>Work Rights &amp; Regulations Education</span></div>
-            <div class="a-feat"><i class="fa-solid fa-check-circle"></i><span>International Resume Building</span></div>
-            <div class="a-feat"><i class="fa-solid fa-check-circle"></i><span>Interview Preparation</span></div>
-            <div class="a-feat"><i class="fa-solid fa-check-circle"></i><span>Local Job Portal Access &amp; Networking</span></div>
-          </div>
+  <section class="section" style="background:white; padding: 4rem 1rem; text-align: center;">
+    <div class="container" style="max-width: 900px; margin: 0 auto;">
+      <div class="animate-on-scroll">
+        <div class="v-icon" style="width:120px; height:120px; font-size:3rem; margin: 0 auto;"><i class="fa-solid fa-briefcase"></i></div>
+        <h2 class="section__title" style="text-align:center; margin-top:2rem">Earn While You <span>Learn</span></h2>
+        <p style="color:var(--gray); margin-top:1rem; line-height:1.6;">
+          In association with <strong>Bluestone Overseas</strong>, we prepare you for the global job market. Understand your work rights and equip yourself to gain valuable international work experience.
+        </p>
+      </div>
+      <div class="animate-on-scroll delay-1" style="margin-top: 3rem;">
+        <div class="service-details" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;">
+          <div class="a-feat" style="background: #f8fafc; padding: 1rem 1.5rem; border-radius: 10px; display: flex; align-items: center; gap: 0.5rem;"><i class="fa-solid fa-check-circle" style="color: var(--primary);"></i><span style="font-weight: 600;">Work Rights &amp; Regulations Education</span></div>
+          <div class="a-feat" style="background: #f8fafc; padding: 1rem 1.5rem; border-radius: 10px; display: flex; align-items: center; gap: 0.5rem;"><i class="fa-solid fa-check-circle" style="color: var(--primary);"></i><span style="font-weight: 600;">International Resume Building</span></div>
+          <div class="a-feat" style="background: #f8fafc; padding: 1rem 1.5rem; border-radius: 10px; display: flex; align-items: center; gap: 0.5rem;"><i class="fa-solid fa-check-circle" style="color: var(--primary);"></i><span style="font-weight: 600;">Interview Preparation</span></div>
+          <div class="a-feat" style="background: #f8fafc; padding: 1rem 1.5rem; border-radius: 10px; display: flex; align-items: center; gap: 0.5rem;"><i class="fa-solid fa-check-circle" style="color: var(--primary);"></i><span style="font-weight: 600;">Local Job Portal Access &amp; Networking</span></div>
         </div>
       </div>
     </div>

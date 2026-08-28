@@ -323,7 +323,7 @@ $pageHeroImage = 'assets/images/pr.png';
     </div>
   </section>
   
-  <section class="section bg-light">
+  <section class="section" style="background-color: #ffffff">
     <div class="container">
       <div class="text-center animate-on-scroll">
         <span class="section__tag">Process</span>
@@ -620,7 +620,7 @@ $pageHeroImage = 'assets/images/pr.png';
     </div>
   </section>
 
-  <section class="section" style="padding-top: 0;">
+  <section class="section" style="background-color: #ffffff;">
     <div class="container animate-on-scroll">
       <div style="background: var(--gradient); padding: 4rem 2rem; border-radius: var(--radius-lg); text-align: center; color: white; box-shadow: var(--shadow-lg);">
         <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Ready to Start Your Global Journey?</h2>

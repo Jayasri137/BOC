@@ -2,7 +2,7 @@
 require_once 'includes/config.php';
 $pageTitle = 'Study Abroad Admission Processing Services | Bluestone Overseas';
 $pageDesc = 'Simplify your study abroad journey with professional admission processing and application support.';
-$pageHeroImage = 'assets/images/offer.png';
+$pageHeroImage = 'assets/images/Offer.png';
 
 require_once 'includes/header.php';
 ?>
@@ -51,10 +51,11 @@ require_once 'includes/header.php';
 
           if ($unis):
             foreach ($unis as $u):
+              $imgUrl = !empty($u['image_url']) ? htmlspecialchars($u['image_url']) : 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=800';
           ?>
             <div style="background: #fff; border-radius: 24px; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.04); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); overflow: hidden; position: relative; display: flex; flex-direction: column;" class="uni-card" onmouseover="this.style.transform='translateY(-12px)'; this.style.boxShadow='0 25px 50px rgba(245,158,11,0.15)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.04)';">
               <!-- Cover Image -->
-              <div style="height: 180px; width: 100%; background: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=800') center/cover; position: relative;">
+              <div style="height: 180px; width: 100%; background: url('<?= $imgUrl ?>') center/cover; position: relative;">
                  <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);"></div>
                  <div style="position: absolute; bottom: 1.5rem; left: 1.5rem; display: flex; gap: 0.5rem;">
                     <span style="background: rgba(255,255,255,0.2); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: white; padding: 0.4rem 0.8rem; border-radius: 50px; font-size: 0.8rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.3);"><i class="fa-solid fa-bolt" style="color: #fbbf24;"></i> Accepting Applications</span>

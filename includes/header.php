@@ -24,15 +24,15 @@ if (strcasecmp($script_name, 'philipines.php') === 0) {
 }
 
 // Countries redirect
-if (preg_match('/^(usa|uk|canada|australia|ireland|germany|france|italy|singapore|malaysia|denmark|bulgaria|russia|switzerland|south-korea|netherlands|uae)\.php$/i', $script_name, $matches)) {
+if (preg_match('/^(usa|uk|canada|australia|ireland|germany|france|italy|singapore|malaysia|denmark|bulgaria|russia|switzerland|south-korea|netherlands|uae|spain)\.php$/i', $script_name, $matches)) {
     $country = strtolower($matches[1]);
     header("Location: study-in-{$country}.php", true, 301);
     exit();
 }
 
 // Test preps redirect
-if (preg_match('/^(ielts-test|ielts_test)\.php$/i', $script_name)) {
-    header("Location: ielts.php", true, 301);
+if (preg_match('/^(ielts|ielts-test|ielts_test)\.php$/i', $script_name)) {
+    header("Location: ielts-coaching-in-coimbatore.php", true, 301);
     exit();
 }
 if (strcasecmp($script_name, 'toefl.php') === 0 && $script_name !== 'toefl.php') {
@@ -99,6 +99,16 @@ if (!isset($pageDesc) || empty(trim($pageDesc))) {
     $generatedTitle = ucwords(str_replace(['-', '_'], ' ', $currentPage ?? ''));
     $pageDesc = "Learn more about {$generatedTitle} at " . SITE_NAME . ". Trusted study abroad consultants offering expert guidance, university admissions support, and visa services.";
 }
+
+// Fetch active announcements globally
+$globalAnnouncements = [];
+try {
+    if (isset($pdo)) {
+        $stmtAnn = $pdo->prepare("SELECT * FROM announcements WHERE is_active = 1 ORDER BY id DESC");
+        $stmtAnn->execute();
+        $globalAnnouncements = $stmtAnn->fetchAll(PDO::FETCH_ASSOC);
+    }
+} catch (PDOException $e) {}
 
 ?>
 <!DOCTYPE html>
@@ -202,6 +212,107 @@ if (!isset($pageDesc) || empty(trim($pageDesc))) {
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.14.0/css/flag-icons.min.css">
 
   <link rel="stylesheet" href="assets/css/main.css?v=<?= filemtime(__DIR__ . '/../assets/css/main.css') ?>">
+  <style>
+    /* Premium Announcement Banner */
+    .announcement-banner {
+      background: #ffffff;
+      color: #0f172a;
+      padding: 0.6rem 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      position: relative;
+      z-index: 10;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .announcement-banner::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(0,0,0,0.03), transparent);
+      transform: translateX(-100%);
+      animation: shimmer 3s infinite;
+    }
+    @keyframes shimmer {
+      100% { transform: translateX(100%); }
+    }
+    .banner-badge {
+      background: #f43f5e;
+      color: white;
+      padding: 0.2rem 0.75rem;
+      border-radius: 50px;
+      font-weight: 800;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      animation: pulse-badge 2s infinite;
+      white-space: nowrap;
+    }
+    @keyframes pulse-badge {
+      0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.4); }
+      70% { box-shadow: 0 0 0 6px rgba(244, 63, 94, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); }
+    }
+    .banner-text {
+      font-weight: 600;
+      font-size: 0.95rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      margin-right: 3rem;
+      display: inline-flex;
+      align-items: center;
+    }
+    .marquee-container {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      mask-image: linear-gradient(90deg, transparent, #000 2%, #000 98%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 2%, #000 98%, transparent);
+    }
+    .marquee-content {
+      display: inline-flex;
+      padding-left: 100%;
+      animation: marquee 25s linear infinite;
+      align-items: center;
+    }
+    .marquee-content:hover {
+      animation-play-state: paused;
+    }
+    @keyframes marquee {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-100%, 0); }
+    }
+    .banner-btn {
+      background: #eff6ff;
+      color: #2563eb;
+      padding: 0.2rem 0.8rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      margin-left: 0.8rem;
+      border: 1px solid #bfdbfe;
+    }
+    .banner-btn:hover {
+      background: #2563eb;
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(37,99,235,0.2);
+    }
+    @media (max-width: 768px) {
+      .announcement-banner { flex-direction: column; text-align: center; gap: 0.5rem; padding: 0.8rem; }
+      .banner-btn, .banner-badge { display: none !important; }
+      .marquee-content { animation: marquee 15s linear infinite; }
+    }
+  </style>
   <?= $extraCSS ?? '' ?>
 
   <!-- JSON-LD Structured Data Schema -->
@@ -310,6 +421,25 @@ if (!isset($pageDesc) || empty(trim($pageDesc))) {
   </div>
 </div>
 
+<?php if (!empty($globalAnnouncements)): ?>
+<!-- Global Announcement Bar -->
+<div class="announcement-banner">
+  <div class="banner-badge">UPDATES</div>
+  <div class="marquee-container">
+    <div class="marquee-content">
+      <?php foreach ($globalAnnouncements as $ann): ?>
+        <span class="banner-text">
+          <?= htmlspecialchars($ann['text']) ?>
+          <?php if (!empty($ann['link'])): ?>
+            <a href="<?= htmlspecialchars($ann['link']) ?>" class="banner-btn">View Details <i class="fa-solid fa-arrow-right"></i></a>
+          <?php endif; ?>
+        </span>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</div>
+<?php endif; ?>
+
 <!-- Main Navigation -->
 <header class="navbar" id="mainNavbar">
   <div class="container navbar__inner">
@@ -323,193 +453,147 @@ if (!isset($pageDesc) || empty(trim($pageDesc))) {
         <button id="mobileMenuClose" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <ul class="nav-list">
-        <!-- Study abroad steps -->
-        <li class="has-dropdown">
-          <a href="services.php">Study Abroad Steps <i class="fa-solid fa-chevron-down"></i></a>
+        <!-- Home -->
+        <li class="<?= ($currentPage === 'index') ? 'active' : '' ?>">
+          <a href="index.php">Home</a>
+        </li>
+        
+        <!-- About Us -->
+        <li class="has-dropdown <?= in_array($currentPage, ['About_us','Award_Achievements','events','Blog','gallery','contact','guide-me']) ? 'active' : '' ?>">
+          <a href="About_us.php">About Us <i class="fa-solid fa-chevron-down"></i></a>
           <div class="dropdown">
-            <a href="guide-me.php" class="dropdown-item">
-              <span class="di-icon"><i class="fa-solid fa-route"></i></span>
-              <span class="di-text"><strong>Step-by-Step Guide</strong><small>The Student Journey</small></span>
-            </a>
-            <a href="student-counselling.php" class="dropdown-item">
-              <span class="di-icon"><i class="fa-solid fa-question-circle"></i></span>
-              <span class="di-text"><strong>Why study abroad?</strong><small>Student Counselling</small></span>
-            </a>
-            <a href="university-selection.php" class="dropdown-item">
-              <span class="di-icon"><i class="fa-solid fa-map-location-dot"></i></span>
-              <span class="di-text"><strong>Where and what to study?</strong><small>University Selection</small></span>
-            </a>
-            <a href="admission-processing.php" class="dropdown-item">
-              <span class="di-icon"><i class="fa-solid fa-file-signature"></i></span>
-              <span class="di-text"><strong>How do I apply?</strong><small>Admission Processing</small></span>
-            </a>
-            <a href="visa-processing.php" class="dropdown-item">
-              <span class="di-icon"><i class="fa-solid fa-passport"></i></span>
-              <span class="di-text"><strong>After receiving an offer</strong><small>Visa Processing</small></span>
-            </a>
-            <a href="accommodation.php" class="dropdown-item">
-              <span class="di-icon"><i class="fa-solid fa-plane-departure"></i></span>
-              <span class="di-text"><strong>Prepare to depart</strong><small>Accommodation &amp; Travel</small></span>
-            </a>
+            <div class="mega-menu-inner">
+              <div>
+                <p class="mega-menu-col-title">Company</p>
+                <a href="About_us.php" class="mega-item"><i class="fa-solid fa-building"></i> Our Profile</a>
+                <a href="team.php" class="mega-item"><i class="fa-solid fa-users"></i> Our Team</a>
+                <a href="branch.php" class="mega-item"><i class="fa-solid fa-location-dot"></i> Branches</a>
+                <a href="contact.php" class="mega-item"><i class="fa-solid fa-address-book"></i> Contact Us</a>
+              </div>
+              <div>
+                <p class="mega-menu-col-title">Updates & Media</p>
+                <a href="Blog.php" class="mega-item"><i class="fa-solid fa-newspaper"></i> Blog</a>
+                <a href="gallery.php" class="mega-item"><i class="fa-solid fa-images"></i> Gallery</a>
+              </div>
+            </div>
           </div>
         </li>
-
+        
         <!-- Study destinations -->
         <li class="has-dropdown <?= isset($isStudyAbroad) && $isStudyAbroad ? 'active' : '' ?>">
           <a href="country.php">Study Destinations <i class="fa-solid fa-chevron-down"></i></a>
-          <div class="dropdown mega-dropdown mega-countries">
-            <p class="mega-label">Popular Destinations</p>
-            <div class="countries-grid">
-              <?php
-              $mainCountries = [
-                ['australia','Australia','au','study-in-australia.php'],
-                ['canada','Canada','ca','study-in-canada.php'],
-                ['uae','UAE','ae','study-in-uae.php'],
-                ['germany','Germany','de','study-in-germany.php'],
-                ['ireland','Ireland','ie','study-in-ireland.php'],
-                ['newzealand','New Zealand','nz','study-in-new-zealand.php'],
-                ['singapore','Singapore','sg','study-in-singapore.php'],
-                ['switzerland','Switzerland','ch','study-in-switzerland.php'],
-                ['uk','United Kingdom','gb','study-in-uk.php'],
-                ['usa','United States','us','study-in-usa.php'],
-              ];
-              foreach ($mainCountries as [$slug, $name, $flagCode, $url]):
-              ?>
-              <a href="<?= $url ?>" class="country-item">
-                <span class="country-flag fi fi-<?= $flagCode ?>"></span>
-                <span><?= $name ?></span>
-              </a>
-              <?php endforeach; ?>
-            </div>
-            
-            <!-- Other Destinations -->
-            <p class="mega-label" style="margin-top: 0.5px;">Other Destinations</p>
-            <div class="countries-grid countries-grid-secondary">
-              <?php
-              $otherCountries = [
-                ['italy','Italy','it','study-in-italy.php'],
-                ['france','France','fr','study-in-france.php'],
-                ['netherlands','Netherlands','nl','study-in-netherlands.php'],
-                ['sweden','Sweden','se','study-in-sweden.php'],
-                ['spain','Spain','es','study-in-spain.php'],
-                ['austria','Austria','at','study-in-austria.php'],
-                ['denmark','Denmark','dk','study-in-denmark.php'],
-                ['finland','Finland','fi','study-in-finland.php'],
-                ['hungary','Hungary','hu','study-in-hungary.php'],
-                ['poland','Poland','pl','study-in-poland.php'],
-                ['czech-republic','Czech Republic','cz','study-in-czech-republic.php'],
-                ['malaysia','Malaysia','my','study-in-malaysia.php'],
-                ['japan','Japan','jp','study-in-japan.php'],
-                ['china','China','cn','study-in-china.php'],
-                ['belgium','Belgium','be','study-in-belgium.php'],
-                ['south-korea','South Korea','kr','study-in-south-korea.php'],
-              ];
-              foreach ($otherCountries as [$slug, $name, $flagCode, $url]):
-              ?>
-              <a href="<?= $url ?>" class="country-item country-item-secondary">
-                <span class="country-flag fi fi-<?= $flagCode ?>"></span>
-                <span><?= $name ?></span>
-              </a>
-              <?php endforeach; ?>
+          <div class="dropdown">
+            <div class="mega-menu-inner mega-menu-inner--2col">
+              <div>
+                <p class="mega-menu-col-title">Popular Destinations</p>
+                <div class="countries-grid-secondary">
+                  <?php
+                  $mainCountries = [
+                    ['australia','Australia','au','study-in-australia.php'],
+                    ['canada','Canada','ca','study-in-canada.php'],
+                    ['uae','UAE','ae','study-in-uae.php'],
+                    ['germany','Germany','de','study-in-germany.php'],
+                    ['ireland','Ireland','ie','study-in-ireland.php'],
+                    ['newzealand','New Zealand','nz','study-in-new-zealand.php'],
+                    ['singapore','Singapore','sg','study-in-singapore.php'],
+                    ['switzerland','Switzerland','ch','study-in-switzerland.php'],
+                    ['uk','United Kingdom','gb','study-in-uk.php'],
+                    ['usa','United States','us','study-in-usa.php'],
+                  ];
+                  foreach ($mainCountries as [$slug, $name, $flagCode, $url]):
+                  ?>
+                  <a href="<?= $url ?>" class="country-item">
+                    <span class="country-flag fi fi-<?= $flagCode ?>"></span>
+                    <span><?= $name ?></span>
+                  </a>
+                  <?php endforeach; ?>
+                </div>
+              </div>
+              
+              <div>
+                <p class="mega-menu-col-title">Other Destinations</p>
+                <div class="countries-grid-secondary">
+                  <?php
+                  $otherCountries = [
+                    ['italy','Italy','it','study-in-italy.php'],
+                    ['france','France','fr','study-in-france.php'],
+                    ['netherlands','Netherlands','nl','study-in-netherlands.php'],
+                    ['sweden','Sweden','se','study-in-sweden.php'],
+                    ['spain','Spain','es','study-in-spain.php'],
+                    ['austria','Austria','at','study-in-austria.php'],
+                    ['denmark','Denmark','dk','study-in-denmark.php'],
+                    ['finland','Finland','fi','study-in-finland.php'],
+                    ['hungary','Hungary','hu','study-in-hungary.php'],
+                    ['poland','Poland','pl','study-in-poland.php'],
+                    ['czech-republic','Czech Republic','cz','study-in-czech-republic.php'],
+                    ['malaysia','Malaysia','my','study-in-malaysia.php'],
+                    ['japan','Japan','jp','study-in-japan.php'],
+                    ['china','China','cn','study-in-china.php'],
+                    ['belgium','Belgium','be','study-in-belgium.php'],
+                    ['south-korea','South Korea','kr','study-in-south-korea.php'],
+                  ];
+                  foreach ($otherCountries as [$slug, $name, $flagCode, $url]):
+                  ?>
+                  <a href="<?= $url ?>" class="country-item country-item-secondary">
+                    <span class="country-flag fi fi-<?= $flagCode ?>"></span>
+                    <span><?= $name ?></span>
+                  </a>
+                  <?php endforeach; ?>
+                </div>
+              </div>
             </div>
           </div>
         </li>
 
-        <!-- Find a course -->
-        <li class="has-dropdown">
-          <a href="#">Find a Course <i class="fa-solid fa-chevron-down"></i></a>
+        <!-- Services -->
+        <li class="has-dropdown <?= in_array($currentPage, ['Free_Counselling','Course_Advice','Universities_Recommendation','Admission_Guidance','Student_Visa','financial-assistance','education-loan','accommodation','part-time-jobs','health-insurance','bank-account','courses','universities','scholarships']) ? 'active' : '' ?>">
+          <a href="services.php">Services <i class="fa-solid fa-chevron-down"></i></a>
           <div class="dropdown">
-            <a href="courses.php" class="dropdown-item">
-              <span class="di-icon"><i class="fa-solid fa-book-open"></i></span>
-              <span class="di-text"><strong>Course advice</strong><small>Explore subjects</small></span>
-            </a>
-            <a href="universities.php" class="dropdown-item">
-              <span class="di-icon"><i class="fa-solid fa-building-columns"></i></span>
-              <span class="di-text"><strong>Find a university</strong><small>Explore institutions</small></span>
-            </a>
-            <a href="scholarships.php" class="dropdown-item">
-              <span class="di-icon"><i class="fa-solid fa-graduation-cap"></i></span>
-              <span class="di-text"><strong>Find a scholarship</strong><small>Funding options</small></span>
-            </a>
+            <div class="mega-menu-inner mega-menu-inner--3col">
+              <div>
+                <p class="mega-menu-col-title">Admissions & Counselling</p>
+                <a href="student-counselling.php" class="mega-item"><i class="fa-solid fa-question-circle"></i> Student Counselling</a>
+                <a href="courses.php" class="mega-item"><i class="fa-solid fa-book-open"></i> Course Advice</a>
+                <a href="university-selection.php" class="mega-item"><i class="fa-solid fa-map-location-dot"></i> University Selection</a>
+                <a href="admission-processing.php" class="mega-item"><i class="fa-solid fa-file-signature"></i> Admission Processing</a>
+              </div>
+              <div>
+                <p class="mega-menu-col-title">Finance & Scholarships</p>
+                <a href="education-loan.php" class="mega-item"><i class="fa-solid fa-hand-holding-dollar"></i> Education Loan</a>
+                <a href="scholarships.php" class="mega-item"><i class="fa-solid fa-graduation-cap"></i> Find a Scholarship</a>
+                <a href="bank-account.php" class="mega-item"><i class="fa-solid fa-building-columns"></i> Bank Account Opening</a>
+              </div>
+              <div>
+                <p class="mega-menu-col-title">Visa & Pre-Departure</p>
+                <a href="visa-processing.php" class="mega-item"><i class="fa-solid fa-passport"></i> Visa Processing</a>
+                <a href="accommodation.php" class="mega-item"><i class="fa-solid fa-plane-departure"></i> Accommodation & Travel</a>
+                <a href="health-insurance.php" class="mega-item"><i class="fa-solid fa-shield-heart"></i> Health Insurance</a>
+              </div>
+            </div>
           </div>
         </li>
 
         <!-- Test Prep -->
         <li class="has-dropdown">
-          <a href="#">Test Prep <i class="fa-solid fa-chevron-down"></i></a>
+          <a href="test-prep.php">Test Prep <i class="fa-solid fa-chevron-down"></i></a>
           <div class="dropdown">
-            <a href="ielts.php" class="dropdown-item">
-              <span class="di-icon"><i class="fa-solid fa-pen-to-square"></i></span>
-              <span class="di-text"><strong>IELTS</strong><small>International English Testing</small></span>
-            </a>
-            <a href="toefl.php" class="dropdown-item">
-              <span class="di-icon"><i class="fa-solid fa-pen-to-square"></i></span>
-              <span class="di-text"><strong>TOEFL</strong><small>Test of English</small></span>
-            </a>
-            <a href="pte.php" class="dropdown-item">
-              <span class="di-icon"><i class="fa-solid fa-pen-to-square"></i></span>
-              <span class="di-text"><strong>PTE</strong><small>Pearson Test of English</small></span>
-            </a>
+            <div class="mega-menu-inner">
+              <div>
+                <p class="mega-menu-col-title">English Proficiency</p>
+                <a href="ielts-coaching-in-coimbatore.php" class="mega-item"><i class="fa-solid fa-pen-to-square"></i> IELTS Coaching</a>
+                <a href="toefl.php" class="mega-item"><i class="fa-solid fa-pen-to-square"></i> TOEFL</a>
+                <a href="pte.php" class="mega-item"><i class="fa-solid fa-pen-to-square"></i> PTE</a>
+              </div>
+              <div>
+                <p class="mega-menu-col-title">Foreign Languages</p>
+                <a href="japanese.php" class="mega-item"><span class="country-flag fi fi-jp"></span> Japanese (JLPT)</a>
+                <a href="german.php" class="mega-item"><span class="country-flag fi fi-de"></span> German (Goethe)</a>
+              </div>
+            </div>
           </div>
         </li>
 
-        <!-- Student Essentials -->
-        <li class="has-dropdown <?= in_array($currentPage, ['education-loan','accommodation','part-time-jobs','health-insurance','money-transfer','bank-account','sim-card']) ? 'active' : '' ?>">
-          <a href="#">Student Essentials <i class="fa-solid fa-chevron-down"></i></a>
-          <div class="dropdown">
-            <a href="education-loan.php" class="dropdown-item">
-              <span class="di-icon"><i class="fa-solid fa-hand-holding-dollar"></i></span>
-              <span class="di-text"><strong>Education loan</strong><small>Financial support</small></span>
-            </a>
-            <a href="accommodation.php" class="dropdown-item">
-              <span class="di-icon"><i class="fa-solid fa-house"></i></span>
-              <span class="di-text"><strong>Accommodation</strong><small>Find a place to stay</small></span>
-            </a>
-            <a href="health-insurance.php" class="dropdown-item">
-              <span class="di-icon"><i class="fa-solid fa-shield-heart"></i></span>
-              <span class="di-text"><strong>Health Insurance</strong><small>OSHC &amp; Travel Cover</small></span>
-            </a>
-            <a href="money-transfer.php" class="dropdown-item">
-              <span class="di-icon"><i class="fa-solid fa-money-bill-transfer"></i></span>
-              <span class="di-text"><strong>Money Transfer</strong><small>Forex &amp; Fee Payments</small></span>
-            </a>
-            <a href="bank-account.php" class="dropdown-item">
-              <span class="di-icon"><i class="fa-solid fa-building-columns"></i></span>
-              <span class="di-text"><strong>Bank Account</strong><small>Pre-arrival Opening</small></span>
-            </a>
-            <a href="sim-card.php" class="dropdown-item">
-              <span class="di-icon"><i class="fa-solid fa-mobile-screen-button"></i></span>
-              <span class="di-text"><strong>SIM Card</strong><small>Stay Connected</small></span>
-            </a>
-          </div>
-        </li>
 
-        <!-- About Us -->
-        <li class="has-dropdown <?= in_array($currentPage, ['About_us','Award_Achievements','events','Blog','gallery','contact','guide-me']) ? 'active' : '' ?>">
-          <a href="About_us.php">About Us <i class="fa-solid fa-chevron-down"></i></a>
-          <div class="dropdown">
-            <a href="About_us.php" class="dropdown-item">
-              <span class="di-icon"><i class="fa-solid fa-building"></i></span>
-              <span class="di-text"><strong>Our Profile</strong><small>Who we are</small></span>
-            </a>
-            <a href="events.php" class="dropdown-item">
-              <span class="di-icon"><i class="fa-solid fa-calendar-check"></i></span>
-              <span class="di-text"><strong>Events</strong><small>Join our fairs &amp; seminars</small></span>
-            </a>
-            <a href="Blog.php" class="dropdown-item">
-              <span class="di-icon"><i class="fa-solid fa-newspaper"></i></span>
-              <span class="di-text"><strong>News and articles</strong><small>Stay updated</small></span>
-            </a>
-            <a href="branch.php" class="dropdown-item">
-              <span class="di-icon"><i class="fa-solid fa-location-dot"></i></span>
-              <span class="di-text"><strong>Find nearest offices</strong><small>Our branches</small></span>
-            </a>
-            <a href="contact.php" class="dropdown-item">
-              <span class="di-icon"><i class="fa-solid fa-address-book"></i></span>
-              <span class="di-text"><strong>Contact Us</strong><small>Get in touch</small></span>
-            </a>
-          </div>
-        </li>
       </ul>
       <div class="mobile-menu-footer">
         <a href="consultation.php" class="btn btn--primary btn--block"><i class="fa-solid fa-calendar-check"></i> Book Free Consultation</a>
@@ -534,9 +618,13 @@ if (!isset($pageDesc) || empty(trim($pageDesc))) {
 </header>
 </div>
 
-<?php if ($currentPage !== 'index'): ?>
+<?php if ($currentPage !== 'index' && empty($hideDefaultHero)): ?>
 <!-- Global Page Hero for Internal Pages -->
-<section class="page-hero">
+<?php
+$servicePages = ['student-counselling', 'courses', 'university-selection', 'admission-processing', 'education-loan', 'scholarships', 'bank-account', 'visa-processing', 'accommodation', 'health-insurance', 'Free_Counselling','Course_Advice','Universities_Recommendation','Admission_Guidance','Student_Visa','financial-assistance','part-time-jobs','universities'];
+$heroClass = in_array($currentPage, $servicePages) ? 'page-hero page-hero--services' : 'page-hero';
+?>
+<section class="<?= $heroClass ?>">
   
   <div class="container page-hero__inner">
     <!-- Left Column: Content -->
@@ -548,17 +636,10 @@ if (!isset($pageDesc) || empty(trim($pageDesc))) {
       ?>
       <h1 class="page-hero__title"><?= htmlspecialchars($displayTitle) ?></h1>
       
-      <!-- Breadcrumbs -->
-      <nav aria-label="breadcrumb" class="page-hero__breadcrumb">
-        <ol>
-          <li><a href="index.php"><i class="fa-solid fa-house"></i> Home</a></li>
-          <li class="separator"><i class="fa-solid fa-chevron-right"></i></li>
-          <li aria-current="page"><?= htmlspecialchars($displayTitle) ?></li>
-        </ol>
-      </nav>
+
 
       <?php if (!empty($pageDesc)): ?>
-        <p class="page-hero__desc"><?= htmlspecialchars($pageDesc) ?></p>
+        <p class="page-hero__desc" style="color: #ffffff !important;"><?= htmlspecialchars($pageDesc) ?></p>
       <?php endif; ?>
     </div>
     

@@ -12,8 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     // 1. ADD NEW GALLERY ITEM
     if ($action === 'add') {
-        $title = isset($_POST['title']) ? trim($_POST['title']) : '';
-        $category = isset($_POST['category']) ? trim($_POST['category']) : 'Events';
+        $title = isset($_POST['title']) && trim($_POST['title']) !== '' ? trim($_POST['title']) : 'Gallery Image';
+        $category = isset($_POST['category']) && trim($_POST['category']) !== '' ? trim($_POST['category']) : 'Gallery';
         $image_path = isset($_POST['image_path']) ? trim($_POST['image_path']) : '';
         $is_active = isset($_POST['is_active']) ? 1 : 0;
         
@@ -42,8 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $final_image_source = !empty($uploaded_path) ? $uploaded_path : $image_path;
         
-        if (empty($title) || empty($final_image_source)) {
-            $alertError = 'Title and either an Image Path or an Uploaded Image are required fields.';
+        if (empty($final_image_source)) {
+            $alertError = 'An Image Path or an Uploaded Image is required.';
         } else {
             try {
                 $stmt = $pdo->prepare("
@@ -66,8 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // 2. UPDATE GALLERY ITEM
     elseif ($action === 'update') {
         $id = isset($_POST['item_id']) ? intval($_POST['item_id']) : 0;
-        $title = isset($_POST['title']) ? trim($_POST['title']) : '';
-        $category = isset($_POST['category']) ? trim($_POST['category']) : 'Events';
+        $title = isset($_POST['title']) && trim($_POST['title']) !== '' ? trim($_POST['title']) : 'Gallery Image';
+        $category = isset($_POST['category']) && trim($_POST['category']) !== '' ? trim($_POST['category']) : 'Gallery';
         $image_path = isset($_POST['image_path']) ? trim($_POST['image_path']) : '';
         $is_active = isset($_POST['is_active']) ? 1 : 0;
         
@@ -96,8 +96,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $final_image_source = !empty($uploaded_path) ? $uploaded_path : $image_path;
         
-        if ($id <= 0 || empty($title) || empty($final_image_source)) {
-            $alertError = 'Invalid parameters. Title and valid Image are required.';
+        if ($id <= 0 || empty($final_image_source)) {
+            $alertError = 'Invalid parameters. Valid Image is required.';
         } else {
             try {
                 $stmt = $pdo->prepare("
@@ -226,13 +226,12 @@ try {
                     <?php endif; ?>
                 </div>
 
-                <div class="crud-card-header">
-                    <h4 class="crud-card-title"><?php echo $title; ?></h4>
-                </div>
-                
-                <div class="crud-card-footer">
-                    <span class="crud-card-info" style="font-size: 0.8rem; background: var(--bg-hover); padding: 0.2rem 0.5rem; border-radius: 6px; font-weight: 500;"><?php echo $cat; ?></span>
-                    <div class="crud-card-actions">
+                <div class="crud-card-footer" style="padding-top: 1rem;">
+                    <div style="margin-bottom: 0.75rem;">
+                        <strong style="display:block; font-size: 0.95rem; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?php echo htmlspecialchars($title); ?></strong>
+                        <span style="display:inline-block; font-size: 0.75rem; background: rgba(14,165,233,0.1); padding: 2px 8px; border-radius: 50px; color: var(--primary); margin-top: 4px;"><?php echo htmlspecialchars($cat); ?></span>
+                    </div>
+                    <div class="crud-card-actions" style="width: 100%; display: flex; justify-content: flex-end;">
                         <button class="btn-action action-edit" title="Edit Photo" onclick="openEditModal(<?php echo htmlspecialchars(json_encode($item)); ?>)">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </button>
@@ -260,13 +259,19 @@ try {
                 <input type="hidden" name="item_id" id="edit_item_id">
                 
                 <div class="form-group">
-                    <label for="item_title" class="form-label">Photo Description Title *</label>
-                    <input type="text" name="title" id="item_title" class="form-control" placeholder="e.g., Pre-departure Briefing Coimbatore" required>
+                    <label for="item_title" class="form-label">Photo Description Title</label>
+                    <input type="text" name="title" id="item_title" class="form-control" placeholder="e.g., Pre-departure Briefing Coimbatore">
                 </div>
                 
                 <div class="form-group">
-                    <label for="item_cat" class="form-label">Category / Album Tag *</label>
-                    <input type="text" name="category" id="item_cat" class="form-control" placeholder="e.g., Workshops" required>
+                    <label for="item_cat" class="form-label">Category / Album Tag (Creates Tabs on Gallery)</label>
+                    <input list="category_options" name="category" id="item_cat" class="form-control" placeholder="Select or type a category">
+                    <datalist id="category_options">
+                        <option value="Events">
+                        <option value="Seminars">
+                        <option value="Alumni">
+                        <option value="Graduation">
+                    </datalist>
                 </div>
 
                 <div class="detail-grid">

@@ -167,6 +167,32 @@ $queries = [
           `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
           PRIMARY KEY (`id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ",
+    'team_members' => "
+        CREATE TABLE IF NOT EXISTS `team_members` (
+          `id` INT(11) NOT NULL AUTO_INCREMENT,
+          `name` VARCHAR(150) NOT NULL,
+          `role` VARCHAR(150) NOT NULL,
+          `description` TEXT NOT NULL,
+          `image_path` LONGTEXT NOT NULL,
+          `is_active` TINYINT(1) DEFAULT 1,
+          `display_order` INT(11) DEFAULT 0,
+          `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+          PRIMARY KEY (`id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ",
+    'upcoming_batches' => "
+        CREATE TABLE IF NOT EXISTS `upcoming_batches` (
+          `id` INT(11) NOT NULL AUTO_INCREMENT,
+          `course_slug` VARCHAR(50) NOT NULL,
+          `start_date` VARCHAR(100) NOT NULL,
+          `batch_time` VARCHAR(100) NOT NULL,
+          `batch_mode` VARCHAR(50) NOT NULL,
+          `status` VARCHAR(50) NOT NULL,
+          `is_active` TINYINT(1) DEFAULT 1,
+          `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+          PRIMARY KEY (`id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
     "
 ];
 
@@ -618,6 +644,41 @@ if (in_array('testimonial_videos', $tables_created)) {
         $status['videos_seeding'] = [
             'success' => false,
             'message' => "Video testimonials seeding failed: " . $e->getMessage()
+        ];
+    }
+}
+
+// 14. Seed Team Members if empty
+if (in_array('team_members', $tables_created)) {
+    try {
+        $stmt = $pdo->query("SELECT COUNT(*) FROM team_members");
+        if ($stmt->fetchColumn() == 0) {
+            $members = [
+                ['Mr.Mani P', 'General Manager', 'With over a decade of experience in operations management, Mani plays a vital role in ensuring the seamless functioning of the organization. By overseeing day-to-day operations, optimizing workflows, and strengthening cross-functional coordination, he transforms strategic objectives into measurable outcomes.\r\nHis proactive leadership, problem-solving approach, and commitment to operational excellence foster a culture of accountability, efficiency, and continuous improvement. Focused on people, processes, and performance, he ensures every function aligns with the organization\'s vision for sustainable growth.', 'assets/images/team_placeholder.jpg', 1],
+                ['Mr.Arun Ravi', 'Director – Growth & Strategic Alliances', 'Innovation, strategic thinking, and entrepreneurial drive define Arun Ravi\'s approach to organizational growth. He leads business expansion initiatives through franchise development, strategic partnerships, branding, marketing, and new institutional collaborations that strengthen the Bluestone ecosystem.\r\nKnown for his fresh perspective and execution-focused mindset, he actively explores emerging opportunities, builds meaningful alliances, and drives initiatives that position the organization for sustained growth. His energy, creativity, and forward-thinking leadership continue to shape new possibilities for students, institutions, and industry partners.', 'assets/images/team_placeholder.jpg', 2],
+                ['Mr.Sabari Anandha Kumar', 'Director – Academic Excellence & Partnerships', 'Committed to transforming education through innovation and collaboration, Sabari Anandha Kumar leads academic initiatives that inspire excellence across every learning platform. His responsibilities include curriculum planning, faculty development, language programs, academic partnerships, and institutional engagement.\r\nWith a passion for modern education and student-centric learning, he combines fresh ideas with practical execution to create meaningful academic experiences. His collaborative leadership and commitment to continuous improvement help build programs that prepare learners for success in an evolving global environment.', 'assets/images/team_placeholder.jpg', 3],
+                ['Mr.Divit MS', 'Director – Administration, Compliance & Career Services', 'A structured, solution-oriented approach defines Divit\'s leadership in administration and institutional operations. He oversees compliance, documentation, administrative systems, facility management, and career services, ensuring that every process supports operational excellence and organizational integrity.\r\nWith a strong focus on efficiency, accountability, and continuous improvement, he streamlines institutional processes while fostering employer relationships and enhancing career opportunities for students. His dynamic leadership reflects a commitment to building systems that are both efficient and future-ready.', 'assets/images/team_placeholder.jpg', 4],
+                ['Mr.Saravanan', 'Director – Placements & Career Services', 'Decades of industry engagement and professional expertise have shaped a leadership approach centered on student success and career transformation. With extensive experience in placements, recruitment, and employer relations, Saravanan has built lasting partnerships that connect academic talent with meaningful career opportunities.\r\nHis deep understanding of industry expectations, combined with a strong network of employers and recruiters, enables students to transition confidently into the professional world. Through strategic placement initiatives, career guidance, and unwavering commitment to employability, he continues to create pathways for thousands of aspiring professionals to achieve their career ambitions.', 'assets/images/team_placeholder.jpg', 5]
+            ];
+            
+            $insert = $pdo->prepare("INSERT INTO team_members (name, role, description, image_path, display_order, is_active) VALUES (?, ?, ?, ?, ?, 1)");
+            foreach ($members as $m) {
+                $insert->execute($m);
+            }
+            $status['team_seeding'] = [
+                'success' => true,
+                'message' => "Seeded team members successfully!"
+            ];
+        } else {
+            $status['team_seeding'] = [
+                'success' => true,
+                'message' => "Team members table already contains records."
+            ];
+        }
+    } catch (PDOException $e) {
+        $status['team_seeding'] = [
+            'success' => false,
+            'message' => "Team members seeding failed: " . $e->getMessage()
         ];
     }
 }

@@ -37,7 +37,7 @@ document.getElementById('mobileMenuClose')?.addEventListener('click', () => {
 // ── Mobile accordion dropdowns ──
 document.querySelectorAll('.has-dropdown > a').forEach(link => {
   link.addEventListener('click', e => {
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth <= 992) {
       e.preventDefault();
       link.parentElement.classList.toggle('open');
     }
@@ -51,8 +51,22 @@ document.getElementById('backToTop')?.addEventListener('click', () => {
 
 // ── Animate on scroll ──
 if ('IntersectionObserver' in window) {
+  // Auto-add animate-on-scroll to key elements across the entire site
+  document.querySelectorAll('.section__header, .section__title, .section__subtitle, .card, .stat-box, .service-card, .destination-card, .blog-card, .about-grid > div, .contact-grid > div, .collage-item').forEach(el => {
+      if (!el.classList.contains('animate-on-scroll')) {
+          el.classList.add('animate-on-scroll');
+      }
+  });
+
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('animated'); });
+    entries.forEach(e => { 
+        if (e.isIntersecting) {
+            e.target.classList.add('animated'); 
+        } else {
+            // Remove the class when out of view so it animates again!
+            e.target.classList.remove('animated');
+        }
+    });
   }, { threshold: 0.05 });
   document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
 } else {

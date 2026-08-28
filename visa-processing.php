@@ -198,7 +198,7 @@ require_once 'includes/header.php';
             <div style="position: absolute; top: -20px; right: 30px; width: 60px; height: 60px; background: #ec4899; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; box-shadow: 0 10px 20px rgba(236,72,153,0.3);">
               <i class="fa-solid fa-passport"></i>
             </div>
-            <h3 style="margin-bottom: 1.5rem; font-size: 1.75rem; color: white;">98% Visa Success Rate</h3>
+            <h3 style="margin-bottom: 1.5rem; font-size: 1.75rem; color: white;">99% Visa Success Rate</h3>
             <p style="font-size: 1.05rem; color: white; line-height: 1.8; opacity: 0.9;">
                 Our meticulous attention to detail has resulted in an industry-leading visa approval rate. We leave no stone unturned to ensure your visa is approved the first time.
             </p>

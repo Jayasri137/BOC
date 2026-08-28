@@ -2,6 +2,7 @@
 // admin/login.php - Secure login interface for Bluestone Overseas Admin Panel
 require_once '../includes/config.php';
 require_once 'includes/auth.php';
+require_once '../includes/db.php';
 
 // If already logged in, redirect directly to dashboard
 if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
@@ -12,8 +13,8 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = isset($_POST['username']) ? trim($_POST['username']) : '';
-    $password = isset($_POST['password']) ? trim($_POST['password']) : '';
+    $username = isset($_POST['admin_username']) ? trim($_POST['admin_username']) : '';
+    $password = isset($_POST['admin_password']) ? trim($_POST['admin_password']) : '';
     
     if (empty($username) || empty($password)) {
         $error = 'Please fill in all fields.';
@@ -78,15 +79,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <form action="login.php" method="POST">
             <div class="form-group">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" name="username" id="username" class="form-control" placeholder="Enter admin username" required autofocus>
+                <label for="admin_username" class="form-label">Username</label>
+                <input type="text" name="admin_username" id="admin_username" class="form-control" placeholder="Enter admin username" required autofocus>
             </div>
             
             <div class="form-group" style="margin-bottom: 2rem;">
-                <label for="password" class="form-label">Password</label>
+                <label for="admin_password" class="form-label">Password</label>
                 <div class="pw-wrap">
-                    <input type="password" name="password" id="password" class="form-control" placeholder="Enter password" required>
-                    <button type="button" class="pw-toggle" onclick="togglePw('password',this)" tabindex="-1">
+                    <input type="password" name="admin_password" id="admin_password" class="form-control" placeholder="Enter password" required>
+                    <button type="button" class="pw-toggle" onclick="togglePw('admin_password',this)" tabindex="-1">
                         <i class="fa-solid fa-eye"></i>
                     </button>
                 </div>

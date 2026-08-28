@@ -63,6 +63,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     $final_image_url = !empty($uploaded_image_url) ? $uploaded_image_url : $image_url;
 
+    // Handle the 10 new section image uploads
+    $image_fields = [
+        'overview_image', 'cost_image', 'scholarships_image', 'intakes_image',
+        'eligibility_image', 'exams_image', 'visa_image', 'jobs_image',
+        'cities_image', 'admits_image', 'news_image'
+    ];
+    $uploaded_images = [];
+    foreach ($image_fields as $field) {
+        $existing_url = isset($_POST[$field]) ? trim($_POST[$field]) : '';
+        $uploaded_url = '';
+        if (isset($_FILES[$field . '_file']) && $_FILES[$field . '_file']['error'] === UPLOAD_ERR_OK) {
+            $fileTmpPath = $_FILES[$field . '_file']['tmp_name'];
+            $fileName = basename($_FILES[$field . '_file']['name']);
+            $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+            if (in_array($fileExt, ['jpg', 'jpeg', 'png', 'webp', 'gif', 'svg'], true)) {
+                $uploadDir = '../assets/images/uploads/countries/';
+                if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
+                $cleanName = preg_replace('/[^a-z0-9._-]+/i', '-', pathinfo($fileName, PATHINFO_FILENAME));
+                $newFileName = strtolower($cleanName) . '-' . $field . '.' . $fileExt;
+                $counter = 0;
+                $destination = $uploadDir . $newFileName;
+                while (file_exists($destination)) {
+                    $counter++;
+                    $destination = $uploadDir . strtolower($cleanName) . '-' . $field . '-' . $counter . '.' . $fileExt;
+                }
+                if (move_uploaded_file($fileTmpPath, $destination)) {
+                    $uploaded_url = 'assets/images/uploads/countries/' . basename($destination);
+                }
+            }
+        }
+        $uploaded_images[$field] = !empty($uploaded_url) ? $uploaded_url : $existing_url;
+    }
+
     // 1. ADD NEW COUNTRY
     if ($action === 'add') {
         $slug = isset($_POST['slug']) ? strtolower(trim($_POST['slug'])) : '';
@@ -92,7 +125,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             living_cost_local, living_cost_inr, visa_fee_local, visa_fee_inr,
                             weekly_budget_local, weekly_budget_inr, earnings_potential_local, earnings_potential_inr,
                             stayback_bachelors, stayback_bachelors_stem, stayback_masters, stayback_doctoral, stayback_regional,
-                            upcoming_intakes, demand_careers, image_url
+                            upcoming_intakes, demand_careers, image_url,
+                            overview_image, cost_image, scholarships_image, intakes_image,
+                            eligibility_image, exams_image, visa_image, jobs_image,
+                            cities_image, admits_image, news_image
                         ) VALUES (
                             :slug, :name, :flag, :description, :is_active,
                             :travel_hours, :study_options,
@@ -100,10 +136,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             :living_cost_local, :living_cost_inr, :visa_fee_local, :visa_fee_inr,
                             :weekly_budget_local, :weekly_budget_inr, :earnings_potential_local, :earnings_potential_inr,
                             :stayback_bachelors, :stayback_bachelors_stem, :stayback_masters, :stayback_doctoral, :stayback_regional,
-                            :upcoming_intakes, :demand_careers, :image_url
+                            :upcoming_intakes, :demand_careers, :image_url,
+                            :overview_image, :cost_image, :scholarships_image, :intakes_image,
+                            :eligibility_image, :exams_image, :visa_image, :jobs_image,
+                            :cities_image, :admits_image, :news_image
                         )
                     ");
-                    $stmt->execute([
+                    $insertParams = [
                         'slug' => $slug,
                         'name' => $name,
                         'flag' => $flag,
@@ -131,7 +170,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         'upcoming_intakes' => $upcoming_intakes,
                         'demand_careers' => $demand_careers,
                         'image_url' => $final_image_url
-                    ]);
+                    ];
+                    $insertParams = array_merge($insertParams, $uploaded_images);
+                    $stmt->execute($insertParams);
+                    
+                    // Auto-generate country routing file if it doesn't exist
+                    $countryFile = "../study-in-" . $slug . ".php";
+                    if (!file_exists($countryFile)) {
+                        $fileContent = "<?php\n"
+                                     . "\$pageTitle = 'Study in " . ucwords($name) . " for Indian Students | Bluestone Overseas';\n"
+                                     . "\$pageDesc = 'Explore top universities, affordable tuition fees and student visa guidance for studying in " . ucwords($name) . " with expert overseas education support.';\n"
+                                     . "\$country_slug = '" . $slug . "'; require_once 'country-template.php'; ?>\n";
+                        file_put_contents($countryFile, $fileContent);
+                    }
                     $alertSuccess = 'Study destination added successfully!';
                 }
             } catch (PDOException $e) {
@@ -189,10 +240,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             stayback_regional = :stayback_regional,
                             upcoming_intakes = :upcoming_intakes,
                             demand_careers = :demand_careers,
-                            image_url = :image_url
+                            image_url = :image_url,
+                            overview_image = :overview_image,
+                            cost_image = :cost_image,
+                            scholarships_image = :scholarships_image,
+                            intakes_image = :intakes_image,
+                            eligibility_image = :eligibility_image,
+                            exams_image = :exams_image,
+                            visa_image = :visa_image,
+                            jobs_image = :jobs_image,
+                            cities_image = :cities_image,
+                            admits_image = :admits_image,
+                            news_image = :news_image
                         WHERE id = :id
                     ");
-                    $stmt->execute([
+                    $updateParams = [
                         'slug' => $slug,
                         'name' => $name,
                         'flag' => $flag,
@@ -221,7 +283,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         'demand_careers' => $demand_careers,
                         'image_url' => $final_image_url,
                         'id' => $id
-                    ]);
+                    ];
+                    $updateParams = array_merge($updateParams, $uploaded_images);
+                    $stmt->execute($updateParams);
+                    
+                    // Auto-generate country routing file if it doesn't exist
+                    $countryFile = "../study-in-" . $slug . ".php";
+                    if (!file_exists($countryFile)) {
+                        $fileContent = "<?php\n"
+                                     . "\$pageTitle = 'Study in " . ucwords($name) . " for Indian Students | Bluestone Overseas';\n"
+                                     . "\$pageDesc = 'Explore top universities, affordable tuition fees and student visa guidance for studying in " . ucwords($name) . " with expert overseas education support.';\n"
+                                     . "\$country_slug = '" . $slug . "'; require_once 'country-template.php'; ?>\n";
+                        file_put_contents($countryFile, $fileContent);
+                    }
                     $alertSuccess = 'Study destination updated successfully!';
                 }
             } catch (PDOException $e) {
@@ -549,6 +623,66 @@ try {
                 </div>
 
                 <div class="form-group" style="margin-bottom: 0; display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem;">
+
+                <!-- SECTION IMAGES -->
+                <div class="form-section-title"><i class="fa-solid fa-images"></i> Module 7: Section Specific Images</div>
+                <div class="detail-grid" style="grid-template-columns: repeat(3, 1fr);">
+                    <div class="form-group">
+                        <label class="form-label">Overview Image</label>
+                        <input type="file" name="overview_image_file" id="c_overview_image_file" class="form-control" accept="image/*">
+                        <input type="hidden" name="overview_image" id="c_overview_image">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Cost of Studying Image</label>
+                        <input type="file" name="cost_image_file" id="c_cost_image_file" class="form-control" accept="image/*">
+                        <input type="hidden" name="cost_image" id="c_cost_image">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Scholarships Image</label>
+                        <input type="file" name="scholarships_image_file" id="c_scholarships_image_file" class="form-control" accept="image/*">
+                        <input type="hidden" name="scholarships_image" id="c_scholarships_image">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Intakes Image</label>
+                        <input type="file" name="intakes_image_file" id="c_intakes_image_file" class="form-control" accept="image/*">
+                        <input type="hidden" name="intakes_image" id="c_intakes_image">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Eligibility Criteria Image</label>
+                        <input type="file" name="eligibility_image_file" id="c_eligibility_image_file" class="form-control" accept="image/*">
+                        <input type="hidden" name="eligibility_image" id="c_eligibility_image">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Exams Required Image</label>
+                        <input type="file" name="exams_image_file" id="c_exams_image_file" class="form-control" accept="image/*">
+                        <input type="hidden" name="exams_image" id="c_exams_image">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Visa Guide Image</label>
+                        <input type="file" name="visa_image_file" id="c_visa_image_file" class="form-control" accept="image/*">
+                        <input type="hidden" name="visa_image" id="c_visa_image">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Post-Study Jobs Image</label>
+                        <input type="file" name="jobs_image_file" id="c_jobs_image_file" class="form-control" accept="image/*">
+                        <input type="hidden" name="jobs_image" id="c_jobs_image">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Top Cities Image</label>
+                        <input type="file" name="cities_image_file" id="c_cities_image_file" class="form-control" accept="image/*">
+                        <input type="hidden" name="cities_image" id="c_cities_image">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Top Admits Image</label>
+                        <input type="file" name="admits_image_file" id="c_admits_image_file" class="form-control" accept="image/*">
+                        <input type="hidden" name="admits_image" id="c_admits_image">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">News Articles Image</label>
+                        <input type="file" name="news_image_file" id="c_news_image_file" class="form-control" accept="image/*">
+                        <input type="hidden" name="news_image" id="c_news_image">
+                    </div>
+                </div>
                     <input type="checkbox" name="is_active" id="c_active" checked style="width: 18px; height: 18px; accent-color: var(--primary); cursor: pointer;">
                     <label for="c_active" class="form-label" style="margin-bottom: 0; cursor: pointer; user-select: none;">Publish immediately (Active & Visible in marquee slider)</label>
                 </div>

@@ -35,7 +35,10 @@
 
 	<!-- SEO -->
 <title><?php echo $pageTitle ?? "Study Abroad Consultants in Coimbatore | Bluestone Overseas"; ?></title>
-<meta name="description" content="<?php echo $metaDescription ?? "Looking for the best study abroad consultants in Coimbatore? Get expert guidance for admissions, student visas, scholarships, IELTS, PTE, and study in Canada, UK, USA & Australia."; ?>">
+<meta name="description" content="<?php echo $metaDescription ?? $pageDesc ?? $pageDescription ?? "Looking for the best study abroad consultants in Coimbatore? Get expert guidance for admissions, student visas, scholarships, IELTS, PTE, and study in Canada, UK, USA & Australia."; ?>">
+<?php if(isset($pageKeywords)): ?>
+<meta name="keywords" content="<?php echo htmlspecialchars($pageKeywords, ENT_QUOTES, 'UTF-8'); ?>">
+<?php endif; ?>
 
         <!-- open graph meta tag -->
         <meta property="og:title" content="Bluestone Overseas - Trusted Overseas Education Consultants" />
@@ -50,7 +53,6 @@
         <meta name="twitter:description" content="Brief description of the page" />
         <meta name="twitter:image" content="https://example.com/image.jpg" />
         <meta name="twitter:site" content="@YourTwitterHandle" /> -->
-
 
 	<!-- Canonical & Verification -->
 <?php
@@ -643,8 +645,6 @@ if ($canonical === 'https://www.bluestoneoverseas.com') {
                                                 <li><a href="salem.php">Salem</a></li>
                                                 <li><a href="erode.php">Erode</a></li>
                                                 <li><a href="namakkal.php">Namakkal</a></li>
-                                                <li><a href="nepal.php">Nepal</a></li>
-                                                <li><a href="canada_branch.php">Canada</a></li>
                                                 <li><a href="thirunelveli.php">Tirunelveli</a></li>
                                             </ul>
                                         </li>

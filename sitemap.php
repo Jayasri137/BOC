@@ -7,50 +7,9 @@ require_once 'includes/header.php';
 
 <style>
 .sitemap-header {
-  background: linear-gradient(135deg, var(--secondary-dark), var(--dark2));
-  padding: 6rem 0 4.5rem;
-  color: var(--white);
+  padding: 6rem 0 2rem;
+  color: var(--dark);
   position: relative;
-  overflow: hidden;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-.sitemap-header::after {
-  content: '';
-  position: absolute;
-  top: -50px;
-  right: -50px;
-  width: 350px;
-  height: 350px;
-  background: radial-gradient(circle, rgba(255, 0, 0, 0.15) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-}
-.sitemap-header::before {
-  content: '';
-  position: absolute;
-  bottom: -50px;
-  left: -50px;
-  width: 250px;
-  height: 250px;
-  background: radial-gradient(circle, rgba(255, 51, 51, 0.08) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-}
-.sitemap-breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 1.25rem;
-  font-weight: 500;
-}
-.sitemap-breadcrumb a {
-  color: rgba(255, 255, 255, 0.8);
-  transition: color var(--transition);
-}
-.sitemap-breadcrumb a:hover {
-  color: var(--primary);
 }
 .sitemap-grid {
   display: grid;
@@ -62,7 +21,7 @@ require_once 'includes/header.php';
   padding: 2.5rem;
   border-radius: 24px;
   box-shadow: var(--shadow);
-  border: 1px solid rgba(255, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.04);
   transition: transform var(--transition), box-shadow var(--transition);
 }
 .sitemap-card:hover {
@@ -179,17 +138,12 @@ require_once 'includes/header.php';
 
 <main>
   <!-- Page Header -->
-  <section class="sitemap-header animate-on-scroll">
+  <section class="sitemap-header animate-on-scroll text-center" style="text-align: center;">
     <div class="container">
-      <div class="sitemap-breadcrumb">
-        <a href="index.php">Home</a>
-        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; opacity: 0.7;"></i>
-        <span style="color: var(--primary);">Sitemap</span>
-      </div>
       <h1 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.2; margin: 0; letter-spacing: -0.02em;">
         Website <span style="background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Sitemap</span>
       </h1>
-      <p style="margin-top: 1rem; font-size: 1.05rem; color: rgba(255,255,255,0.7); max-width: 600px; line-height: 1.5; font-weight: 400;">
+      <p style="margin-top: 1rem; font-size: 1.05rem; color: var(--gray); max-width: 600px; line-height: 1.5; font-weight: 400; margin-left: auto; margin-right: auto;">
         Explore all active departments, corporate information, test guides, and popular global destinations on our website.
       </p>
     </div>
@@ -240,7 +194,7 @@ require_once 'includes/header.php';
             <li class="sitemap-link-item"><a href="courses.php"><i class="fa-solid fa-chevron-right"></i> Subject Categories</a></li>
             <li class="sitemap-link-item"><a href="universities.php"><i class="fa-solid fa-chevron-right"></i> Global Institutions</a></li>
             <li class="sitemap-link-item"><a href="scholarships.php"><i class="fa-solid fa-chevron-right"></i> Scholarships &amp; Funding</a></li>
-            <li class="sitemap-link-item"><a href="ielts.php"><i class="fa-solid fa-chevron-right"></i> IELTS Coaching</a></li>
+            <li class="sitemap-link-item"><a href="ielts-coaching-in-coimbatore.php"><i class="fa-solid fa-chevron-right"></i> IELTS Coaching</a></li>
             <li class="sitemap-link-item"><a href="toefl.php"><i class="fa-solid fa-chevron-right"></i> TOEFL Exam Prep</a></li>
             <li class="sitemap-link-item"><a href="pte.php"><i class="fa-solid fa-chevron-right"></i> PTE Academic Training</a></li>
           </ul>

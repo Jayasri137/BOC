@@ -1,6 +1,6 @@
 <?php
-// admin/news.php - News Articles CRUD Editor with Local Image Upload Support
-$pageTitle = 'News & Articles Manager';
+// admin/news.php - Blog Posts CRUD Editor with Local Image Upload Support
+$pageTitle = 'Blog Posts Manager';
 require_once 'includes/header.php';
 
 $alertSuccess = '';
@@ -196,7 +196,7 @@ try {
 
 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem;">
     <h1 class="page-title">
-        News & Articles Manager
+        Blog Posts Manager
         <span>Manage dynamic blogs, student resource guides, and official study destination news announcements</span>
     </h1>
     <button class="btn-pill" onclick="openAddModal()">

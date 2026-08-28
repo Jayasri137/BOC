@@ -7,13 +7,13 @@ require_once 'includes/header.php';
 
 <main>
 
-    <section class="section">
+    <section class="section" style="background:white">
         <div class="container">
             <!-- Destination Filter -->
-            <div class="filter-card animate-on-scroll" style="margin-bottom: 4rem; background: #fff; padding: 2rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #f1f5f9;">
+            <div class="filter-card animate-on-scroll" style="margin-bottom: 4rem; background: #655dd1ff; padding: 2rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #f1f5f9;">
                 <form action="" method="GET" class="grid grid--2 gap--2 align-center" style="grid-template-columns: 1fr auto;">
                     <div>
-                        <h3 style="margin: 0; font-size: 1.25rem;">Compare exchange rates and fee payment options for your destination.</h3>
+                        <h3 style="margin: 0; font-size: 1.25rem; color: white;">Compare exchange rates and fee payment options for your destination.</h3>
                     </div>
                     <div style="display: flex; gap: 1rem;">
                         <select name="destination" class="form-control" style="min-width: 250px; padding: 0.75rem 1rem; border-radius: 10px; border: 1px solid #e2e8f0;" onchange="this.form.submit()">
@@ -37,80 +37,13 @@ require_once 'includes/header.php';
           <div style="width: 50px; height: 3px; background: #16a34a; margin-bottom: 1.5rem;"></div>
           <p style="color: var(--gray); line-height: 1.6;">Whether it's paying admission fees to your institution, purchasing health insurance, or covering accommodation costs, we've got you sorted. Our partners provide seamless experiences at competitive rates, so you can focus on your studies with peace of mind.</p>
         </div>
-        <div style="background: linear-gradient(135deg, #16a34a, #22c55e); padding: 2rem; border-radius: 24px; color: #fff; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
-            <div style="z-index: 1;">
-                <h3 style="margin-bottom: 0.5rem;">Transfer money globally with confidence</h3>
-                <p style="font-size: 0.9rem; opacity: 0.9;">Learn to send safe payments for tuition, rent & more</p>
-                <div style="margin-top: 1.5rem; width: 60px; height: 60px; background: rgba(255,255,255,0.2); border-radius: 50%; display: grid; place-items: center; font-size: 1.5rem;">
-                    <i class="fa-solid fa-play"></i>
-                </div>
-            </div>
-            <i class="fa-solid fa-earth-americas" style="position: absolute; right: -20px; bottom: -20px; font-size: 8rem; opacity: 0.1;"></i>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <img src="assets/images/Fund.png" alt="Money Transfer" style="width: 100%; height: 100%; object-fit: cover; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); min-height: 200px;">
+            <img src="assets/images/card_budget_3d.png" alt="Budgeting" style="width: 100%; height: 100%; object-fit: cover; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); min-height: 200px;">
         </div>
       </div>
 
-      <div class="animate-on-scroll" style="margin-bottom: 2rem;">
-        <h3 style="font-size: 1.5rem; color: var(--dark);">Explore our global partners</h3>
-        <div style="width: 40px; height: 3px; background: #16a34a; margin-top: 0.5rem;"></div>
-      </div>
 
-      <div class="grid grid--2 gap--4" style="margin-bottom: 4rem;">
-        <?php
-        $query = "SELECT * FROM essential_partners WHERE category = 'forex' AND is_active = 1 AND (partner_name LIKE '%Flywire%' OR partner_name LIKE '%Convera%')";
-        $params = [];
-        if ($selectedDest) {
-            $query .= " AND (country_name = ? OR country_name = 'Global')";
-            $params[] = $selectedDest;
-        }
-        $stmt = $pdo->prepare($query);
-        $stmt->execute($params);
-        $partners = $stmt->fetchAll();
-        $partners = array_values(array_filter($partners, function ($p) {
-            return !is_hidden_partner($p);
-        }));
-
-        foreach ($partners as $p):
-            $features = explode(',', $p['features']);
-        ?>
-          <div class="service-card" style="padding: 2.5rem; background: #fff; border-radius: 20px; border: 1px solid #f1f5f9; box-shadow: 0 10px 30px rgba(0,0,0,0.03); display: flex; flex-direction: column; gap: 1.5rem;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-              <h3 style="margin: 0; font-size: 1.5rem; color: var(--dark);"><?= clean_output($p['partner_name']) ?></h3>
-              <img src="<?= clean_output($p['logo_path']) ?>" alt="<?= clean_output($p['partner_name']) ?>" style="height: 35px; width: auto; object-fit: contain;">
-            </div>
-            <div style="font-size: 0.9rem; font-weight: 700; color: #16a34a; display: flex; align-items: center; gap: 0.5rem;">
-                <span>Best Price Guarantee</span>
-                <i class="fa-solid fa-circle-info"></i>
-            </div>
-            <div class="grid grid--2 gap--05">
-              <?php foreach ($features as $f): ?>
-                <div style="display: flex; align-items: center; gap: 0.75rem; color: var(--gray); font-size: 0.9rem;">
-                  <i class="fa-solid fa-circle-check" style="color: #16a34a;"></i>
-                  <span><?= clean_output(trim($f)) ?></span>
-                </div>
-              <?php endforeach; ?>
-            </div>
-            
-            <?php if ($p['country_name'] == 'Global'): ?>
-            <div style="margin-top: 1rem;">
-                <p style="font-size: 0.85rem; font-weight: 700; color: var(--dark); margin-bottom: 0.5rem;">Available for these destinations:</p>
-                <div style="display: flex; gap: 0.5rem; font-size: 0.75rem; font-weight: 800; color: #64748b;">
-                    <span>🇦🇺 AU</span><span>🇨🇦 CA</span><span>🇬🇧 GB</span><span>🇮🇪 IE</span><span>🇳🇿 NZ</span><span>🇺🇸 US</span>
-                </div>
-            </div>
-            <?php endif; ?>
-
-            <div style="margin-top: auto; padding-top: 1.5rem; border-top: 1px solid #f1f5f9; display: flex; flex-direction: column; gap: 0.75rem;">
-                <a href="enquiry.php" class="btn" style="width: 100%; background: #0066ff; color: #fff;">Enquire now</a>
-                <a href="<?= clean_output($p['link']) ?>" class="btn btn--outline" style="width: 100%;">Learn more</a>
-            </div>
-          </div>
-        <?php endforeach; ?>
-      </div>
-
-      <div class="animate-on-scroll" style="margin-bottom: 2rem;">
-        <h3 style="font-size: 1.5rem; color: var(--dark);">Explore our global partners for living expenses</h3>
-        <div style="width: 40px; height: 3px; background: #16a34a; margin-top: 0.5rem;"></div>
-      </div>
 
       <div class="grid grid--2 gap--4">
         <?php

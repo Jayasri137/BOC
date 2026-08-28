@@ -1,11 +1,12 @@
 <?php
 require_once 'includes/config.php';
 $pageTitle = 'Financial Assistance | Bluestone Overseas Consultants';
+$pageHeroImage = 'assets/images/img.png';
 require_once 'includes/header.php';
 ?>
 <main>
   <!-- HERO SECTION WITH RICH AESTHETICS -->
-  <section class="section" style="position: relative; overflow: hidden; background: linear-gradient(135deg, #f0fdfa 0%, #fffbeb 100%); padding: 6rem 0 4rem;">
+  <section class="section" style="position: relative; overflow: hidden; background:#ffffff; padding: 6rem 0 4rem;">
     <!-- Abstract blurred background shapes -->
     <div style="position: absolute; top: -10%; left: -10%; width: 300px; height: 300px; background: rgba(20, 184, 166, 0.15); filter: blur(80px); border-radius: 50%;"></div>
     <div style="position: absolute; bottom: -10%; right: -10%; width: 300px; height: 300px; background: rgba(245, 158, 11, 0.15); filter: blur(80px); border-radius: 50%;"></div>
@@ -24,7 +25,7 @@ require_once 'includes/header.php';
           </p>
         </div>
         <div class="animate-on-scroll delay-1">
-          <div class="service-details grid grid--1 gap--1" style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); padding: 2.5rem; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 20px 40px rgba(0,0,0,0.03);">
+          <div class="service-details grid grid--1 gap--1" style="background: rgba(37, 19, 150, 0.7); backdrop-filter: blur(10px); padding: 2.5rem; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 20px 40px rgba(0,0,0,0.03);">
             <h3 style="margin-bottom: 1.5rem; color: var(--dark); font-size: 1.25rem; text-align: center;">Our Financial Support Offerings</h3>
             <div class="a-feat">
               <i class="fa-solid fa-check-circle" style="color: #14b8a6;"></i>

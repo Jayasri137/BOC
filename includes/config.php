@@ -53,27 +53,6 @@ if (!function_exists('is_hidden_partner')) {
 
 if (!function_exists('is_hidden_news_article')) {
     function is_hidden_news_article($article) {
-        $hiddenIds = [9, 10, 11, 12, 13, 14];
-        if (is_array($article)) {
-            if (isset($article['id']) && in_array((int) $article['id'], $hiddenIds, true)) {
-                return true;
-            }
-
-            $subject = strtolower(implode(' ', array_filter([
-                $article['link'] ?? '',
-                $article['title'] ?? '',
-                $article['excerpt'] ?? '',
-                $article['tag'] ?? '',
-                $article['emoji'] ?? ''
-            ])));
-
-            foreach ($hiddenIds as $id) {
-                if (strpos($subject, 'blog-details.php?id=' . $id) !== false) {
-                    return true;
-                }
-            }
-        }
-
         return false;
     }
 }

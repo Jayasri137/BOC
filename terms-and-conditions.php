@@ -7,58 +7,16 @@ require_once 'includes/header.php';
 
 <style>
 .legal-header {
-  background: linear-gradient(135deg, var(--secondary-dark), var(--dark2));
-  padding: 6rem 0 4.5rem;
-  color: var(--white);
+  padding: 6rem 0 2rem;
+  color: var(--dark);
   position: relative;
-  overflow: hidden;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-.legal-header::after {
-  content: '';
-  position: absolute;
-  top: -50px;
-  right: -50px;
-  width: 350px;
-  height: 350px;
-  background: radial-gradient(circle, rgba(255, 0, 0, 0.15) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-}
-.legal-header::before {
-  content: '';
-  position: absolute;
-  bottom: -50px;
-  left: -50px;
-  width: 250px;
-  height: 250px;
-  background: radial-gradient(circle, rgba(255, 51, 51, 0.08) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-}
-.legal-breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 1.25rem;
-  font-weight: 500;
-}
-.legal-breadcrumb a {
-  color: rgba(255, 255, 255, 0.8);
-  transition: color var(--transition);
-}
-.legal-breadcrumb a:hover {
-  color: var(--primary);
 }
 .legal-card {
   background: var(--white);
   padding: 4rem;
   border-radius: 24px;
   box-shadow: var(--shadow);
-  border: 1px solid rgba(255, 0, 0, 0.05);
-  margin-top: -2.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
   position: relative;
   z-index: 10;
   transition: transform var(--transition);
@@ -141,7 +99,6 @@ require_once 'includes/header.php';
 @media (max-width: 768px) {
   .legal-card {
     padding: 2.5rem 1.5rem;
-    margin-top: -1.5rem;
   }
   .legal-content {
     padding-left: 0;
@@ -154,17 +111,12 @@ require_once 'includes/header.php';
 
 <main>
   <!-- Page Title Banner -->
-  <section class="legal-header animate-on-scroll">
+  <section class="legal-header animate-on-scroll text-center" style="text-align: center;">
     <div class="container">
-      <div class="legal-breadcrumb">
-        <a href="index.php">Home</a>
-        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; opacity: 0.7;"></i>
-        <span style="color: var(--primary);">Terms & Conditions</span>
-      </div>
       <h1 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.2; margin: 0; letter-spacing: -0.02em;">
         Terms & <span style="background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Conditions</span>
       </h1>
-      <p style="margin-top: 1rem; font-size: 1.05rem; color: rgba(255,255,255,0.7); max-width: 600px; line-height: 1.5; font-weight: 400;">
+      <p style="margin-top: 1rem; font-size: 1.05rem; color: var(--gray); max-width: 600px; line-height: 1.5; font-weight: 400; margin-left: auto; margin-right: auto;">
         Welcome to Bluestone Overseas Consultants. Please read these terms and conditions carefully before using our services.
       </p>
     </div>

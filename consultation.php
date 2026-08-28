@@ -6,7 +6,7 @@ require_once 'includes/header.php';
 ?>
 <main>
 
-  <section class="section">
+  <section class="section" style="background:#ffffff">
     <div class="container">
       <div class="grid grid--2 gap--4">
         <div class="animate-on-scroll">

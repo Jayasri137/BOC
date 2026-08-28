@@ -10,7 +10,15 @@ if (session_status() === PHP_SESSION_NONE) {
  */
 function check_auth() {
     if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-        header('Location: login.php');
+        $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+        $host = $_SERVER['HTTP_HOST'];
+        $base_dir = dirname($_SERVER['SCRIPT_NAME']);
+        // If the script is in a subdirectory (like login/), we need to go up to /admin
+        if (basename($base_dir) !== 'admin') {
+            $base_dir = dirname($base_dir);
+        }
+        $redirect_url = $protocol . "://" . $host . $base_dir . "/login.php";
+        header("Location: " . $redirect_url);
         exit;
     }
 }
@@ -39,4 +47,3 @@ function get_avatar_color($name) {
     $char_code = ord(substr(strtoupper($name), 0, 1));
     return $colors[$char_code % count($colors)];
 }
-?>

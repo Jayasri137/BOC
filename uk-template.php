@@ -2,6 +2,7 @@
 require_once 'includes/config.php';
 
 $country_slug = 'uk';
+$hideDefaultHero = true;
 
 // Fetch from Database first
 $db_country = null;
@@ -44,6 +45,11 @@ function get_uk_image_url($slug, $db_url) {
 
 <!-- Clean template specifically for the UK page -->
 <style>
+.page-hero {
+  height: auto !important;
+  min-height: 85vh;
+  padding-bottom: 6rem !important;
+}
 /* Feature Card Hover Effects */
 .feature-card {
   position: relative;
@@ -324,14 +330,14 @@ details.faq-accordion[open] summary::after {
           <p style="color:white; font-size: 1.25rem; font-weight: 600; margin-bottom: 1.25rem; margin-top: 1rem; text-align: left;">Start Your Application Today</p>
           
           <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-            <a href="javascript:void(0)" onclick="openUkModal()" class="btn btn--primary" style="padding: 1rem 2.5rem; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);">Check Your Eligibility</a>
-            <a href="https://wa.me/919342899904" target="_blank" class="btn" style="background:rgba(255,255,255,0.1); color:white; border:1px solid rgba(255,255,255,0.5); padding: 1rem 2.5rem; font-size: 1.1rem;">WhatsApp Us</a>
+            <a href="javascript:void(0)" onclick="openUkModal()" class="btn btn--primary hover-lift" style="padding: 1rem 2.5rem; font-size: 1.1rem; border-radius: 50px; font-weight: 700; background: linear-gradient(135deg, var(--primary, #ff5c8d), #e63971); box-shadow: 0 10px 20px rgba(255, 92, 141, 0.3);">Check Your Eligibility</a>
+            <a href="https://wa.me/919342899904" target="_blank" class="btn hover-lift" style="background:rgba(255,255,255,0.1); backdrop-filter: blur(4px); color:white; border:1px solid rgba(255,255,255,0.5); padding: 1rem 2.5rem; font-size: 1.1rem; border-radius: 50px; font-weight: 700;">WhatsApp Us</a>
           </div>
         </div>
 
-        <div style="background: white; border-radius: 20px; padding: 1.25rem 1.5rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); text-align: left; max-width: 450px; margin-left: auto;">
-          <h3 style="font-size: 1.35rem; font-weight: 800; color: #0f172a; margin: 0 0 0.15rem 0;">Get Expert UK Guidance!</h3>
-          <p style="color: #64748b; font-size: 0.9rem; margin: 0 0 0.75rem 0;">Leave your details and our senior counsellors will contact you shortly.</p>
+        <div style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); border-radius: 24px; padding: 2rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); text-align: left; max-width: 450px; margin-left: auto; border: 1px solid rgba(255,255,255,0.5);">
+          <h3 style="font-size: 1.5rem; font-weight: 800; color: #0f172a; margin: 0 0 0.25rem 0;">Get Expert UK Guidance!</h3>
+          <p style="color: #64748b; font-size: 0.95rem; margin: 0 0 1rem 0;">Leave your details and our senior counsellors will contact you shortly.</p>
           
           <form id="ukHeroForm" onsubmit="return handleFormSubmit(event)" style="display: flex; flex-direction: column; gap: 0.75rem;">
             <input type="hidden" name="form_type" value="contact">
@@ -353,7 +359,7 @@ details.faq-accordion[open] summary::after {
               <input type="email" name="email" required style="width: 100%; padding: 0.6rem 0.8rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; outline: none; transition: border-color 0.2s; box-sizing: border-box;" onfocus="this.style.borderColor='#3b82f6';" onblur="this.style.borderColor='#cbd5e1';">
             </div>
             
-            <button type="submit" class="btn btn--primary" style="width: 100%; padding: 0.75rem; font-size: 1.05rem; margin-top: 0.25rem; justify-content: center; font-weight: 700;">
+            <button type="submit" class="btn btn--primary hover-lift" style="width: 100%; padding: 1rem; font-size: 1.05rem; margin-top: 0.5rem; justify-content: center; font-weight: 800; background: linear-gradient(135deg, var(--accent, #0ea5e9), #3b82f6); border-radius: 12px; box-shadow: 0 10px 20px rgba(14,165,233,0.3); border: none;">
               Request Free Callback
             </button>
           </form>
@@ -369,18 +375,18 @@ details.faq-accordion[open] summary::after {
   </section>
 
   <!-- PROMOTIONAL BANNER (September Intake) -->
-  <section style="background: var(--uk-accent, #dc2626); color: white; padding: 2.5rem 0 5.5rem 0; position: relative; z-index: 10;">
+  <section style="background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #0f172a; padding: 3rem 0 6rem 0; position: relative; z-index: 10;">
     <div class="container">
       <div style="display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2rem;">
         <div style="flex: 1; min-width: 300px;">
-          <div style="display: inline-block; background: rgba(255,255,255,0.2); padding: 0.25rem 1rem; border-radius: 50px; font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 0.75rem;">
-            <i class="fa-solid fa-fire" style="color: #fbbf24;"></i> Admissions Open
+          <div style="display: inline-block; background: rgba(0,0,0,0.1); padding: 0.35rem 1.25rem; border-radius: 50px; font-weight: 800; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 1rem; color: #0f172a;">
+            <i class="fa-solid fa-fire" style="color: #dc2626;"></i> Admissions Open
           </div>
-          <h2 style="font-size: 2rem; font-weight: 800; margin: 0 0 0.5rem 0; color: white;">September 2026 Intake</h2>
-          <p style="font-size: 1.1rem; margin: 0; opacity: 0.9;">Secure your spot in top UK universities. Limited seats and scholarships available. Apply early to beat the rush!</p>
+          <h2 style="font-size: 2.25rem; font-weight: 800; margin: 0 0 0.5rem 0; color: #0f172a;">September 2026 Intake</h2>
+          <p style="font-size: 1.1rem; margin: 0; font-weight: 600; color: rgba(15,23,42,0.85);">Secure your spot in top UK universities. Limited seats and scholarships available. Apply early to beat the rush!</p>
         </div>
         <div>
-          <a href="javascript:void(0)" onclick="openUkModal()" class="btn" style="background: white; color: #dc2626; font-weight: 800; padding: 1rem 2.5rem; font-size: 1.1rem; border-radius: 50px; text-transform: uppercase; box-shadow: 0 10px 20px rgba(0,0,0,0.15);">
+          <a href="javascript:void(0)" onclick="openUkModal()" class="btn hover-lift" style="background: #0f172a; color: white; font-weight: 800; padding: 1.25rem 2.5rem; font-size: 1.1rem; border-radius: 50px; text-transform: uppercase; box-shadow: 0 10px 30px rgba(15,23,42,0.3);">
             Register Now <i class="fa-solid fa-arrow-right" style="margin-left: 0.5rem;"></i>
           </a>
         </div>
@@ -389,77 +395,77 @@ details.faq-accordion[open] summary::after {
   </section>
 
   <!-- HIGHLIGHTS SECTION -->
-  <section class="section" style="padding-top: 0; margin-top: -60px; position: relative; z-index: 10;">
+  <section class="section" style="padding-top: 0; margin-top: -80px; position: relative; z-index: 10;">
     <div class="container">
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; width: 100%;">
         
         <!-- Card 1 -->
-        <div class="animate-on-scroll feature-card card-blue">
+        <div class="animate-on-scroll feature-card hover-lift" style="border: 1px solid rgba(14,165,233,0.15);">
           <div class="feature-front">
-            <div style="width: 64px; height: 64px; margin: 0 auto 1.25rem; background: linear-gradient(135deg, #eff6ff 0%, #bfdbfe 100%); color: #2563eb; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.75rem;">
+            <div style="width: 64px; height: 64px; margin: 0 auto 1.25rem; background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); color: var(--accent, #0ea5e9); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.75rem;">
               <i class="fa-solid fa-user-tie"></i>
             </div>
             <h4 style="font-weight: 800; font-size: 1.15rem; color: #0f172a; margin: 0;">Free Counselling</h4>
           </div>
-          <div class="feature-back">
-            <h5>Free Counselling</h5>
-            <p>Get personalized advice from our expert counsellors to help you select the best course and university based on your profile.</p>
+          <div class="feature-back" style="background: var(--accent, #0ea5e9); color: white;">
+            <h5 style="color: white;">Free Counselling</h5>
+            <p style="color: rgba(255,255,255,0.9);">Get personalized advice from our expert counsellors to help you select the best course and university based on your profile.</p>
           </div>
         </div>
 
         <!-- Card 2 -->
-        <div class="animate-on-scroll delay-1 feature-card card-purple">
+        <div class="animate-on-scroll delay-1 feature-card hover-lift" style="border: 1px solid rgba(139,92,246,0.15);">
           <div class="feature-front">
-            <div style="width: 64px; height: 64px; margin: 0 auto 1.25rem; background: linear-gradient(135deg, #f5f3ff 0%, #ddd6fe 100%); color: #7c3aed; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.75rem;">
+            <div style="width: 64px; height: 64px; margin: 0 auto 1.25rem; background: linear-gradient(135deg, #f5f3ff 0%, #ddd6fe 100%); color: #8b5cf6; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.75rem;">
               <i class="fa-solid fa-building-columns"></i>
             </div>
             <h4 style="font-weight: 800; font-size: 1.15rem; color: #0f172a; margin: 0;">500+ UK Universities</h4>
           </div>
-          <div class="feature-back">
-            <h5>500+ UK Universities</h5>
-            <p>Access a vast network of top-ranked institutions across the UK, offering thousands of diverse programs.</p>
+          <div class="feature-back" style="background: #8b5cf6; color: white;">
+            <h5 style="color: white;">500+ UK Universities</h5>
+            <p style="color: rgba(255,255,255,0.9);">Access a vast network of top-ranked institutions across the UK, offering thousands of diverse programs.</p>
           </div>
         </div>
 
         <!-- Card 3 -->
-        <div class="animate-on-scroll delay-2 feature-card card-green">
+        <div class="animate-on-scroll delay-2 feature-card hover-lift" style="border: 1px solid rgba(255,92,141,0.15);">
           <div class="feature-front">
-            <div style="width: 64px; height: 64px; margin: 0 auto 1.25rem; background: linear-gradient(135deg, #ecfdf5 0%, #a7f3d0 100%); color: #059669; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.75rem;">
+            <div style="width: 64px; height: 64px; margin: 0 auto 1.25rem; background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%); color: var(--primary, #ff5c8d); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.75rem;">
               <i class="fa-solid fa-sack-dollar"></i>
             </div>
             <h4 style="font-weight: 800; font-size: 1.15rem; color: #0f172a; margin: 0;">Scholarships Up to £10,000*</h4>
           </div>
-          <div class="feature-back">
-            <h5>Scholarships</h5>
-            <p>Maximize your chances of securing scholarships up to £10,000* to help fund your education and living expenses.</p>
+          <div class="feature-back" style="background: var(--primary, #ff5c8d); color: white;">
+            <h5 style="color: white;">Scholarships</h5>
+            <p style="color: rgba(255,255,255,0.9);">Maximize your chances of securing scholarships up to £10,000* to help fund your education and living expenses.</p>
           </div>
         </div>
 
         <!-- Card 4 -->
-        <div class="animate-on-scroll delay-3 feature-card card-orange">
+        <div class="animate-on-scroll delay-3 feature-card hover-lift" style="border: 1px solid rgba(245,158,11,0.15);">
           <div class="feature-front">
-            <div style="width: 64px; height: 64px; margin: 0 auto 1.25rem; background: linear-gradient(135deg, #fffbeb 0%, #fde68a 100%); color: #d97706; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.75rem;">
+            <div style="width: 64px; height: 64px; margin: 0 auto 1.25rem; background: linear-gradient(135deg, #fffbeb 0%, #fde68a 100%); color: #f59e0b; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.75rem;">
               <i class="fa-solid fa-passport"></i>
             </div>
             <h4 style="font-weight: 800; font-size: 1.15rem; color: #0f172a; margin: 0;">Visa Assistance</h4>
           </div>
-          <div class="feature-back">
-            <h5>Visa Assistance</h5>
-            <p>Benefit from our high visa success rate with step-by-step guidance, documentation support, and interview preparation.</p>
+          <div class="feature-back" style="background: #f59e0b; color: white;">
+            <h5 style="color: white;">Visa Assistance</h5>
+            <p style="color: rgba(255,255,255,0.9);">Benefit from our high visa success rate with step-by-step guidance, documentation support, and interview preparation.</p>
           </div>
         </div>
 
         <!-- Card 5 -->
-        <div class="animate-on-scroll feature-card card-red">
+        <div class="animate-on-scroll feature-card hover-lift" style="border: 1px solid rgba(16,185,129,0.15);">
           <div class="feature-front">
-            <div style="width: 64px; height: 64px; margin: 0 auto 1.25rem; background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); color: #dc2626; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.75rem;">
+            <div style="width: 64px; height: 64px; margin: 0 auto 1.25rem; background: linear-gradient(135deg, #ecfdf5 0%, #a7f3d0 100%); color: #10b981; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.75rem;">
               <i class="fa-solid fa-list-check"></i>
             </div>
-            <h4 style="font-weight: 800; font-size: 1.15rem; color: #0f172a; margin: 0;">Course & University Shortlisting</h4>
+            <h4 style="font-weight: 800; font-size: 1.15rem; color: #0f172a; margin: 0;">Course Shortlisting</h4>
           </div>
-          <div class="feature-back">
-            <h5>Course Shortlisting</h5>
-            <p>We analyze your academic background to shortlist the ideal courses and universities that align with your career goals.</p>
+          <div class="feature-back" style="background: #10b981; color: white;">
+            <h5 style="color: white;">Course Shortlisting</h5>
+            <p style="color: rgba(255,255,255,0.9);">We analyze your academic background to shortlist the ideal courses and universities that align with your career goals.</p>
           </div>
         </div>
 
@@ -505,8 +511,8 @@ details.faq-accordion[open] summary::after {
                     <div class="uni-card__overlay"></div>
                     
                     <?php if (!empty($uni['qs_ranking'])): ?>
-                    <div style="position: absolute; top: 1.5rem; right: 1.5rem; background: rgba(255, 255, 255, 0.95); color: #0f172a; font-weight: 800; font-size: 0.9rem; padding: 0.5rem 1rem; border-radius: 50px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 5;">
-                        <i class="fa-solid fa-trophy" style="color: #f59e0b; margin-right: 0.25rem;"></i> QS: <?= clean_output($uni['qs_ranking']) ?>
+                    <div style="position: absolute; top: 1.5rem; right: 1.5rem; background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #0f172a; font-weight: 800; font-size: 0.9rem; padding: 0.5rem 1rem; border-radius: 50px; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4); z-index: 5;">
+                        <i class="fa-solid fa-trophy" style="margin-right: 0.25rem;"></i> QS: <?= clean_output($uni['qs_ranking']) ?>
                     </div>
                     <?php endif; ?>
 
@@ -550,7 +556,7 @@ details.faq-accordion[open] summary::after {
                                 <p style="font-size: 0.95rem; color: #f8fafc; margin: 0 0 1rem 0;">Undergraduate & Postgraduate programs available.</p>
                             <?php endif; ?>
                             
-                            <button class="btn btn--primary" style="margin-top: 1rem; width: 100%; text-align: center; border-radius: 12px; pointer-events: none;">Apply Now</button>
+                            <button class="btn btn--primary hover-lift" style="margin-top: 1rem; width: 100%; text-align: center; border-radius: 12px; pointer-events: none; background: linear-gradient(135deg, var(--accent, #0ea5e9), #3b82f6); border: none; font-weight: 700;">Apply Now</button>
                         </div>
                     </div>
                 </div>
@@ -572,47 +578,47 @@ details.faq-accordion[open] summary::after {
       
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 3rem;">
         
-        <div class="animate-on-scroll" style="background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03); border: 1px solid #f1f5f9; border-left: 4px solid #3b82f6; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)';">
-          <div style="width: 50px; height: 50px; border-radius: 12px; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); color: #2563eb; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.25rem;">
+        <div class="animate-on-scroll hover-lift" style="background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03); border: 1px solid #f1f5f9; border-left: 4px solid var(--accent, #0ea5e9);">
+          <div style="width: 50px; height: 50px; border-radius: 12px; background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); color: var(--accent, #0ea5e9); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.25rem;">
             <i class="fa-solid fa-users"></i>
           </div>
           <h4 style="font-size:1.25rem; font-weight:800; margin-bottom:0.75rem; color:#0f172a; letter-spacing: -0.025em;">Experienced Counsellors</h4>
           <p style="color:#64748b; line-height:1.7; font-size: 0.95rem; margin: 0;">Personalized counselling based on your academic profile and career goals.</p>
         </div>
 
-        <div class="animate-on-scroll delay-1" style="background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03); border: 1px solid #f1f5f9; border-left: 4px solid #8b5cf6; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)';">
-          <div style="width: 50px; height: 50px; border-radius: 12px; background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%); color: #7c3aed; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.25rem;">
+        <div class="animate-on-scroll delay-1 hover-lift" style="background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03); border: 1px solid #f1f5f9; border-left: 4px solid #8b5cf6;">
+          <div style="width: 50px; height: 50px; border-radius: 12px; background: linear-gradient(135deg, #f5f3ff 0%, #ddd6fe 100%); color: #8b5cf6; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.25rem;">
             <i class="fa-solid fa-globe"></i>
           </div>
           <h4 style="font-size:1.25rem; font-weight:800; margin-bottom:0.75rem; color:#0f172a; letter-spacing: -0.025em;">Wide University Network</h4>
           <p style="color:#64748b; line-height:1.7; font-size: 0.95rem; margin: 0;">Access to top-ranked universities across multiple countries globally.</p>
         </div>
 
-        <div class="animate-on-scroll delay-2" style="background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03); border: 1px solid #f1f5f9; border-left: 4px solid #10b981; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)';">
-          <div style="width: 50px; height: 50px; border-radius: 12px; background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); color: #059669; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.25rem;">
+        <div class="animate-on-scroll delay-2 hover-lift" style="background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03); border: 1px solid #f1f5f9; border-left: 4px solid #10b981;">
+          <div style="width: 50px; height: 50px; border-radius: 12px; background: linear-gradient(135deg, #ecfdf5 0%, #a7f3d0 100%); color: #10b981; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.25rem;">
             <i class="fa-solid fa-award"></i>
           </div>
           <h4 style="font-size:1.25rem; font-weight:800; margin-bottom:0.75rem; color:#0f172a; letter-spacing: -0.025em;">Scholarship Assistance</h4>
           <p style="color:#64748b; line-height:1.7; font-size: 0.95rem; margin: 0;">Expert guidance to maximize your scholarship and funding opportunities.</p>
         </div>
 
-        <div class="animate-on-scroll delay-3" style="background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03); border: 1px solid #f1f5f9; border-left: 4px solid #f59e0b; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)';">
-          <div style="width: 50px; height: 50px; border-radius: 12px; background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); color: #d97706; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.25rem;">
+        <div class="animate-on-scroll delay-3 hover-lift" style="background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03); border: 1px solid #f1f5f9; border-left: 4px solid #f59e0b;">
+          <div style="width: 50px; height: 50px; border-radius: 12px; background: linear-gradient(135deg, #fffbeb 0%, #fde68a 100%); color: #f59e0b; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.25rem;">
             <i class="fa-solid fa-file-signature"></i>
           </div>
           <h4 style="font-size:1.25rem; font-weight:800; margin-bottom:0.75rem; color:#0f172a; letter-spacing: -0.025em;">Admission Support</h4>
           <p style="color:#64748b; line-height:1.7; font-size: 0.95rem; margin: 0;">Application preparation, SOP review, LOR guidance, and verification.</p>
         </div>
 
-        <div class="animate-on-scroll" style="background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03); border: 1px solid #f1f5f9; border-left: 4px solid #ef4444; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)';">
-          <div style="width: 50px; height: 50px; border-radius: 12px; background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); color: #dc2626; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.25rem;">
+        <div class="animate-on-scroll hover-lift" style="background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03); border: 1px solid #f1f5f9; border-left: 4px solid var(--primary, #ff5c8d);">
+          <div style="width: 50px; height: 50px; border-radius: 12px; background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%); color: var(--primary, #ff5c8d); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.25rem;">
             <i class="fa-solid fa-plane-arrival"></i>
           </div>
           <h4 style="font-size:1.25rem; font-weight:800; margin-bottom:0.75rem; color:#0f172a; letter-spacing: -0.025em;">Visa Assistance</h4>
           <p style="color:#64748b; line-height:1.7; font-size: 0.95rem; margin: 0;">Expert visa filing with extensive mock interview preparation.</p>
         </div>
 
-        <div class="animate-on-scroll delay-1" style="background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03); border: 1px solid #f1f5f9; border-left: 4px solid #14b8a6; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)';">
+        <div class="animate-on-scroll delay-1 hover-lift" style="background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03); border: 1px solid #f1f5f9; border-left: 4px solid #14b8a6;">
           <div style="width: 50px; height: 50px; border-radius: 12px; background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%); color: #0d9488; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.25rem;">
             <i class="fa-solid fa-building-columns"></i>
           </div>
@@ -620,7 +626,7 @@ details.faq-accordion[open] summary::after {
           <p style="color:#64748b; line-height:1.7; font-size: 0.95rem; margin: 0;">End-to-end assistance in obtaining education loans from leading banks.</p>
         </div>
 
-        <div class="animate-on-scroll delay-2" style="background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03); border: 1px solid #f1f5f9; border-left: 4px solid #6366f1; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)';">
+        <div class="animate-on-scroll delay-2 hover-lift" style="background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03); border: 1px solid #f1f5f9; border-left: 4px solid #6366f1;">
           <div style="width: 50px; height: 50px; border-radius: 12px; background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%); color: #4f46e5; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.25rem;">
             <i class="fa-solid fa-suitcase-rolling"></i>
           </div>
@@ -628,8 +634,8 @@ details.faq-accordion[open] summary::after {
           <p style="color:#64748b; line-height:1.7; font-size: 0.95rem; margin: 0;">Prepare for your life abroad with comprehensive travel & settlement guidance.</p>
         </div>
 
-        <div class="animate-on-scroll delay-3" style="background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03); border: 1px solid #f1f5f9; border-left: 4px solid #ec4899; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)';">
-          <div style="width: 50px; height: 50px; border-radius: 12px; background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%); color: #db2777; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.25rem;">
+        <div class="animate-on-scroll delay-3 hover-lift" style="background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03); border: 1px solid #f1f5f9; border-left: 4px solid var(--primary, #ff5c8d);">
+          <div style="width: 50px; height: 50px; border-radius: 12px; background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%); color: var(--primary, #ff5c8d); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.25rem;">
             <i class="fa-solid fa-house-chimney"></i>
           </div>
           <h4 style="font-size:1.25rem; font-weight:800; margin-bottom:0.75rem; color:#0f172a; letter-spacing: -0.025em;">Post-Arrival Support</h4>
@@ -641,7 +647,7 @@ details.faq-accordion[open] summary::after {
   </section>
 
   <!-- 6: Admission Process -->
-  <section class="section" style="background:#ffffff; border-top:1px solid #e2e8f0; border-bottom:1px solid #e2e8f0;">
+  <section class="section" style="background: linear-gradient(to bottom, #f8fafc, #ffffff); border-top:1px solid #e2e8f0; border-bottom:1px solid #e2e8f0;">
     <div class="container">
       <div class="section__header animate-on-scroll">
         <span class="section__tag">Simple & Transparent</span>
@@ -649,25 +655,25 @@ details.faq-accordion[open] summary::after {
         <div class="accent-bar"></div>
       </div>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-top: 3rem; text-align: center;">
-        <div class="animate-on-scroll">
-          <div style="width:70px; height:70px; background:#3b82f6; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.8rem; font-weight:800; margin:0 auto 1.5rem; box-shadow:0 10px 20px rgba(59,130,246,0.3);">1</div>
-          <h4 style="font-weight:700; margin-bottom:0.5rem; color:#0f172a;">Profile Evaluation</h4>
-          <p style="color:var(--text-secondary); font-size:0.95rem;">Free counselling to understand your background & goals.</p>
+        <div class="animate-on-scroll hover-lift" style="background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid #e2e8f0;">
+          <div style="width:70px; height:70px; background: linear-gradient(135deg, var(--accent, #0ea5e9), #3b82f6); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.8rem; font-weight:800; margin:0 auto 1.5rem; box-shadow:0 10px 20px rgba(14,165,233,0.3);">1</div>
+          <h4 style="font-weight:800; margin-bottom:0.75rem; color:#0f172a; font-size:1.15rem;">Profile Evaluation</h4>
+          <p style="color:var(--text-secondary); font-size:0.95rem; margin:0;">Free counselling to understand your background & goals.</p>
         </div>
-        <div class="animate-on-scroll delay-1">
-          <div style="width:70px; height:70px; background:#3b82f6; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.8rem; font-weight:800; margin:0 auto 1.5rem; box-shadow:0 10px 20px rgba(59,130,246,0.3);">2</div>
-          <h4 style="font-weight:700; margin-bottom:0.5rem; color:#0f172a;">University Selection</h4>
-          <p style="color:var(--text-secondary); font-size:0.95rem;">Shortlisting the best-fit institutions globally.</p>
+        <div class="animate-on-scroll delay-1 hover-lift" style="background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid #e2e8f0;">
+          <div style="width:70px; height:70px; background: linear-gradient(135deg, #8b5cf6, #6366f1); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.8rem; font-weight:800; margin:0 auto 1.5rem; box-shadow:0 10px 20px rgba(139,92,246,0.3);">2</div>
+          <h4 style="font-weight:800; margin-bottom:0.75rem; color:#0f172a; font-size:1.15rem;">University Selection</h4>
+          <p style="color:var(--text-secondary); font-size:0.95rem; margin:0;">Shortlisting the best-fit institutions globally.</p>
         </div>
-        <div class="animate-on-scroll delay-2">
-          <div style="width:70px; height:70px; background:#3b82f6; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.8rem; font-weight:800; margin:0 auto 1.5rem; box-shadow:0 10px 20px rgba(59,130,246,0.3);">3</div>
-          <h4 style="font-weight:700; margin-bottom:0.5rem; color:#0f172a;">Application & SOPs</h4>
-          <p style="color:var(--text-secondary); font-size:0.95rem;">Handling all documentation & submission.</p>
+        <div class="animate-on-scroll delay-2 hover-lift" style="background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid #e2e8f0;">
+          <div style="width:70px; height:70px; background: linear-gradient(135deg, var(--primary, #ff5c8d), #e63971); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.8rem; font-weight:800; margin:0 auto 1.5rem; box-shadow:0 10px 20px rgba(255,92,141,0.3);">3</div>
+          <h4 style="font-weight:800; margin-bottom:0.75rem; color:#0f172a; font-size:1.15rem;">Application & SOPs</h4>
+          <p style="color:var(--text-secondary); font-size:0.95rem; margin:0;">Handling all documentation & submission.</p>
         </div>
-        <div class="animate-on-scroll delay-3">
-          <div style="width:70px; height:70px; background:#3b82f6; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.8rem; font-weight:800; margin:0 auto 1.5rem; box-shadow:0 10px 20px rgba(59,130,246,0.3);">4</div>
-          <h4 style="font-weight:700; margin-bottom:0.5rem; color:#0f172a;">Visa & Departure</h4>
-          <p style="color:var(--text-secondary); font-size:0.95rem;">Mock interviews, visa filing & travel support.</p>
+        <div class="animate-on-scroll delay-3 hover-lift" style="background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid #e2e8f0;">
+          <div style="width:70px; height:70px; background: linear-gradient(135deg, #f59e0b, #d97706); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.8rem; font-weight:800; margin:0 auto 1.5rem; box-shadow:0 10px 20px rgba(245,158,11,0.3);">4</div>
+          <h4 style="font-weight:800; margin-bottom:0.75rem; color:#0f172a; font-size:1.15rem;">Visa & Departure</h4>
+          <p style="color:var(--text-secondary); font-size:0.95rem; margin:0;">Mock interviews, visa filing & travel support.</p>
         </div>
       </div>
     </div>
@@ -683,7 +689,7 @@ details.faq-accordion[open] summary::after {
       </div>
       
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;" class="animate-on-scroll">
-        <div style="background: white; border: 1px solid #e2e8f0; border-radius: 20px; padding: 2.5rem; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
+        <div class="hover-lift" style="background: white; border: 1px solid #e2e8f0; border-radius: 20px; padding: 2.5rem; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
           <div style="color:#fbbf24; margin-bottom:1rem; font-size:1.2rem;">
             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
           </div>
@@ -691,7 +697,7 @@ details.faq-accordion[open] summary::after {
           <h4 style="font-weight:700; color:#0f172a; margin:0;">— Arjun M.</h4>
         </div>
         
-        <div style="background: white; border: 1px solid #e2e8f0; border-radius: 20px; padding: 2.5rem; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
+        <div class="hover-lift" style="background: white; border: 1px solid #e2e8f0; border-radius: 20px; padding: 2.5rem; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
           <div style="color:#fbbf24; margin-bottom:1rem; font-size:1.2rem;">
             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
           </div>
@@ -699,7 +705,7 @@ details.faq-accordion[open] summary::after {
           <h4 style="font-weight:700; color:#0f172a; margin:0;">— Janani S.</h4>
         </div>
         
-        <div style="background: white; border: 1px solid #e2e8f0; border-radius: 20px; padding: 2.5rem; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
+        <div class="hover-lift" style="background: white; border: 1px solid #e2e8f0; border-radius: 20px; padding: 2.5rem; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
           <div style="color:#fbbf24; margin-bottom:1rem; font-size:1.2rem;">
             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
           </div>
@@ -743,10 +749,10 @@ details.faq-accordion[open] summary::after {
         <h2 style="font-size: 2.5rem; font-weight: 800; color: #0f172a; margin-bottom: 1rem;">Ready to Start Your Global Journey?</h2>
         <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 2rem;">Take the first step towards a world-class education in the UK.</p>
         <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-          <a href="javascript:void(0)" onclick="openUkModal()" class="btn btn--primary" style="padding: 1rem 2rem; font-size: 1.1rem;">
+          <a href="javascript:void(0)" onclick="openUkModal()" class="btn btn--primary hover-lift" style="padding: 1rem 2.5rem; font-size: 1.1rem; border-radius: 50px; font-weight: 700; background: linear-gradient(135deg, var(--accent, #0ea5e9), #3b82f6); box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3); border: none;">
             Apply Now
           </a>
-          <a href="javascript:void(0)" onclick="openUkModal()" class="btn btn--primary" style="background: #0f172a; border-color: #0f172a; padding: 1rem 2rem; font-size: 1.1rem;">
+          <a href="javascript:void(0)" onclick="openUkModal()" class="btn btn--primary hover-lift" style="background: #0f172a; border: none; padding: 1rem 2.5rem; font-size: 1.1rem; border-radius: 50px; font-weight: 700; box-shadow: 0 10px 20px rgba(15, 23, 42, 0.3);">
             Talk to an Expert
           </a>
         </div>

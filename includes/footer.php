@@ -32,7 +32,6 @@
           <li><a href="services.php?s=financial"><i class="fa-solid fa-chevron-right"></i> Financial Assistance</a></li>
           <li><a href="services.php?s=visa"><i class="fa-solid fa-chevron-right"></i> Visa Processing</a></li>
           <li><a href="services.php?s=accommodation"><i class="fa-solid fa-chevron-right"></i> Travel &amp; Housing</a></li>
-          <li><a href="services.php?s=jobs"><i class="fa-solid fa-chevron-right"></i> Part-Time Jobs</a></li>
         </ul>
       </div>
 
@@ -45,7 +44,7 @@
           <li><a href="health-insurance.php"><i class="fa-solid fa-chevron-right"></i> Health Insurance</a></li>
           <li><a href="money-transfer.php"><i class="fa-solid fa-chevron-right"></i> Money Transfer</a></li>
           <li><a href="bank-account.php"><i class="fa-solid fa-chevron-right"></i> Bank Account</a></li>
-          <li><a href="sim-card.php"><i class="fa-solid fa-chevron-right"></i> International SIM</a></li>
+
           <li><a href="part-time-jobs.php"><i class="fa-solid fa-chevron-right"></i> Part-Time Jobs</a></li>
         </ul>
       </div>
@@ -79,14 +78,24 @@
       <div class="fbr-inner">
         <span class="fbr-title">Our Global Branches:</span>
         <div class="fbr-list">
-          <span class="fbr-item"><i class="fa-solid fa-circle-dot"></i> Coimbatore</span>
-          <span class="fbr-item"><i class="fa-solid fa-circle-dot"></i> Chennai</span>
-          <span class="fbr-item"><i class="fa-solid fa-circle-dot"></i> Salem</span>
-          <span class="fbr-item"><i class="fa-solid fa-circle-dot"></i> Erode</span>
-          <span class="fbr-item"><i class="fa-solid fa-circle-dot"></i> Namakkal</span>
-          <span class="fbr-item"><i class="fa-solid fa-circle-dot"></i> Tirunelveli</span>
-          <span class="fbr-item"><i class="fa-solid fa-circle-dot"></i> Nepal</span>
-          <span class="fbr-item"><i class="fa-solid fa-circle-dot"></i> Canada</span>
+          <?php
+          $footer_branches = [];
+          if (isset($pdo)) {
+              try {
+                  $stmt = $pdo->query("SELECT city FROM branches WHERE is_active = 1 ORDER BY id ASC");
+                  $footer_branches = $stmt->fetchAll(PDO::FETCH_COLUMN);
+              } catch (Exception $e) {}
+          }
+          if (empty($footer_branches)) {
+              $footer_branches = ['Coimbatore', 'Chennai', 'Salem', 'Erode', 'Namakkal', 'Tirunelveli'];
+          }
+          foreach ($footer_branches as $city):
+              $slug = strtolower(str_replace(' ', '-', $city));
+          ?>
+            <a href="branch.php?b=<?= $slug ?>" class="fbr-item" style="text-decoration:none; color:inherit; transition:color 0.3s;" onmouseover="this.style.color='#3b82f6'" onmouseout="this.style.color='inherit'">
+              <i class="fa-solid fa-circle-dot"></i> <?= htmlspecialchars($city) ?>
+            </a>
+          <?php endforeach; ?>
         </div>
       </div>
     </div>

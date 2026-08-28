@@ -14,49 +14,47 @@ require_once 'includes/header.php';
   }
   </style>
 
-  <section class="section" style="padding: 6rem 0; overflow: hidden; position: relative;">
+  <section class="section" style="padding: 6rem 0; overflow: hidden; position: relative; background-color: #ffffff;">
     <div class="container">
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4rem; align-items: center;">
-        <div class="animate-on-scroll" style="position: relative; padding: 1rem;">
-            <!-- Overlapping Images -->
-            <div style="position: relative; width: 100%; padding-bottom: 100%;">
-                <img src="assets/images/img4.png" alt="Student Accommodation" style="position: absolute; top: 0; right: 0; width: 75%; height: 75%; object-fit: cover; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 8px solid white; z-index: 2;">
-                <img src="assets/images/Acc.png" alt="Travel Booking" style="position: absolute; bottom: 0; left: 0; width: 65%; height: 65%; object-fit: cover; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); border: 8px solid white; z-index: 3;">
-                
-                <!-- Floating Badge -->
-                <div style="position: absolute; top: 15%; left: -5%; background: white; padding: 1rem 1.5rem; border-radius: 20px; box-shadow: 0 15px 30px rgba(0,0,0,0.08); z-index: 4; display: flex; align-items: center; gap: 1rem; animation: float 6s ease-in-out infinite;">
-                    <div style="width: 45px; height: 45px; background: #e0e7ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #4f46e5; font-size: 1.25rem;">
-                        <i class="fa-solid fa-house-user"></i>
-                    </div>
-                    <div>
-                        <div style="font-weight: 800; color: var(--dark); font-size: 1.1rem;">Safe & Secure</div>
-                        <div style="font-size: 0.85rem; color: var(--gray);">Verified Properties</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="animate-on-scroll delay-1">
+      <div class="text-center animate-on-scroll" style="max-width: 800px; margin: 0 auto 4rem auto;">
           <span style="display: inline-block; background: #eff6ff; color: #3b82f6; padding: 0.35rem 1.25rem; border-radius: 50px; font-size: 0.85rem; font-weight: 700; margin-bottom: 1.5rem;">Accommodation & Travel</span>
           <h2 style="font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 1.5rem; line-height: 1.2;">Your Home <span style="color: #3b82f6;">Away From Home</span></h2>
           <p style="color:var(--gray); margin-bottom:2rem; line-height:1.7; font-size: 1.1rem;">
             In association with <strong>Bluestone Overseas</strong>, we ensure you have a safe and comfortable place to stay the moment you land. We handle all logistics from pre-departure to your arrival.
           </p>
-          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1rem;">
-            <li style="display: flex; align-items: center; gap: 1rem; font-size: 1.05rem; color: var(--dark); font-weight: 500;">
-              <i class="fa-solid fa-check-circle" style="color: #3b82f6; font-size: 1.25rem;"></i> On-Campus Housing Assistance
-            </li>
-            <li style="display: flex; align-items: center; gap: 1rem; font-size: 1.05rem; color: var(--dark); font-weight: 500;">
-              <i class="fa-solid fa-check-circle" style="color: #3b82f6; font-size: 1.25rem;"></i> Off-Campus Flats & Homestays
-            </li>
-            <li style="display: flex; align-items: center; gap: 1rem; font-size: 1.05rem; color: var(--dark); font-weight: 500;">
-              <i class="fa-solid fa-check-circle" style="color: #3b82f6; font-size: 1.25rem;"></i> International Flight Bookings
-            </li>
-            <li style="display: flex; align-items: center; gap: 1rem; font-size: 1.05rem; color: var(--dark); font-weight: 500;">
-              <i class="fa-solid fa-check-circle" style="color: #3b82f6; font-size: 1.25rem;"></i> Comprehensive Pre-Departure Briefing
-            </li>
-          </ul>
-        </div>
+          <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 2rem;">
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.03); padding: 0.75rem 1.5rem; border-radius: 50px; display: flex; align-items: center; gap: 0.75rem; font-size: 1rem; color: var(--dark); font-weight: 600; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+              <i class="fa-solid fa-house-chimney-window" style="color: #3b82f6;"></i> On-Campus Housing Assistance
+            </div>
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.03); padding: 0.75rem 1.5rem; border-radius: 50px; display: flex; align-items: center; gap: 0.75rem; font-size: 1rem; color: var(--dark); font-weight: 600; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+              <i class="fa-solid fa-building" style="color: #3b82f6;"></i> Off-Campus Flats & Homestays
+            </div>
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.03); padding: 0.75rem 1.5rem; border-radius: 50px; display: flex; align-items: center; gap: 0.75rem; font-size: 1rem; color: var(--dark); font-weight: 600; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+              <i class="fa-solid fa-plane-departure" style="color: #3b82f6;"></i> International Flight Bookings
+            </div>
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.03); padding: 0.75rem 1.5rem; border-radius: 50px; display: flex; align-items: center; gap: 0.75rem; font-size: 1rem; color: var(--dark); font-weight: 600; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+              <i class="fa-solid fa-clipboard-check" style="color: #3b82f6;"></i> Comprehensive Pre-Departure Briefing
+            </div>
+          </div>
+      </div>
+
+      <div class="animate-on-scroll delay-1" style="max-width: 800px; margin: 0 auto; position: relative; padding: 1rem;">
+          <!-- Overlapping Images (Centered/Side-by-side) -->
+          <div style="position: relative; width: 100%; padding-bottom: 60%;">
+              <img src="assets/images/img4.png" alt="Student Accommodation" style="position: absolute; top: 0; right: 10%; width: 55%; height: 85%; object-fit: cover; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 8px solid white; z-index: 2;">
+              <img src="assets/images/Acc.png" alt="Travel Booking" style="position: absolute; bottom: 0; left: 10%; width: 50%; height: 80%; object-fit: cover; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); border: 8px solid white; z-index: 3;">
+              
+              <!-- Floating Badge -->
+              <div style="position: absolute; top: 10%; left: 0%; background: white; padding: 1rem 1.5rem; border-radius: 20px; box-shadow: 0 15px 30px rgba(0,0,0,0.08); z-index: 4; display: flex; align-items: center; gap: 1rem; animation: float 6s ease-in-out infinite;">
+                  <div style="width: 45px; height: 45px; background: #e0e7ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #4f46e5; font-size: 1.25rem;">
+                      <i class="fa-solid fa-house-user"></i>
+                  </div>
+                  <div>
+                      <div style="font-weight: 800; color: var(--dark); font-size: 1.1rem;">Safe & Secure</div>
+                      <div style="font-size: 0.85rem; color: var(--gray);">Verified Properties</div>
+                  </div>
+              </div>
+          </div>
       </div>
     </div>
   </section>

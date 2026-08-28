@@ -41,8 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Use uploaded path if upload was successful, otherwise use provided URL
         $final_video_source = !empty($uploaded_path) ? $uploaded_path : $youtube_url;
 
-        if (empty($student_name) || empty($details) || empty($final_video_source)) {
-            $alertError = 'Student Name, Course/Details, and either a Video URL or a local Video File are required.';
+        if (empty($final_video_source)) {
+            $alertError = 'A Video URL or a local Video File is required.';
         } else {
             try {
                 $stmt = $pdo->prepare("
@@ -94,8 +94,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Use uploaded path if upload was successful, otherwise keep the provided URL input
         $final_video_source = !empty($uploaded_path) ? $uploaded_path : $youtube_url;
 
-        if ($id <= 0 || empty($student_name) || empty($details) || empty($final_video_source)) {
-            $alertError = 'Invalid parameters. Student Name, Details, and Video Source are required.';
+        if ($id <= 0 || empty($final_video_source)) {
+            $alertError = 'Invalid parameters. Video Source is required.';
         } else {
             try {
                 $stmt = $pdo->prepare("
@@ -260,13 +260,13 @@ try {
                 <input type="hidden" name="video_id" id="edit_video_id">
                 
                 <div class="form-group">
-                    <label for="v_name" class="form-label">Student Full Name *</label>
-                    <input type="text" name="student_name" id="v_name" class="form-control" placeholder="e.g., Sai Raksha Manoharan" required>
+                    <label for="v_name" class="form-label">Student Full Name (Optional)</label>
+                    <input type="text" name="student_name" id="v_name" class="form-control" placeholder="e.g., Sai Raksha Manoharan">
                 </div>
                 
                 <div class="form-group">
-                    <label for="v_details" class="form-label">Course / University Destination Details *</label>
-                    <input type="text" name="details" id="v_details" class="form-control" placeholder="e.g., MSc in United Kingdom" required>
+                    <label for="v_details" class="form-label">Course / University Destination Details (Optional)</label>
+                    <input type="text" name="details" id="v_details" class="form-control" placeholder="e.g., MSc in United Kingdom">
                 </div>
 
                 <div class="form-group">

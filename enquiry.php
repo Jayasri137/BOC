@@ -30,7 +30,7 @@ require_once 'includes/header.php';
   <!-- Application Form Section -->
   <section class="section" style="padding: 3rem 0 5rem; background: #ffffff;">
     <div class="container">
-      <div class="grid grid--2 gap--4" style="align-items: start; grid-template-columns: 1fr 1.3fr;">
+      <div class="grid grid--2 gap--4" style="align-items: start;">
         
         <!-- Left Side Column: Information and Perks -->
         <div class="animate-on-scroll" style="position: sticky; top: 120px;">

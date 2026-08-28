@@ -16,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $icon = isset($_POST['icon']) ? trim($_POST['icon']) : 'fa-location-dot';
         $badge = isset($_POST['badge']) ? trim($_POST['badge']) : '';
         $address = isset($_POST['address']) ? trim($_POST['address']) : '';
+        $map_iframe = isset($_POST['map_iframe']) ? trim($_POST['map_iframe']) : '';
         $is_active = isset($_POST['is_active']) ? 1 : 0;
         
         if (empty($city) || empty($address)) {
@@ -23,14 +24,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             try {
                 $stmt = $pdo->prepare("
-                    INSERT INTO branches (city, icon, badge, address, is_active) 
-                    VALUES (:city, :icon, :badge, :address, :is_active)
+                    INSERT INTO branches (city, icon, badge, address, map_iframe, is_active) 
+                    VALUES (:city, :icon, :badge, :address, :map_iframe, :is_active)
                 ");
                 $stmt->execute([
                     'city' => $city,
                     'icon' => $icon,
                     'badge' => $badge,
                     'address' => $address,
+                    'map_iframe' => $map_iframe,
                     'is_active' => $is_active
                 ]);
                 $alertSuccess = 'Branch office added successfully!';
@@ -47,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $icon = isset($_POST['icon']) ? trim($_POST['icon']) : 'fa-location-dot';
         $badge = isset($_POST['badge']) ? trim($_POST['badge']) : '';
         $address = isset($_POST['address']) ? trim($_POST['address']) : '';
+        $map_iframe = isset($_POST['map_iframe']) ? trim($_POST['map_iframe']) : '';
         $is_active = isset($_POST['is_active']) ? 1 : 0;
         
         if ($id <= 0 || empty($city) || empty($address)) {
@@ -59,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         icon = :icon, 
                         badge = :badge, 
                         address = :address, 
+                        map_iframe = :map_iframe, 
                         is_active = :is_active 
                     WHERE id = :id
                 ");
@@ -67,6 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'icon' => $icon,
                     'badge' => $badge,
                     'address' => $address,
+                    'map_iframe' => $map_iframe,
                     'is_active' => $is_active,
                     'id' => $id
                 ]);
@@ -218,6 +223,11 @@ try {
                 </div>
 
                 <div class="form-group">
+                    <label for="b_map_iframe" class="form-label">Google Maps iframe Embed Code</label>
+                    <textarea name="map_iframe" id="b_map_iframe" class="form-control" rows="3" placeholder='<iframe src="https://www.google.com/maps/embed?pb=..." ...></iframe>'></textarea>
+                </div>
+
+                <div class="form-group">
                     <label for="b_icon" class="form-label">FontAwesome Icon Class *</label>
                     <input type="text" name="icon" id="b_icon" class="form-control" placeholder="e.g., fa-location-dot" required>
                 </div>
@@ -273,6 +283,7 @@ function openAddModal() {
     document.getElementById('b_city').value = '';
     document.getElementById('b_badge').value = '';
     document.getElementById('b_address').value = '';
+    document.getElementById('b_map_iframe').value = '';
     document.getElementById('b_icon').value = 'fa-location-dot';
     document.getElementById('b_active').checked = true;
     
@@ -286,6 +297,7 @@ function openEditModal(b) {
     document.getElementById('b_city').value = b.city;
     document.getElementById('b_badge').value = b.badge;
     document.getElementById('b_address').value = b.address;
+    document.getElementById('b_map_iframe').value = b.map_iframe || '';
     document.getElementById('b_icon').value = b.icon;
     document.getElementById('b_active').checked = parseInt(b.is_active) === 1;
     

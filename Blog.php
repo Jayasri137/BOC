@@ -1,7 +1,8 @@
 <?php
 require_once 'includes/config.php';
-$pageTitle = 'Study Abroad Blog | Bluestone Overseas Consultants';
-$pageDesc = 'Read latest articles, news, and guides on study abroad, visa rules, and international student life.';
+$pageTitle = 'PG Programs Abroad | Study Abroad Blogs & Latest Updates';
+$pageDesc = 'Explore expert tips, university updates, admission guidance and career advice for students planning Postgraduate study in New Zealand, with the latest study abroad insights.';
+$pageKeywords = 'UK Education Consultants in Coimbatore, Australia Education Consultants in Coimbatore, New Zealand Education Consultants in Coimbatore, UG Programs Abroad, PG Programs Abroad, Study Abroad Consultants in Coimbatore, IELTS Coaching in Coimbatore, IELTS classes in Coimbatore, Best IELTS Coaching in Coimbatore, IELTS Training in Coimbatore, German language course, Japanese language course, German language classes, Japanese language classes, German Language Course in Coimbatore, Japanese Language Course in Coimbatore, German Language Training Centre in Coimbatore, Japanese Language Training Centre in Coimbatore, Postgraduate study in UK, Postgraduate study in Australia, Postgraduate study in New Zealand, Undergraduate study in Australia, Undergraduate study in UK, Undergraduate study in New Zealand, Postgraduate Study in UK – Coimbatore, Postgraduate Study in Australia – Coimbatore, Undergraduate Study in UK – Coimbatore, Undergraduate Study in Australia – Coimbatore, Postgraduate Study in New Zealand – Coimbatore, Undergraduate Study in New Zealand – Coimbatore';
 require_once 'includes/header.php';
 ?>
 <main>

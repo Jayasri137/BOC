@@ -1,6 +1,8 @@
 <?php
 require_once 'includes/config.php';
 $pageTitle = 'Scholarships & Grants | Bluestone Overseas Consultants';
+$pageDesc = 'Find scholarships and grants for studying abroad at top universities worldwide.';
+$pageHeroImage = 'assets/images/Offer.png';
 require_once 'includes/header.php';
 
 // Fetch active countries for the filter
@@ -43,10 +45,10 @@ if ($selected_country_id > 0) {
   <!-- DESTINATION FILTER SECTION -->
   <section class="section filter-section" style="padding-bottom: 2rem; background: #fff;">
     <div class="container">
-      <div class="filter-card animate-on-scroll" style="background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); margin-top: -5rem; position: relative; z-index: 10; border: 1px solid rgba(0,0,0,0.02);">
+      <div class="filter-card filter-card-pad animate-on-scroll" style="background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); margin-top: -5rem; position: relative; z-index: 10; border: 1px solid rgba(0,0,0,0.02);">
         <form method="GET" action="scholarships.php" id="scholFilterForm">
           <div style="display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;">
-            <div style="flex: 1; min-width: 280px;">
+            <div style="flex: 1; min-width: 200px;">
               <label for="country_select" style="display: block; font-weight: 700; margin-bottom: 0.75rem; color: var(--dark); font-size: 0.95rem;">
                 <i class="fa-solid fa-earth-americas text-primary" style="margin-right: 0.5rem;"></i> Choose Destination
               </label>
@@ -119,7 +121,7 @@ if ($selected_country_id > 0) {
                       
                       <h4 style="font-size: 1.25rem; color: var(--dark); margin-bottom: 1rem; line-height: 1.4;"><?= clean_output($schol['name']) ?></h4>
                       
-                      <div style="background: #f8fafc; padding: 1.25rem; border-radius: 12px; margin-bottom: 1.5rem;">
+                      <div style="background: white; border: 1px solid #f1f5f9; padding: 1.25rem; border-radius: 12px; margin-bottom: 1.5rem;">
                         <span style="display: block; font-size: 0.8rem; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 0.5rem;">Scholarship Value</span>
                         <h5 style="font-size: 1.4rem; color: #f59e0b; margin: 0; font-weight: 800;"><?= clean_output($schol['amount']) ?></h5>
                       </div>
@@ -147,54 +149,52 @@ if ($selected_country_id > 0) {
         <?php endif; ?>
       <?php else: ?>
         <!-- Default Content when no filter selected -->
-        <div class="grid grid--2 gap--4 align-center">
-          <div class="col-lg-6 mb-4 mb-lg-0 animate-on-scroll">
-            <h1 class="section__title" style="text-align:left; margin-top:2rem">Fund Your <span>Future</span></h1>
-            <p class="lead">We help you discover and apply for exclusive scholarships, grants, and bursaries offered by universities and governments across the globe.</p>
-            <p style="color:var(--gray); margin-top:1rem; line-height:1.6;">
-              In association with <strong>Bluestone Overseas</strong> and drawing inspiration from global standards set by leaders like <strong>IDP.com</strong>, we help you identify and apply for scholarships that can fund up to 100% of your tuition.
-            </p>
-          </div>
-          <div class="animate-on-scroll delay-1">
-            <div class="service-details grid grid--1 gap--1">
-              <div class="a-feat"><i class="fa-solid fa-check-circle" style="color: #f59e0b;"></i><span>Merit-Based Scholarships</span></div>
-              <div class="a-feat"><i class="fa-solid fa-check-circle" style="color: #f59e0b;"></i><span>Need-Based Financial Aid</span></div>
-              <div class="a-feat"><i class="fa-solid fa-check-circle" style="color: #f59e0b;"></i><span>Government &amp; Private Grants</span></div>
-              <div class="a-feat"><i class="fa-solid fa-check-circle" style="color: #f59e0b;"></i><span>Scholarship Essay Support</span></div>
+        <!-- PROCESS SECTION -->
+        <!-- PROCESS SECTION -->
+        <div class="process-section" style="margin-bottom: 5rem;">
+          <div style="background: #579df9; border-radius: 30px; padding: 4rem; position: relative; overflow: hidden; box-shadow: 0 20px 40px rgba(24, 119, 242, 0.25);">
+            <!-- Decorative faint background shapes -->
+            <div style="position: absolute; top: -50px; right: -50px; width: 300px; height: 300px; background: rgba(255,255,255,0.05); border-radius: 50%; pointer-events: none;"></div>
+            <div style="position: absolute; bottom: -100px; left: 20%; width: 400px; height: 400px; background: rgba(255,255,255,0.05); border-radius: 50%; pointer-events: none;"></div>
+
+            <div style="position: relative; z-index: 1;">
+              <div class="section__header animate-on-scroll" style="text-align: center; margin-bottom: 3rem;">
+                <span class="section__tag" style="background: rgba(255,255,255,0.2); color: #fff; margin-bottom: 1rem; display: inline-block;">Steps</span>
+                <h2 class="section__title" style="color: #fff; font-size: 2.8rem; line-height: 1.2;">How It <span style="background: none; -webkit-text-fill-color: #fd47ba; color: #fd47ba;">Works</span></h2>
+                <p class="section__subtitle" style="max-width: 600px; margin: 0 auto; color: rgba(255,255,255,0.9);">A streamlined, step-by-step approach to ensuring your financial success.</p>
+              </div>
+              
+              <div class="process-steps" style="justify-content: center; gap: 2rem; margin-top: 2rem; display: flex; flex-wrap: wrap; position: relative;">
+                <!-- Decorative curved dashed line connecting the steps -->
+                <svg width="100%" height="200" style="position: absolute; top: 40px; left: 0; z-index: 0; pointer-events: none;" viewBox="0 0 1000 200" preserveAspectRatio="none">
+                   <path d="M 50 100 Q 250 -20, 500 100 T 950 100" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="3" stroke-dasharray="8 8" />
+                   <!-- Little airplane on the path -->
+                   <path d="M 490 95 L 510 100 L 490 105 L 495 100 Z" fill="#FDE047" transform="rotate(15 500 100)" />
+                </svg>
+
+                <?php
+                $steps = [
+                  ['Eligibility', 'We assess your profile against various global scholarship criteria.'],
+                  ['Matching', 'Match with university-specific, government, and private funding.'],
+                  ['Documentation', 'Assistance with scholarship essays and letters of recommendation.'],
+                  ['Application', 'We submit applications alongside your university admission file.'],
+                ];
+                foreach($steps as $i => [$title, $desc]):
+                ?>
+                <div class="process-step animate-on-scroll delay-<?= $i ?>" style="flex: 1 1 160px; max-width: 220px; text-align: center; position: relative; z-index: 1;">
+                  <div class="process-step__image-box" style="width: 140px; height: 140px; margin: 0 auto 1.5rem; position: relative;">
+                    <img src="assets/images/img<?= $i+1 ?>.png" alt="<?= $title ?>" style="width: 100%; height: 100%; border-radius: 50%; border: 4px solid white; object-fit: cover; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
+                    <div class="process-step__badge" style="bottom: -12px; width: 28px; height: 28px; font-size: 0.85rem; line-height: 28px; position: absolute; left: 50%; transform: translateX(-50%); background: var(--dark); color: white; border-radius: 50%; font-weight: bold; border: 2px solid white;"><?= str_pad($i+1, 2, '0', STR_PAD_LEFT) ?></div>
+                  </div>
+                  <h4 style="color: #ffffff; font-size: 1.1rem; margin-bottom: 0.5rem; font-weight: 700;"><?= $title ?></h4>
+                  <p style="color: rgba(255,255,255,0.85); font-size: 0.9rem; line-height: 1.4;"><?= $desc ?></p>
+                </div>
+                <?php endforeach; ?>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- PROCESS SECTION -->
-        <div style="margin-top: 5rem;">
-          <div class="text-center animate-on-scroll">
-            <span class="section__tag">Steps</span>
-            <h2 class="section__title">How It <span>Works</span></h2>
-            <p class="section__subtitle" style="max-width: 600px; margin: 0 auto;">A streamlined, step-by-step approach to ensuring your financial success.</p>
-          </div>
-          <div class="grid grid--4 gap--2" style="margin-top: 3rem;">
-            <div class="service-card text-center animate-on-scroll">
-              <div class="service-card__icon" style="margin: 0 auto 1.5rem; background: #eff6ff; color: #3b82f6;"><i class="fa-solid fa-1"></i></div>
-              <h3>Eligibility</h3>
-              <p>We assess your profile against various global scholarship criteria.</p>
-            </div>
-            <div class="service-card text-center animate-on-scroll delay-1">
-              <div class="service-card__icon" style="margin: 0 auto 1.5rem; background: #f5f3ff; color: #8b5cf6;"><i class="fa-solid fa-2"></i></div>
-              <h3>Matching</h3>
-              <p>Match with university-specific, government, and private funding.</p>
-            </div>
-            <div class="service-card text-center animate-on-scroll delay-2">
-              <div class="service-card__icon" style="margin: 0 auto 1.5rem; background: #fff7ed; color: #f97316;"><i class="fa-solid fa-3"></i></div>
-              <h3>Documentation</h3>
-              <p>Assistance with scholarship essays and letters of recommendation.</p>
-            </div>
-            <div class="service-card text-center animate-on-scroll delay-3">
-              <div class="service-card__icon" style="margin: 0 auto 1.5rem; background: #f0fdfa; color: #14b8a6;"><i class="fa-solid fa-4"></i></div>
-              <h3>Application</h3>
-              <p>We submit applications alongside your university admission file.</p>
-            </div>
-          </div>
-        </div>
       <?php endif; ?>
     </div>
   </section>
@@ -223,12 +223,108 @@ if ($selected_country_id > 0) {
     </div>
   </section>
 
+  <?php if ($selected_country_id <= 0): ?>
+  <section class="section">
+    <div class="container">
+        <!-- Fund Your Future -->
+        <div class="financial-card" style="background: linear-gradient(135deg, #ecc52cff, #fef3c7); border-radius: 30px; position: relative; overflow: hidden; margin-top: 2rem; margin-bottom: 2rem; box-shadow: 0 20px 40px rgba(245,158,11,0.05);">
+          <!-- Decorative Background Elements -->
+          <div style="position: absolute; top: -50px; right: -50px; width: 300px; height: 300px; background: rgba(245, 158, 11, 0.1); border-radius: 50%; filter: blur(40px);"></div>
+          <div style="position: absolute; bottom: -50px; left: -50px; width: 200px; height: 200px; background: rgba(245, 158, 11, 0.1); border-radius: 50%; filter: blur(30px);"></div>
+
+          <div class="grid grid--2 gap--4 align-center" style="position: relative; z-index: 1;">
+            
+            <!-- Left Side: Text and Features -->
+            <div class="animate-on-scroll">
+              <div style="display: inline-block; padding: 0.5rem 1.25rem; background: rgba(245, 158, 11, 0.15); color: #d97706; border-radius: 30px; font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 1.5rem;">
+                Financial Support
+              </div>
+              <h1 style="font-weight: 800; font-size: clamp(2.5rem, 4vw, 3.5rem); color: #0f172a; line-height: 1.2; margin-bottom: 1.5rem;">Fund Your <span style="color: #fd47ba;">Future</span></h1>
+              <p style="color: #475569; font-size: 1.15rem; line-height: 1.7; margin-bottom: 1.5rem;">We help you discover and apply for exclusive scholarships, grants, and bursaries offered by universities and governments across the globe. Our experts identify options that can fund up to 100% of your tuition.</p>
+              
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-top: 2.5rem;">
+                <div style="background: white; padding: 1rem 1.25rem; border-radius: 16px; display: flex; align-items: center; gap: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.03);">
+                  <div style="width: 40px; height: 40px; background: #fffbeb; color: #f59e0b; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;"><i class="fa-solid fa-medal"></i></div>
+                  <span style="font-weight: 600; color: #1e293b; font-size: 0.95rem;">Merit-Based</span>
+                </div>
+                <div style="background: white; padding: 1rem 1.25rem; border-radius: 16px; display: flex; align-items: center; gap: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.03);">
+                  <div style="width: 40px; height: 40px; background: #fffbeb; color: #f59e0b; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                  <span style="font-weight: 600; color: #1e293b; font-size: 0.95rem;">Need-Based</span>
+                </div>
+                <div style="background: white; padding: 1rem 1.25rem; border-radius: 16px; display: flex; align-items: center; gap: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.03);">
+                  <div style="width: 40px; height: 40px; background: #fffbeb; color: #f59e0b; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;"><i class="fa-solid fa-landmark"></i></div>
+                  <span style="font-weight: 600; color: #1e293b; font-size: 0.95rem;">Govt Grants</span>
+                </div>
+                <div style="background: white; padding: 1rem 1.25rem; border-radius: 16px; display: flex; align-items: center; gap: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.03);">
+                  <div style="width: 40px; height: 40px; background: #fffbeb; color: #f59e0b; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;"><i class="fa-solid fa-pen-nib"></i></div>
+                  <span style="font-weight: 600; color: #1e293b; font-size: 0.95rem;">Essay Support</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Side: Image and Floating Badges -->
+            <div class="animate-on-scroll delay-1" style="position: relative;">
+              <div class="financial-img-wrapper" style="position: relative;">
+                <img src="assets/images/s1.jpg" alt="Scholarship Opportunities" style="width: 100%; border-radius: 24px; box-shadow: 0 25px 50px rgba(0,0,0,0.1); border: 8px solid white;">
+                
+                <!-- Floating Badge 1 -->
+                <div class="financial-badge-1" style="position: absolute; background: white; padding: 1rem 1.5rem; border-radius: 16px; display: flex; align-items: center; gap: 1rem; box-shadow: 0 15px 35px rgba(0,0,0,0.1); animation: float 6s ease-in-out infinite;">
+                  <div style="width: 45px; height: 45px; background: #fefce8; color: #eab308; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem;">
+                    <i class="fa-solid fa-star"></i>
+                  </div>
+                  <div>
+                    <div style="font-weight: 800; color: #0f172a; font-size: 1.2rem;">Up to 100%</div>
+                    <div style="color: #64748b; font-size: 0.85rem; font-weight: 600;">Tuition Coverage</div>
+                  </div>
+                </div>
+
+                <!-- Floating Badge 2 -->
+                <div class="financial-badge-2" style="position: absolute; background: white; padding: 1rem 1.5rem; border-radius: 16px; display: flex; align-items: center; gap: 1rem; box-shadow: 0 15px 35px rgba(0,0,0,0.1); animation: float 5s ease-in-out infinite alternate;">
+                  <div style="width: 45px; height: 45px; background: #f0fdf4; color: #22c55e; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem;">
+                    <i class="fa-solid fa-check-double"></i>
+                  </div>
+                  <div>
+                    <div style="font-weight: 800; color: #0f172a; font-size: 1.2rem;">Expert</div>
+                    <div style="color: #64748b; font-size: 0.85rem; font-weight: 600;">Guidance</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <style>
+          .financial-card { padding: 4rem; }
+          .financial-badge-1 { right: -10px; top: 10%; }
+          .financial-badge-2 { left: -20px; bottom: 15%; }
+          .financial-img-wrapper { padding: 0 1.5rem; }
+          
+          @media (max-width: 768px) {
+            .financial-card { padding: 1.5rem; }
+            .financial-badge-1 { right: 0px; top: -15px; padding: 0.75rem 1rem !important; }
+            .financial-badge-2 { left: 0px; bottom: -15px; padding: 0.75rem 1rem !important; }
+            .financial-badge-1 div:first-child, .financial-badge-2 div:first-child { width: 35px !important; height: 35px !important; font-size: 1rem !important; }
+            .financial-badge-1 div:nth-child(2) div:first-child, .financial-badge-2 div:nth-child(2) div:first-child { font-size: 1rem !important; }
+            .financial-badge-1 div:nth-child(2) div:last-child, .financial-badge-2 div:nth-child(2) div:last-child { font-size: 0.75rem !important; }
+            .financial-img-wrapper { padding: 0; margin-top: 1.5rem; }
+          }
+          
+          @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+          }
+        </style>
+    </div>
+  </section>
+  <?php endif; ?>
+
   <section class="section" style="padding-top: 0;">
     <div class="container animate-on-scroll">
-      <div style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); padding: 4rem 2rem; border-radius: var(--radius-lg); text-align: center; color: white; box-shadow: 0 20px 40px rgba(245, 158, 11, 0.3);">
+      <div style="background: linear-gradient(135deg, #579df9 0%, #3b82f6 100%); padding: 4rem 2rem; border-radius: var(--radius-lg); text-align: center; color: white; box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);">
         <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Unlock Your Financial Potential</h2>
         <p style="font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 0 auto 2rem;">Don't let budget constraints stop you from achieving your dreams. Get a free financial assessment today.</p>
-        <a href="consultation.php" class="btn btn--white btn--lg pulse-btn" style="background: white; color: #f59e0b;">Book Free Assessment</a>
+        <a href="consultation.php" class="btn btn--white btn--lg pulse-btn" style="background: white; color: #3b82f6;">Book Free Assessment</a>
       </div>
     </div>
   </section>

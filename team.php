@@ -29,6 +29,7 @@ require_once __DIR__ . '/includes/header.php';
           .team-slider::-webkit-scrollbar { display: none; }
           .team-nav-btn:hover { background: var(--primary); color: white !important; }
 
+          /* Remove overflow and mask from wave-card, move to inner */
           .wave-card {
             min-width: 300px;
             max-width: 320px;
@@ -38,17 +39,36 @@ require_once __DIR__ . '/includes/header.php';
             border-radius: 20px;
             position: relative;
             box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            overflow: hidden;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
             height: 420px;
+            border: none;
           }
 
           .wave-card:hover {
             transform: translateY(-15px);
             box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+          }
+          
+          .wave-card__inner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+
+            /* Safari overflow bug fix */
+            -webkit-mask-image: -webkit-radial-gradient(white, black);
+            mask-image: radial-gradient(white, black);
+            transform: translateZ(0);
+            
+            /* Bulletproof clipping */
+            clip-path: inset(0 0 0 0 round 20px);
+            -webkit-clip-path: inset(0 0 0 0 round 20px);
           }
 
           .wave-card__full-img {
@@ -76,6 +96,7 @@ require_once __DIR__ . '/includes/header.php';
             background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0) 60%);
             z-index: 1;
             pointer-events: none;
+            border-radius: 20px;
           }
 
           .wave-card__bottom {
@@ -90,6 +111,8 @@ require_once __DIR__ . '/includes/header.php';
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
           }
 
           .wave-card:hover .wave-card__bottom {
@@ -132,7 +155,8 @@ require_once __DIR__ . '/includes/header.php';
             display: block;
             pointer-events: none;
           }
-
+          
+          
           .wave-card__content {
             position: relative;
             padding: 0 1.5rem 1.5rem;
@@ -171,7 +195,29 @@ require_once __DIR__ . '/includes/header.php';
           .bg-grad-3 { background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%); }
           .bg-grad-3 .wave-svg { color: #60a5fa; }
 
-          @media(max-width: 768px) { .wave-card { min-width: 280px; } }
+          @media(max-width: 768px) { 
+            .wave-card { 
+              min-width: 220px; 
+              max-width: 260px; 
+              height: 340px; 
+            }
+            .wave-card__bottom {
+              height: 200px;
+            }
+            .wave-card__info {
+              top: -95px;
+            }
+            .wave-card__title {
+              font-size: 1.3rem;
+            }
+            .wave-card__role-top {
+              font-size: 0.85rem;
+            }
+            .wave-svg {
+              top: -35px;
+              height: 40px;
+            }
+          }
         </style>
 
         <?php
@@ -186,27 +232,27 @@ require_once __DIR__ . '/includes/header.php';
             $gradClass = "bg-grad-" . ($index % 4);
         ?>
         <div class="wave-card animate-on-scroll" style="animation-delay: <?= $index * 100 ?>ms;">
-          
-          <img src="<?= clean_output($member['image_path']) ?>" alt="<?= clean_output($member['name']) ?>" class="wave-card__full-img">
-          <div class="wave-card__overlay"></div>
+          <div class="wave-card__inner">
+            <img src="<?= clean_output($member['image_path']) ?>" alt="<?= clean_output($member['name']) ?>" class="wave-card__full-img">
+            <div class="wave-card__overlay"></div>
 
-          <div class="wave-card__bottom <?= $gradClass ?>">
-            <!-- Name and Role pinned above the wave -->
-            <div class="wave-card__info">
-              <h3 class="wave-card__title"><?= clean_output($member['name']) ?></h3>
-              <p class="wave-card__role-top"><?= clean_output($member['role']) ?></p>
-            </div>
+            <div class="wave-card__bottom <?= $gradClass ?>">
+              <!-- Name and Role pinned above the wave -->
+              <div class="wave-card__info">
+                <h3 class="wave-card__title"><?= clean_output($member['name']) ?></h3>
+                <p class="wave-card__role-top"><?= clean_output($member['role']) ?></p>
+              </div>
 
-            <!-- SVG Wave shape -->
-            <svg class="wave-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
-              <path fill="currentColor" fill-opacity="1" d="M0,128L48,144C96,160,192,192,288,181.3C384,171,480,117,576,117.3C672,117,768,171,864,192C960,213,1056,203,1152,176C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-            </svg>
-            
-            <div class="wave-card__content">
-              <p class="wave-card__desc"><?= nl2br(clean_output($member['description'])) ?></p>
+              <!-- SVG Wave shape -->
+              <svg class="wave-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                <path fill="currentColor" fill-opacity="1" d="M0,128L48,144C96,160,192,192,288,181.3C384,171,480,117,576,117.3C672,117,768,171,864,192C960,213,1056,203,1152,176C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+              </svg>
+              
+              <div class="wave-card__content">
+                <p class="wave-card__desc"><?= nl2br(clean_output($member['description'])) ?></p>
+              </div>
             </div>
           </div>
-          
         </div>
         <?php endforeach; ?>
       </div>

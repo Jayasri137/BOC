@@ -441,7 +441,7 @@ if ($selected_country_id > 0) {
                 <?php else: ?>
                     <?php foreach ($countries as $c): ?>
                         <option value="<?php echo $c['id']; ?>" <?php echo $selected_country_id === intval($c['id']) ? 'selected' : ''; ?>>
-                            <?php echo clean_output($c['flag'] . ' ' . $c['name']); ?>
+                            <?php echo clean_output($c['name']); ?>
                         </option>
                     <?php endforeach; ?>
                 <?php endif; ?>

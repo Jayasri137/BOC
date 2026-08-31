@@ -132,22 +132,9 @@ require_once 'includes/header.php';
                   <label>Preferred Destination *</label>
                   <select name="destination" required style="border-radius: 8px;">
                     <option value="" disabled selected>Select Destination</option>
-                    <option value="Australia">Australia</option>
-                    <option value="Canada">Canada</option>
-                    <option value="UK">United Kingdom</option>
-                    <option value="USA">United States</option>
-                    <option value="Germany">Germany</option>
-                    <option value="Ireland">Ireland</option>
-                    <option value="New Zealand">New Zealand</option>
-                    <option value="Singapore">Singapore</option>
-                    <option value="Switzerland">Switzerland</option>
-                    <option value="France">France</option>
-                    <option value="Italy">Italy</option>
-                    <option value="Sweden">Sweden</option>
-                    <option value="South Korea">South Korea</option>
-                    <option value="UAE">United Arab Emirates</option>
-                    <option value="Netherlands">Netherlands</option>
-                    <option value="Malaysia">Malaysia</option>
+                    <?php foreach ($globalCountries as $c): ?>
+                    <option value="<?= htmlspecialchars($c['name']) ?>"><?= htmlspecialchars($c['name']) ?></option>
+                    <?php endforeach; ?>
                     <option value="Other">Other Country</option>
                   </select>
                 </div>

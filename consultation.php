@@ -57,11 +57,12 @@ require_once 'includes/header.php';
               <h3 class="wizard-title">Where do you want to study?</h3>
               <p class="wizard-subtitle">Select your preferred study destination.</p>
               <div class="wizard-options wizard-options--grid">
-                <div class="wizard-option" onclick="selectCountry('USA')"><span class="fi fi-us"></span> USA</div>
-                <div class="wizard-option" onclick="selectCountry('UK')"><span class="fi fi-gb"></span> UK</div>
-                <div class="wizard-option" onclick="selectCountry('Canada')"><span class="fi fi-ca"></span> Canada</div>
-                <div class="wizard-option" onclick="selectCountry('Australia')"><span class="fi fi-au"></span> Australia</div>
-                <div class="wizard-option" onclick="selectCountry('Germany')"><span class="fi fi-de"></span> Germany</div>
+                <?php
+                foreach ($globalCountries as $c):
+                    $isoCode = isset($slugToIso[$c['slug']]) ? $slugToIso[$c['slug']] : 'un';
+                ?>
+                <div class="wizard-option" onclick="selectCountry('<?= addslashes($c['name']) ?>')"><span class="country-flag fi fi-<?= $isoCode ?>" style="margin-right:8px;"></span> <?= htmlspecialchars($c['name']) ?></div>
+                <?php endforeach; ?>
                 <div class="wizard-option" onclick="selectCountry('Other')"><i class="fa-solid fa-globe"></i> Other</div>
               </div>
             </div>
@@ -93,7 +94,13 @@ require_once 'includes/header.php';
                   <div class="cf-group"><label>Email</label><input type="email" name="email" required></div>
                   <div class="cf-group"><label>Phone</label><input type="tel" name="phone" required></div>
                   <div class="cf-group"><label>Preferred Country</label>
-                    <select name="destination"><option value="">Select Country</option><option>USA</option><option>UK</option><option>Canada</option><option>Australia</option><option>Germany</option><option>Other</option></select>
+                    <select name="destination">
+                      <option value="">Select Country</option>
+                      <?php foreach ($globalCountries as $c): ?>
+                      <option value="<?= htmlspecialchars($c['name']) ?>"><?= htmlspecialchars($c['name']) ?></option>
+                      <?php endforeach; ?>
+                      <option value="Other">Other</option>
+                    </select>
                   </div>
                   <button type="submit" class="btn btn--primary btn--lg" style="width:100%; justify-content:center; background:#ff1e1e; border:none; border-radius: 50px;">Book My Free Session</button>
                 </form>

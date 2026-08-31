@@ -902,9 +902,9 @@ $countryName = $country['full_name'] ?? $country['name'];
         <div id="overview" class="country-content-section animate-on-scroll">
           <h2>Study in <?= $countryName ?> Overview</h2>
           <div class="country-card">
-            <?php if (!empty($db_country['overview_image'])): ?>
-                <div class="country-card-img" style="background-image: url('<?= htmlspecialchars($db_country['overview_image']) ?>');"></div>
-            <?php endif; ?>
+            <div class="country-card-img" style="background: #e2e8f0; overflow: hidden;">
+                <iframe src="https://maps.google.com/maps?q=<?= urlencode($countryName) ?>&t=&z=4&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+            </div>
             <p style="color:var(--gray); line-height:1.8; margin-bottom:1.5rem">Our students choose <?= $country['name'] ?> for its unique blend of academic excellence and lifestyle benefits. Here are the top reasons to consider this destination:</p>
             <div class="grid grid--2 gap--2" style="margin-top: 1.5rem;">
               <?php foreach($country['benefits'] as $index => $benefit): 

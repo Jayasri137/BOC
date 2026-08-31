@@ -22,7 +22,7 @@ require_once 'includes/header.php';
               foreach ($countries as $c):
               ?>
                 <option value="<?= $c['id'] ?>" <?= $selectedCountry == $c['id'] ? 'selected' : '' ?>>
-                  <?= clean_output($c['flag'] . ' ' . $c['name']) ?>
+                  <?= clean_output($c['name']) ?>
                 </option>
               <?php endforeach; ?>
             </select>

@@ -110,6 +110,16 @@ try {
     }
 } catch (PDOException $e) {}
 
+// Fetch active countries globally
+$globalCountries = [];
+try {
+    if (isset($pdo)) {
+        $stmtC = $pdo->prepare("SELECT * FROM countries WHERE is_active = 1 ORDER BY name ASC");
+        $stmtC->execute();
+        $globalCountries = $stmtC->fetchAll(PDO::FETCH_ASSOC);
+    }
+} catch (PDOException $e) {}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -485,58 +495,43 @@ try {
           <div class="dropdown">
             <div class="mega-menu-inner mega-menu-inner--2col">
               <div>
-                <p class="mega-menu-col-title">Popular Destinations</p>
                 <div class="countries-grid-secondary">
                   <?php
-                  $mainCountries = [
-                    ['australia','Australia','au','study-in-australia.php'],
-                    ['canada','Canada','ca','study-in-canada.php'],
-                    ['uae','UAE','ae','study-in-uae.php'],
-                    ['germany','Germany','de','study-in-germany.php'],
-                    ['ireland','Ireland','ie','study-in-ireland.php'],
-                    ['newzealand','New Zealand','nz','study-in-new-zealand.php'],
-                    ['singapore','Singapore','sg','study-in-singapore.php'],
-                    ['switzerland','Switzerland','ch','study-in-switzerland.php'],
-                    ['uk','United Kingdom','gb','study-in-uk.php'],
-                    ['usa','United States','us','study-in-usa.php'],
+                  $slugToIso = [
+                      'australia' => 'au', 'usa' => 'us', 'uk' => 'gb', 'canada' => 'ca', 'germany' => 'de',
+                      'singapore' => 'sg', 'ireland' => 'ie', 'newzealand' => 'nz', 'france' => 'fr', 'italy' => 'it',
+                      'sweden' => 'se', 'south-korea' => 'kr', 'uae' => 'ae', 'netherlands' => 'nl', 'switzerland' => 'ch',
+                      'malaysia' => 'my', 'denmark' => 'dk', 'spain' => 'es', 'austria' => 'at', 'finland' => 'fi',
+                      'hungary' => 'hu', 'lithuania' => 'lt', 'cyprus' => 'cy', 'poland' => 'pl', 'czech-republic' => 'cz',
+                      'mauritius' => 'mu', 'japan' => 'jp', 'vietnam' => 'vn', 'malta' => 'mt', 'china' => 'cn',
+                      'belgium' => 'be', 'bulgaria' => 'bg', 'russia' => 'ru', 'georgia' => 'ge', 'croatia' => 'hr',
+                      'latvia' => 'lv', 'luxembourg' => 'lu', 'greece' => 'gr', 'india' => 'in', 'kazakhstan' => 'kz',
+                      'philippines' => 'ph'
                   ];
-                  foreach ($mainCountries as [$slug, $name, $flagCode, $url]):
+                  
+                  $half = ceil(count($globalCountries) / 2);
+                  $mainCountries = array_slice($globalCountries, 0, $half);
+                  foreach ($mainCountries as $c):
+                      $isoCode = isset($slugToIso[$c['slug']]) ? $slugToIso[$c['slug']] : 'un';
                   ?>
-                  <a href="<?= $url ?>" class="country-item">
-                    <span class="country-flag fi fi-<?= $flagCode ?>"></span>
-                    <span><?= $name ?></span>
+                  <a href="study-in-<?= htmlspecialchars($c['slug']) ?>.php" class="country-item">
+                    <span class="country-flag fi fi-<?= $isoCode ?>"></span>
+                    <span><?= htmlspecialchars($c['name']) ?></span>
                   </a>
                   <?php endforeach; ?>
                 </div>
               </div>
               
               <div>
-                <p class="mega-menu-col-title">Other Destinations</p>
                 <div class="countries-grid-secondary">
                   <?php
-                  $otherCountries = [
-                    ['italy','Italy','it','study-in-italy.php'],
-                    ['france','France','fr','study-in-france.php'],
-                    ['netherlands','Netherlands','nl','study-in-netherlands.php'],
-                    ['sweden','Sweden','se','study-in-sweden.php'],
-                    ['spain','Spain','es','study-in-spain.php'],
-                    ['austria','Austria','at','study-in-austria.php'],
-                    ['denmark','Denmark','dk','study-in-denmark.php'],
-                    ['finland','Finland','fi','study-in-finland.php'],
-                    ['hungary','Hungary','hu','study-in-hungary.php'],
-                    ['poland','Poland','pl','study-in-poland.php'],
-                    ['czech-republic','Czech Republic','cz','study-in-czech-republic.php'],
-                    ['malaysia','Malaysia','my','study-in-malaysia.php'],
-                    ['japan','Japan','jp','study-in-japan.php'],
-                    ['china','China','cn','study-in-china.php'],
-                    ['belgium','Belgium','be','study-in-belgium.php'],
-                    ['south-korea','South Korea','kr','study-in-south-korea.php'],
-                  ];
-                  foreach ($otherCountries as [$slug, $name, $flagCode, $url]):
+                  $otherCountries = array_slice($globalCountries, $half);
+                  foreach ($otherCountries as $c):
+                      $isoCode = isset($slugToIso[$c['slug']]) ? $slugToIso[$c['slug']] : 'un';
                   ?>
-                  <a href="<?= $url ?>" class="country-item country-item-secondary">
-                    <span class="country-flag fi fi-<?= $flagCode ?>"></span>
-                    <span><?= $name ?></span>
+                  <a href="study-in-<?= htmlspecialchars($c['slug']) ?>.php" class="country-item country-item-secondary">
+                    <span class="country-flag fi fi-<?= $isoCode ?>"></span>
+                    <span><?= htmlspecialchars($c['name']) ?></span>
                   </a>
                   <?php endforeach; ?>
                 </div>

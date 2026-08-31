@@ -564,7 +564,7 @@ body:not(.page-home) .section__title span {
 /* DROPDOWN - MEGA MENU STYLE */
 .dropdown {
   position: absolute;
-  top: 100%;
+  top: calc(100% - 15px);
   left: 50%;
   width: max-content;
   min-width: 600px;

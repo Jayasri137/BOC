@@ -52,7 +52,7 @@ if ($selected_country_id > 0) {
                   <option value="">-- Choose Country --</option>
                   <?php foreach ($countries as $c): ?>
                     <option value="<?= $c['id'] ?>" <?= $selected_country_id == $c['id'] ? 'selected' : '' ?>>
-                      <?= clean_output($c['flag'] . ' ' . $c['name']) ?>
+                      <?= clean_output($c['name']) ?>
                     </option>
                   <?php endforeach; ?>
                 </select>

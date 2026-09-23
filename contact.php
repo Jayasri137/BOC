@@ -1,18 +1,18 @@
 <?php
 require_once 'includes/config.php';
-$pageTitle = 'Contact Us | Bluestone Overseas Consultants';
-$pageDesc = 'UG Programs Abroad – expert guidance on courses, universities, applications and visas for students planning overseas education. Get personalised support.';
-$pageKeywords = 'UK Education Consultants in Coimbatore, Australia Education Consultants in Coimbatore, New Zealand Education Consultants in Coimbatore, UG Programs Abroad, PG Programs Abroad, Study Abroad Consultants in Coimbatore, IELTS Coaching in Coimbatore, IELTS classes in Coimbatore, Best IELTS Coaching in Coimbatore, IELTS Training in Coimbatore, German language course, Japanese language course, German language classes, Japanese language classes, German Language Course in Coimbatore, Japanese Language Course in Coimbatore, German Language Training Centre in Coimbatore, Japanese Language Training Centre in Coimbatore, Postgraduate study in UK, Postgraduate study in Australia, Postgraduate study in New Zealand, Undergraduate study in Australia, Undergraduate study in UK, Undergraduate study in New Zealand, Postgraduate Study in UK – Coimbatore, Postgraduate Study in Australia – Coimbatore, Undergraduate Study in UK – Coimbatore, Undergraduate Study in Australia – Coimbatore, Postgraduate Study in New Zealand – Coimbatore, Undergraduate Study in New Zealand – Coimbatore';
+$pageTitle = 'Contact Bluestone Overseas | Study Abroad Consultants in Coimbatore';
+$pageDesc = 'Get in touch with Bluestone Overseas, the best study abroad consultants in Coimbatore. Call us for free study abroad counselling and visa assistance.';
+$pageKeywords = 'Contact Bluestone Overseas, Study abroad consultants in Coimbatore, Overseas education consultants contact number';
 $pageHeroImage = 'assets/images/cont.png';
 require_once 'includes/header.php';
 ?>
 <main>
-
+ 
 <section class="section contact-section" style="background: #ffffff;">
   <div class="container">
     <div class="contact-grid">
       <div>
-        <h1 style="font-size: 2rem; font-weight: 700; margin-bottom: 1rem;">Talk to Our <span class="text-gradient">Experts</span></h1>
+        <h1 style="font-size: 2rem; font-weight: 700; margin-bottom: 1rem;">Contact Us</span></h1>
         <p>Whether you&rsquo;re just starting your study abroad journey or need help with a visa application, our counsellors are here to help — for free.</p>
         <style>
           .contact-cards-premium {
@@ -75,22 +75,22 @@ require_once 'includes/header.php';
           }
         </style>
         <div class="contact-cards-premium">
-          <div class="c-card-p">
+          <a href="tel:+919342899904" class="c-card-p" style="text-decoration: none; color: inherit;">
             <div class="c-card-icon" style="background: linear-gradient(135deg, #3b82f6, #2563eb);"><i class="fa-solid fa-phone"></i></div>
-            <div><h4>Call Us</h4><a href="tel:+919342899904">+91 93428 99904</a></div>
-          </div>
-          <div class="c-card-p">
+            <div><h4>Call Us</h4><span>+91 93428 99904</span></div>
+          </a>
+          <a href="mailto:info@bluestoneocs.com" class="c-card-p" style="text-decoration: none; color: inherit;">
             <div class="c-card-icon" style="background: linear-gradient(135deg, #ec4899, #be185d);"><i class="fa-solid fa-envelope"></i></div>
-            <div><h4>Email Us</h4><a href="mailto:info@bluestoneocs.com">info@bluestoneocs.com</a></div>
-          </div>
+            <div><h4>Email Us</h4><span>info@bluestoneocs.com</span></div>
+          </a>
           <div class="c-card-p">
             <div class="c-card-icon" style="background: linear-gradient(135deg, #14b8a6, #0d9488);"><i class="fa-regular fa-clock"></i></div>
-            <div><h4>Working Hours</h4><p>Mon–Fri: 09:00 AM – 6:30 PM</p></div>
+            <div><h4>Working Hours</h4><p>Mon–Fri: 09:30 AM – 6:00 PM</p></div>
           </div>
-          <div class="c-card-p">
+          <a href="https://wa.me/919342899904" target="_blank" class="c-card-p" style="text-decoration: none; color: inherit;">
             <div class="c-card-icon" style="background: linear-gradient(135deg, #22c55e, #16a34a);"><i class="fa-brands fa-whatsapp"></i></div>
-            <div><h4>WhatsApp</h4><a href="https://wa.me/919342899904" target="_blank">Chat with us instantly</a></div>
-          </div>
+            <div><h4>WhatsApp</h4><span>Chat with us instantly</span></div>
+          </a>
         </div>
         <a href="<?= SITE_MAP_LINK ?>" target="_blank" style="display:block;margin-top:2rem;padding:1.5rem;background:linear-gradient(135deg,rgba(14,165,233,.08),rgba(139,92,246,.08));border-radius:var(--radius);border:1px solid rgba(14,165,233,.15);text-decoration:none;color:inherit;transition:transform 0.3s ease,border-color 0.3s ease;" class="hover-scale-card">
           <h4 style="margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;"><i class="fa-solid fa-location-dot" style="color:var(--primary)"></i> Head Office – Coimbatore</h4>
@@ -208,7 +208,13 @@ require_once 'includes/header.php';
             <div class="cf-group-p"><label>Phone *</label><input type="tel" name="phone" placeholder="+91 98765 43210" required></div>
           </div>
           <div class="cf-group-p"><label>Preferred Country</label>
-            <select name="destination"><option value="">Select Country</option><option>USA</option><option>UK</option><option>Canada</option><option>Australia</option><option>Germany</option><option>Ireland</option><option>New Zealand</option><option>Singapore</option><option>Other</option></select>
+            <select name="destination">
+              <option value="">Select Country</option>
+              <?php if(!empty($globalCountries)) { foreach($globalCountries as $c): ?>
+              <option value="<?= htmlspecialchars($c['name']) ?>"><?= htmlspecialchars($c['name']) ?></option>
+              <?php endforeach; } ?>
+              <option value="Other">Other</option>
+            </select>
           </div>
           <div class="cf-group-p"><label>Your Query</label>
             <textarea name="query" rows="4" placeholder="Tell us about your study abroad plans, your academic background, or any specific questions..."></textarea>
@@ -278,7 +284,7 @@ require_once 'includes/header.php';
           <i class="fa-solid <?= $icon ?>"></i>
         </div>
         
-        <h4 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--dark); margin: 0; letter-spacing: -0.02em;"><?= $b ?> Branch <?= !empty($row['badge']) ? '<span style="font-size:0.8rem; color:'.$c[1].';">'.$row['badge'].'</span>' : '' ?></h4>
+        <h4 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--dark); margin: 0; letter-spacing: -0.02em;"><?= $b ?> <?= !empty($row['badge']) ? '<span style="font-size:0.8rem; color:'.$c[1].';">'.$row['badge'].'</span>' : '' ?></h4>
         
         <p style="font-size: 0.95rem; color: var(--gray); margin: 0; line-height: 1.6;"><i class="fa-solid fa-location-dot" style="margin-right:0.4rem; color:<?= $c[1] ?>;"></i> <?= $address ?></p>
         

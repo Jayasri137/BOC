@@ -1,7 +1,7 @@
 <?php
 // admin/testimonial_videos.php - Video Reviews CRUD Editor with Local Upload and URL Options
 $pageTitle = 'Video Testimonials Manager';
-require_once 'includes/header.php';
+require_once __DIR__ . '/includes/header.php';
 
 $alertSuccess = '';
 $alertError = '';
@@ -366,4 +366,4 @@ function closeDeleteModal() {
 }
 </script>
 
-<?php require_once 'includes/footer.php'; ?>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>

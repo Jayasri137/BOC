@@ -37,7 +37,7 @@ $services_data = [
     'university' => [
         'name' => 'University Selection',
         'icon' => 'fa-university',
-        'desc' => 'We help you navigate the complex process of choosing the perfect university from our 500+ global partners based on rankings, course modules, and placement records.',
+        'desc' => 'We help you navigate the complex process of choosing the perfect university from our 700+ global partners based on rankings, course modules, and placement records.',
         'details' => ['Shortlisting Universities', 'Course Comparison', 'Entrance Requirement Check', 'Scholarship Availability']
     ],
     'admission' => [
@@ -55,7 +55,7 @@ $services_data = [
     'visa' => [
         'name' => 'Visa Processing',
         'icon' => 'fa-passport',
-        'desc' => 'With a 98% success rate, our visa experts guide you through the intricate immigration requirements, documentation, and mock interviews for all major destinations.',
+        'desc' => 'With a 99% success rate, our visa experts guide you through the intricate immigration requirements, documentation, and mock interviews for all major destinations.',
         'details' => ['Visa Documentation', 'Financial Proof Prep', 'Interview Mock Sessions', 'Visa Filing']
     ],
     'accommodation' => [
@@ -99,8 +99,8 @@ if (!$service) {
     $pageTitle = $service['name'] . ' | Bluestone Overseas Consultants';
 }
 
-$pageTitle = 'Complete Study Abroad Services in Coimbatore | Bluestone Overseas';
-$pageDesc = 'From counselling to visa approval, explore end-to-end overseas education services.';
+$pageTitle = 'Study Abroad Services in Coimbatore | Overseas Education Support';
+$pageDesc = 'Explore complete study abroad services in Coimbatore including counselling, university selection, admission processing, scholarships, education loans and student visa assistance.';
 require_once 'includes/header.php';
 ?>
 <main>
@@ -167,7 +167,7 @@ require_once 'includes/header.php';
               <?php else: ?>
                 <div class="col-span-3 text-center py-5">
                   <p style="color: var(--gray);">
-                    <?= $slug === 'university' ? 'No universities listed for this country yet. Contact us for the full list of our 500+ partners.' : 'No active intakes found for this country. Please contact our admission desk for manual processing.' ?>
+                    <?= $slug === 'university' ? 'No universities listed for this country yet. Contact us for the full list of our 700+ partners.' : 'No active intakes found for this country. Please contact our admission desk for manual processing.' ?>
                   </p>
                 </div>
               <?php endif; ?>
@@ -200,6 +200,13 @@ require_once 'includes/header.php';
           </div>
         </div>
       <?php else: ?>
+        <div class="section__header text-center mb-5 animate-on-scroll">
+            <h1 class="section__title" style="margin-bottom: 1.5rem;">Complete Study Abroad Services in Coimbatore</h1>
+            <div class="seo-content-block" style="max-width: 800px; margin: 0 auto; color: #475569; font-size: 1.1rem; line-height: 1.6;">
+                <p>Bluestone Overseas offers complete study abroad services in Coimbatore for students planning to pursue higher education internationally. Our experienced team supports students throughout the overseas education process.</p>
+                <p>From your first counselling session until you reach your university abroad, we provide professional assistance at every stage.</p>
+            </div>
+        </div>
         <div class="services-grid grid grid--3 gap--2">
           <?php 
           $colors = ['blue', 'purple', 'orange', 'teal', 'pink', 'gold', 'blue'];

@@ -1,7 +1,7 @@
 <?php
 // includes/db.php - Database connection using PDO for Bluestone Overseas
 
-$host = 'auth-db1278.hstgr.io';
+$host = 'srv696.hstgr.io';
 $user = 'u287260207_new_user';
 $pass = 'nwUser@>26';
 $dbname = 'u287260207_overseas_newdb';

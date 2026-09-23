@@ -1,12 +1,12 @@
 <?php
 require_once 'includes/config.php';
-$pageTitle = 'Education Loan Assistance for Study Abroad | Bluestone Overseas';
-$pageDesc = 'Secure education loans with expert guidance for tuition fees and living expenses abroad.';
+$pageTitle = 'Study Abroad Education Loan Assistance in Coimbatore';
+$pageDesc = 'Need an education loan for studying abroad? Bluestone Overseas provides expert assistance for securing study abroad education loans with top banks in Coimbatore.';
+$pageKeywords = 'Study abroad education loan assistance in Coimbatore, Education loan for studying abroad, Study abroad education loan, Education loan guidance';
 $pageHeroImage = 'assets/images/Fund.png';
 require_once 'includes/header.php';
 ?>
 <main>
-
   <section class="section">
     <div class="container">
       <!-- Destination Filter -->
@@ -32,7 +32,7 @@ require_once 'includes/header.php';
       </div>
 
       <div class="animate-on-scroll" style="margin-bottom: 2rem;">
-        <h2 style="font-size: 1.75rem; margin-bottom: 0.5rem; color: var(--dark);">Education loan</h2>
+        <h1 style="font-size: 1.75rem; margin-bottom: 0.5rem; color: var(--dark);">Study Abroad Education Loan Assistance in Coimbatore</h1>
         <div style="width: 50px; height: 3px; background: var(--primary); margin-bottom: 1.5rem;"></div>
         <p style="color: var(--gray); line-height: 1.6;">We've partnered with some of the most trusted financial institutions to offer a one-stop solution for education loans. Bluestone and our partners will help make your study abroad journey convenient and simple.</p>
       </div>

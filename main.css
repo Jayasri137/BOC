@@ -5516,7 +5516,7 @@ body:not(.page-home) .section__title span {
 .country-marquee-track {
   display: flex;
   gap: 1.25rem;
-  padding: 1.5rem 1.25rem 3rem;
+  padding: 1rem 1.25rem 1rem;
   /* Extra right padding to match gap for seamless loop */
   width: max-content;
 }
@@ -5873,15 +5873,16 @@ body:not(.page-home) .section__title span {
   }
 
   .country-card-minimal {
-    flex: 0 0 200px !important;
+    flex: 0 0 160px !important;
   }
 
   .country-card-minimal__img {
-    height: 200px !important;
+    height: 160px !important;
+    width: 160px !important;
   }
 
   .country-card-minimal__content {
-    padding: 0 !important;
+    padding: 1rem !important;
   }
 
   .country-card-minimal h3 {

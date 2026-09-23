@@ -1,0 +1,1 @@
+<?php require 'includes/db.php'; $stmt = $pdo->query('SELECT id, name, slug FROM countries WHERE is_active = 1 ORDER BY name ASC'); $res = $stmt->fetchAll(); foreach($res as $r) { echo $r['id'] . ' - ' . $r['name'] . ' (' . $r['slug'] . ')' . PHP_EOL; }

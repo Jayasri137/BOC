@@ -1,0 +1,1 @@
+<?php require 'includes/db.php'; $stmt = $pdo->query('SELECT slug, COUNT(*) c, GROUP_CONCAT(id) ids FROM countries GROUP BY slug HAVING c > 1'); $res = $stmt->fetchAll(); foreach($res as $r) { echo $r['slug'] . ' -> ' . $r['ids'] . PHP_EOL; }

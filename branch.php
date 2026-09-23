@@ -34,12 +34,13 @@ try {
 }
 
 if (!$branch) {
-    $pageTitle = 'Our Branches | Bluestone Overseas Consultants';
+    $pageTitle = 'Bluestone Overseas Branches | Top Study Abroad Consultants';
+    $pageDesc = 'Find the nearest Bluestone Overseas branch. We are the top study abroad consultants in Coimbatore, Chennai, Salem, Erode, Namakkal and Tirunelveli.';
 } else {
     $pageTitle = $branch['name'] . ' | Bluestone Overseas Consultants';
+    $pageDesc = 'Contact Bluestone Overseas ' . $branch['name'] . ' for expert study abroad counselling, admissions, and visa assistance.';
 }
-$pageDesc = 'PG Programs Abroad | Study Abroad Blogs & Latest Updates Explore Bluestone Overseas branches and get expert guidance from New Zealand Education Consultants in Coimbatore for admissions, visas and study abroad support.';
-$pageKeywords = 'UK Education Consultants in Coimbatore, Australia Education Consultants in Coimbatore, New Zealand Education Consultants in Coimbatore, UG Programs Abroad, PG Programs Abroad, Study Abroad Consultants in Coimbatore, IELTS Coaching in Coimbatore, IELTS classes in Coimbatore, Best IELTS Coaching in Coimbatore, IELTS Training in Coimbatore, German language course, Japanese language course, German language classes, Japanese language classes, German Language Course in Coimbatore, Japanese Language Course in Coimbatore, German Language Training Centre in Coimbatore, Japanese Language Training Centre in Coimbatore, Postgraduate study in UK, Postgraduate study in Australia, Postgraduate study in New Zealand, Undergraduate study in Australia, Undergraduate study in UK, Undergraduate study in New Zealand, Postgraduate Study in UK – Coimbatore, Postgraduate Study in Australia – Coimbatore, Undergraduate Study in UK – Coimbatore, Undergraduate Study in Australia – Coimbatore, Postgraduate Study in New Zealand – Coimbatore, Undergraduate Study in New Zealand – Coimbatore';
+$pageKeywords = 'Bluestone Overseas branches, Study abroad consultants in Coimbatore, Study abroad consultants in Chennai, Study abroad consultants in Salem, Study abroad consultants in Erode, Study abroad consultants in Namakkal, Study abroad consultants in Tirunelveli';
 $pageHeroImage = 'assets/images/img4.png';
 require_once 'includes/header.php';
 ?>
@@ -132,7 +133,7 @@ require_once 'includes/header.php';
                 <i class="fa-solid <?= $icon ?>"></i>
               </div>
               
-              <h4 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--dark); margin: 0; letter-spacing: -0.02em;"><?= $b ?> Branch <?= !empty($row['badge']) ? '<span style="font-size:0.8rem; color:'.$c[1].';">'.$row['badge'].'</span>' : '' ?></h4>
+              <h4 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--dark); margin: 0; letter-spacing: -0.02em;"><?= $b ?> <?= !empty($row['badge']) ? '<span style="font-size:0.8rem; color:'.$c[1].';">'.$row['badge'].'</span>' : '' ?></h4>
               
               <p style="font-size: 0.95rem; color: var(--gray); margin: 0; line-height: 1.6;"><i class="fa-solid fa-location-dot" style="margin-right:0.4rem; color:<?= $c[1] ?>;"></i> <?= $address ?></p>
               

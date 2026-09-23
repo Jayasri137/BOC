@@ -1,7 +1,7 @@
 <?php
 // admin/team_members.php - Team Members CRUD Editor
 $pageTitle = 'Team Members Manager';
-require_once 'includes/header.php';
+require_once __DIR__ . '/includes/header.php';
 
 $alertSuccess = '';
 $alertError = '';
@@ -14,6 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action === 'add') {
         $name = isset($_POST['name']) ? trim($_POST['name']) : '';
         $role = isset($_POST['role']) ? trim($_POST['role']) : '';
+        $experience = isset($_POST['experience']) ? trim($_POST['experience']) : '';
+        $linkedin_url = isset($_POST['linkedin_url']) ? trim($_POST['linkedin_url']) : '';
         $description = isset($_POST['description']) ? trim($_POST['description']) : '';
         $display_order = isset($_POST['display_order']) ? intval($_POST['display_order']) : 0;
         $is_active = isset($_POST['is_active']) ? 1 : 0;
@@ -35,12 +37,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             try {
                 $stmt = $pdo->prepare("
-                    INSERT INTO team_members (name, role, description, image_path, display_order, is_active) 
-                    VALUES (:name, :role, :description, :image_path, :display_order, :is_active)
+                    INSERT INTO team_members (name, role, experience, linkedin_url, description, image_path, display_order, is_active) 
+                    VALUES (:name, :role, :experience, :linkedin_url, :description, :image_path, :display_order, :is_active)
                 ");
                 $stmt->execute([
                     'name' => $name,
                     'role' => $role,
+                    'experience' => $experience,
+                    'linkedin_url' => $linkedin_url,
                     'description' => $description,
                     'image_path' => $final_image_source,
                     'display_order' => $display_order,
@@ -58,6 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = isset($_POST['member_id']) ? intval($_POST['member_id']) : 0;
         $name = isset($_POST['name']) ? trim($_POST['name']) : '';
         $role = isset($_POST['role']) ? trim($_POST['role']) : '';
+        $experience = isset($_POST['experience']) ? trim($_POST['experience']) : '';
+        $linkedin_url = isset($_POST['linkedin_url']) ? trim($_POST['linkedin_url']) : '';
         $description = isset($_POST['description']) ? trim($_POST['description']) : '';
         $display_order = isset($_POST['display_order']) ? intval($_POST['display_order']) : 0;
         $is_active = isset($_POST['is_active']) ? 1 : 0;
@@ -80,20 +86,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (!empty($final_image_source)) {
                     $stmt = $pdo->prepare("
                         UPDATE team_members 
-                        SET name = :name, role = :role, description = :description, image_path = :image_path, display_order = :display_order, is_active = :is_active 
+                        SET name = :name, role = :role, experience = :experience, linkedin_url = :linkedin_url, description = :description, image_path = :image_path, display_order = :display_order, is_active = :is_active 
                         WHERE id = :id
                     ");
                     $stmt->execute([
-                        'name' => $name, 'role' => $role, 'description' => $description, 'image_path' => $final_image_source, 'display_order' => $display_order, 'is_active' => $is_active, 'id' => $id
+                        'name' => $name, 'role' => $role, 'experience' => $experience, 'linkedin_url' => $linkedin_url, 'description' => $description, 'image_path' => $final_image_source, 'display_order' => $display_order, 'is_active' => $is_active, 'id' => $id
                     ]);
                 } else {
                     $stmt = $pdo->prepare("
                         UPDATE team_members 
-                        SET name = :name, role = :role, description = :description, display_order = :display_order, is_active = :is_active 
+                        SET name = :name, role = :role, experience = :experience, linkedin_url = :linkedin_url, description = :description, display_order = :display_order, is_active = :is_active 
                         WHERE id = :id
                     ");
                     $stmt->execute([
-                        'name' => $name, 'role' => $role, 'description' => $description, 'display_order' => $display_order, 'is_active' => $is_active, 'id' => $id
+                        'name' => $name, 'role' => $role, 'experience' => $experience, 'linkedin_url' => $linkedin_url, 'description' => $description, 'display_order' => $display_order, 'is_active' => $is_active, 'id' => $id
                     ]);
                 }
                 $alertSuccess = 'Team member updated successfully!';
@@ -252,6 +258,16 @@ try {
                     <label for="m_role" class="form-label">Role / Designation *</label>
                     <input type="text" name="role" id="m_role" class="form-control" required>
                 </div>
+                
+                <div class="form-group">
+                    <label for="m_experience" class="form-label">Experience (e.g., "10+ Years")</label>
+                    <input type="text" name="experience" id="m_experience" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label for="m_linkedin_url" class="form-label">LinkedIn Profile URL (Optional)</label>
+                    <input type="url" name="linkedin_url" id="m_linkedin_url" class="form-control" placeholder="https://linkedin.com/in/profile">
+                </div>
 
                 <div class="detail-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                     <div class="form-group">
@@ -325,6 +341,8 @@ function openAddModal() {
     document.getElementById('edit_member_id').value = '';
     document.getElementById('m_name').value = '';
     document.getElementById('m_role').value = '';
+    document.getElementById('m_experience').value = '';
+    document.getElementById('m_linkedin_url').value = '';
     document.getElementById('m_desc').value = '';
     document.getElementById('m_order').value = '0';
     document.getElementById('m_img_path').value = '';
@@ -340,6 +358,8 @@ function openEditModal(m) {
     document.getElementById('edit_member_id').value = m.id;
     document.getElementById('m_name').value = m.name;
     document.getElementById('m_role').value = m.role;
+    document.getElementById('m_experience').value = m.experience || '';
+    document.getElementById('m_linkedin_url').value = m.linkedin_url || '';
     document.getElementById('m_desc').value = m.description;
     document.getElementById('m_order').value = m.display_order;
     document.getElementById('m_img_path').value = m.image_path;
@@ -364,4 +384,4 @@ function closeDeleteModal() {
 }
 </script>
 
-<?php require_once 'includes/footer.php'; ?>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>

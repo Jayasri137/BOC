@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Bluestone Overseas</title>
+    <!-- FontAwesome & Outfit Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Style -->
+    <link rel="stylesheet" href="css/admin-style.css?v=1788240542">
+    <script>
+        // Toggle mobile sidebar
+        function toggleSidebar() {
+            document.querySelector('.app-sidebar').classList.toggle('active');
+        }
+    </script>
+    <style>
+        .menu-accordion { border-radius: var(--radius-sm); margin-bottom: 0.25rem; overflow: hidden; }
+        .menu-accordion-header { display:flex; align-items:center; justify-content:space-between; gap:0.75rem; padding:0.7rem 1rem; color: var(--text-secondary); font-weight:500; font-size:0.88rem; cursor: pointer; transition: var(--transition); border-radius: var(--radius-sm); }
+        .menu-accordion-header i:first-child { font-size:1rem; width:18px; text-align:center; }
+        .menu-accordion-header:hover { background: var(--primary-light); color: var(--primary); }
+        .menu-accordion.active .menu-accordion-header { background: linear-gradient(135deg, var(--primary), #dc2626); color:#fff; font-weight:600; box-shadow: 0 4px 10px var(--primary-glow); }
+        .accordion-arrow { font-size: 0.75rem !important; transition: transform 0.3s; }
+        .menu-accordion.open > .menu-accordion-header .accordion-arrow { transform: rotate(180deg); }
+        .menu-accordion-body { display: none; padding-left: 0.5rem; border-left: 2px solid var(--border); margin-left: 1.5rem; margin-top: 0.25rem; }
+        .menu-accordion.open > .menu-accordion-body { display: block; }
+        .submenu-item { display:flex; align-items:center; gap:0.5rem; padding:0.5rem 0.75rem; color: var(--text-muted); font-size:0.8rem; border-radius: var(--radius-sm); text-decoration:none; margin-bottom: 0.25rem; transition: var(--transition); }
+        .submenu-item:hover, .submenu-item.active { background: rgba(0,0,0,0.03); color: var(--primary); font-weight: 500; }
+        .nested-accordion-header { display:flex; align-items:center; justify-content:space-between; padding:0.5rem 0.75rem; color: var(--text-secondary); font-size:0.85rem; cursor: pointer; border-radius: var(--radius-sm); font-weight: 500; }
+        .nested-accordion-header:hover { background: rgba(0,0,0,0.03); color: var(--primary); }
+        .nested-accordion.open > .nested-accordion-header .accordion-arrow { transform: rotate(180deg); }
+        .nested-accordion-body { display: none; padding-left: 0.5rem; border-left: 1px dashed var(--border); margin-left: 0.75rem; }
+        .nested-accordion.open > .nested-accordion-body { display: flex; flex-direction: column; }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <!-- Responsive Navigation Sidebar -->
+    <aside class="app-sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo-icon">
+                <i class="fa-solid fa-plane-departure"></i>
+            </div>
+            <div class="sidebar-logo-text">
+                Bluestone
+                <span>Overseas Admin</span>
+            </div>
+            <div class="sidebar-toggle" style="margin-left: auto;" onclick="toggleSidebar()">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+        </div>
+        
+        <nav class="sidebar-menu">
+            <div class="menu-label">Main Console</div>
+            
+            <a href="index.php" class="menu-item active">
+                <i class="fa-solid fa-chart-pie"></i>
+                <span>Dashboard</span>
+            </a>
+            
+            <a href="leads.php" class="menu-item ">
+                <i class="fa-solid fa-users-line"></i>
+                <span>Leads CRM</span>
+            </a>
+            
+            <div class="menu-label">Web Content Cards</div>
+            
+            <a href="hero_slides.php" class="menu-item ">
+                <i class="fa-solid fa-rectangle-ad"></i>
+                <span>Hero Slides</span>
+            </a>
+
+            <a href="site_popup.php" class="menu-item ">
+                <i class="fa-solid fa-window-restore"></i>
+                <span>Site Popup</span>
+            </a>
+
+            <a href="announcements.php" class="menu-item ">
+                <i class="fa-solid fa-bullhorn"></i>
+                <span>Announcements</span>
+            </a>
+
+            <a href="services.php" class="menu-item ">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>Services Cards</span>
+            </a>
+
+            <a href="test_prep.php" class="menu-item ">
+                <i class="fa-solid fa-book-open-reader"></i>
+                <span>Test Preparation</span>
+            </a>
+
+            <a href="upcoming_batches.php" class="menu-item ">
+                <i class="fa-solid fa-calendar-alt"></i>
+                <span>Upcoming Batches</span>
+            </a>
+
+            <a href="specialist_services.php" class="menu-item ">
+                <i class="fa-solid fa-briefcase"></i>
+                <span>Specialist Services</span>
+            </a>
+
+                        <div class="menu-accordion ">
+                <div class="menu-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                    <div style="display:flex; align-items:center; gap:0.75rem;">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span>Study Destinations</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                </div>
+                <div class="menu-accordion-body">
+                    <a href="countries.php" class="submenu-item " style="display: block; padding: 0.4rem 0.75rem; color: #64748b; text-decoration: none; font-size: 0.85rem; border-bottom: 1px dashed var(--border);">
+                        <i class="fa-solid fa-list" style="font-size:0.8rem; margin-right:0.25rem;"></i> Manage All Countries
+                    </a>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Australia</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=4" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Austria</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=103" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Belgium</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=115" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Bulgaria</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=19" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Canada</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=3" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>China</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=114" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Croatia</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=117" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Cyprus</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=107" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Czech Republic</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=109" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Denmark</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=18" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Finland</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=104" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>France</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=8" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Georgia</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=116" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Germany</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=5" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Greece</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=120" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Hungary</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=105" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>India</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=121" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Ireland</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=7" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Italy</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=13" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Japan</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=111" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Kazakhstan</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=122" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Latvia</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=118" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Lithuania</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=106" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Luxembourg</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=119" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Malaysia</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=17" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Malta</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=113" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Mauritius</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=110" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Netherlands</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=9" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>New Zealand</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=12" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Philippines</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=41" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Poland</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=108" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Russia</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=20" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Singapore</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=11" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>South Korea</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=14" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Spain</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=102" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Sweden</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=10" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Switzerland</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=16" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>UAE</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=15" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>United Kingdom</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=2" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>United States</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=1" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                            <div class="nested-accordion ">
+                            <div class="nested-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                                <span>Vietnam</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+                            </div>
+                            <div class="nested-accordion-body">
+                                <a href="manage_sections.php?country_id=112" class="submenu-item" style="display: block; padding: 0.4rem 0.75rem; color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">
+                                    <i class="fa-solid fa-gear"></i> Manage Sections
+                                </a>
+                                                            </div>
+                        </div>
+                                    </div>
+            </div>
+
+            <a href="universities.php" class="menu-item ">
+                <i class="fa-solid fa-building-columns"></i>
+                <span>Universities & Courses</span>
+            </a>
+            
+            <a href="essential_partners.php" class="menu-item ">
+                <i class="fa-solid fa-handshake"></i>
+                <span>Essential Partners</span>
+            </a>
+
+            <a href="branches.php" class="menu-item ">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <span>Office Branches</span>
+            </a>
+
+            <a href="gallery.php" class="menu-item ">
+                <i class="fa-solid fa-camera-retro"></i>
+                <span>Photo Gallery</span>
+            </a>
+
+            <a href="news.php" class="menu-item ">
+                <i class="fa-solid fa-newspaper"></i>
+                <span>Blog Posts</span>
+            </a>
+            
+            <a href="testimonials.php" class="menu-item ">
+                <i class="fa-solid fa-comments"></i>
+                <span>Student Reviews</span>
+            </a>
+
+            <a href="testimonial_videos.php" class="menu-item ">
+                <i class="fa-solid fa-video"></i>
+                <span>Video Testimonials</span>
+            </a>
+
+            <a href="team_members.php" class="menu-item ">
+                <i class="fa-solid fa-users"></i>
+                <span>Team Members</span>
+            </a>
+
+            <div class="menu-label">System Control</div>
+            
+            <a href="profile.php" class="menu-item ">
+                <i class="fa-solid fa-user-gear"></i>
+                <span>My Profile</span>
+            </a>
+            
+            <a href="setup.php" class="menu-item" target="_blank" style="color: var(--text-muted);">
+                <i class="fa-solid fa-gears"></i>
+                <span>Database setup</span>
+            </a>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="user-profile-badge">
+                <div class="user-avatar user-avatar--blue">
+                    TA                </div>
+                <div class="user-info">
+                    <div class="user-name">Test Admin</div>
+                    <div class="user-role">Super Admin</div>
+                </div>
+                <a href="logout.php" class="logout-btn" title="Sign Out">
+                    <i class="fa-solid fa-power-off"></i>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Panel -->
+    <main class="app-content">
+        <!-- Top Navigation Utility Bar (Responsive) -->
+        <div class="content-header">
+            <div>
+                <button class="sidebar-toggle btn-action" onclick="toggleSidebar()" style="display: block; margin-right: 1rem; width: 40px; height: 40px; border-radius: 50%;">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+            <div class="header-actions">
+                <a href="../index.php" target="_blank" class="btn-outline">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    <span>Visit Live Website</span>
+                </a>
+            </div>
+        </div>
+
+<h1 class="page-title">
+    Dashboard
+    <span>Analytical Overview of Bluestone Overseas CRM & content metrics</span>
+</h1>
+
+
+    <!-- KPI Dashboard Grid -->
+    <div class="stats-grid">
+        <a href="leads.php" class="stat-card" style="text-decoration: none;">
+            <div class="stat-info">
+                <div class="stat-label">Total Enquiries</div>
+                <div class="stat-value">28</div>
+            </div>
+            <div class="stat-icon-wrap icon-blue">
+                <i class="fa-solid fa-users"></i>
+            </div>
+        </a>
+        
+        <a href="leads.php?status=New" class="stat-card" style="text-decoration: none;">
+            <div class="stat-info">
+                <div class="stat-label">New Leads</div>
+                <div class="stat-value" style="color: var(--accent);">28</div>
+            </div>
+            <div class="stat-icon-wrap icon-purple">
+                <i class="fa-solid fa-user-plus"></i>
+            </div>
+        </a>
+        
+        <a href="services.php" class="stat-card" style="text-decoration: none;">
+            <div class="stat-info">
+                <div class="stat-label">Active Services</div>
+                <div class="stat-value">8 <span style="font-size: 1rem; color: var(--text-muted); font-weight: 400;">/ 8</span></div>
+            </div>
+            <div class="stat-icon-wrap icon-orange">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+        </a>
+        
+        <a href="countries.php" class="stat-card" style="text-decoration: none;">
+            <div class="stat-info">
+                <div class="stat-label">Destinations</div>
+                <div class="stat-value">41 <span style="font-size: 1rem; color: var(--text-muted); font-weight: 400;">/ 41</span></div>
+            </div>
+            <div class="stat-icon-wrap icon-teal">
+                <i class="fa-solid fa-earth-americas"></i>
+            </div>
+        </a>
+
+        <a href="testimonials.php" class="stat-card" style="text-decoration: none;">
+            <div class="stat-info">
+                <div class="stat-label">Reviews</div>
+                <div class="stat-value">12 <span style="font-size: 1rem; color: var(--text-muted); font-weight: 400;">/ 12</span></div>
+            </div>
+            <div class="stat-icon-wrap icon-pink">
+                <i class="fa-solid fa-star"></i>
+            </div>
+        </a>
+    </div>
+
+    <!-- Main Dashboard Section -->
+    <div class="panel-grid">
+        <!-- Recent Enquiries -->
+        <div class="panel-card">
+            <div class="panel-header">
+                <h3 class="panel-title">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <span>Recent Student Enquiries</span>
+                </h3>
+                <a href="leads.php" class="btn-outline" style="padding: 0.35rem 1rem; font-size: 0.78rem;">
+                    <span>View CRM Sheet</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="data-table-wrapper">
+                                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Contact</th>
+                                <th>Interest</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                                            <tr>
+                                    <td>
+                                        <strong style="display: block; font-size: 0.95rem;">DPrbzCdkOSZHThtgVjUOA ZxYUApsrmickyiGIxK</strong>
+                                        <span style="font-size: 0.75rem; color: var(--text-muted); font-family: monospace;">BGOI-0028</span>
+                                    </td>
+                                    <td>
+                                        <div style="font-size: 0.85rem;">e.l.e.a.n.or.bl.ac.kw.e.l.l6.6.19@gmail.com</div>
+                                        <div style="font-size: 0.78rem; color: var(--text-secondary);">3695192306</div>
+                                    </td>
+                                    <td>
+                                        <span style="font-size: 0.85rem; font-weight: 500;">Study in USA</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-new">
+                                            <i class="fa-solid fa-circle"></i>
+                                            New                                        </span>
+                                    </td>
+                                    <td style="font-size: 0.8rem; color: var(--text-secondary);">
+                                        Aug 30, 2026 05:55 AM                                    </td>
+                                </tr>
+                                                            <tr>
+                                    <td>
+                                        <strong style="display: block; font-size: 0.95rem;">Bhquj Cavzw</strong>
+                                        <span style="font-size: 0.75rem; color: var(--text-muted); font-family: monospace;">BGOI-0027</span>
+                                    </td>
+                                    <td>
+                                        <div style="font-size: 0.85rem;">e.l.e.a.n.or.bl.ac.kw.e.l.l6.6.19@gmail.com</div>
+                                        <div style="font-size: 0.78rem; color: var(--text-secondary);">7726720547</div>
+                                    </td>
+                                    <td>
+                                        <span style="font-size: 0.85rem; font-weight: 500;">Study in Australia</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-new">
+                                            <i class="fa-solid fa-circle"></i>
+                                            New                                        </span>
+                                    </td>
+                                    <td style="font-size: 0.8rem; color: var(--text-secondary);">
+                                        Aug 30, 2026 05:55 AM                                    </td>
+                                </tr>
+                                                            <tr>
+                                    <td>
+                                        <strong style="display: block; font-size: 0.95rem;">Bluestone School</strong>
+                                        <span style="font-size: 0.75rem; color: var(--text-muted); font-family: monospace;">BGOI-0026</span>
+                                    </td>
+                                    <td>
+                                        <div style="font-size: 0.85rem;">bluestonetechparkcbe@gmail.com</div>
+                                        <div style="font-size: 0.78rem; color: var(--text-secondary);">07708703137</div>
+                                    </td>
+                                    <td>
+                                        <span style="font-size: 0.85rem; font-weight: 500;">Study in TOEFL</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-new">
+                                            <i class="fa-solid fa-circle"></i>
+                                            New                                        </span>
+                                    </td>
+                                    <td style="font-size: 0.8rem; color: var(--text-secondary);">
+                                        Aug 28, 2026 10:36 AM                                    </td>
+                                </tr>
+                                                            <tr>
+                                    <td>
+                                        <strong style="display: block; font-size: 0.95rem;">Jai</strong>
+                                        <span style="font-size: 0.75rem; color: var(--text-muted); font-family: monospace;">BGOI-0025</span>
+                                    </td>
+                                    <td>
+                                        <div style="font-size: 0.85rem;">jayasrimurugesan7@gmail.com</div>
+                                        <div style="font-size: 0.78rem; color: var(--text-secondary);">9856741235</div>
+                                    </td>
+                                    <td>
+                                        <span style="font-size: 0.85rem; font-weight: 500;">Study in Work in Japan</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-new">
+                                            <i class="fa-solid fa-circle"></i>
+                                            New                                        </span>
+                                    </td>
+                                    <td style="font-size: 0.8rem; color: var(--text-secondary);">
+                                        Aug 18, 2026 11:40 AM                                    </td>
+                                </tr>
+                                                            <tr>
+                                    <td>
+                                        <strong style="display: block; font-size: 0.95rem;">Jay</strong>
+                                        <span style="font-size: 0.75rem; color: var(--text-muted); font-family: monospace;">BGOI-0024</span>
+                                    </td>
+                                    <td>
+                                        <div style="font-size: 0.85rem;">bluestonetechparkcbe@gmail.com</div>
+                                        <div style="font-size: 0.78rem; color: var(--text-secondary);">8708703137</div>
+                                    </td>
+                                    <td>
+                                        <span style="font-size: 0.85rem; font-weight: 500;">Study in Japanese Language</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-new">
+                                            <i class="fa-solid fa-circle"></i>
+                                            New                                        </span>
+                                    </td>
+                                    <td style="font-size: 0.8rem; color: var(--text-secondary);">
+                                        Aug 18, 2026 10:01 AM                                    </td>
+                                </tr>
+                                                            <tr>
+                                    <td>
+                                        <strong style="display: block; font-size: 0.95rem;">Bluestone School</strong>
+                                        <span style="font-size: 0.75rem; color: var(--text-muted); font-family: monospace;">BGOI-0023</span>
+                                    </td>
+                                    <td>
+                                        <div style="font-size: 0.85rem;">bluestonetechparkcbe@gmail.com</div>
+                                        <div style="font-size: 0.78rem; color: var(--text-secondary);">8708703137</div>
+                                    </td>
+                                    <td>
+                                        <span style="font-size: 0.85rem; font-weight: 500;">Study in Overseas</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-new">
+                                            <i class="fa-solid fa-circle"></i>
+                                            New                                        </span>
+                                    </td>
+                                    <td style="font-size: 0.8rem; color: var(--text-secondary);">
+                                        Aug 18, 2026 09:56 AM                                    </td>
+                                </tr>
+                                                    </tbody>
+                    </table>
+                            </div>
+        </div>
+
+        <!-- Quick Info Widget -->
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <div class="panel-card" style="height: 100%;">
+                <div class="panel-header" style="margin-bottom: 1.25rem;">
+                    <h3 class="panel-title">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        <span>System Quick Guides</span>
+                    </h3>
+                </div>
+                <div style="font-size: 0.88rem; line-height: 1.7; display: flex; flex-direction: column; gap: 1.25rem; color: var(--text-secondary);">
+                    <div>
+                        <strong style="color: var(--text-primary); display: block; margin-bottom: 0.25rem;"><i class="fa-solid fa-users-line" style="color: var(--accent);"></i> CRM Lead Flow</strong>
+                        All website contact forms and inquiry fields feed straight into the <strong>Leads CRM</strong>. Filter by "New" to see fresh submissions.
+                    </div>
+                    <div>
+                        <strong style="color: var(--text-primary); display: block; margin-bottom: 0.25rem;"><i class="fa-solid fa-globe" style="color: var(--success);"></i> Website Syncing</strong>
+                        Adding, editing, or pausing cards in the Services, Destinations, and Reviews tabs will sync automatically and update the front-end dynamically.
+                    </div>
+                    <div>
+                        <strong style="color: var(--text-primary); display: block; margin-bottom: 0.25rem;"><i class="fa-solid fa-shield-halved" style="color: var(--primary);"></i> Security Recommendation</strong>
+                        Always protect your password! You can change your admin email, username, and password under <strong>My Profile</strong>.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <footer style="margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted);">
+            <div>&copy; 2026 Bluestone Overseas Consultants &bull; Admin Console</div>
+            <div>Version 1.1.0 &bull; Developed Securely</div>
+        </footer>
+    </main>
+</div>
+
+</body>
+</html>

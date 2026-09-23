@@ -1,7 +1,7 @@
 <?php
 // admin/edit_country_section.php
 $pageTitle = 'Edit Country Section';
-require_once 'includes/header.php';
+require_once __DIR__ . '/includes/header.php';
 
 $alertSuccess = '';
 $alertError = '';
@@ -11,7 +11,7 @@ $section = isset($_GET['section']) ? trim($_GET['section']) : '';
 
 if ($country_id <= 0 || empty($section)) {
     echo "<div class='alert alert-danger'>Invalid parameters.</div>";
-    require_once 'includes/footer.php';
+    require_once __DIR__ . '/includes/footer.php';
     exit;
 }
 
@@ -32,7 +32,7 @@ $sectionMeta = [
 
 if (!isset($sectionMeta[$section])) {
     echo "<div class='alert alert-danger'>Unknown section.</div>";
-    require_once 'includes/footer.php';
+    require_once __DIR__ . '/includes/footer.php';
     exit;
 }
 
@@ -44,12 +44,12 @@ try {
     
     if (!$country) {
         echo "<div class='alert alert-danger'>Country not found.</div>";
-        require_once 'includes/footer.php';
+        require_once __DIR__ . '/includes/footer.php';
         exit;
     }
 } catch (PDOException $e) {
     echo "<div class='alert alert-danger'>Database error: " . $e->getMessage() . "</div>";
-    require_once 'includes/footer.php';
+    require_once __DIR__ . '/includes/footer.php';
     exit;
 }
 
@@ -299,4 +299,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     </form>
 </div>
 
-<?php require_once 'includes/footer.php'; ?>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>

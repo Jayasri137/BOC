@@ -1,7 +1,7 @@
 <?php
 // admin/branches.php - Branches CRUD Editor
 $pageTitle = 'Branch Office Manager';
-require_once 'includes/header.php';
+require_once __DIR__ . '/includes/header.php';
 
 $alertSuccess = '';
 $alertError = '';
@@ -319,4 +319,4 @@ function closeDeleteModal() {
 }
 </script>
 
-<?php require_once 'includes/footer.php'; ?>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>

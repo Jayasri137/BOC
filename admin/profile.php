@@ -1,7 +1,7 @@
 <?php
 // admin/profile.php - Admin Profile & Password Management
 $pageTitle = 'My Profile';
-require_once 'includes/header.php'; // handles session and pdo load
+require_once __DIR__ . '/includes/header.php'; // handles session and pdo load
 
 $alertSuccess = '';
 $alertError = '';
@@ -221,5 +221,5 @@ function togglePw(id, btn) {
 }
 </script>
 
-<?php require_once 'includes/footer.php'; ?>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>
 

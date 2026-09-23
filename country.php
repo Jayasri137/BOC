@@ -57,8 +57,8 @@ if (!$country) {
     } else {
     }
 
-$pageTitle = 'Top Study Abroad Destinations for Indian Students | Bluestone Overseas';
-$pageDesc = 'Discover the best countries for higher education, career opportunities, and global exposure.';
+$pageTitle = 'Study Abroad Countries for Indian Students | Bluestone Overseas';
+$pageDesc = 'Explore the best countries to study abroad for Indian students including UK, Canada, Australia, Germany, USA, Ireland and more with expert guidance from Bluestone Overseas.';
 require_once 'includes/header.php';
 ?>
 <main>
@@ -86,6 +86,12 @@ require_once 'includes/header.php';
           </div>
         </div>
       <?php else: ?>
+        <div class="section__header animate-on-scroll" style="text-align: center; margin-bottom: 4rem; position: relative;">
+            <div style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(236, 72, 153, 0.1); color: #ec4899; border-radius: 50px; font-weight: 800; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem;">Explore the World</div>
+            <h1 class="section__title" style="font-size: 3rem; line-height: 1.2; color: #1e293b; margin-bottom: 1rem; font-weight: 900;">Best Study Abroad Countries<br>for <span style="color: #0ea5e9; font-style: italic;">Indian Students</span></h1>
+            <p style="font-size: 1.1rem; color: #64748b; max-width: 600px; margin: 0 auto; line-height: 1.6;">Discover top-ranked universities, vibrant cultures, and excellent career opportunities across the globe with Bluestone Overseas.</p>
+            <div class="accent-bar" style="margin: 2rem auto 0; background: linear-gradient(90deg, #ec4899, #0ea5e9); width: 80px; height: 4px; border-radius: 2px;"></div>
+        </div>
         <div class="countries-showcase">
           <!-- Iterate all countries from data -->
             <?php

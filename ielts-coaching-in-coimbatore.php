@@ -1,8 +1,8 @@
 <?php
 require_once 'includes/config.php';
-$pageTitle = 'Best IELTS Coaching in Coimbatore | Bluestone Overseas';
-$pageDesc = 'IELTS Classes in Coimbatore – personalised support for course selection, university applications, visas and planning your overseas education journey.';
-$pageKeywords = 'UK Education Consultants in Coimbatore, Australia Education Consultants in Coimbatore, New Zealand Education Consultants in Coimbatore, UG Programs Abroad, PG Programs Abroad, Study Abroad Consultants in Coimbatore, IELTS Coaching in Coimbatore, IELTS classes in Coimbatore, Best IELTS Coaching in Coimbatore, IELTS Training in Coimbatore, German language course, Japanese language course, German language classes, Japanese language classes, German Language Course in Coimbatore, Japanese Language Course in Coimbatore, German Language Training Centre in Coimbatore, Japanese Language Training Centre in Coimbatore, Postgraduate study in UK, Postgraduate study in Australia, Postgraduate study in New Zealand, Undergraduate study in Australia, Undergraduate study in UK, Undergraduate study in New Zealand, Postgraduate Study in UK – Coimbatore, Postgraduate Study in Australia – Coimbatore, Undergraduate Study in UK – Coimbatore, Undergraduate Study in Australia – Coimbatore, Postgraduate Study in New Zealand – Coimbatore, Undergraduate Study in New Zealand – Coimbatore';
+$pageTitle = 'IELTS Coaching in Coimbatore | IELTS Training Centre';
+$pageDesc = 'Looking for the best IELTS coaching in Coimbatore? Bluestone Overseas provides expert IELTS training, mock tests and study abroad guidance to help you score high.';
+$pageKeywords = 'IELTS Coaching in Coimbatore, IELTS Training in Coimbatore, Best IELTS Coaching in Coimbatore, IELTS classes in Coimbatore';
 $pageHeroImage = 'assets/images/ielts.png';
 $hideDefaultHero = true;
 require_once 'includes/header.php';
@@ -292,8 +292,7 @@ require_once 'includes/header.php';
     
     <div class="container animate-on-scroll" style="position: relative; z-index: 2; text-align: left; color: white; width: 100%;">
       <div style="max-width: 800px;">
-        <span style="display: inline-block; padding: 0.5rem 1.25rem; background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); border-radius: 50px; font-weight: 600; margin-bottom: 1.5rem; border: 1px solid rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.1em; color: white;"><i class="fa-solid fa-microchip"></i> AI-Scored Excellence</span>
-        <h1 style="font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; margin-bottom: 1.5rem; line-height: 1.2; text-shadow: 0 10px 30px rgba(0,0,0,0.5);">Crack the IELTS Academic in Record Time</h1>
+        <h1 style="font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; margin-bottom: 1.5rem; line-height: 1.2; text-shadow: 0 10px 30px rgba(0,0,0,0.5);">IELTS Coaching in Coimbatore</h1>
         <p class="country-hero-desc" style="font-size: 1.15rem; opacity: 0.9; line-height: 1.7; text-shadow: 0 4px 15px rgba(0,0,0,0.5); border-left: 4px solid var(--IELTS-primary); padding-left: 1.5rem;">Fast results, fair scoring, and targeted preparation. In association with Bluestone Language Hub, our highly strategic IELTS coaching decodes the AI algorithm to help you rapidly meet visa and university requirements for Australia, New Zealand, and the UK.</p>
         
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem;">
@@ -659,6 +658,16 @@ require_once 'includes/header.php';
       </div>
     </div>
   </section>
+  <section class="section seo-content-section" style="background: #f8fafc; padding: 4rem 1rem;">
+      <div class="container">
+          <div class="seo-content-block" style="max-width: 800px; margin: 0 auto; color: #475569; font-size: 1.1rem; line-height: 1.6; text-align: left;">
+              <p>Achieving a high score in the IELTS exam is crucial for gaining admission to top universities abroad and securing your student visa.</p>
+              <p>At Bluestone Overseas, we offer the best IELTS coaching in Coimbatore with experienced trainers, comprehensive study materials, and regular mock tests to ensure you are fully prepared.</p>
+              <p>Whether you need help with the Reading, Writing, Listening, or Speaking modules, our personalized training programs are designed to help you succeed.</p>
+          </div>
+      </div>
+  </section>
+
 </main>
 
 <?php require_once 'includes/footer.php'; ?>

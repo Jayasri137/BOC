@@ -1,0 +1,1 @@
+<?php require 'includes/db.php'; $pdo->exec('DELETE FROM countries WHERE id = 12'); echo 'Deleted duplicate New Zealand (ID 12). Total active: ' . $pdo->query('SELECT COUNT(*) FROM countries WHERE is_active = 1')->fetchColumn();

@@ -1,0 +1,1 @@
+<?php require 'includes/db.php'; $pdo->exec('CREATE TABLE upcoming_batches (id INT AUTO_INCREMENT PRIMARY KEY, course_slug VARCHAR(100), start_date VARCHAR(100), batch_time VARCHAR(100), batch_mode VARCHAR(50), duration VARCHAR(50), status VARCHAR(50), is_active TINYINT(1) DEFAULT 1, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)'); echo 'Table created.';

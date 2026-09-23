@@ -1,7 +1,7 @@
 <?php
 // admin/leads.php - CRM Lead and Enquiry Manager
 $pageTitle = 'Leads CRM';
-require_once 'includes/header.php'; // automatically validates sessions and loads PDO
+require_once __DIR__ . '/includes/header.php'; // automatically validates sessions and loads PDO
 
 $alertSuccess = '';
 $alertError = '';
@@ -468,4 +468,4 @@ function closeDeleteModal() {
 }
 </script>
 
-<?php require_once 'includes/footer.php'; ?>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>

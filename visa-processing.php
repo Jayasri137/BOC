@@ -1,11 +1,13 @@
 <?php
 require_once 'includes/config.php';
-$pageTitle = 'Student Visa Processing Services | Study Abroad Visa Experts';
-$pageDesc = 'Maximize your visa success with professional documentation and application support.';
+$pageTitle = 'Study Abroad Visa Consultants in Coimbatore | Student Visa';
+$pageDesc = 'Need a student visa? Bluestone Overseas, the top study abroad visa consultants in Coimbatore, offers expert visa processing, mock interviews and documentation support.';
+$pageKeywords = 'Study abroad visa consultants in Coimbatore, Student visa consultants in Coimbatore, Visa processing for study abroad';
 $pageHeroImage = 'assets/images/img10.png';
 require_once 'includes/header.php';
 ?>
 <main>
+
 
   <style>
   /* PREMIUM FEATURE PILLS */
@@ -79,8 +81,7 @@ require_once 'includes/header.php';
     <div class="container">
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4rem; align-items: center;">
         <div class="animate-on-scroll" style="position: relative; padding: 1rem;">
-          <img src="assets/images/md-gallery5.png" alt="Visa Processing" style="width: 100%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); position: relative; z-index: 2;">
-          <img src="assets/images/gallery3.png" alt="Passports" style="position: absolute; bottom: -10%; left: -10%; width: 50%; border-radius: 20px; border: 8px solid white; box-shadow: 0 15px 30px rgba(0,0,0,0.15); z-index: 3;">
+          <img src="assets/images/img2.png" alt="Visa Processing" style="width: 100%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); position: relative; z-index: 2;">
           <div style="position: absolute; top: 10%; right: -5%; background: white; padding: 1rem 1.5rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); z-index: 4; display: flex; align-items: center; gap: 1rem; animation: float 4s ease-in-out infinite;">
             <div style="width: 40px; height: 40px; background: #fdf2f8; color: #db2777; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
               <i class="fa-solid fa-plane-departure"></i>
@@ -94,7 +95,7 @@ require_once 'includes/header.php';
         
         <div class="animate-on-scroll delay-1">
           <span style="display: inline-block; background: #fdf2f8; color: #db2777; padding: 0.35rem 1.25rem; border-radius: 50px; font-size: 0.85rem; font-weight: 700; margin-bottom: 1.5rem;">Expert Visa Guidance</span>
-          <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem; line-height: 1.2;">Hassle-Free <span style="color: var(--primary);">Visa Filing</span></h2>
+          <h1 style="font-size: 2.5rem; margin-bottom: 1.5rem; line-height: 1.2;">Study Abroad Visa <span style="color: var(--primary);">Consultants in Coimbatore</span></h1>
           <p style="color:var(--gray); margin-bottom:2.5rem; line-height:1.7; font-size: 1.05rem;">
             In association with <strong>Bluestone Overseas</strong>, we provide end-to-end visa assistance to turn your dreams into reality without the stress. Our dedicated experts meticulously handle your application from documentation to mock interviews.
           </p>

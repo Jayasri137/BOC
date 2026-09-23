@@ -153,9 +153,115 @@ require_once 'includes/header.php';
               <img src="<?= !empty($test['image_path']) ? $test['image_path'] : 'assets/images/lh1.jpg' ?>" alt="Test Prep Sessions for IELTS, TOEFL and PTE at Bluestone Overseas" style="width:100%; max-height: 400px; object-fit: cover; border-radius:15px; box-shadow:var(--shadow-lg);">
               <?php if (empty($test['image_path'])): ?>
                 <div style="position:absolute; bottom:-20px; right:-20px; width:60%; border:5px solid #fff; border-radius:15px; overflow:hidden; box-shadow:var(--shadow);">
-                  <img src="assets/images/lh2.jpg" alt="Bluestone Overseas English Test Preparation Classroom" style="width:100%;">
+                  <img src="assets/images/img.png" alt="Bluestone Overseas English Test Preparation Classroom" style="width:100%;">
                 </div>
               <?php endif; ?>
+
+        <!-- 7 Easy Steps to Study Abroad -->
+        <div class="test-prep-steps animate-on-scroll" style="margin-top: 5rem; margin-bottom: 5rem; background: #f8fafc; padding: 4rem 2rem; border-radius: 24px; border: 1px solid #e2e8f0;">
+            <div class="text-center" style="margin-bottom: 4rem;">
+                <h2 class="section__title">7 Easy Steps to Land in your <span>Dream University</span></h2>
+                <p style="color: var(--gray); max-width: 600px; margin: 0 auto; line-height: 1.6;">Follow our streamlined study abroad process to turn your global aspirations into reality.</p>
+            </div>
+            
+            <div class="steps-timeline" style="position: relative; max-width: 800px; margin: 0 auto;">
+                <style>
+                    .steps-timeline::before {
+                        content: '';
+                        position: absolute;
+                        top: 0; left: 35px; width: 2px; height: 100%;
+                        background: #cbd5e1;
+                    }
+                    .step-item {
+                        display: flex; gap: 2rem; margin-bottom: 2.5rem; position: relative;
+                    }
+                    .step-number {
+                        width: 70px; height: 70px; border-radius: 50%;
+                        background: #ffffff; border: 4px solid var(--primary);
+                        display: flex; align-items: center; justify-content: center;
+                        font-size: 1.5rem; font-weight: 800; color: var(--primary);
+                        flex-shrink: 0; z-index: 2; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+                    }
+                    .step-content {
+                        background: #ffffff; padding: 1.5rem 2rem; border-radius: 16px;
+                        border: 1px solid #e2e8f0; flex-grow: 1;
+                        box-shadow: 0 10px 25px rgba(0,0,0,0.03); transition: all 0.3s ease;
+                    }
+                    .step-item:hover .step-content {
+                        transform: translateX(10px);
+                        border-color: var(--primary);
+                        box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+                    }
+                    .step-content h3 { font-size: 1.2rem; font-weight: 800; color: #1e293b; margin-bottom: 0.5rem; }
+                    .step-content p { font-size: 0.95rem; color: #64748b; line-height: 1.5; margin: 0; }
+                    
+                    @media (max-width: 768px) {
+                        .steps-timeline::before { left: 25px; }
+                        .step-number { width: 50px; height: 50px; font-size: 1.2rem; border-width: 3px; }
+                        .step-item { gap: 1rem; margin-bottom: 2rem; }
+                        .step-content { padding: 1.2rem; }
+                    }
+                </style>
+                
+                <div class="step-item">
+                    <div class="step-number" style="border-color: #3b82f6; color: #3b82f6;">1</div>
+                    <div class="step-content">
+                        <h3>Plan your Academic and Career Goals</h3>
+                        <p>Identify your interests, career path, and the educational background required to achieve your dreams.</p>
+                    </div>
+                </div>
+                
+                <div class="step-item">
+                    <div class="step-number" style="border-color: #ec4899; color: #ec4899;">2</div>
+                    <div class="step-content">
+                        <h3>Appear for Standardized Tests</h3>
+                        <p>Prepare with Bluestone and take the required language or aptitude tests (IELTS, TOEFL, GRE, GMAT, SAT).</p>
+                    </div>
+                </div>
+                
+                <div class="step-item">
+                    <div class="step-number" style="border-color: #10b981; color: #10b981;">3</div>
+                    <div class="step-content">
+                        <h3>Select Country, Program & University</h3>
+                        <p>Shortlist the best-fit universities that align with your profile, budget, and long-term goals.</p>
+                    </div>
+                </div>
+                
+                <div class="step-item">
+                    <div class="step-number" style="border-color: #f59e0b; color: #f59e0b;">4</div>
+                    <div class="step-content">
+                        <h3>Apply to Preferred Institutions</h3>
+                        <p>Prepare compelling SOPs, LORs, and submit error-free applications to maximize acceptance chances.</p>
+                    </div>
+                </div>
+                
+                <div class="step-item">
+                    <div class="step-number" style="border-color: #8b5cf6; color: #8b5cf6;">5</div>
+                    <div class="step-content">
+                        <h3>Apply for Education Loan & Finances</h3>
+                        <p>Secure funding through education loans, scholarships, or personal funds with our expert financial guidance.</p>
+                    </div>
+                </div>
+                
+                <div class="step-item">
+                    <div class="step-number" style="border-color: #0ea5e9; color: #0ea5e9;">6</div>
+                    <div class="step-content">
+                        <h3>Pay Deposit, Accept Offer & Apply Visa</h3>
+                        <p>Confirm your seat and let our visa experts handle the complex immigration paperwork for a smooth approval.</p>
+                    </div>
+                </div>
+                
+                <div class="step-item">
+                    <div class="step-number" style="border-color: #14b8a6; color: #14b8a6;">7</div>
+                    <div class="step-content">
+                        <h3>Pre-Departure, Forex & Fly Abroad</h3>
+                        <p>Attend our orientation, arrange forex and insurance, and board your flight to your dream destination!</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
             </div>
             <div class="highlight-box">
               <h3><i class="fa-solid fa-graduation-cap" style="color:var(--primary)"></i> Free Demo Class</h3>
@@ -175,9 +281,212 @@ require_once 'includes/header.php';
             </div>
           </div>
         </div>
+    
     <?php else: ?>
         
+        <!-- HERO / INTRO SECTION -->
+        <div class="animate-on-scroll container" style="margin: 5rem auto;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+                <div style="text-align: left;">
+                    <h1 class="section__title" style="font-size: 3.5rem; margin-bottom: 1.5rem; text-align: left;">Exams to <span>Study Abroad</span></h1>
+                    <p style="color: var(--gray); font-size: 1.15rem; line-height: 1.8; margin-bottom: 2rem;">
+                        We are the test prep partner you are looking for. Experience the most seamless test prep techniques with Bluestone and reach the test scores you need to land in your dream university.
+                    </p>
+                    
+                    <div style="display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 1rem; margin-bottom: 2rem;">
+                        <span style="background: #f1f5f9; padding: 0.6rem 1.2rem; border-radius: 50px; font-weight: 600; font-size: 0.9rem; color: #334155;"><i class="fa-solid fa-check text-primary"></i> Top Quality Material</span>
+                        <span style="background: #f1f5f9; padding: 0.6rem 1.2rem; border-radius: 50px; font-weight: 600; font-size: 0.9rem; color: #334155;"><i class="fa-solid fa-check text-primary"></i> Interactive Content</span>
+                        <span style="background: #f1f5f9; padding: 0.6rem 1.2rem; border-radius: 50px; font-weight: 600; font-size: 0.9rem; color: #334155;"><i class="fa-solid fa-check text-primary"></i> Small Class Sizes</span>
+                        <span style="background: #f1f5f9; padding: 0.6rem 1.2rem; border-radius: 50px; font-weight: 600; font-size: 0.9rem; color: #334155;"><i class="fa-solid fa-check text-primary"></i> Mock Tests</span>
+                    </div>
+                    <p style="color: var(--dark); font-size: 1.05rem; line-height: 1.7; margin-bottom: 2rem;">
+                        Welcome to Bluestone, a group of highly motivated and skilled tutors, who have years of expertise driving thousands of ambitious test seekers like you to excellence. Our students routinely achieve top test scores, thanks to our passionate faculties and methodologies that are highly effective, easy, interactive & fun.
+                    </p>
+                    <a href="#courses" class="btn btn--primary btn--lg" onclick="document.querySelector('.tp-cat-section').scrollIntoView({behavior: 'smooth'})">Explore Courses</a>
+                </div>
+                <div style="position: relative;">
+                    <div style="position: absolute; top: -20px; left: -20px; width: 100%; height: 100%; border: 2px solid var(--primary); border-radius: 20px; z-index: -1;"></div>
+                    <img src="assets/images/img.png" alt="Study Abroad Exams" style="width: 100%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); object-fit: cover; aspect-ratio: 4/3;">
+                    
+                    <div style="position: absolute; bottom: -30px; right: -30px; background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 1rem; border: 1px solid #f1f5f9;">
+                        <div style="width: 50px; height: 50px; background: #fef2f2; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ef4444; font-size: 1.5rem;">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <div>
+                            <div style="font-weight: 800; font-size: 1.2rem; color: var(--dark);">High Success Rate</div>
+                            <div style="color: var(--gray); font-size: 0.9rem;">Proven track record</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <style>
+                @media (max-width: 992px) {
+                    .animate-on-scroll > div {
+                        grid-template-columns: 1fr !important;
+                        text-align: center !important;
+                        gap: 2rem !important;
+                    }
+                    .animate-on-scroll > div > div:first-child {
+                        text-align: center !important;
+                    }
+                    .section__title {
+                        text-align: center !important;
+                    }
+                    .animate-on-scroll > div > div:first-child > div {
+                        justify-content: center !important;
+                    }
+                    .animate-on-scroll .fa-check {
+                        margin-bottom: 0 !important;
+                    }
+                }
+            </style>
+        </div>
+        
         <?php
+        // Categorized Test Data
+   
+        $prep_english = [
+            ['ielts', 'IELTS', 'fa-language', '#ef4444', 'ielts-coaching-in-coimbatore.php', 'Offline and Online Coaching', 'Certified trainers', 'Personal assessment'],
+            ['pte', 'PTE', 'fa-language', '#f97316', 'pte.php', 'Offline and Online Coaching', 'Expert Faculty', 'Realistic assessments'],
+            ['toefl', 'TOEFL', 'fa-language', '#8b5cf6', 'toefl.php', 'Offline and Online Coaching', 'Expert Faculty', 'Personal assessment'],
+            ['det', 'Duolingo', 'fa-language', '#0ea5e9', 'det.php', 'Offline and Online Coaching', 'Expert Faculty', 'Realistic Practice']
+        ];
+        $prep_languages = [
+            ['german', 'German Language', 'fa-comments', '#059669', 'german.php', 'Online Coaching', 'Expert Faculty', 'Personal assessment'],
+            ['french', 'French Language', 'fa-comments', '#2563eb', 'french.php', 'Online Coaching', 'Expert Faculty', 'Personal assessment'],
+            ['japanese', 'Japanese Language', 'fa-comments', '#e11d48', 'japanese.php', 'Online Coaching', 'Expert Faculty', 'Personal assessment']
+        ];
+        
+        function render_prep_cards($items, $delay_start = 0) {
+            foreach($items as $idx => $item) {
+                [$slug, $title, $icon, $color, $link, $f1, $f2, $f3] = $item;
+                $delay = $delay_start + ($idx % 3);
+                echo "
+                <div class='kc-card animate-on-scroll delay-{$delay}' style='--cc: {$color};'>
+                    <div class='kc-card-header'>
+                        <h3>{$title}</h3>
+                    </div>
+                    <div class='kc-card-body'>
+                        <ul>
+                            <li><i class='fa-solid fa-sparkle' style='color:#cbd5e1;'></i> {$f1}</li>
+                            <li><i class='fa-solid fa-sparkle' style='color:#cbd5e1;'></i> {$f2}</li>
+                            <li><i class='fa-solid fa-sparkle' style='color:#cbd5e1;'></i> {$f3}</li>
+                        </ul>
+                    </div>
+                    <div class='kc-card-footer'>
+                        <a href='{$link}' class='kc-link-view'>View More <i class='fa-solid fa-chevron-right'></i></a>
+                        <a href='{$link}' class='kc-btn-enroll'>Enroll Now</a>
+                    </div>
+                </div>";
+            }
+        }
+        ?>
+        
+        <style>
+            .tp-cat-section { margin-bottom: 4rem; text-align: center; }
+            .tp-cat-title { font-size: 2rem; font-weight: 800; color: #1e293b; margin-bottom: 2.5rem; position: relative; display: inline-block; }
+            .tp-cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; justify-content: center; }
+            .tp-cat-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; justify-content: center; }
+            @media (max-width: 1024px) { .tp-cat-grid-4 { grid-template-columns: repeat(2, 1fr); } }
+            @media (max-width: 640px) { .tp-cat-grid-4 { grid-template-columns: 1fr; } }
+            
+            .kc-card {
+                background: #ffffff;
+                border: 1px solid #e2e8f0;
+                border-radius: 8px;
+                display: flex;
+                flex-direction: column;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+                position: relative;
+                overflow: hidden;
+            }
+            .kc-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            }
+            .kc-card-header {
+                background: var(--cc);
+                padding: 1rem;
+                text-align: center;
+            }
+            .kc-card-header h3 {
+                font-size: 1.15rem; font-weight: 700; color: #ffffff; margin: 0;
+            }
+            .kc-card-body {
+                flex-grow: 1; padding: 2rem 1.5rem 1.5rem 1.5rem;
+            }
+            .kc-card-body ul {
+                list-style: none; padding: 0; margin: 0;
+            }
+            .kc-card-body li {
+                font-size: 0.9rem; color: #64748b; margin-bottom: 1rem;
+                display: flex; align-items: flex-start; gap: 0.5rem;
+                text-align: left;
+            }
+            .kc-card-body li i {
+                margin-top: 0.2rem; font-size: 0.85rem;
+            }
+            .kc-card-footer {
+                padding: 0 1.5rem 2rem 1.5rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            .kc-link-view {
+                color: #ff6b6b;
+                font-size: 0.9rem;
+                font-weight: 600;
+                text-decoration: none;
+                transition: all 0.2s ease;
+            }
+            .kc-link-view:hover {
+                color: #e03131;
+            }
+            .kc-link-view i {
+                font-size: 0.75rem;
+            }
+            .kc-btn-enroll {
+                background: #ff8787;
+                color: white;
+                font-weight: 700;
+                font-size: 0.95rem;
+                padding: 0.6rem 2rem;
+                border-radius: 6px;
+                text-decoration: none;
+                transition: all 0.2s ease;
+                display: inline-block;
+                width: max-content;
+            }
+            .kc-btn-enroll:hover {
+                background: #fa5252;
+                color: white;
+            }
+        </style>
+
+        <div class="container" style="max-width: 1100px;">
+
+            <!-- English Proficiency -->
+            <div class="tp-cat-section">
+                <h2 class="tp-cat-title">English Proficiency</h2>
+                <div class="tp-cat-grid-4">
+                    <?php render_prep_cards($prep_english); ?>
+                </div>
+            </div>
+            
+            <!-- Language Coaching -->
+            <div class="tp-cat-section" style="margin-bottom: 6rem;">
+                <h2 class="tp-cat-title">Language Coaching</h2>
+                <div class="tp-cat-grid">
+                    <?php render_prep_cards($prep_languages); ?>
+                </div>
+            </div>
+        </div>
+
+        <?php
+
         // Fetch all active upcoming batches for the 5 main courses
         try {
             $stmtAllBatches = $pdo->query("SELECT * FROM upcoming_batches WHERE is_active = 1 AND course_slug IN ('ielts', 'toefl', 'pte', 'german', 'japanese') ORDER BY id DESC LIMIT 50");
@@ -502,7 +811,100 @@ require_once 'includes/header.php';
             </div>
         </div>
 
-        <!-- 3. FAQ -->
+        <!-- 3. Testimonials -->
+        <div class="test-prep-testimonials animate-on-scroll" style="margin-bottom: 5rem;">
+            <div class="container" style="max-width: 1200px; margin: 0 auto; position: relative;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem;">
+                    <h2 class="section__title" style="text-align: left; margin: 0; font-size: 2.5rem; text-transform: uppercase; font-family: 'Arial Black', sans-serif; letter-spacing: -1px; color: var(--dark);">VOICE OF <span style="color: var(--primary); background: none; -webkit-text-fill-color: var(--primary);">ELITE ALUMNI.</span></h2>
+                    <div style="display: flex; gap: 1rem;">
+                        <button style="width: 44px; height: 44px; border-radius: 50%; border: 2px solid #e2e8f0; background: white; color: var(--primary); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s;" onmouseover="this.style.background='var(--primary)'; this.style.color='white'; this.style.borderColor='var(--primary)';" onmouseout="this.style.background='white'; this.style.color='var(--primary)'; this.style.borderColor='#e2e8f0';"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button style="width: 44px; height: 44px; border-radius: 50%; border: 2px solid #e2e8f0; background: white; color: var(--primary); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s;" onmouseover="this.style.background='var(--primary)'; this.style.color='white'; this.style.borderColor='var(--primary)';" onmouseout="this.style.background='white'; this.style.color='var(--primary)'; this.style.borderColor='#e2e8f0';"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+
+                <div class="grid grid--3 gap--2">
+                    <!-- Testimonial 1 (Green Theme) -->
+                    <div style="background: #10b981; border-radius: 24px; padding: 2.5rem; position: relative; overflow: hidden; border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 10px 30px rgba(16,185,129,0.25); transition: all 0.4s ease;" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 20px 40px rgba(16,185,129,0.4)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(16,185,129,0.25)';">
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: rgba(255,255,255,0.3);"></div>
+                        <div style="display: flex; align-items: flex-end; margin-bottom: 1.5rem;">
+                            <div style="position: relative;">
+                                <div style="width: 65px; height: 65px; border-radius: 50%; background: rgba(255,255,255,0.15); overflow: hidden; border: 3px solid rgba(255,255,255,0.3); box-shadow: 0 5px 15px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center;">
+                                    <i class="fa-solid fa-user" style="color: white; font-size: 1.8rem;"></i>
+                                </div>
+                                <div style="position: absolute; bottom: 0; right: -5px; width: 24px; height: 24px; background: #059669; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; border: 2px solid #10b981; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="color: #fbbf24; font-size: 0.95rem; margin-bottom: 1.25rem;">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p style="color: rgba(255,255,255,0.95); font-size: 1.05rem; line-height: 1.7; font-style: italic; margin-bottom: 2rem; position: relative; z-index: 2;">
+                            "Kiruthika mam's personalized feedback transformed my approach. Secured 8 overall in my first attempt!"
+                        </p>
+                        <div style="position: relative; z-index: 2;">
+                            <h4 style="font-size: 1.15rem; font-weight: 800; color: white; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.5rem;">Arpita <i class="fa-solid fa-certificate" style="color: #6ee7b7; font-size: 0.9rem;"></i></h4>
+                            <span style="display: inline-block; background: rgba(255,255,255,0.2); color: white; font-size: 0.75rem; font-weight: 800; padding: 0.3rem 0.8rem; border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid rgba(255,255,255,0.3);">IELTS 8.0</span>
+                        </div>
+                        <i class="fa-solid fa-quote-right" style="position: absolute; bottom: 1.5rem; right: 1.5rem; font-size: 5rem; color: rgba(0,0,0,0.08); z-index: 1;"></i>
+                    </div>
+
+                    <!-- Testimonial 2 (Orange Theme) -->
+                    <div style="background: #ea580c; border-radius: 24px; padding: 2.5rem; position: relative; overflow: hidden; border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 10px 30px rgba(234,88,12,0.25); transition: all 0.4s ease;" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 20px 40px rgba(234,88,12,0.4)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(234,88,12,0.25)';">
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: rgba(255,255,255,0.3);"></div>
+                        <div style="display: flex; align-items: flex-end; margin-bottom: 1.5rem;">
+                            <div style="position: relative;">
+                                <div style="width: 65px; height: 65px; border-radius: 50%; background: rgba(255,255,255,0.15); overflow: hidden; border: 3px solid rgba(255,255,255,0.3); box-shadow: 0 5px 15px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center;">
+                                    <i class="fa-solid fa-user" style="color: white; font-size: 1.8rem;"></i>
+                                </div>
+                                <div style="position: absolute; bottom: 0; right: -5px; width: 24px; height: 24px; background: #c2410c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; border: 2px solid #ea580c; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="color: #fbbf24; font-size: 0.95rem; margin-bottom: 1.25rem;">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p style="color: rgba(255,255,255,0.95); font-size: 1.05rem; line-height: 1.7; font-style: italic; margin-bottom: 2rem; position: relative; z-index: 2;">
+                            "From a non-English background to 7.5! The speaking practice sessions were a game-changer."
+                        </p>
+                        <div style="position: relative; z-index: 2;">
+                            <h4 style="font-size: 1.15rem; font-weight: 800; color: white; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.5rem;">Yoganandhan <i class="fa-solid fa-certificate" style="color: #fdba74; font-size: 0.9rem;"></i></h4>
+                            <span style="display: inline-block; background: rgba(255,255,255,0.2); color: white; font-size: 0.75rem; font-weight: 800; padding: 0.3rem 0.8rem; border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid rgba(255,255,255,0.3);">IELTS 7.5</span>
+                        </div>
+                        <i class="fa-solid fa-quote-right" style="position: absolute; bottom: 1.5rem; right: 1.5rem; font-size: 5rem; color: rgba(0,0,0,0.08); z-index: 1;"></i>
+                    </div>
+
+                    <!-- Testimonial 3 (Purple Theme) -->
+                    <div style="background: #7c3aed; border-radius: 24px; padding: 2.5rem; position: relative; overflow: hidden; border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 10px 30px rgba(124,58,237,0.25); transition: all 0.4s ease;" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 20px 40px rgba(124,58,237,0.4)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(124,58,237,0.25)';">
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: rgba(255,255,255,0.3);"></div>
+                        <div style="display: flex; align-items: flex-end; margin-bottom: 1.5rem;">
+                            <div style="position: relative;">
+                                <div style="width: 65px; height: 65px; border-radius: 50%; background: rgba(255,255,255,0.15); overflow: hidden; border: 3px solid rgba(255,255,255,0.3); box-shadow: 0 5px 15px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center;">
+                                    <i class="fa-solid fa-user" style="color: white; font-size: 1.8rem;"></i>
+                                </div>
+                                <div style="position: absolute; bottom: 0; right: -5px; width: 24px; height: 24px; background: #5b21b6; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; border: 2px solid #7c3aed; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="color: #fbbf24; font-size: 0.95rem; margin-bottom: 1.25rem;">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p style="color: rgba(255,255,255,0.95); font-size: 1.05rem; line-height: 1.7; font-style: italic; margin-bottom: 2rem; position: relative; z-index: 2;">
+                            "The reading workshops and vocabulary drills helped me overcome my time-management hurdles. Highly recommend!"
+                        </p>
+                        <div style="position: relative; z-index: 2;">
+                            <h4 style="font-size: 1.15rem; font-weight: 800; color: white; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.5rem;">Sujith <i class="fa-solid fa-certificate" style="color: #c4b5fd; font-size: 0.9rem;"></i></h4>
+                            <span style="display: inline-block; background: rgba(255,255,255,0.2); color: white; font-size: 0.75rem; font-weight: 800; padding: 0.3rem 0.8rem; border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid rgba(255,255,255,0.3);">IELTS 7.5</span>
+                        </div>
+                        <i class="fa-solid fa-quote-right" style="position: absolute; bottom: 1.5rem; right: 1.5rem; font-size: 5rem; color: rgba(0,0,0,0.08); z-index: 1;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. FAQ -->
         <div class="test-prep-faq animate-on-scroll" style="margin-bottom: 5rem;">
             <div class="text-center" style="margin-bottom: 3rem;">
                 <h2 class="section__title">Frequently Asked <span>Questions</span></h2>

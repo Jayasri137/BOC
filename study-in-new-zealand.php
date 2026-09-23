@@ -1,5 +1,10 @@
 <?php
-$pageTitle = 'New Zealand Education Consultants in Coimbatore | Undergraduate Study in New Zealand';
-$pageDesc = 'Plan your Postgraduate study in New Zealand with expert guidance on courses, universities, applications, admissions and support for your study abroad journey.';
-$pageKeywords = 'UK Education Consultants in Coimbatore, Australia Education Consultants in Coimbatore, New Zealand Education Consultants in Coimbatore, UG Programs Abroad, PG Programs Abroad, Study Abroad Consultants in Coimbatore, IELTS Coaching in Coimbatore, IELTS classes in Coimbatore, Best IELTS Coaching in Coimbatore, IELTS Training in Coimbatore, German language course, Japanese language course, German language classes, Japanese language classes, German Language Course in Coimbatore, Japanese Language Course in Coimbatore, German Language Training Centre in Coimbatore, Japanese Language Training Centre in Coimbatore, Postgraduate study in UK, Postgraduate study in Australia, Postgraduate study in New Zealand, Undergraduate study in Australia, Undergraduate study in UK, Undergraduate study in New Zealand, Postgraduate Study in UK – Coimbatore, Postgraduate Study in Australia – Coimbatore, Undergraduate Study in UK – Coimbatore, Undergraduate Study in Australia – Coimbatore, Postgraduate Study in New Zealand – Coimbatore, Undergraduate Study in New Zealand – Coimbatore';
+$pageTitle = 'Study in New Zealand Consultants in Coimbatore | New Zealand Education';
+$pageDesc = 'Looking to study in New Zealand? Bluestone Overseas, the best New Zealand education consultants in Coimbatore, offers guidance for admissions and student visas.';
+$pageKeywords = 'New Zealand Education Consultants in Coimbatore, Study in New Zealand Consultants in Coimbatore';
+$pageH1 = 'Study in New Zealand Consultants in Coimbatore';
+$seoContent = '
+<p>New Zealand provides a world-class education system in a safe and pristine environment. It offers excellent research opportunities and a high quality of life.</p>
+<p>As your trusted New Zealand education consultants in Coimbatore, we guide you through university selection, application, and visa processing to ensure a stress-free transition to your studies abroad.</p>
+';
 $country_slug = 'newzealand'; require_once 'country-template.php'; ?>

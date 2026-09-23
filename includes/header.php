@@ -221,8 +221,13 @@ try {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.14.0/css/flag-icons.min.css">
 
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/main.css?v=<?= filemtime(__DIR__ . '/../assets/css/main.css') ?>">
   <style>
+    /* Force hide all section tags globally */
+    .section__tag {
+      display: none !important;
+    }
     /* Premium Announcement Banner */
     .announcement-banner {
       background: #ffffff;
@@ -316,6 +321,42 @@ try {
       color: #ffffff;
       transform: translateY(-2px);
       box-shadow: 0 4px 10px rgba(37,99,235,0.2);
+    }
+    .nav-join-btn {
+      background: #eff6ff;
+      color: #2563eb !important;
+      border: 1px solid #bfdbfe;
+      font-weight: 700;
+      white-space: nowrap;
+      border-radius: 50px;
+      padding: 0.4rem 1.2rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .nav-join-btn:hover {
+      background: #2563eb;
+      color: #ffffff !important;
+      border-color: #2563eb;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(37,99,235,0.2);
+    }
+    .mobile-join-btn {
+      background: transparent;
+      color: #5b21b6 !important;
+      border: 2px solid #5b21b6;
+      margin-bottom: 10px;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .mobile-join-btn:hover {
+      background: #5b21b6;
+      color: #ffffff !important;
     }
     @media (max-width: 768px) {
       .announcement-banner { flex-direction: column; text-align: center; gap: 0.5rem; padding: 0.8rem; }
@@ -468,29 +509,10 @@ try {
           <a href="index.php">Home</a>
         </li>
         
-        <!-- About Us -->
-        <li class="has-dropdown <?= in_array($currentPage, ['About_us','Award_Achievements','events','Blog','gallery','contact','guide-me']) ? 'active' : '' ?>">
-          <a href="About_us.php">About Us <i class="fa-solid fa-chevron-down"></i></a>
-          <div class="dropdown">
-            <div class="mega-menu-inner">
-              <div>
-                <p class="mega-menu-col-title">Company</p>
-                <a href="About_us.php" class="mega-item"><i class="fa-solid fa-building"></i> Our Profile</a>
-                <a href="team.php" class="mega-item"><i class="fa-solid fa-users"></i> Our Team</a>
-                <a href="branch.php" class="mega-item"><i class="fa-solid fa-location-dot"></i> Branches</a>
-                <a href="contact.php" class="mega-item"><i class="fa-solid fa-address-book"></i> Contact Us</a>
-              </div>
-              <div>
-                <p class="mega-menu-col-title">Updates & Media</p>
-                <a href="Blog.php" class="mega-item"><i class="fa-solid fa-newspaper"></i> Blog</a>
-                <a href="gallery.php" class="mega-item"><i class="fa-solid fa-images"></i> Gallery</a>
-              </div>
-            </div>
-          </div>
-        </li>
+
         
         <!-- Study destinations -->
-        <li class="has-dropdown <?= isset($isStudyAbroad) && $isStudyAbroad ? 'active' : '' ?>">
+        <li class="has-dropdown theme-purple <?= isset($isStudyAbroad) && $isStudyAbroad ? 'active' : '' ?>">
           <a href="country.php">Study Destinations <i class="fa-solid fa-chevron-down"></i></a>
           <div class="dropdown">
             <div class="mega-menu-inner mega-menu-inner--2col">
@@ -541,7 +563,7 @@ try {
         </li>
 
         <!-- Services -->
-        <li class="has-dropdown <?= in_array($currentPage, ['Free_Counselling','Course_Advice','Universities_Recommendation','Admission_Guidance','Student_Visa','financial-assistance','education-loan','accommodation','part-time-jobs','health-insurance','bank-account','courses','universities','scholarships']) ? 'active' : '' ?>">
+        <li class="has-dropdown theme-orange <?= in_array($currentPage, ['services','student-counselling','courses','university-selection','admission-processing','education-loan','scholarships','bank-account','visa-processing','accommodation','health-insurance','Free_Counselling','Course_Advice','Universities_Recommendation','Admission_Guidance','Student_Visa','financial-assistance','part-time-jobs','universities']) ? 'active' : '' ?>">
           <a href="services.php">Services <i class="fa-solid fa-chevron-down"></i></a>
           <div class="dropdown">
             <div class="mega-menu-inner mega-menu-inner--3col">
@@ -569,10 +591,10 @@ try {
         </li>
 
         <!-- Test Prep -->
-        <li class="has-dropdown">
+        <li class="has-dropdown theme-teal">
           <a href="test-prep.php">Test Prep <i class="fa-solid fa-chevron-down"></i></a>
           <div class="dropdown">
-            <div class="mega-menu-inner">
+            <div class="mega-menu-inner mega-menu-inner--2col">
               <div>
                 <p class="mega-menu-col-title">English Proficiency</p>
                 <a href="ielts-coaching-in-coimbatore.php" class="mega-item"><i class="fa-solid fa-pen-to-square"></i> IELTS Coaching</a>
@@ -588,9 +610,31 @@ try {
           </div>
         </li>
 
+        <!-- About Us -->
+        <li class="has-dropdown theme-blue <?= in_array($currentPage, ['About_us','Award_Achievements','events','Blog','gallery','contact','guide-me']) ? 'active' : '' ?>">
+          <a href="About_us.php">About Us <i class="fa-solid fa-chevron-down"></i></a>
+          <div class="dropdown">
+            <div class="mega-menu-inner mega-menu-inner--2col">
+              <div>
+                <p class="mega-menu-col-title">Company</p>
+                <a href="About_us.php" class="mega-item"><i class="fa-solid fa-building"></i> Our Profile</a>
+                <a href="team.php" class="mega-item"><i class="fa-solid fa-users"></i> Our Team</a>
+                <a href="branch.php" class="mega-item"><i class="fa-solid fa-location-dot"></i> Branches</a>
+                <a href="contact.php" class="mega-item"><i class="fa-solid fa-address-book"></i> Contact Us</a>
+              </div>
+              <div>
+                <p class="mega-menu-col-title">Updates & Media</p>
+                <a href="Blog.php" class="mega-item"><i class="fa-solid fa-newspaper"></i> Blog</a>
+                <a href="gallery.php" class="mega-item"><i class="fa-solid fa-images"></i> Gallery</a>
+              </div>
+            </div>
+          </div>
+        </li>
+
 
       </ul>
       <div class="mobile-menu-footer">
+        <a href="sign-in.php" class="btn btn--block mobile-join-btn"><i class="fa-solid fa-user"></i> Join Bluestone</a>
         <a href="consultation.php" class="btn btn--primary btn--block"><i class="fa-solid fa-calendar-check"></i> Book Free Consultation</a>
         <div class="mobile-menu-social">
           <a href="<?= SITE_FACEBOOK ?>" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
@@ -602,9 +646,12 @@ try {
       </div>
     </nav>
 
-    <div class="navbar__actions">
+    <div class="navbar__actions" style="display: flex; gap: 0.8rem; align-items: center;">
+      <a href="sign-in.php" class="nav-join-btn">
+        <i class="fa-solid fa-user"></i> Join Bluestone
+      </a>
       <a href="consultation.php" class="btn btn--primary btn--sm pulse-btn" id="consultBtn" style="white-space: nowrap;">
-        <i class="fa-solid fa-calendar-check"></i> Book Consultation
+        <i class="fa-solid fa-calendar-check"></i> Book Free Consultation
       </a>
       <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -613,7 +660,10 @@ try {
 </header>
 </div>
 
-<?php if ($currentPage !== 'index' && empty($hideDefaultHero)): ?>
+<?php 
+// Hero banner removed from all pages as requested
+if (false): 
+?>
 <!-- Global Page Hero for Internal Pages -->
 <?php
 $servicePages = ['student-counselling', 'courses', 'university-selection', 'admission-processing', 'education-loan', 'scholarships', 'bank-account', 'visa-processing', 'accommodation', 'health-insurance', 'Free_Counselling','Course_Advice','Universities_Recommendation','Admission_Guidance','Student_Visa','financial-assistance','part-time-jobs','universities'];
@@ -631,11 +681,6 @@ $heroClass = in_array($currentPage, $servicePages) ? 'page-hero page-hero--servi
       ?>
       <h1 class="page-hero__title"><?= htmlspecialchars($displayTitle) ?></h1>
       
-
-
-      <?php if (!empty($pageDesc)): ?>
-        <p class="page-hero__desc" style="color: #ffffff !important;"><?= htmlspecialchars($pageDesc) ?></p>
-      <?php endif; ?>
     </div>
     
     <!-- Right Column: Image -->

@@ -68,7 +68,7 @@ require_once 'includes/header.php';
                   <i class="fa-solid fa-shield-halved"></i>
                 </div>
                 <div>
-                  <h4 style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem; color: #ffffff;">98% Visa Success Rate</h4>
+                  <h4 style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem; color: #ffffff;">99% Visa Success Rate</h4>
                   <p style="font-size: 0.85rem; color: #94a3b8; line-height: 1.5;">Professional filing and interview support from our specialized visa team.</p>
                 </div>
               </div>

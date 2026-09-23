@@ -576,13 +576,23 @@ $countryName = $country['full_name'] ?? $country['name'];
   <!-- CUSTOM COUNTRY HERO -->
   <section class="country-hero-custom" style="background-image: url('<?= htmlspecialchars($heroImgUrl) ?>');">
     <!-- Dark overlay to ensure text readability -->
-    <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.5));"></div>
+    <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.2));"></div>
     
     <div class="container animate-on-scroll" style="position: relative; z-index: 2; text-align: left; color: white; width: 100%;">
       <div style="max-width: 800px;">
-        <span style="display: inline-block; padding: 0.5rem 1.25rem; background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); border-radius: 50px; font-weight: 600; margin-bottom: 1.5rem; border: 1px solid rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.1em; color: white;">Study In</span>
-        <h1 style="font-size: clamp(3.5rem, 8vw, 5.5rem); font-weight: 800; margin-bottom: 1.5rem; line-height: 1.1; text-shadow: 0 10px 30px rgba(0,0,0,0.5);"><?= htmlspecialchars($countryName) ?></h1>
-        <p class="country-hero-desc" style="font-size: 1.25rem; opacity: 0.9; line-height: 1.7; text-shadow: 0 4px 15px rgba(0,0,0,0.5); border-left: 4px solid var(--neon-blue); padding-left: 1.5rem;"><?= htmlspecialchars($pageDesc) ?></p>
+        <?php if (!empty($pageH1)): ?>
+            <!-- Hidden SEO H1, visual Country Name -->
+            <h1 style="position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;"><?= htmlspecialchars($pageH1) ?></h1>
+            <div style="font-size: clamp(3.5rem, 8vw, 5.5rem); font-weight: 800; margin-bottom: 1.5rem; line-height: 1.1; text-shadow: 0 10px 30px rgba(0,0,0,0.5);">Study in <?= htmlspecialchars($countryName) ?></div>
+        <?php else: ?>
+            <h1 style="font-size: clamp(3.5rem, 8vw, 5.5rem); font-weight: 800; margin-bottom: 1.5rem; line-height: 1.1; text-shadow: 0 10px 30px rgba(0,0,0,0.5);">Study in <?= htmlspecialchars($countryName) ?></h1>
+        <?php endif; ?>
+        
+        <div style="margin-top: 2rem;">
+          <a href="consultation.php" class="btn btn--primary" style="background: #ec4899; color: white; padding: 1rem 2.5rem; border-radius: 50px; font-weight: 700; font-size: 1.1rem; border: none; box-shadow: 0 10px 25px rgba(236, 72, 153, 0.4); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: transform 0.3s ease;">
+            <i class="fa-solid fa-calendar-check"></i> Book Free Consultation
+          </a>
+        </div>
       </div>
     </div>
     
@@ -833,46 +843,7 @@ $countryName = $country['full_name'] ?? $country['name'];
   }
   </style>
 
-  <!-- QUICK FACTS & ROI (BENTO STYLE) -->
-  <section class="section" style="padding-top: 0; margin-top: -50px; position: relative; z-index: 10;">
-    <div class="container">
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
-        
-        <div class="country-fact-pill animate-on-scroll">
-            <div class="cf-icon cf-icon--blue"><i class="fa-solid fa-award"></i></div>
-            <div>
-                <div class="cf-text-label">Top Universities</div>
-                <div class="cf-text-val"><?= $country['fact_1'][0] ?? 'World Class' ?></div>
-            </div>
-        </div>
 
-        <div class="country-fact-pill animate-on-scroll delay-1">
-            <div class="cf-icon cf-icon--purple"><i class="fa-solid fa-calendar-check"></i></div>
-            <div>
-                <div class="cf-text-label">Intakes</div>
-                <div class="cf-text-val"><?= $country['fact_2'][0] ?? 'Multiple Intakes' ?></div>
-            </div>
-        </div>
-
-        <div class="country-fact-pill animate-on-scroll delay-2">
-            <div class="cf-icon cf-icon--orange"><i class="fa-solid fa-briefcase"></i></div>
-            <div>
-                <div class="cf-text-label">Stay-back Rights</div>
-                <div class="cf-text-val"><?= $country['fact_3'][0] ?? 'Post-Study Work' ?></div>
-            </div>
-        </div>
-
-        <div class="country-fact-pill animate-on-scroll delay-3">
-            <div class="cf-icon cf-icon--teal"><i class="fa-solid fa-wallet"></i></div>
-            <div>
-                <div class="cf-text-label">Living Cost</div>
-                <div class="cf-text-val"><?= $country['fact_4'][0] ?? 'Affordable' ?></div>
-            </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
   <!-- 2-COLUMN SIDEBAR LAYOUT -->
   <section class="section" style="padding-top: 2rem;">
     <div class="container country-sidebar-layout">
@@ -916,7 +887,7 @@ $countryName = $country['full_name'] ?? $country['name'];
                       ['bg' => '#fffbeb', 'icon' => '#f59e0b', 'border' => '#fde68a']
                   ];
                   $color = $colors[$index % count($colors)];
-              ?>
+              ?>             
               <div class="benefit-card hover-lift" style="display: flex; align-items: center; gap: 1.25rem; padding: 1.5rem; background: <?= $color['bg'] ?>; border: 1px solid <?= $color['border'] ?>; border-radius: 16px; transition: transform 0.3s, box-shadow 0.3s;">
                 <div style="background: white; width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.05); color: <?= $color['icon'] ?>; font-size: 1.2rem;">
                     <i class="fa-solid fa-check"></i>
@@ -944,7 +915,7 @@ $countryName = $country['full_name'] ?? $country['name'];
           $unis_db = [];
           if ($db_country) {
               try {
-                  $stmtUnis = $pdo->prepare("SELECT * FROM universities WHERE country_id = :cid AND is_active = 1 ORDER BY name ASC");
+                  $stmtUnis = $pdo->prepare("SELECT * FROM universities WHERE country_id = :cid AND is_active = 1 ORDER BY name ASC LIMIT 5");
                   $stmtUnis->execute(['cid' => $db_country['id']]);
                   $unis_db = $stmtUnis->fetchAll();
               } catch (PDOException $e) {
@@ -977,7 +948,7 @@ $countryName = $country['full_name'] ?? $country['name'];
                         <div style="display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1.5rem; font-size: 1rem; color: #475569;">
                           <?php if (!empty($uni['qs_ranking'])): ?>
                             <div style="display: flex; align-items: center; gap: 0.8rem;">
-                              <i class="fa-solid fa-star" style="color: #f59e0b; width: 18px; text-align: center;"></i> <strong>QS Rank:</strong> <?= htmlspecialchars($uni['qs_ranking']) ?>
+                              <i class="fa-solid fa-star" style="color: #f59e0b; width: 18px; text-align: center;"></i> <strong>QS Rank:</strong> <?= is_numeric($uni['qs_ranking']) ? '#' . htmlspecialchars($uni['qs_ranking']) : htmlspecialchars($uni['qs_ranking']) ?>
                             </div>
                           <?php else: ?>
                             <div style="display: flex; align-items: center; gap: 0.8rem;">
@@ -987,6 +958,25 @@ $countryName = $country['full_name'] ?? $country['name'];
                           <div style="display: flex; align-items: center; gap: 0.8rem;">
                             <i class="fa-solid fa-location-dot" style="color: #ef4444; width: 18px; text-align: center;"></i> <strong>Location:</strong> <?= htmlspecialchars($country['name']) ?>
                           </div>
+                          <?php 
+                          try {
+                              $stmtC = $pdo->prepare("SELECT name FROM courses WHERE university_id = :uid AND is_active = 1 LIMIT 3");
+                              $stmtC->execute(['uid' => $uni['id']]);
+                              $uni_courses = $stmtC->fetchAll(PDO::FETCH_ASSOC);
+                              if (!empty($uni_courses)):
+                          ?>
+                              <div style="display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.5rem; border-top: 1px solid #e2e8f0; padding-top: 0.8rem;">
+                                <div style="font-size: 0.85rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Top Courses:</div>
+                                <?php foreach($uni_courses as $uc): ?>
+                                  <div style="font-size: 0.9rem; color: #334155; display: flex; align-items: center; gap: 0.4rem;">
+                                    <i class="fa-solid fa-graduation-cap" style="color: #0ea5e9; font-size: 0.8rem;"></i> <?= htmlspecialchars($uc['name']) ?>
+                                  </div>
+                                <?php endforeach; ?>
+                              </div>
+                          <?php 
+                              endif;
+                          } catch(PDOException $e) {} 
+                          ?>
                         </div>
                         <a href="enquiry.php?university=<?= urlencode($uni['name']) ?>" class="btn btn--primary btn--block" style="border-radius: 12px; padding: 1rem; font-weight: 600;" onclick="event.stopPropagation();">Apply Now</a>
                       </div>
@@ -1382,15 +1372,7 @@ $countryName = $country['full_name'] ?? $country['name'];
           <a href="consultation.php" class="btn btn--cyan"><i class="fa-solid fa-graduation-cap"></i> Book Free Consultation</a>
           <a href="tel:+919342899904" class="btn btn--orange"><i class="fa-solid fa-phone"></i> Call +91 93428 99904</a>
         </div>
-
-        <div class="cta-tags">
-          <span class="cta-tag"><i class="fa-solid fa-fire" style="color: #fbbf24;"></i> Trending</span>
-          <span class="cta-tag">Data Science</span>
-          <span class="cta-tag">MBA</span>
-          <span class="cta-tag">Computer Science</span>
-          <span class="cta-tag">Nursing</span>
-        </div>
-      </div>
+    </div>
       <div class="cta-banner__right">
         <div class="cta-image-circle">
           <img src="assets/images/cont.png" alt="Happy Student">
@@ -1398,6 +1380,7 @@ $countryName = $country['full_name'] ?? $country['name'];
       </div>
     </div>
   </section>
+
 
 </main>
 <?php require_once 'includes/footer.php'; ?>

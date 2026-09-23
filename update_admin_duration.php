@@ -1,3 +1,4 @@
+
 <?php
 $file = 'admin/upcoming_batches.php';
 $content = file_get_contents($file);

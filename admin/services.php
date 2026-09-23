@@ -1,7 +1,7 @@
 <?php
 // admin/services.php - Services CRUD Editor
 $pageTitle = 'Services Manager';
-require_once 'includes/header.php'; // handles session and pdo load
+require_once __DIR__ . '/includes/header.php'; // handles session and pdo load
 
 $alertSuccess = '';
 $alertError = '';
@@ -343,4 +343,4 @@ function closeDeleteModal() {
 }
 </script>
 
-<?php require_once 'includes/footer.php'; ?>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>

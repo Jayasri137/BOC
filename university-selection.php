@@ -4,113 +4,149 @@ $pageTitle = 'University Selection Guidance for Study Abroad';
 $pageDesc = 'Get expert recommendations to select the best university based on your profile and goals.';
 $pageHeroImage = 'assets/images/areowomen.png';
 require_once 'includes/header.php';
+
+// Fetch active countries for the filter
+$countries = [];
+try {
+    $stmt = $pdo->query("SELECT id, name, flag, slug FROM countries WHERE is_active = 1 ORDER BY name ASC");
+    $countries = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    // Silently fail
+}
+
+// Get selected parameters from GET
+$selected_country_id = isset($_GET['country_id']) ? intval($_GET['country_id']) : 0;
+$search_query = isset($_GET['q']) ? trim($_GET['q']) : '';
+
+// Fetch universities
+$universities_list = [];
+try {
+    $sql = "SELECT u.*, c.name as country_name 
+            FROM universities u
+            LEFT JOIN countries c ON u.country_id = c.id
+            WHERE u.is_active = 1";
+    $params = [];
+    
+    if ($selected_country_id > 0) {
+        $sql .= " AND u.country_id = :cid";
+        $params['cid'] = $selected_country_id;
+    }
+    
+    if (!empty($search_query)) {
+        $sql .= " AND (u.name LIKE :q OR u.specialization LIKE :q)";
+        $params['q'] = "%{$search_query}%";
+    }
+    
+    $sql .= " ORDER BY u.name ASC";
+    
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($params);
+    $universities_list = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    // Silently fail
+}
 ?>
-<main>
-  <!-- Country Choose Section -->
-  <section class="section" style="padding-top: 4rem; background: #ffffff">
-    <div class="container">
-      <!-- Destination Filter -->
-      <div class="filter-card animate-on-scroll" style="margin: 0 0 4rem; background: linear-gradient(135deg, #0ea5e9, #3b82f6); padding: 2.5rem; border-radius: 24px; box-shadow: 0 15px 40px rgba(0,0,0,0.08); border: 1px solid #f1f5f9;">
-        <form action="" method="GET" style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; justify-content: space-between;">
-          <div style="flex: 1; min-width: 300px;">
-            <h3 style="margin: 0; font-size: 1.5rem; color: var(--dark);">Explore Partner Universities</h3>
-            <p style="margin: 0.5rem 0 0; color: #ffffff;">Select a destination to discover where you can study.</p>
-          </div>
-          <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-            <select name="country_id" class="form-control" style="min-width: 250px; padding: 1rem 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 1rem; background: #f8fafc;" onchange="this.form.submit()">
-              <option value="">-- Choose Country --</option>
-              <?php
-              try {
-                  $countries = $pdo->query("SELECT id, name, flag FROM countries WHERE is_active = 1 ORDER BY name ASC")->fetchAll();
-              } catch (PDOException $e) {
-                  $countries = [];
-              }
-              $selectedCountry = $_GET['country_id'] ?? 0;
-              foreach ($countries as $c):
-              ?>
-                <option value="<?= $c['id'] ?>" <?= $selectedCountry == $c['id'] ? 'selected' : '' ?>>
-                  <?= clean_output($c['name']) ?>
-                </option>
-              <?php endforeach; ?>
-            </select>
-            <button type="submit" class="btn btn--primary" style="padding: 1rem 2rem; border-radius: 12px;">Search</button>
-          </div>
-        </form>
-      </div>
+<main class="page-university-selection">
+  <style>
+    :root {
+      --primary: #ec4899;
+      --secondary: #0ea5e9;
 
-      <?php if ($selectedCountry): ?>
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem;" class="animate-on-scroll">
-          <?php
-          try {
-              $stmt = $pdo->prepare("SELECT * FROM universities WHERE country_id = ? AND is_active = 1 ORDER BY name ASC");
-              $stmt->execute([$selectedCountry]);
-              $unis = $stmt->fetchAll();
-          } catch (PDOException $e) {
-              $unis = [];
-          }
+    }
+    
+    .page-university-selection { background-color: #f8f9fa; min-height: 100vh; color: #1a202c; }
+    .dark-search-section { background-color: #152c5fff; color: #fff; padding-bottom: 2rem; }
+    
+    /* Hero Search */
+    .hero-search { position: relative; padding: 4rem 1rem 2rem; text-align: center; }
+    .hero-search__content { position: relative; z-index: 10; max-width: 900px; margin: 0 auto; }
+    .hero-search__title { font-size: 2.5rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
+    @media(min-width: 768px) { .hero-search__title { font-size: 3.5rem; } }
+    .hero-search__subtitle { font-size: 1.125rem; color: #cbd5e1; margin-bottom: 2rem; }
+    
+    /* Search Widget */
+    .search-widget { background: #fff; padding: 0.75rem; border-radius: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.2); margin: 0 auto; }
+    .search-form { display: flex; flex-direction: column; gap: 0.5rem; }
+    @media(min-width: 768px) { .search-form { flex-direction: row; } }
+    .search-input-group { position: relative; flex: 1; display: flex; align-items: center; background: #f8fafc; border-radius: 0.75rem; padding: 0.5rem 1rem; transition: background 0.2s; }
+    .search-input-group:focus-within { background: #fff; box-shadow: inset 0 0 0 2px rgba(14,165,233,0.2); }
+    .search-icon { color: #94a3b8; font-size: 1.25rem; margin-right: 0.75rem; }
+    .search-input-wrapper { flex: 1; display: flex; flex-direction: column; text-align: left; }
+    .search-label { font-size: 0.65rem; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 0.2rem; }
+    .search-input { width: 100%; border: none; background: transparent; font-size: 1rem; color: #1e293b; outline: none; padding: 0; margin: 0; font-family: inherit; }
+    .search-input::placeholder { color: #94a3b8; }
+    .search-select { width: 100%; border: none; background: transparent; font-size: 1rem; color: #1e293b; outline: none; padding: 0; margin: 0; font-family: inherit; cursor: pointer; appearance: none; }
+    .search-divider { display: none; width: 1px; background: #e2e8f0; margin: 0 0.5rem; }
+    @media(min-width: 768px) { .search-divider { display: block; } }
+    .search-btn { background: var(--primary); color: #fff; border: none; padding: 1rem 2.5rem; border-radius: 0.75rem; font-weight: 700; font-size: 1rem; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+    .search-btn:hover { background: #d03d85; box-shadow: 0 4px 12px rgba(236,72,153,0.3); }
+    
+    /* Layout */
+    .uni-container { max-width: 1400px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+    .uni-layout { display: flex; flex-direction: column; gap: 2rem; }
+    
+    /* Main Content */
+    .uni-main { flex: 1; min-width: 0; }
+    .results-header { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+    @media(min-width: 640px) { .results-header { flex-direction: row; justify-content: space-between; align-items: center; } }
+    .results-count { font-size: 1.25rem; font-weight: 700; color: #fff; margin: 0; }
+    .results-count span { color: var(--secondary); }
+    
+    /* University Cards */
+    .no-results-card { background: rgba(255,255,255,0.05); border-radius: 1rem; border: 1px dashed rgba(255,255,255,0.2); padding: 4rem 2rem; text-align: center; }
+    .no-results-icon { font-size: 3rem; color: rgba(255,255,255,0.2); margin-bottom: 1rem; }
+    .no-results-card h3 { color: #fff; margin-bottom: 0.5rem; }
+    .no-results-card p { color: #cbd5e1; margin-bottom: 1.5rem; }
+    .clear-search-btn { display: inline-block; background: var(--primary); color: #fff; font-weight: 600; padding: 0.75rem 1.5rem; border-radius: 0.75rem; text-decoration: none; }
+    
+    .uni-list { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+    @media(min-width: 640px) { .uni-list { grid-template-columns: repeat(2, 1fr); } }
+    @media(min-width: 992px) { .uni-list { grid-template-columns: repeat(3, 1fr); } }
+    @media(min-width: 1200px) { .uni-list { grid-template-columns: repeat(4, 1fr); } }
+    
+    .uni-item { display: flex; flex-direction: column; background: #fff; border-radius: 1rem; border: 1px solid #edf2f7; overflow: hidden; transition: box-shadow 0.2s, border-color 0.2s; height: 100%; position: relative; }
+    .uni-item:hover { box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+    
+    .theme-1 { --theme-color: #b57bee; --theme-bg: #f3e8f9; }
+    .theme-2 { --theme-color: #ea580c; --theme-bg: #ffedd5; }
+    .theme-3 { --theme-color: #0d9488; --theme-bg: #ccfbf1; }
+    .theme-4 { --theme-color: #2563eb; --theme-bg: #dbeafe; }
+    
+    .uni-item.theme-1:hover { border-color: #b57bee; box-shadow: 0 4px 15px rgba(181,123,238,0.15); }
+    .uni-item.theme-2:hover { border-color: #ea580c; box-shadow: 0 4px 15px rgba(234,88,12,0.15); }
+    .uni-item.theme-3:hover { border-color: #0d9488; box-shadow: 0 4px 15px rgba(13,148,136,0.15); }
+    .uni-item.theme-4:hover { border-color: #2563eb; box-shadow: 0 4px 15px rgba(37,99,235,0.15); }
+    
+    .uni-item__details { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+    .uni-logo-box { width: 50px; height: 50px; background: var(--theme-bg, #f8fafc); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; color: var(--theme-color, var(--primary)); margin-bottom: 1rem; }
+    .uni-title { font-size: 1.15rem; font-weight: 700; color: #1a202c; margin-bottom: 0.5rem; transition: color 0.2s; line-height: 1.4; }
+    .uni-item:hover .uni-title { color: var(--theme-color, var(--primary)); }
+    .uni-location { font-size: 0.85rem; color: #4a5568; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+    .uni-location i { color: #a0aec0; }
+    
+    .uni-info-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: auto; border-top: 1px dashed #edf2f7; padding-top: 1.25rem; }
+    .uni-item:hover .uni-info-grid { display: none; }
+    .info-cell { display: flex; gap: 0.5rem; align-items: flex-start; }
+    .info-cell i { color: var(--theme-color, var(--primary)); margin-top: 0.25rem; }
+    .info-label { font-size: 0.7rem; font-weight: 600; color: #718096; text-transform: uppercase; margin: 0 0 0.1rem; }
+    .info-val { font-size: 0.85rem; font-weight: 600; color: #2d3748; margin: 0; }
+    
+    .uni-item__actions { margin-top: auto; padding-top: 1.25rem; display: none; flex-direction: column; justify-content: center; gap: 0.75rem; border-top: 1px dashed #edf2f7; }
+    .uni-item:hover .uni-item__actions { display: flex; }
+    .uni-btn { text-align: center; padding: 0.75rem 1rem; border-radius: 0.75rem; font-weight: 600; text-decoration: none; font-size: 0.9rem; transition: all 0.2s; cursor: pointer; border: none; }
+    .uni-btn--primary { background: var(--theme-color, var(--primary)); color: #fff; }
+    .uni-btn--primary:hover { filter: brightness(0.9); box-shadow: 0 2px 10px rgba(0,0,0,0.1); color: #fff; }
+    .uni-btn--outline { background: #fff; color: var(--theme-color, #4a5568); border: 1px solid var(--theme-color, #e2e8f0); }
+    .uni-btn--outline:hover { background: var(--theme-bg, #f7fafc); }
+  </style>
 
-          if ($unis):
-            foreach ($unis as $u):
-              $imgUrl = !empty($u['image_url']) ? htmlspecialchars($u['image_url']) : 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80&w=800';
-          ?>
-            <div style="background: #fff; border-radius: 24px; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.04); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); overflow: hidden; position: relative; display: flex; flex-direction: column;" class="uni-card" onmouseover="this.style.transform='translateY(-12px)'; this.style.boxShadow='0 25px 50px rgba(14,165,233,0.15)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.04)';">
-              <!-- Cover Image -->
-              <div style="height: 180px; width: 100%; background: url('<?= $imgUrl ?>') center/cover; position: relative;">
-                 <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);"></div>
-                 <div style="position: absolute; bottom: 1.5rem; left: 1.5rem; display: flex; gap: 0.5rem;">
-                    <span style="background: rgba(255,255,255,0.2); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: white; padding: 0.4rem 0.8rem; border-radius: 50px; font-size: 0.8rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.3);"><i class="fa-solid fa-star" style="color: #fbbf24;"></i> Top Ranked</span>
-                 </div>
-              </div>
-
-              <!-- Content -->
-              <div style="padding: 2rem 1.5rem; flex: 1; display: flex; flex-direction: column;">
-                <div style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; position: relative; margin-top: -4rem;">
-                  <div style="width: 70px; height: 70px; border-radius: 20px; background: white; padding: 0.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 2px solid white; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: #0ea5e9; flex-shrink: 0; position: relative; z-index: 2;">
-                      <i class="fa-solid fa-building-columns"></i>
-                  </div>
-                </div>
-                
-                <h4 style="margin: 0 0 1.25rem; font-size: 1.3rem; line-height: 1.3; color: var(--dark); font-weight: 700;"><?= clean_output($u['name']) ?></h4>
-
-                <div style="font-size: 0.95rem; color: var(--gray); margin-bottom: 2rem; display: flex; flex-direction: column; gap: 1rem; flex: 1;">
-                  <div style="display: flex; align-items: center; gap: 0.8rem;">
-                     <div style="width: 36px; height: 36px; border-radius: 10px; background: #e0f2fe; display: flex; align-items: center; justify-content: center; color: #0284c7; flex-shrink: 0;"><i class="fa-solid fa-ranking-star"></i></div>
-                     <span style="line-height: 1.4;">Global Rank: <br><strong style="color: var(--dark); font-size: 1.05rem;">#<?= clean_output($u['qs_ranking'] ?: 'N/A') ?></strong></span>
-                  </div>
-                  <div style="display: flex; align-items: center; gap: 0.8rem;">
-                     <div style="width: 36px; height: 36px; border-radius: 10px; background: #ede9fe; display: flex; align-items: center; justify-content: center; color: #7c3aed; flex-shrink: 0;"><i class="fa-solid fa-graduation-cap"></i></div>
-                     <span style="line-height: 1.4;">Specialization: <br><strong style="color: var(--dark); font-size: 1.05rem;"><?= clean_output($u['specialization'] ?: 'General Studies') ?></strong></span>
-                  </div>
-                </div>
-
-                <a href="javascript:void(0)" onclick="openEnquiryModal('<?= addslashes(htmlspecialchars($u['name'], ENT_QUOTES)) ?>')" class="btn btn--primary" style="width: 100%; justify-content: center; border-radius: 12px; padding: 0.85rem; font-weight: 600; box-shadow: 0 8px 20px rgba(14,165,233,0.25); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.5px;">Apply Now <i class="fa-solid fa-arrow-right" style="margin-left: 0.5rem;"></i></a>
-              </div>
-            </div>
-          <?php 
-            endforeach;
-          else:
-          ?>
-            <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 2rem; background: #f8fafc; border-radius: 20px;">
-              <p style="color: var(--gray); font-size: 1.1rem;">No universities listed for this country yet. Contact us for the full list of our 500+ partners.</p>
-            </div>
-          <?php endif; ?>
-        </div>
-      <?php else: ?>
-        <div class="text-center animate-on-scroll" style="opacity: 0.6; padding: 4rem 0;">
-            <i class="fa-solid fa-building-columns" style="font-size: 4rem; margin-bottom: 1.5rem; color: #cbd5e1;"></i>
-            <p style="font-size: 1.2rem; color: var(--gray);">Select a country above to view the elite universities we partner with.</p>
-        </div>
-      <?php endif; ?>
-    </div>
-  </section>
-
-  <section class="section bg-light" style="padding: 6rem 0;">
+  <!-- Overview Section (1st Section) -->
+  <section class="section bg-light" style="padding: 2rem 0; background-color: #f8f9fa; color: #1a202c; border-bottom: 1px solid #edf2f7;">
     <div class="container">
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4rem; align-items: center;">
         <div class="animate-on-scroll">
-          <span style="display: inline-block; background: #e0f2fe; color: #0284c7; padding: 0.35rem 1.25rem; border-radius: 50px; font-size: 0.85rem; font-weight: 700; margin-bottom: 1.5rem;">The Bluestone Advantage</span>
-          <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem; line-height: 1.2;">Expert <span>Shortlisting</span></h2>
-          <p style="color:var(--gray); margin-bottom:2.5rem; line-height:1.7; font-size: 1.05rem;">
+          <h1 style="font-size: 3rem; font-weight: 800; margin-bottom: 1.5rem; line-height: 1.2; color: var(--dark);">Find The University <br> <span style="color: var(--primary);">That Fits You</span></h1>
+          <p style="color:var(--gray, #4a5568); margin-bottom:2.5rem; line-height:1.7; font-size: 1.1rem;">
             Choosing where to study is a life-changing decision. We don't just give you a list; we provide a strategy. Based on your grades, career goals, and budget, we help you pick the best fit.
           </p>
           <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1rem;">
@@ -135,21 +171,16 @@ require_once 'includes/header.php';
             <!-- Secondary Image overlapping -->
             <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&q=80&w=500" alt="University Campus" style="position: absolute; bottom: -30px; right: -10px; width: 200px; height: 200px; object-fit: cover; border-radius: 20px; border: 8px solid white; box-shadow: 0 15px 35px rgba(0,0,0,0.12); z-index: 2;">
 
-            <!-- The Quote Box Overlapping -->
-            <div style="position: absolute; top: 40px; left: -20px; background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); max-width: 260px; border-left: 4px solid #0ea5e9; z-index: 3;">
-                <i class="fa-solid fa-quote-left" style="color: #0ea5e9; font-size: 1.25rem; margin-bottom: 0.5rem;"></i>
-                <p style="font-style: italic; font-size: 0.9rem; color: var(--dark); margin: 0; line-height: 1.5;">"Bluestone helped me find a university that perfectly matched my budget and research interests."</p>
-                <strong style="display: block; margin-top: 0.75rem; color: #0ea5e9; font-size: 0.85rem;">- Sneha R.</strong>
-            </div>
+        
 
             <!-- Stats Overlay -->
-            <div style="position: absolute; bottom: 40px; left: 20px; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 1rem 1.5rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); z-index: 2; display: flex; align-items: center; gap: 1rem; border: 1px solid rgba(255,255,255,0.5);">
-               <div style="width: 45px; height: 45px; background: #e0f2fe; color: #0ea5e9; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
+            <div style="position: absolute; top: -10px; left: 20px; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 1rem 1.5rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); z-index: 2; display: flex; align-items: center; gap: 1rem; border: 1px solid rgba(255,255,255,0.5);">
+               <div style="width: 45px; height: 45px; background: #e0f2fe; color: var(--secondary, #0ea5e9); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
                    <i class="fa-solid fa-bullseye"></i>
                </div>
                <div>
-                   <div style="font-weight: 800; font-size: 1.25rem; color: var(--dark); line-height: 1.1;">98%</div>
-                   <div style="font-size: 0.8rem; color: var(--gray); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Success Rate</div>
+                   <div style="font-weight: 800; font-size: 1.25rem; color: var(--dark); line-height: 1.1;">99%</div>
+                   <div style="font-size: 0.8rem; color: var(--gray, #4a5568); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Visa Success Rate</div>
                </div>
             </div>
         </div>
@@ -157,52 +188,130 @@ require_once 'includes/header.php';
     </div>
   </section>
 
-  <!-- Premium Intro Section -->
-  <section class="section" style="position: relative; overflow: hidden; padding-top: 6rem; padding-bottom: 5rem; background-color: #ffffff;">
-    <!-- Decorative background blobs -->
-    <div style="position: absolute; top: -100px; left: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(14,165,233,0.1) 0%, transparent 70%); border-radius: 50%; z-index: -1;"></div>
-    <div style="position: absolute; bottom: -50px; right: -50px; width: 300px; height: 300px; background: radial-gradient(circle, rgba(139,92,246,0.1) 0%, transparent 70%); border-radius: 50%; z-index: -1;"></div>
-
-    <div class="container">
-      <div style="text-align: center; max-width: 800px; margin: 0 auto; margin-bottom: 4rem;">
-        <div class="animate-on-scroll">
-          <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: transparent; color: #0ea5e9; padding: 0.5rem 1.25rem; border-radius: 50px; font-weight: 600; font-size: 0.95rem; margin-bottom: 1.5rem; border: 1px solid rgba(14, 165, 233, 0.2);">
-            <i class="fa-solid fa-building-columns"></i> Partnered with Top Institutions
-          </div>
-          <h2 style="font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.15; margin-bottom: 1.5rem; color: var(--dark);">
-            Find Your Perfect <br>
-            <span style="background: linear-gradient(135deg, #0ea5e9, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Academic Match</span>
-          </h2>
-          <p style="color: var(--gray); font-size: 1.15rem; line-height: 1.7; margin-bottom: 2.5rem;">
-            We analyze your profile, budget, and career goals to shortlist universities where you have the highest probability of admission and success.
-          </p>
-        </div>
-      </div>
-
-      <!-- Feature Pills -->
-      <div class="animate-on-scroll delay-1" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem;">
-          <div class="feature-pill feature-pill--center" style="background: linear-gradient(135deg, #0ea5e9, #3b82f6); border: none; color: white;">
-            <img src="assets/images/uni_data_3d.png" alt="Data-Driven Shortlisting" style="width: 80px; height: 80px; object-fit: contain; margin: 0 auto 1rem; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1)); border-radius: 20px;">
-            <div class="feature-pill__text" style="color: white;">Data-Driven Shortlisting</div>
+  <!-- Dark Search & Results Section -->
+  <div class="dark-search-section">
+    <!-- Hero Section -->
+    <section class="hero-search">
+    <div class="hero-search__content">
+      <h1 class="hero-search__title">Find a university</h1>
+      <p class="hero-search__subtitle">Discover top-ranked universities worldwide and find your perfect campus.</p>
+      
+      <div class="search-widget">
+        <form method="GET" action="university-selection.php" class="search-form">
+          <div class="search-input-group">
+            <i class="fa-solid fa-search search-icon"></i>
+            <div class="search-input-wrapper">
+              <span class="search-label">University Name</span>
+              <input type="text" name="q" class="search-input" placeholder="e.g. Oxford, Stanford" value="<?= htmlspecialchars($search_query) ?>">
+            </div>
           </div>
           
-          <div class="feature-pill feature-pill--center" style="background: linear-gradient(135deg, #8b5cf6, #d946ef); border: none; color: white;">
-            <img src="assets/images/uni_ranking_3d.png" alt="Global Rankings Focus" style="width: 80px; height: 80px; object-fit: contain; margin: 0 auto 1rem; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1)); border-radius: 20px;">
-            <div class="feature-pill__text" style="color: white;">Global Rankings Focus</div>
+          <div class="search-divider"></div>
+          
+          <div class="search-input-group">
+            <i class="fa-solid fa-location-dot search-icon"></i>
+            <div class="search-input-wrapper">
+              <span class="search-label">Destination</span>
+              <select name="country_id" class="search-select" onchange="this.form.submit()">
+                <option value="0">All Destinations</option>
+                <?php foreach ($countries as $c): ?>
+                  <option value="<?= $c['id'] ?>" <?= $selected_country_id == $c['id'] ? 'selected' : '' ?>>
+                    <?= clean_output($c['name']) ?>
+                  </option>
+                <?php endforeach; ?>
+              </select>
+            </div>
+            <i class="fa-solid fa-chevron-down" style="color: #94a3b8; font-size: 0.8rem; margin-left: 0.5rem;"></i>
           </div>
           
-          <div class="feature-pill feature-pill--center" style="background: linear-gradient(135deg, #f97316, #f59e0b); border: none; color: white;">
-            <img src="assets/images/uni_budget_3d.png" alt="Budget-Friendly Options" style="width: 80px; height: 80px; object-fit: contain; margin: 0 auto 1rem; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1)); border-radius: 20px;">
-            <div class="feature-pill__text" style="color: white;">Budget-Friendly Options</div>
-          </div>
-          
-          <div class="feature-pill feature-pill--center" style="background: linear-gradient(135deg, #14b8a6, #0d9488); border: none; color: white;">
-            <img src="assets/images/uni_work_3d.png" alt="Post-Study Work Check" style="width: 80px; height: 80px; object-fit: contain; margin: 0 auto 1rem; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1)); border-radius: 20px;">
-            <div class="feature-pill__text" style="color: white;">Post-Study Work Check</div>
-          </div>
+          <button type="submit" class="search-btn">Search</button>
+        </form>
       </div>
     </div>
   </section>
+
+  <!-- Main Layout -->
+  <section class="uni-container">
+    <div class="uni-layout">
+      <!-- Main Results -->
+      <div class="uni-main">
+        <div class="results-header">
+          <h2 class="results-count">
+            <span><?= count($universities_list) ?></span> Universities found
+          </h2>
+        </div>
+        
+        <?php if (empty($universities_list)): ?>
+          <div class="no-results-card">
+            <div class="no-results-icon"><i class="fa-solid fa-building-columns"></i></div>
+            <h3>No universities found</h3>
+            <p>Try adjusting your search filters or try a different keyword.</p>
+            <a href="university-selection.php" class="clear-search-btn">Clear Search</a>
+          </div>
+        <?php else: ?>
+          <div class="uni-list">
+            <?php 
+            $c_idx = 0; 
+            foreach ($universities_list as $uni): 
+              $theme_class = 'theme-' . (($c_idx % 4) + 1);
+              $c_idx++;
+            ?>
+              <div class="uni-item <?= $theme_class ?>">
+                <!-- University Details -->
+                <div class="uni-item__details">
+                  <div class="uni-logo-box">
+                    <i class="fa-solid fa-building-columns"></i>
+                  </div>
+                  <h3 class="uni-title"><?= clean_output($uni['name']) ?></h3>
+                  <p class="uni-location">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <?= !empty($uni['country_name']) ? clean_output($uni['country_name']) : 'Worldwide' ?>
+                  </p>
+                  
+                  <!-- Info Grid -->
+                  <div class="uni-info-grid">
+                    <?php if (!empty($uni['qs_ranking'])): ?>
+                    <div class="info-cell">
+                      <i class="fa-solid fa-star"></i>
+                      <div>
+                        <p class="info-label">QS Ranking</p>
+                        <p class="info-val"><?= clean_output($uni['qs_ranking']) ?></p>
+                      </div>
+                    </div>
+                    <?php endif; ?>
+                    
+                    <div class="info-cell">
+                      <i class="fa-solid fa-book-open"></i>
+                      <div>
+                        <p class="info-label">Primary Focus</p>
+                        <p class="info-val"><?= !empty($uni['specialization']) ? clean_output($uni['specialization']) : 'Multi-disciplinary' ?></p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Action Area -->
+                  <div class="uni-item__actions">
+                    <a href="courses.php?country=<?= $uni['country_id'] ?>&q=<?= urlencode($uni['name']) ?>" class="uni-btn uni-btn--primary">
+                      View Courses
+                    </a>
+                    <button onclick="openEnquiryModal('<?= addslashes(htmlspecialchars($uni['name'], ENT_QUOTES)) ?>')" class="uni-btn uni-btn--outline">
+                      Apply Now
+                    </button>
+                  </div>
+                </div>
+              </div>
+            <?php endforeach; ?>
+          </div>
+        <?php endif; ?>
+      </div>
+      
+    </div>
+  </section>
+  </div> <!-- End dark-search-section -->
+
+
+
+
 
   <style>
   /* PREMIUM FEATURE PILLS */
@@ -254,7 +363,7 @@ require_once 'includes/header.php';
   .feature-pill__text { font-size: 1.15rem; font-weight: 700; color: var(--dark); line-height: 1.4; }
   </style>
 
-  <section class="section" style="padding-top: 2rem;">
+  <section class="section" style="padding: 4rem 0; background-color: #fff; color: #1a202c;">
     <div class="container animate-on-scroll">
       <div style="background: var(--gradient); padding: 4rem 2rem; border-radius: var(--radius-lg); text-align: center; color: white; box-shadow: var(--shadow-lg);">
         <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Ready to Find Your Match?</h2>

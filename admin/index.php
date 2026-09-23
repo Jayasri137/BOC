@@ -1,7 +1,7 @@
 <?php
 // admin/index.php - Analytical Dashboard for Bluestone Overseas Consultants
 $pageTitle = 'Dashboard';
-require_once 'includes/header.php'; // handles authentication and pdo loading
+require_once __DIR__ . '/includes/header.php'; // handles authentication and pdo loading
 
 $setupNeeded = false;
 $stats = [
@@ -219,4 +219,4 @@ try {
 
 <?php endif; ?>
 
-<?php require_once 'includes/footer.php'; ?>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>

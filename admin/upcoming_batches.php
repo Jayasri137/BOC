@@ -1,7 +1,7 @@
 <?php
 // admin/upcoming_batches.php - Upcoming Batches CRUD Editor
 $pageTitle = 'Upcoming Batches Manager';
-require_once 'includes/header.php';
+require_once __DIR__ . '/includes/header.php';
 
 $alertSuccess = '';
 $alertError = '';
@@ -386,4 +386,4 @@ $courses = [
     });
 </script>
 
-<?php require_once 'includes/footer.php'; ?>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>

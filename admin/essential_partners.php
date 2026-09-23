@@ -1,7 +1,7 @@
 <?php
 // admin/essential_partners.php - Manage Bank/Finance/Insurance Partners
 $pageTitle = 'Essential Service Partners';
-require_once 'includes/header.php';
+require_once __DIR__ . '/includes/header.php';
 
 $alertSuccess = '';
 $alertError = '';
@@ -351,4 +351,4 @@ function triggerDeletePartner(id, name) {
 .badge--sim { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
 </style>
 
-<?php require_once 'includes/footer.php'; ?>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>

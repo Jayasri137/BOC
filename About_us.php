@@ -1,62 +1,114 @@
 <?php
 require_once 'includes/config.php';
-$pageTitle = 'Study Abroad Consultants in Coimbatore | Bluestone';
-$pageDesc = 'Bluestone Overseas offers expert Australia Education Consultants in Coimbatore for university selection, admissions, scholarships, visa guidance and study support.';
-$pageKeywords = 'UK Education Consultants in Coimbatore, Australia Education Consultants in Coimbatore, New Zealand Education Consultants in Coimbatore, UG Programs Abroad, PG Programs Abroad, Study Abroad Consultants in Coimbatore, IELTS Coaching in Coimbatore, IELTS classes in Coimbatore, Best IELTS Coaching in Coimbatore, IELTS Training in Coimbatore, German language course, Japanese language course, German language classes, Japanese language classes, German Language Course in Coimbatore, Japanese Language Course in Coimbatore, German Language Training Centre in Coimbatore, Japanese Language Training Centre in Coimbatore, Postgraduate study in UK, Postgraduate study in Australia, Postgraduate study in New Zealand, Undergraduate study in Australia, Undergraduate study in UK, Undergraduate study in New Zealand, Postgraduate Study in UK – Coimbatore, Postgraduate Study in Australia – Coimbatore, Undergraduate Study in UK – Coimbatore, Undergraduate Study in Australia – Coimbatore, Postgraduate Study in New Zealand – Coimbatore, Undergraduate Study in New Zealand – Coimbatore';
+$pageTitle = 'About Bluestone Overseas | Trusted Study Abroad Consultants in Coimbatore';
+$pageDesc = 'Learn about Bluestone Overseas, a trusted study abroad consultancy in Coimbatore helping students across Tamil Nadu with overseas education, university admissions and student visas since 2015.';
+$pageKeywords = 'Study Abroad Consultants in Coimbatore, Study abroad consultancy in Coimbatore, Overseas education consultants in Coimbatore, Study abroad consultants in Tamil Nadu, Overseas consultancy in Coimbatore, Best overseas education consultants in Coimbatore, Abroad education consultants in Coimbatore';
 $pageHeroImage = 'assets/images/Offer.png';
 require_once 'includes/header.php';
 ?>
-<main><!-- Our Story Section -->
-  <section class="section about-story" style="background-color: #ffffff;">
+<main>
+  <!-- Premium Our Story Section -->
+  <section class="section about-story-premium" style="background-color: #f8fafc; padding: 5rem 0; overflow: hidden;">
     <div class="container">
-      <div class="about-centered" style="max-width: 900px; margin: 0 auto; text-align: center;">
-       
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 4rem;">
         
-        <div class="animate-on-scroll delay-1">
-          <span class="section__tag" style="margin: 0 auto 1rem auto; display: inline-block;">Our Story</span>
-          <h2 class="section__title" style="text-align:center; margin-top:.75rem">A Beacon of Hope for <span>Global Aspirations</span></h2>
-          <p class="p-lead" style="margin: 0 auto 2rem; max-width: 800px;">Bluestones Overseas Consultants is a top-tier visa and immigration consultancy known for its dedicated and personalized client support.</p>
+        <!-- Left Content -->
+        <div class="about-content animate-on-scroll" style="flex: 1; min-width: 300px;">
+          <span class="section__tag" style="margin-bottom: 1rem; display: inline-block; background: rgba(59, 130, 246, 0.1); color: #3b82f6;">Our Story</span>
+          <h1 class="section__title" style="margin-top: 0.5rem; font-size: 2.8rem; line-height: 1.2;">Trusted Study Abroad Consultants in Coimbatore <br><span class="text-gradient">Since 2015</span></h1>
           
-          <div class="story-content" style="text-align: center; max-width: 800px; margin: 0 auto 2.5rem;">
-            <p>Established in 2015, our firm has become a beacon of hope for individuals aspiring to navigate the complexities of immigration processes across major global destinations.</p>
-            <p>For the past many years, we have been sending thousands of students every year to various highly reputed Universities/ Colleges in <strong><span class="fi fi-gb"></span> UK, <span class="fi fi-us"></span> USA, <span class="fi fi-au"></span> Australia, <span class="fi fi-my"></span> Malaysia, <span class="fi fi-mu"></span> Mauritius, <span class="fi fi-ca"></span> Canada, <span class="fi fi-ie"></span> Ireland, <span class="fi fi-ch"></span> Switzerland, <span class="fi fi-fr"></span> France, <span class="fi fi-it"></span> Italy, <span class="fi fi-de"></span> Germany, <span class="fi fi-sg"></span> Singapore, <span class="fi fi-nl"></span> Netherlands, <span class="fi fi-ae"></span> Dubai</strong>, and more.</p>
-            <p>We aspire to not just send students abroad, but to prepare them to thrive, lead, and excel on international platforms. Our journey is defined by the success of our students who are now building their futures worldwide.</p>
+          <p style="font-size: 1.15rem; color: #475569; line-height: 1.7; margin-bottom: 1.5rem; margin-top: 1.5rem;">
+            Bluestone Overseas is a leading study abroad consultancy in Coimbatore, dedicated to helping students explore international education opportunities and secure admissions to top universities worldwide.
+          </p>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; margin-bottom: 2.5rem;">
+            <div style="display: flex; gap: 1rem; align-items: flex-start;">
+              <div style="width: 45px; height: 45px; border-radius: 12px; background: linear-gradient(135deg, #0ea5e9, #2563eb); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);">
+                <i class="fa-solid fa-user-tie"></i>
+              </div>
+              <div>
+                <h4 style="font-size: 1.1rem; color: #0f172a; margin-bottom: 0.25rem; font-weight: 700;">Expert Counselling</h4>
+                <p style="font-size: 0.9rem; color: #64748b; line-height: 1.5; margin: 0;">Personalised guidance tailored to your profile.</p>
+              </div>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; align-items: flex-start;">
+              <div style="width: 45px; height: 45px; border-radius: 12px; background: linear-gradient(135deg, #f59e0b, #d97706); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; box-shadow: 0 4px 10px rgba(217, 119, 6, 0.3);">
+                <i class="fa-solid fa-graduation-cap"></i>
+              </div>
+              <div>
+                <h4 style="font-size: 1.1rem; color: #0f172a; margin-bottom: 0.25rem; font-weight: 700;">University Admissions</h4>
+                <p style="font-size: 0.9rem; color: #64748b; line-height: 1.5; margin: 0;">End-to-end support for applications.</p>
+              </div>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; align-items: flex-start;">
+              <div style="width: 45px; height: 45px; border-radius: 12px; background: linear-gradient(135deg, #10b981, #059669); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; box-shadow: 0 4px 10px rgba(5, 150, 105, 0.3);">
+                <i class="fa-solid fa-passport"></i>
+              </div>
+              <div>
+                <h4 style="font-size: 1.1rem; color: #0f172a; margin-bottom: 0.25rem; font-weight: 700;">Visa Assistance</h4>
+                <p style="font-size: 0.9rem; color: #64748b; line-height: 1.5; margin: 0;">Hassle-free documentation and processing.</p>
+              </div>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; align-items: flex-start;">
+              <div style="width: 45px; height: 45px; border-radius: 12px; background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; box-shadow: 0 4px 10px rgba(109, 40, 217, 0.3);">
+                <i class="fa-solid fa-globe"></i>
+              </div>
+              <div>
+                <h4 style="font-size: 1.1rem; color: #0f172a; margin-bottom: 0.25rem; font-weight: 700;">Global Reach</h4>
+                <p style="font-size: 0.9rem; color: #64748b; line-height: 1.5; margin: 0;">Partnerships across 25+ top countries.</p>
+              </div>
+            </div>
           </div>
           
-          <div class="about-features" style="justify-content: center; flex-wrap: wrap; gap: 2rem;">
-            <div class="a-feat" style="flex-direction: column; text-align: center; gap: 0.5rem;">
-              <div class="a-feat-icon a-feat-icon--blue" style="margin: 0 auto;">
-                <i class="fa-solid fa-earth-americas"></i>
-              </div>
-              <span style="font-weight: 600;">25+ Countries Served</span>
-            </div>
-            <div class="a-feat" style="flex-direction: column; text-align: center; gap: 0.5rem;">
-              <div class="a-feat-icon a-feat-icon--purple" style="margin: 0 auto;">
-                <i class="fa-solid fa-university"></i>
-              </div>
-              <span style="font-weight: 600;">700+ University Partners</span>
-            </div>
-            <div class="a-feat" style="flex-direction: column; text-align: center; gap: 0.5rem;">
-              <div class="a-feat-icon a-feat-icon--orange" style="margin: 0 auto;">
-                <i class="fa-solid fa-award"></i>
-              </div>
-              <span style="font-weight: 600;">10,000+ Success Stories</span>
-            </div>
-          </div>
-          
-          <div style="margin-top:3rem">
-            <a href="consultation.php" class="btn btn--primary btn--lg" style="display: inline-flex;margin-bottom:2rem">
+          <div style="margin-top: 2rem;">
+            <a href="consultation.php" class="btn btn--primary btn--lg" style="box-shadow: 0 10px 25px rgba(37,99,235,0.3);">
               <i class="fa-solid fa-calendar-check"></i> Start Your Journey
             </a>
           </div>
         </div>
         
-      </div>
-       <div class="about-img-wrap animate-on-scroll" style="margin-bottom: 3rem; max-width: 700px; margin-left: auto; margin-right: auto;">
-          <div class="img-frame" style="border-radius: 20px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.15);">
-            <img src="assets/images/ocs1.png" alt="Bluestone Overseas Consultants" style="width: 100%; height: auto; display: block;">
+        <!-- Right Image Column -->
+        <div class="about-visual animate-on-scroll delay-1" style="flex: 1; min-width: 300px; position: relative;">
+          <!-- Decorative element -->
+          <div style="position: absolute; top: -30px; right: -30px; width: 200px; height: 200px; background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, rgba(0,0,0,0) 70%); z-index: 0;"></div>
+          
+          <div class="img-frame" style="position: relative; z-index: 1; border-radius: 24px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.15); border: 8px solid white;">
+            <img src="assets/images/ocs1.png" alt="Bluestone Overseas Consultants" style="width: 100%; height: auto; display: block; transform: scale(1.05); transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1.05)';">
           </div>
+          
+          <!-- Floating Stats Card -->
+          <div style="position: absolute; bottom: -20px; left: -20px; background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); z-index: 2; display: flex; align-items: center; gap: 1rem; border: 1px solid rgba(0,0,0,0.05);">
+            <div style="width: 50px; height: 50px; border-radius: 50%; background: #fef08a; color: #ca8a04; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+              <i class="fa-solid fa-trophy"></i>
+            </div>
+            <div>
+              <div style="font-size: 1.5rem; font-weight: 900; color: #0f172a; line-height: 1;">10,000+</div>
+              <div style="font-size: 0.85rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 0.25rem;">Success Stories</div>
+            </div>
+          </div>
+          
+          <!-- Floating Stats Card 2 -->
+          <div style="position: absolute; top: 40px; right: -30px; background: white; padding: 1.25rem; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); z-index: 2; display: flex; align-items: center; gap: 1rem; border: 1px solid rgba(0,0,0,0.05); animation: float 6s ease-in-out infinite;">
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: #dcfce7; color: #16a34a; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
+              <i class="fa-solid fa-building-columns"></i>
+            </div>
+            <div>
+              <div style="font-size: 1.25rem; font-weight: 900; color: #0f172a; line-height: 1;">500+</div>
+              <div style="font-size: 0.75rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 0.25rem;">Universities</div>
+            </div>
+          </div>
+          <style>
+            @keyframes float {
+              0% { transform: translateY(0px); }
+              50% { transform: translateY(-10px); }
+              100% { transform: translateY(0px); }
+            }
+          </style>
         </div>
+      </div>
     </div>
   </section>
 
@@ -255,6 +307,397 @@ require_once 'includes/header.php';
     </div>
   </section>
 
+  <!-- TEAM MEMBERS SECTION -->
+<section id="team" class="section team-section bg-light" style="padding: 5rem 1rem; background: #f8fafc; position: relative;">
+  <div class="container">
+    <div class="section__header animate-on-scroll" style="text-align: center; margin-bottom: 3.5rem;">
+      <span class="section__tag">Our Leadership</span>
+      <h2 class="section__title">Meet Our <span>Team</span></h2>
+      <p class="section__subtitle" style="margin: 0.5rem auto 0; max-width: 600px;">The experienced professionals dedicated to making your global education dreams a reality.</p>
+      <div class="accent-bar" style="margin: 1rem auto 0;"></div>
+    </div>
+    
+    <div style="position: relative; padding: 0 40px;">
+      <!-- Navigation Buttons -->
+      <button id="teamPrev" class="team-nav-btn" style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); z-index: 10; background: white; border: 1px solid var(--border); width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.2rem; transition: all 0.3s ease;">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <button id="teamNext" class="team-nav-btn" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); z-index: 10; background: white; border: 1px solid var(--border); width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.2rem; transition: all 0.3s ease;">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+
+      <!-- Slider Container -->
+      <div id="teamSlider" class="team-slider" style="display: flex; gap: 2rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 2rem 5px 3rem; scrollbar-width: none; -ms-overflow-style: none; align-items: flex-end;">
+        <style>
+          .team-slider::-webkit-scrollbar { display: none; }
+          .team-nav-btn:hover { background: var(--primary); color: white !important; }
+
+          /* Remove overflow and mask from wave-card, move to inner */
+          .wave-card {
+            min-width: 300px;
+            max-width: 320px;
+            flex: 0 0 auto;
+            scroll-snap-align: center;
+            background: #0f172a;
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+            height: 420px;
+            border: none;
+          }
+
+          .wave-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+          }
+          
+          .wave-card__inner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+
+            /* Safari overflow bug fix */
+            -webkit-mask-image: -webkit-radial-gradient(white, black);
+            mask-image: radial-gradient(white, black);
+            transform: translateZ(0);
+            
+            /* Bulletproof clipping */
+            clip-path: inset(0 0 0 0 round 20px);
+            -webkit-clip-path: inset(0 0 0 0 round 20px);
+          }
+
+          .wave-card__full-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            transition: transform 0.5s ease;
+          }
+
+          .wave-card:hover .wave-card__full-img {
+            transform: scale(1.08);
+          }
+
+          .wave-card__overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Darken the bottom so the name/role is readable */
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0) 60%);
+            z-index: 1;
+            pointer-events: none;
+            border-radius: 20px;
+          }
+
+          .wave-card__bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 260px; 
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+          }
+
+          .wave-card:hover .wave-card__bottom {
+            transform: translateY(0);
+          }
+
+          .wave-card__info {
+            position: absolute;
+            top: -110px; /* Sits above the wave */
+            left: 0;
+            width: 100%;
+            text-align: center;
+            z-index: 5;
+            padding: 0 1rem;
+          }
+
+          .wave-card__title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin: 0;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+          }
+
+          .wave-card__role-top {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            margin: 0.25rem 0 0 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+          }
+
+          .wave-svg {
+            position: absolute;
+            top: -45px;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            display: block;
+            pointer-events: none;
+          }
+          
+          
+          .wave-card__content {
+            position: relative;
+            padding: 0 1.5rem 1.5rem;
+            color: white;
+            text-align: center;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            overflow-y: auto;
+            scrollbar-width: none; /* Firefox */
+          }
+          
+          .wave-card__content::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+          }
+
+          .wave-card__desc {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 0;
+            padding-top: 1rem;
+          }
+
+          /* Gradients for cards */
+          .bg-grad-0 { background: linear-gradient(135deg, #a78bfa 0%, #c084fc 100%); }
+          .bg-grad-0 .wave-svg { color: #a78bfa; }
+          
+          .bg-grad-1 { background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); }
+          .bg-grad-1 .wave-svg { color: #fb923c; }
+          
+          .bg-grad-2 { background: linear-gradient(135deg, #2dd4bf 0%, #14b8a6 100%); }
+          .bg-grad-2 .wave-svg { color: #2dd4bf; }
+          
+          .bg-grad-3 { background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%); }
+          .bg-grad-3 .wave-svg { color: #60a5fa; }
+
+          @media(max-width: 768px) { 
+            .wave-card { 
+              min-width: 220px; 
+              max-width: 260px; 
+              height: 340px; 
+            }
+            .wave-card__bottom {
+              height: 200px;
+            }
+            .wave-card__info {
+              top: -95px;
+            }
+            .wave-card__title {
+              font-size: 1.3rem;
+            }
+            .wave-card__role-top {
+              font-size: 0.85rem;
+            }
+            .wave-svg {
+              top: -35px;
+              height: 40px;
+            }
+          }
+        </style>
+
+        <?php
+        try {
+            $stmt = $pdo->query("SELECT * FROM team_members WHERE is_active = 1 ORDER BY display_order ASC, id ASC");
+            $team_members = $stmt->fetchAll();
+        } catch (PDOException $e) {
+            $team_members = [];
+        }
+        
+        foreach($team_members as $index => $member):
+            $gradClass = "bg-grad-" . ($index % 4);
+        ?>
+        <div class="wave-card animate-on-scroll" style="animation-delay: <?= $index * 100 ?>ms;">
+          <div class="wave-card__inner">
+            <img src="<?= clean_output($member['image_path']) ?>" alt="<?= clean_output($member['name']) ?>" class="wave-card__full-img">
+            <div class="wave-card__overlay"></div>
+
+            <div class="wave-card__bottom <?= $gradClass ?>">
+              <!-- Name and Role pinned above the wave -->
+              <div class="wave-card__info">
+                <h3 class="wave-card__title"><?= clean_output($member['name']) ?></h3>
+                <p class="wave-card__role-top"><?= clean_output($member['role']) ?></p>
+              </div>
+
+              <!-- SVG Wave shape -->
+              <svg class="wave-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                <path fill="currentColor" fill-opacity="1" d="M0,128L48,144C96,160,192,192,288,181.3C384,171,480,117,576,117.3C672,117,768,171,864,192C960,213,1056,203,1152,176C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+              </svg>
+              
+              <div class="wave-card__content">
+                <p class="wave-card__desc"><?= nl2br(clean_output($member['description'])) ?></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const teamSlider = document.getElementById('teamSlider');
+    const teamPrev = document.getElementById('teamPrev');
+    const teamNext = document.getElementById('teamNext');
+
+    if(teamSlider && teamPrev && teamNext) {
+      teamPrev.addEventListener('click', () => {
+        const cardWidth = teamSlider.querySelector('.wave-card').offsetWidth + 32; // width + gap
+        teamSlider.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+      });
+
+      teamNext.addEventListener('click', () => {
+        const cardWidth = teamSlider.querySelector('.wave-card').offsetWidth + 32; // width + gap
+        teamSlider.scrollBy({ left: cardWidth, behavior: 'smooth' });
+      });
+    }
+  });
+</script>
+
+  <!-- Partnerships Section -->
+  <section class="section partnerships-section" style="background: #ffffff; padding: 4rem 0;">
+    <div class="container">
+      <div class="section__header animate-on-scroll" style="text-align: center; margin-bottom: 3.5rem;">
+        <span class="section__tag">Collaborate With Us</span>
+        <h2 class="section__title">Partner with <span>Bluestone</span></h2>
+        <p class="section__subtitle" style="margin: 0.5rem auto 0; max-width: 700px;">Explore diverse opportunities to collaborate and grow together in the global education ecosystem.</p>
+        <div class="accent-bar" style="margin: 1rem auto 0;"></div>
+      </div>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+        <!-- Partners Card -->
+        <div class="partner-card animate-on-scroll" style="background: white; border-radius: 20px; padding: 2.5rem; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease;">
+          <div style="width: 60px; height: 60px; border-radius: 15px; background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);">
+            <i class="fa-solid fa-handshake"></i>
+          </div>
+          <h3 style="font-size: 1.5rem; color: #0f172a; margin-bottom: 1rem; font-weight: 800;">For Partners</h3>
+          <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Work with our team and state-of-the-art resources to experience how they can be a game changer for your business.</p>
+          <a href="contact.php" style="color: #2563eb; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">Know More <i class="fa-solid fa-arrow-right" style="font-size: 0.8rem;"></i></a>
+        </div>
+        
+        <!-- Franchisees Card -->
+        <div class="partner-card animate-on-scroll delay-1" style="background: white; border-radius: 20px; padding: 2.5rem; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease;">
+          <div style="width: 60px; height: 60px; border-radius: 15px; background: linear-gradient(135deg, #f59e0b, #d97706); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 4px 15px rgba(217, 119, 6, 0.3);">
+            <i class="fa-solid fa-store"></i>
+          </div>
+          <h3 style="font-size: 1.5rem; color: #0f172a; margin-bottom: 1rem; font-weight: 800;">For Franchisees</h3>
+          <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Kickstart your business by joining one of the fastest-growing and most trusted brands in the overseas education industry.</p>
+          <a href="contact.php" style="color: #d97706; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">Know More <i class="fa-solid fa-arrow-right" style="font-size: 0.8rem;"></i></a>
+        </div>
+        
+        <!-- Institutions Card -->
+        <div class="partner-card animate-on-scroll delay-2" style="background: white; border-radius: 20px; padding: 2.5rem; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease;">
+          <div style="width: 60px; height: 60px; border-radius: 15px; background: linear-gradient(135deg, #10b981, #059669); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3);">
+            <i class="fa-solid fa-building-columns"></i>
+          </div>
+          <h3 style="font-size: 1.5rem; color: #0f172a; margin-bottom: 1rem; font-weight: 800;">For Institutions</h3>
+          <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Maximize your reach across geographies and exceed your student recruitment goals without compromising on quality.</p>
+          <a href="contact.php" style="color: #059669; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">Know More <i class="fa-solid fa-arrow-right" style="font-size: 0.8rem;"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Offices Section -->
+  <section class="section offices-section" style="background: #f8fafc; padding: 4rem 0;">
+    <div class="container">
+      <div class="section__header animate-on-scroll" style="text-align: center; margin-bottom: 3.5rem;">
+        <span class="section__tag">Global Presence</span>
+        <h2 class="section__title">Our <span>Offices</span></h2>
+      </div>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;">
+        <!-- Office 1 -->
+        <div class="office-card animate-on-scroll" style="background: white; border-radius: 16px; padding: 2rem; border-left: 4px solid #3b82f6; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+          <h4 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">Coimbatore (Head Office)</h4>
+          <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.5;">First Floor, Vignesh Park, Kalingarayan Street, Ram Nagar, Coimbatore - 641009</p>
+          <a href="mailto:info@bluestoneoverseas.com" style="color: #3b82f6; text-decoration: none; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;"><i class="fa-solid fa-envelope"></i> info@bluestoneoverseas.com</a>
+        </div>
+        
+        <!-- Office 2 -->
+        <div class="office-card animate-on-scroll delay-1" style="background: white; border-radius: 16px; padding: 2rem; border-left: 4px solid #f43f5e; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+          <h4 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">Salem</h4>
+          <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.5;">2nd Floor, AB Complex, Omalur Main Road, Salem - 636004</p>
+          <a href="mailto:salem@bluestoneoverseas.com" style="color: #3b82f6; text-decoration: none; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;"><i class="fa-solid fa-envelope"></i> salem@bluestoneoverseas.com</a>
+        </div>
+        
+        <!-- Office 3 -->
+        <div class="office-card animate-on-scroll delay-2" style="background: white; border-radius: 16px; padding: 2rem; border-left: 4px solid #f59e0b; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+          <h4 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">Erode</h4>
+          <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.5;">1st Floor, Perundurai Road, Near Collector Office, Erode - 638011</p>
+          <a href="mailto:erode@bluestoneoverseas.com" style="color: #3b82f6; text-decoration: none; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;"><i class="fa-solid fa-envelope"></i> erode@bluestoneoverseas.com</a>
+        </div>
+        
+        <!-- Office 4 -->
+        <div class="office-card animate-on-scroll delay-3" style="background: white; border-radius: 16px; padding: 2rem; border-left: 4px solid #10b981; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+          <h4 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">International (Nepal)</h4>
+          <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.5;">Kamal Pokhari, Kathmandu 44600, Nepal</p>
+          <a href="mailto:nepal@bluestoneoverseas.com" style="color: #3b82f6; text-decoration: none; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;"><i class="fa-solid fa-envelope"></i> nepal@bluestoneoverseas.com</a>
+        </div>
+      </div>
+      
+      <div style="text-align: center; margin-top: 3rem;">
+        <a href="contact.php" class="btn btn--outline">View All Locations</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Support & Careers Section -->
+  <section class="section support-careers" style="background: #ffffff; padding: 4rem 0;">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+        
+        <!-- Support -->
+        <div class="animate-on-scroll" style="background: linear-gradient(135deg, #1e293b, #0f172a); border-radius: 20px; padding: 3rem 2.5rem; text-align: center; color: white; position: relative; overflow: hidden; box-shadow: 0 15px 30px rgba(0,0,0,0.15);">
+          <div style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: rgba(255,255,255,0.05); border-radius: 50%;"></div>
+          <div style="font-size: 2.5rem; color: #3b82f6; margin-bottom: 1.5rem;"><i class="fa-solid fa-headset"></i></div>
+          <h3 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem;">Support from Expert Team</h3>
+          <p style="color: #94a3b8; line-height: 1.6; margin-bottom: 2rem;">Our Regional Managers and expert team at the head office are just a call/text away, eager to offer solutions your business needs.</p>
+          <a href="contact.php" class="btn btn--primary">Contact Us</a>
+        </div>
+        
+        <!-- Careers -->
+        <div class="animate-on-scroll delay-1" style="background: linear-gradient(135deg, #0ea5e9, #0284c7); border-radius: 20px; padding: 3rem 2.5rem; text-align: center; color: white; position: relative; overflow: hidden; box-shadow: 0 15px 30px rgba(14,165,233,0.3);">
+          <div style="position: absolute; bottom: -50px; left: -50px; width: 150px; height: 150px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
+          <div style="font-size: 2.5rem; color: white; margin-bottom: 1.5rem;"><i class="fa-solid fa-rocket"></i></div>
+          <h3 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem;">Career Opportunities</h3>
+          <p style="color: #e0f2fe; line-height: 1.6; margin-bottom: 2rem;">Join a fast-growing education brand offering endless learning and growth opportunities. Advance your career with us.</p>
+          <a href="contact.php" class="btn btn--white" style="background: white; color: #0284c7;">Explore Careers</a>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
   <!-- CTA Banner -->
   <section class="section" style="padding-top: 2rem;">
     <div class="container animate-on-scroll">
@@ -274,3 +717,4 @@ require_once 'includes/header.php';
   </section>
 </main>
 <?php require_once 'includes/footer.php'; ?>
+

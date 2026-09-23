@@ -1,5 +1,10 @@
 <?php
-$pageTitle = 'UK Education Consultants in Coimbatore | Undergraduate Study in UK';
-$pageDesc = 'Get expert guidance for Undergraduate study in the UK, including course selection, university applications, admission support and help for your study abroad.';
-$pageKeywords = 'UK Education Consultants in Coimbatore, Australia Education Consultants in Coimbatore, New Zealand Education Consultants in Coimbatore, UG Programs Abroad, PG Programs Abroad, Study Abroad Consultants in Coimbatore, IELTS Coaching in Coimbatore, IELTS classes in Coimbatore, Best IELTS Coaching in Coimbatore, IELTS Training in Coimbatore, German language course, Japanese language course, German language classes, Japanese language classes, German Language Course in Coimbatore, Japanese Language Course in Coimbatore, German Language Training Centre in Coimbatore, Japanese Language Training Centre in Coimbatore, Postgraduate study in UK, Postgraduate study in Australia, Postgraduate study in New Zealand, Undergraduate study in Australia, Undergraduate study in UK, Undergraduate study in New Zealand, Postgraduate Study in UK – Coimbatore, Postgraduate Study in Australia – Coimbatore, Undergraduate Study in UK – Coimbatore, Undergraduate Study in Australia – Coimbatore, Postgraduate Study in New Zealand – Coimbatore, Undergraduate Study in New Zealand – Coimbatore';
+$pageTitle = 'Study in UK Consultants in Coimbatore | UK Education Guidance';
+$pageDesc = 'Looking to study in the UK? Bluestone Overseas, the best UK education consultants in Coimbatore, offers guidance for admissions, scholarships and UK student visas.';
+$pageKeywords = 'UK Education Consultants in Coimbatore, Study in UK Consultants in Coimbatore, UK study abroad consultants in Coimbatore, Best UK education consultants in Coimbatore';
+$pageH1 = 'Study in UK Consultants in Coimbatore';
+$seoContent = '
+<p>The UK is a leading destination for Indian students due to its prestigious universities, shorter course durations, and excellent post-study work opportunities. As trusted UK education consultants in Coimbatore, Bluestone Overseas provides expert guidance for students planning to pursue undergraduate and postgraduate programmes in the UK.</p>
+<p>From university selection to visa processing, our experienced counsellors help you navigate the entire UK admission process with ease. We offer personalised assistance for selecting the right course, securing scholarships, and preparing for your student visa interview.</p>
+';
 $country_slug = 'uk'; require_once 'country-template.php'; ?>

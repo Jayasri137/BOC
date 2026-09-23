@@ -174,6 +174,8 @@ $queries = [
           `name` VARCHAR(150) NOT NULL,
           `role` VARCHAR(150) NOT NULL,
           `description` TEXT NOT NULL,
+          `experience` VARCHAR(100) DEFAULT '10+ Years',
+          `linkedin_url` VARCHAR(255) DEFAULT '#',
           `image_path` LONGTEXT NOT NULL,
           `is_active` TINYINT(1) DEFAULT 1,
           `display_order` INT(11) DEFAULT 0,
@@ -260,7 +262,7 @@ if (in_array('services', $tables_created)) {
                 ['fa-university','University Selection','We help identify the best-fit universities across 20+ countries based on your profile and aspirations.','services.php?s=university','purple'],
                 ['fa-file-contract','Admission Processing','Expert application management ensuring all documents are accurate, complete and submitted on time.','services.php?s=admission','orange'],
                 ['fa-hand-holding-dollar','Financial Assistance','Guidance on scholarships, student loans and funding options to make your dream affordable.','services.php?s=financial','teal'],
-                ['fa-passport','Visa Processing','End-to-end visa assistance with a 98% success rate, navigating complex immigration requirements.','services.php?s=visa','pink'],
+                ['fa-passport','Visa Processing','End-to-end visa assistance with a 99% success rate, navigating complex immigration requirements.','services.php?s=visa','pink'],
                 ['fa-house','Accommodation & Travel','We help arrange housing and travel plans so you arrive and settle comfortably in your new country.','services.php?s=accommodation','gold'],
                 ['fa-pen-to-square','Test Preparation','Specialised coaching for IELTS, TOEFL and PTE to achieve the scores required by top universities.','test-prep.php','blue'],
                 ['fa-briefcase','Part-Time Job Help','Guidance on finding legal part-time work opportunities abroad to support yourself financially.','services.php?s=jobs','purple']
@@ -345,7 +347,7 @@ if (in_array('testimonials', $tables_created)) {
         if ($stmt->fetchColumn() == 0) {
             $testimonials = [
                 ['Sai Raksha Manoharan','MSc in UK','SR','I was confused about which country to choose. Bluestone\'s counsellors patiently guided me and I got into my dream university in the UK. The visa process was smooth and stress-free!',5, 'blue'],
-                ['Ashok Saravanan','MBA in Canada','AS','From shortlisting universities to visa approval, Bluestone was with me at every step. Their 500+ university connections really helped me get a scholarship. Highly recommend!',5, 'purple'],
+                ['Ashok Saravanan','MBA in Canada','AS','From shortlisting universities to visa approval, Bluestone was with me at every step. Their 700+ university connections really helped me get a scholarship. Highly recommend!',5, 'purple'],
                 ['Vinith Babu','B.Tech in Germany','VB','Getting free education in Germany seemed impossible until Bluestone showed me the pathway. They prepared all my documents perfectly and I got my visa in just 3 weeks!',5, 'orange'],
                 ['Priya Krishnamoorthy','MS in USA','PK','Bluestone guided me through GRE prep, application essays and visa. I got into a top-50 US university with a scholarship. Best consultancy in Coimbatore!',5, 'teal'],
                 ['Mohammed Farhan','MBA in Australia','MF','The team at Bluestone is extremely professional and caring. They helped me secure a student loan and arrange accommodation. Truly a one-stop solution!',5, 'pink'],
@@ -381,7 +383,7 @@ if (in_array('hero_slides', $tables_created)) {
         if ($stmt->fetchColumn() == 0) {
             $slides = [
                 ['Biggest Education Fair', 'Scholarships – Attend <span>Bluestone’s Biggest</span> Education Fair', 'USA | UK | Canada | Australia | New Zealand | Germany | Ireland', 'Secure your spot', 'assets/images/img4.png'],
-                ['98% Visa Success', 'Your Dream University is <span>One Step Away</span>', 'Expert guidance from counselling to visa with personalised support across 20+ countries.', 'Book Free Session', 'assets/images/img8.png'],
+                ['99% Visa Success', 'Your Dream University is <span>One Step Away</span>', 'Expert guidance from counselling to visa with personalised support across 20+ countries.', 'Book Free Session', 'assets/images/img8.png'],
                 ['Global Education', 'Access World Class <span>Education Systems</span>', 'Explore thousands of courses with our direct university partnerships worldwide.', 'Explore Courses', 'assets/images/img7.png'],
                 ['PR & Immigration', 'Settle Abroad – Permanent <span>Residency Expert</span>', 'Your gateway to a global future. Expert PR guidance for Canada, Australia, and more.', 'Check Eligibility', 'assets/images/img2.png'],
                 ['Jobs & Visas', 'Global Jobs, PR & <span>Visitor Visas</span>', 'Job assistance for all countries. Permanent Resident (PR) pathways for Australia & Canada. Visitor visa services also available.', 'Get Started Today', 'assets/images/img5.png']
@@ -661,7 +663,7 @@ if (in_array('team_members', $tables_created)) {
                 ['Mr.Saravanan', 'Director – Placements & Career Services', 'Decades of industry engagement and professional expertise have shaped a leadership approach centered on student success and career transformation. With extensive experience in placements, recruitment, and employer relations, Saravanan has built lasting partnerships that connect academic talent with meaningful career opportunities.\r\nHis deep understanding of industry expectations, combined with a strong network of employers and recruiters, enables students to transition confidently into the professional world. Through strategic placement initiatives, career guidance, and unwavering commitment to employability, he continues to create pathways for thousands of aspiring professionals to achieve their career ambitions.', 'assets/images/team_placeholder.jpg', 5]
             ];
             
-            $insert = $pdo->prepare("INSERT INTO team_members (name, role, description, image_path, display_order, is_active) VALUES (?, ?, ?, ?, ?, 1)");
+            $insert = $pdo->prepare("INSERT INTO team_members (name, role, description, image_path, display_order, experience, linkedin_url, is_active) VALUES (?, ?, ?, ?, ?, '10+ Years', '#', 1)");
             foreach ($members as $m) {
                 $insert->execute($m);
             }

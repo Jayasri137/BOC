@@ -1,7 +1,7 @@
 <?php
 // admin/hero_slides.php - Hero Sliders CRUD Editor with Local Image Upload Support
 $pageTitle = 'Hero Banner Manager';
-require_once 'includes/header.php';
+require_once __DIR__ . '/includes/header.php';
 
 $alertSuccess = '';
 $alertError = '';
@@ -158,6 +158,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     }
+    
+    // 4. TOGGLE SLIDE STATUS (AJAX)
+    elseif ($action === 'toggle') {
+        $id = isset($_POST['slide_id']) ? intval($_POST['slide_id']) : 0;
+        $status = isset($_POST['status']) ? intval($_POST['status']) : 0;
+        if ($id > 0) {
+            $stmt = $pdo->prepare("UPDATE hero_slides SET is_active = :status WHERE id = :id");
+            $stmt->execute(['status' => $status, 'id' => $id]);
+            exit('success');
+        }
+        exit('error');
+    }
 }
 
 // Fetch all slides with pagination
@@ -232,8 +244,11 @@ try {
             $image_path = clean_output($slide['image_path']);
         ?>
             <div class="crud-card <?php echo $isActive ? 'crud-card-active' : 'crud-card-inactive'; ?>">
-                <div class="crud-card-badge-icon">
-                    <i class="fa-solid <?php echo $isActive ? 'fa-check' : 'fa-eye-slash'; ?>"></i>
+                <div class="crud-card-badge-icon" style="background: none; box-shadow: none; width: auto; height: auto;">
+                    <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px; margin:0;">
+                        <input type="checkbox" onchange="toggleSlide(<?php echo $slide['id']; ?>, this.checked)" <?php echo $isActive ? 'checked' : ''; ?> style="opacity: 0; width: 0; height: 0;">
+                        <span class="slider round" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;"></span>
+                    </label>
                 </div>
                 
                 <div style="height: 140px; background: #e0f2fe; border-radius: 12px; margin-bottom: 1rem; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center;">
@@ -402,6 +417,28 @@ function triggerDeleteSlide(id, name) {
 function closeDeleteModal() {
     document.getElementById('deleteModal').classList.remove('active');
 }
-</script>
 
-<?php require_once 'includes/footer.php'; ?>
+function toggleSlide(id, isChecked) {
+    var status = isChecked ? 1 : 0;
+    fetch('hero_slides.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'action=toggle&slide_id=' + id + '&status=' + status
+    }).then(r => r.text()).then(res => {
+        if(res === 'success') {
+            window.location.reload();
+        } else {
+            alert('Error toggling status');
+            window.location.reload();
+        }
+    });
+}
+</script>
+<style>
+.switch input:checked + .slider { background-color: #10b981; }
+.switch input:focus + .slider { box-shadow: 0 0 1px #10b981; }
+.switch input:checked + .slider:before { transform: translateX(20px); }
+.slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+</style>
+
+<?php require_once __DIR__ . '/includes/footer.php'; ?>

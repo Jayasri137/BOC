@@ -1,7 +1,7 @@
 <?php
 // admin/universities.php - University & Course Catalog CRUD Editor
 $pageTitle = 'Universities & Courses';
-require_once 'includes/header.php'; // handles session and pdo load
+require_once __DIR__ . '/includes/header.php'; // handles session and pdo load
 
 $alertSuccess = '';
 $alertError = '';
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $image_url = null;
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = '../assets/images/universities/';
+            $uploadDir = __DIR__ . '/../assets/images/universities/';
             if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
             $fileName = time() . '_' . basename($_FILES['image']['name']);
             if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadDir . $fileName)) {
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ];
 
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = '../assets/images/universities/';
+            $uploadDir = __DIR__ . '/../assets/images/universities/';
             if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
             $fileName = time() . '_' . basename($_FILES['image']['name']);
             if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadDir . $fileName)) {
@@ -1063,4 +1063,4 @@ function autoFetchCourses(uniId, uniName, btn) {
 }
 </script>
 
-<?php require_once 'includes/footer.php'; ?>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>

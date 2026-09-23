@@ -1,0 +1,1 @@
+<?php require 'includes/db.php'; $stmt = $pdo->query('SELECT country_id, COUNT(*) as c FROM universities GROUP BY country_id'); $res = $stmt->fetchAll(); foreach($res as $r) echo $r['country_id'] . ': ' . $r['c'] . ', ';

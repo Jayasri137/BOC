@@ -1,13 +1,41 @@
 <?php
 require_once 'includes/config.php';
 $pageTitle = 'Free Study Abroad Counselling in Coimbatore | Bluestone Overseas';
-$pageDesc = 'Receive expert counselling on universities, courses, scholarships, and student visas.';
+$pageDesc = 'Get free study abroad counselling in Coimbatore. Talk to expert overseas education consultants for country selection, university admissions, scholarships and student visa guidance.';
+$pageKeywords = 'Free study abroad counselling in Coimbatore, Overseas education counselling Coimbatore, Study abroad guidance in Coimbatore';
 $pageHeroImage = 'assets/images/SC.png';
 require_once 'includes/header.php';
 ?>
 
 <main>
-    <!-- HERO SECTION -->
+    <!-- SEO HEADER SECTION -->
+    <section class="section" style="background: #f8fafc; padding-top: 3rem; padding-bottom: 2rem;">
+        <div class="container">
+            <div class="text-center animate-on-scroll">
+                <h1 class="section__title" style="margin-bottom: 1.5rem; font-size: 2.5rem; color: #0d315c;">Free Study Abroad Counselling in Coimbatore</h1>
+                <div class="seo-content" style="max-width: 800px; margin: 0 auto; text-align: left; color: #475569; font-size: 1.1rem; line-height: 1.6;">
+                    <p style="font-weight: 500; color: #0d315c;">Planning to study abroad but unsure where to begin?</p>
+                    <p>Bluestone Overseas provides free study abroad counselling in Coimbatore for students who want expert guidance about international education opportunities.</p>
+                    <p>During your counselling session, our experienced overseas education consultants help you understand:</p>
+                    <ul style="list-style-type: disc; padding-left: 20px; margin-bottom: 1rem;">
+                        <li>Which country is suitable for your profile</li>
+                        <li>Which course matches your career goals</li>
+                        <li>Suitable universities</li>
+                        <li>Tuition fees and living expenses</li>
+                        <li>Scholarship opportunities</li>
+                        <li>Education loan options</li>
+                        <li>English language test requirements</li>
+                        <li>Student visa requirements</li>
+                        <li>Post-study career opportunities</li>
+                    </ul>
+                    <p>Our personalised counselling process helps students make informed decisions before applying to universities abroad.</p>
+                    <p>Whether you are planning for a Bachelor's, Master's, MBA, Diploma or other higher education programmes, our counsellors can guide you through the next steps.</p>
+                    <p style="font-weight: bold; text-align: center; margin-top: 2rem;">Book your free study abroad counselling session in Coimbatore today.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- 8 STEPS JOURNEY -->
     <section class="section" style="background: #fff;">
         <div class="container">

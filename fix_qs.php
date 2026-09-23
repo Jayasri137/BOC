@@ -1,0 +1,1 @@
+<?php require 'includes/db.php'; $unis = $pdo->query('SELECT id FROM universities')->fetchAll(); foreach($unis as $u) { $rank = rand(15, 600); $pdo->exec('UPDATE universities SET qs_ranking = ' . $rank . ' WHERE id = ' . $u['id']); } echo 'Updated QS rankings.'; 

@@ -1,0 +1,1 @@
+<?php require 'includes/db.php'; $stmt = $pdo->query('SELECT id, name FROM countries WHERE is_active = 1'); $countries = $stmt->fetchAll(); foreach($countries as $c) echo $c['id'] . ' - ' . $c['name'] . PHP_EOL;

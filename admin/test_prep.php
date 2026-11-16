@@ -249,9 +249,7 @@ try {
             $image_path = clean_output($prep['image_path'] ?? '');
         ?>
             <div class="crud-card <?php echo $isActive ? 'crud-card-active' : 'crud-card-inactive'; ?>">
-                <div class="crud-card-badge-icon">
-                    <i class="fa-solid <?php echo $isActive ? 'fa-check' : 'fa-eye-slash'; ?>"></i>
-                </div>
+                <?php echo render_admin_active_toggle('test_preps', $prep['id'], $isActive, $prep['name']); ?>
                 
                 <div style="height: 140px; background: #e2e8f0; border-radius: 12px; margin-bottom: 1rem; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border);">
                     <?php if (!empty($image_path)): ?>

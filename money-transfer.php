@@ -9,27 +9,18 @@ require_once 'includes/header.php';
 
     <section class="section" style="background:white">
         <div class="container">
-            <!-- Destination Filter -->
-            <div class="filter-card animate-on-scroll" style="margin-bottom: 4rem; background: #655dd1ff; padding: 2rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #f1f5f9;">
-                <form action="" method="GET" class="grid grid--2 gap--2 align-center" style="grid-template-columns: 1fr auto;">
-                    <div>
-                        <h3 style="margin: 0; font-size: 1.25rem; color: white;">Compare exchange rates and fee payment options for your destination.</h3>
-                    </div>
-                    <div style="display: flex; gap: 1rem;">
-                        <select name="destination" class="form-control" style="min-width: 250px; padding: 0.75rem 1rem; border-radius: 10px; border: 1px solid #e2e8f0;" onchange="this.form.submit()">
-                            <option value="">All Destinations</option>
-                            <?php
-                            $countries = $pdo->query("SELECT name FROM countries ORDER BY name ASC")->fetchAll();
-                            $selectedDest = $_GET['destination'] ?? '';
-                            foreach ($countries as $c):
-                            ?>
-                                <option value="<?= clean_output($c['name']) ?>" <?= $selectedDest == $c['name'] ? 'selected' : '' ?>><?= clean_output($c['name']) ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <button type="submit" class="btn btn--primary">Filter</button>
-                    </div>
-                </form>
-            </div>
+            <?php
+            $partnerStmt = $pdo->prepare("
+                SELECT *
+                FROM essential_partners
+                WHERE category = 'forex' AND is_active = 1
+                ORDER BY country_name, partner_name
+            ");
+            $partnerStmt->execute();
+            $allPartners = $partnerStmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $partners = $allPartners;
+            ?>
 
             <div class="grid grid--2 gap--4 align-center animate-on-scroll" style="margin-bottom: 4rem;">
         <div>
@@ -47,21 +38,8 @@ require_once 'includes/header.php';
 
       <div class="grid grid--2 gap--4">
         <?php
-        $query = "SELECT * FROM essential_partners WHERE category = 'forex' AND is_active = 1 AND (partner_name LIKE '%WSFx%' OR partner_name LIKE '%EBIXCASH%')";
-        $params = [];
-        if ($selectedDest) {
-            $query .= " AND (country_name = ? OR country_name = 'Global')";
-            $params[] = $selectedDest;
-        }
-        $stmt = $pdo->prepare($query);
-        $stmt->execute($params);
-        $partners = $stmt->fetchAll();
-        $partners = array_values(array_filter($partners, function ($p) {
-            return !is_hidden_partner($p);
-        }));
-
         foreach ($partners as $p):
-            $features = explode(',', $p['features']);
+            $features = array_filter(array_map('trim', explode(',', (string) ($p['features'] ?? ''))));
         ?>
           <div class="service-card" style="padding: 2.5rem; background: #fff; border-radius: 20px; border: 1px solid #f1f5f9; box-shadow: 0 10px 30px rgba(0,0,0,0.03); display: flex; flex-direction: column; gap: 1.5rem;">
             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
@@ -92,7 +70,13 @@ require_once 'includes/header.php';
             </div>
           </div>
         <?php endforeach; ?>
-      </div>
+        <?php if (!$partners): ?>
+          <div class="service-card" style="grid-column: 1 / -1; padding: 2rem; text-align: center;">
+            <h3 style="margin-bottom: 0.5rem;">No transfer partners listed yet</h3>
+            <p style="color: var(--gray);">Contact our team for help with international tuition fee payments and money transfers.</p>
+            <a href="enquiry.php" class="btn btn--primary" style="margin-top: 1rem;">Enquire now</a>
+          </div>
+        <?php endif; ?>
       </div>
         </div>
     </section>
@@ -112,21 +96,6 @@ require_once 'includes/header.php';
                         <div style="font-size: 3rem; color: #16a34a; margin-bottom: 1.5rem;"><i class="fa-solid fa-vault"></i></div>
                         <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Lowest Rate Guarantee</h3>
                         <p style="color: var(--gray); font-size: 0.9rem;">We compare rates across multiple providers to ensure you get more currency for your Rupee.</p>
-                        <div style="margin-top: 2rem; display: flex; flex-direction: column; gap: 0.75rem;">
-                            <div style="background: #fff; padding: 1rem; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #f1f5f9;">
-                                <span style="font-weight: 700;">USD</span>
-                                <span style="color: #16a34a; font-weight: 800;">₹ 83.45*</span>
-                            </div>
-                            <div style="background: #fff; padding: 1rem; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #f1f5f9;">
-                                <span style="font-weight: 700;">GBP</span>
-                                <span style="color: #16a34a; font-weight: 800;">₹ 105.12*</span>
-                            </div>
-                            <div style="background: #fff; padding: 1rem; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #f1f5f9;">
-                                <span style="font-weight: 700;">EUR</span>
-                                <span style="color: #16a34a; font-weight: 800;">₹ 90.88*</span>
-                            </div>
-                        </div>
-                        <small style="display: block; margin-top: 1rem; color: var(--gray);">*Rates shown are for illustration only.</small>
                     </div>
                 </div>
             </div>

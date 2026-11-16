@@ -21,7 +21,10 @@ $firstName = isset($input['first_name']) ? trim($input['first_name']) : '';
 $lastName = isset($input['last_name']) ? trim($input['last_name']) : '';
 $email = isset($input['email']) ? trim($input['email']) : '';
 $phone = isset($input['phone']) ? trim($input['phone']) : '';
-$destination = isset($input['destination']) ? trim($input['destination']) : '';
+$city = isset($input['city']) ? trim($input['city']) : '';
+$destination = isset($input['study_destination'])
+    ? trim($input['study_destination'])
+    : (isset($input['destination']) ? trim($input['destination']) : '');
 
 if (empty($firstName) || empty($email) || empty($phone)) {
     echo json_encode(['success' => false, 'error' => 'Required fields (First Name, Email, Phone) are missing.']);
@@ -87,6 +90,9 @@ try {
         $fundingMode = isset($input['funding_mode']) ? trim($input['funding_mode']) : '';
         
         $remarks = "Preferred Level: " . $studyLevel . "\nCounselling Mode: " . $counsellingMode . "\nFunding: " . $fundingMode;
+        if (!empty($city)) {
+            $remarks .= "\nCity: " . $city;
+        }
         if (!empty($startDate)) {
             $remarks .= "\nPreferred Intake: " . $startDate;
         }

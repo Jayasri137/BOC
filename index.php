@@ -485,6 +485,7 @@ require_once 'includes/header.php';
 </section>
 <!-- TRUST NUMBERS -->
 <style>
+/* === TRUST NUMBERS — Desktop: flex row | Mobile: scrolling ticker === */
 .trust-numbers-flex {
   display: flex;
   justify-content: center;
@@ -527,29 +528,74 @@ require_once 'includes/header.php';
   margin-top: 0.2rem;
   letter-spacing: 0.5px;
 }
-@media (max-width: 768px) {
-  .trust-numbers-flex {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .stat-item {
-    flex: 0 0 calc(33.333% - 1rem);
-    min-width: 120px;
-  }
+
+/* Ticker wrapper (hidden on desktop, visible on mobile) */
+.stat-ticker-wrapper {
+  display: none;
 }
-@media (max-width: 480px) {
+
+/* ── Mobile ticker ── */
+@media (max-width: 768px) {
+  /* Hide the default flex grid on mobile */
   .trust-numbers-flex {
-    gap: 0.4rem;
+    display: none !important;
   }
-  .stat-item {
-    padding: 0.75rem 0.25rem;
-    border-radius: 8px;
+
+  /* Show the ticker wrapper */
+  .stat-ticker-wrapper {
+    display: block;
   }
-  .stat-item p {
-    font-size: 0.7rem;
+
+  /* Animate the inner track */
+  .stat-ticker-track {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    width: max-content;
+    animation: statTickerScroll 18s linear infinite;
   }
-  .stat-item h3 {
+  .stat-ticker-track:hover,
+  .stat-ticker-track:active {
+    animation-play-state: paused;
+  }
+
+  .stat-ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.25rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .stat-ticker-item .stat-ticker-num {
     font-size: 1.25rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1;
+  }
+
+  .stat-ticker-item .stat-ticker-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1;
+  }
+
+  .stat-ticker-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    flex-shrink: 0;
+    margin: 0 0.25rem;
+  }
+
+  @keyframes statTickerScroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
 }
 </style>
@@ -575,6 +621,64 @@ require_once 'includes/header.php';
       <div class="stat-item" data-aos="fade-up" data-aos-delay="700">
         <h3 class="counter-value" data-target="99" data-suffix="%">0</h3>
         <p>Visa Success</p>
+      </div>
+    </div>
+
+    <!-- Mobile scrolling ticker (hidden on desktop, shown on mobile via CSS) -->
+    <div class="stat-ticker-wrapper" style="overflow: hidden;">
+      <div class="stat-ticker-track">
+        <!-- Set 1 -->
+        <div class="stat-ticker-item">
+          <span class="stat-ticker-num">10,000+</span>
+          <span class="stat-ticker-label">Students</span>
+        </div>
+        <div class="stat-ticker-dot"></div>
+        <div class="stat-ticker-item">
+          <span class="stat-ticker-num">700+</span>
+          <span class="stat-ticker-label">Partners</span>
+        </div>
+        <div class="stat-ticker-dot"></div>
+        <div class="stat-ticker-item">
+          <span class="stat-ticker-num">25+</span>
+          <span class="stat-ticker-label">Countries</span>
+        </div>
+        <div class="stat-ticker-dot"></div>
+        <div class="stat-ticker-item">
+          <span class="stat-ticker-num">2015</span>
+          <span class="stat-ticker-label">Since</span>
+        </div>
+        <div class="stat-ticker-dot"></div>
+        <div class="stat-ticker-item">
+          <span class="stat-ticker-num">99%</span>
+          <span class="stat-ticker-label">Visa Success</span>
+        </div>
+        <div class="stat-ticker-dot"></div>
+        <!-- Set 2 (duplicate for seamless loop) -->
+        <div class="stat-ticker-item">
+          <span class="stat-ticker-num">10,000+</span>
+          <span class="stat-ticker-label">Students</span>
+        </div>
+        <div class="stat-ticker-dot"></div>
+        <div class="stat-ticker-item">
+          <span class="stat-ticker-num">700+</span>
+          <span class="stat-ticker-label">Partners</span>
+        </div>
+        <div class="stat-ticker-dot"></div>
+        <div class="stat-ticker-item">
+          <span class="stat-ticker-num">25+</span>
+          <span class="stat-ticker-label">Countries</span>
+        </div>
+        <div class="stat-ticker-dot"></div>
+        <div class="stat-ticker-item">
+          <span class="stat-ticker-num">2015</span>
+          <span class="stat-ticker-label">Since</span>
+        </div>
+        <div class="stat-ticker-dot"></div>
+        <div class="stat-ticker-item">
+          <span class="stat-ticker-num">99%</span>
+          <span class="stat-ticker-label">Visa Success</span>
+        </div>
+        <div class="stat-ticker-dot"></div>
       </div>
     </div>
   </div>
@@ -1842,7 +1946,7 @@ As one of the leading study abroad consultants in Coimbatore, we assist students
 <!-- STUDENT ESSENTIALS SERVICES (PINK CONTAINER) -->
 <section class="section student-essentials" style="background: #ffffff; padding: 4rem 0;">
   <div class="container">
-    <div style="background: #db2777; border-radius: 30px; padding: 4rem; position: relative; overflow: hidden; box-shadow: 0 20px 40px rgba(219, 39, 119, 0.25);">
+    <div class="ess-pink-container" style="background: #db2777; border-radius: 30px; padding: 4rem; position: relative; overflow: hidden; box-shadow: 0 20px 40px rgba(219, 39, 119, 0.25);">
       
       <!-- Decorative blob background shapes -->
       <div style="position: absolute; top: -50px; right: -50px; width: 300px; height: 300px; background: rgba(255,255,255,0.1); border-radius: 50%; filter: blur(20px); pointer-events: none;"></div>
@@ -1855,7 +1959,7 @@ As one of the leading study abroad consultants in Coimbatore, we assist students
           <p style="color: rgba(255,255,255,0.9); font-size: 1.1rem; max-width: 600px; margin: 1rem auto 0;">Essential services to help you settle in, manage your finances, and thrive in your new study destination.</p>
         </div>
         
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
+        <div class="ess-cards-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
           
           <!-- Education loan -->
           <div class="ess-card-pink animate-on-scroll">
@@ -1992,6 +2096,54 @@ As one of the leading study abroad consultants in Coimbatore, we assist students
           }
           .ess-card-pink:hover .ess-content a i {
             transform: translateX(5px);
+          }
+          /* Responsive fixes for Student Essentials */
+          @media (max-width: 768px) {
+            .ess-pink-container {
+              padding: 2rem 1.25rem !important;
+              border-radius: 20px !important;
+            }
+            .ess-pink-container .section__title {
+              font-size: 2rem !important;
+            }
+            .ess-cards-grid {
+              grid-template-columns: 1fr !important;
+              gap: 1rem !important;
+            }
+            .ess-card-pink {
+              padding: 1.5rem !important;
+              gap: 1rem !important;
+            }
+          }
+          @media (max-width: 480px) {
+            .ess-pink-container {
+              padding: 1.5rem 1rem !important;
+              border-radius: 16px !important;
+            }
+            .ess-pink-container .section__header {
+              margin-bottom: 2rem !important;
+            }
+            .ess-pink-container .section__title {
+              font-size: 1.6rem !important;
+            }
+            .ess-card-pink {
+              padding: 1.25rem !important;
+              gap: 0.75rem !important;
+              border-radius: 12px !important;
+            }
+            .ess-card-pink .ess-icon-wrapper {
+              width: 48px !important;
+              height: 48px !important;
+              font-size: 1.4rem !important;
+              border-radius: 10px !important;
+            }
+            .ess-card-pink .ess-content h3 {
+              font-size: 1.1rem !important;
+            }
+            .ess-card-pink .ess-content p {
+              font-size: 0.875rem !important;
+              margin-bottom: 1rem !important;
+            }
           }
         </style>
       </div>
@@ -2899,7 +3051,6 @@ document.addEventListener('DOMContentLoaded', () => {
     startAutoPlay();
 });
 </script>
-
 </main>
 <?php require_once 'includes/footer.php'; ?>
 

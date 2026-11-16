@@ -240,9 +240,7 @@ try {
             $image_path = clean_output($art['image_path'] ?? '');
         ?>
             <div class="crud-card <?php echo $isActive ? 'crud-card-active' : 'crud-card-inactive'; ?>">
-                <div class="crud-card-badge-icon">
-                    <i class="fa-solid <?php echo $isActive ? 'fa-check' : 'fa-eye-slash'; ?>"></i>
-                </div>
+                <?php echo render_admin_active_toggle('news_articles', $art['id'], $isActive, $art['title']); ?>
                 
                 <div style="height: 120px; background: var(--bg-hover); border-radius: 12px; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); overflow: hidden; position: relative;">
                     <?php if (!empty($image_path)): ?>

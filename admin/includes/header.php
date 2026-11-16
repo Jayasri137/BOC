@@ -2,6 +2,7 @@
 // admin/includes/header.php - Main Layout Header & Sidebar for Admin Panel
 require_once __DIR__ . '/../../includes/config.php';
 require_once __DIR__ . '/auth.php';
+require_once __DIR__ . '/active_toggle.php';
 
 // Secure the page
 check_auth();
@@ -30,12 +31,42 @@ $initials = strtoupper(substr($initials, 0, 2));
     <!-- FontAwesome & Outfit Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Main Style -->
-    <link rel="stylesheet" href="css/admin-style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="css/admin-style.css?v=<?php echo filemtime(__DIR__ . '/../css/admin-style.css'); ?>">
     <script>
         // Toggle mobile sidebar
         function toggleSidebar() {
             document.querySelector('.app-sidebar').classList.toggle('active');
         }
+
+        document.addEventListener('change', function (event) {
+            var toggle = event.target;
+            if (!toggle.matches('.admin-active-toggle')) return;
+
+            var requestedStatus = toggle.checked ? '1' : '0';
+            toggle.disabled = true;
+            fetch('toggle_active.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({
+                    entity: toggle.dataset.entity,
+                    id: toggle.dataset.id,
+                    status: requestedStatus
+                })
+            })
+                .then(function (response) {
+                    return response.json().then(function (result) {
+                        if (!response.ok || !result.success) {
+                            throw new Error(result.message || 'Could not update the active status.');
+                        }
+                        window.location.reload();
+                    });
+                })
+                .catch(function (error) {
+                    toggle.checked = !toggle.checked;
+                    toggle.disabled = false;
+                    alert(error.message);
+                });
+        });
     </script>
     <style>
         .menu-accordion { border-radius: var(--radius-sm); margin-bottom: 0.25rem; overflow: hidden; }
@@ -85,6 +116,38 @@ $initials = strtoupper(substr($initials, 0, 2));
             <a href="leads.php" class="menu-item <?php echo $currentPage === 'leads.php' ? 'active' : ''; ?>">
                 <i class="fa-solid fa-users-line"></i>
                 <span>Leads CRM</span>
+            </a>
+            
+            <div class="menu-label">Mobile App & Admissions</div>
+
+            <a href="students.php" class="menu-item <?php echo $currentPage === 'students.php' ? 'active' : ''; ?>">
+                <i class="fa-solid fa-user-graduate"></i>
+                <span>Students & Registrations</span>
+            </a>
+
+            <a href="student_documents.php" class="menu-item <?php echo $currentPage === 'student_documents.php' ? 'active' : ''; ?>">
+                <i class="fa-solid fa-folder-closed"></i>
+                <span>Student Document Locker</span>
+            </a>
+
+            <a href="app_masters.php" class="menu-item <?php echo ($currentPage === 'app_masters.php' && !in_array($_GET['tab'] ?? '', ['visa', 'push'])) ? 'active' : ''; ?>">
+                <i class="fa-solid fa-sliders"></i>
+                <span>Degrees & Intakes Master</span>
+            </a>
+
+            <a href="app_masters.php?tab=push" class="menu-item <?php echo ($currentPage === 'app_masters.php' && ($_GET['tab'] ?? '') === 'push') ? 'active' : ''; ?>">
+                <i class="fa-solid fa-bell"></i>
+                <span>Push Notifications (FCM)</span>
+            </a>
+
+            <a href="app_masters.php?tab=visa" class="menu-item <?php echo ($currentPage === 'app_masters.php' && ($_GET['tab'] ?? '') === 'visa') ? 'active' : ''; ?>">
+                <i class="fa-solid fa-passport"></i>
+                <span>Visa & Travel Assistant</span>
+            </a>
+
+            <a href="scholarships.php" class="menu-item <?php echo $currentPage === 'scholarships.php' ? 'active' : ''; ?>">
+                <i class="fa-solid fa-award"></i>
+                <span>Global Scholarships</span>
             </a>
             
             <div class="menu-label">Web Content Cards</div>
@@ -221,6 +284,33 @@ $initials = strtoupper(substr($initials, 0, 2));
             <a href="team_members.php" class="menu-item <?php echo $currentPage === 'team_members.php' ? 'active' : ''; ?>">
                 <i class="fa-solid fa-users"></i>
                 <span>Team Members</span>
+            </a>
+
+            <div class="menu-label">Community App</div>
+            
+            <a href="community_posts.php" class="menu-item <?php echo $currentPage === 'community_posts.php' ? 'active' : ''; ?>">
+                <i class="fa-solid fa-users"></i>
+                <span>Community Posts</span>
+            </a>
+
+            <a href="community_dreamwall.php" class="menu-item <?php echo $currentPage === 'community_dreamwall.php' ? 'active' : ''; ?>">
+                <i class="fa-solid fa-award"></i>
+                <span>Dreamwall Review</span>
+            </a>
+            
+            <a href="community_groups.php" class="menu-item <?php echo $currentPage === 'community_groups.php' ? 'active' : ''; ?>">
+                <i class="fa-solid fa-user-group"></i>
+                <span>Manage Groups</span>
+            </a>
+
+            <a href="community_reports.php" class="menu-item <?php echo $currentPage === 'community_reports.php' ? 'active' : ''; ?>">
+                <i class="fa-solid fa-shield-heart"></i>
+                <span>Student Reports</span>
+            </a>
+            
+            <a href="community_users.php" class="menu-item <?php echo $currentPage === 'community_users.php' ? 'active' : ''; ?>">
+                <i class="fa-solid fa-id-card-clip"></i>
+                <span>Community Users</span>
             </a>
 
             <div class="menu-label">System Control</div>

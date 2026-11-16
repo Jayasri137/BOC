@@ -1,6 +1,6 @@
 <?php if (!defined('SITE_NAME')) require_once __DIR__ . '/config.php'; ?>
 <!-- Footer -->
-<<style>
+<style>
 .footer-redesign {
     background-color: #e6edf7;
     color: #475569;
@@ -162,7 +162,7 @@
       <!-- Brand Column -->
       <div class="footer-brand">
         <a href="index.php" style="display: block; margin-bottom: 0;">
-          <img src="assets/images/Logo_old.png" alt="Bluestone Overseas Consultants" style="width: 250px; height: auto; margin-top: -60px; margin-bottom: -45px; margin-left: -15px;">
+          <img src="assets/images/Logo_old.png" alt="Bluestone Overseas Consultants" loading="lazy" decoding="async" style="width: 250px; height: auto; margin-top: -60px; margin-bottom: -45px; margin-left: -15px;">
         </a>
         
         <div class="footer-address-box" style="margin-bottom: 2rem; padding: 0; background: transparent; box-shadow: none; align-items: flex-start; gap: 1rem;">
@@ -254,6 +254,7 @@
   </div>
 </footer>
 
+<?php if (!isset($hide_floating_widgets) || !$hide_floating_widgets): ?>
 <!-- WhatsApp Floating Button -->
 <a href="https://wa.me/919342899904" class="wa-float" target="_blank" aria-label="Chat on WhatsApp">
   <i class="fa-brands fa-whatsapp"></i>
@@ -264,6 +265,7 @@
 <button class="back-to-top" id="backToTop" aria-label="Back to top">
   <i class="fa-solid fa-chevron-up"></i>
 </button>
+<?php endif; ?>
 
 <!-- Overlay for mobile menu -->
 <div class="nav-overlay" id="navOverlay"></div>
@@ -279,6 +281,16 @@
   }
 </script>
 <script src="assets/js/main.js?v=<?= filemtime(__DIR__ . '/../assets/js/main.js') ?>"></script>
+<script>
+  (function () {
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon('track-visit.php', '');
+      return;
+    }
+    fetch('track-visit.php', { method: 'POST', credentials: 'same-origin', keepalive: true })
+      .catch(function () {});
+  })();
+</script>
 <?= $extraJS ?? '' ?>
 </body>
 </html>

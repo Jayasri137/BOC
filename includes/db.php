@@ -13,6 +13,7 @@ try {
         PDO::ATTR_EMULATE_PREPARES   => false,
     ]);
 } catch (PDOException $e) {
-    // Expose exact error message and stack trace for debugging
-    die("Database connection failed inside db.php: " . $e->getMessage() . "\n\nStack Trace:\n" . $e->getTraceAsString());
+    error_log('Website database connection failed: ' . $e->getMessage());
+    http_response_code(503);
+    exit('The website is temporarily unavailable. Please try again shortly.');
 }

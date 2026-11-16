@@ -214,9 +214,7 @@ try {
             $image_path = clean_output($item['image_path']);
         ?>
             <div class="crud-card <?php echo $isActive ? 'crud-card-active' : 'crud-card-inactive'; ?>">
-                <div class="crud-card-badge-icon">
-                    <i class="fa-solid <?php echo $isActive ? 'fa-check' : 'fa-eye-slash'; ?>"></i>
-                </div>
+                <?php echo render_admin_active_toggle('gallery_items', $item['id'], $isActive, $item['title']); ?>
                 
                 <div style="height: 140px; background: #e0f2fe; border-radius: 12px; margin-bottom: 1rem; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center;">
                     <?php if (!empty($image_path)): ?>

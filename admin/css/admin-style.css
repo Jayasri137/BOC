@@ -559,6 +559,17 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; outl
 }
 .crud-card-inactive .crud-card-badge-icon { background: var(--text-muted); }
 
+.admin-active-toggle-wrap { display:flex; align-items:center; justify-content:flex-end; gap:0.5rem; margin-bottom:0.75rem; }
+.admin-active-switch { position:relative; display:inline-block; width:44px; height:24px; flex:0 0 auto; }
+.admin-active-switch input { width:0; height:0; opacity:0; }
+.admin-active-slider { position:absolute; inset:0; cursor:pointer; background:#cbd5e1; border-radius:24px; transition:background-color 0.2s ease; }
+.admin-active-slider::before { position:absolute; content:""; width:18px; height:18px; left:3px; bottom:3px; border-radius:50%; background:#fff; transition:transform 0.2s ease; }
+.admin-active-switch input:checked + .admin-active-slider { background:#10b981; }
+.admin-active-switch input:checked + .admin-active-slider::before { transform:translateX(20px); }
+.admin-active-switch input:focus-visible + .admin-active-slider { outline:3px solid rgba(16,185,129,0.3); outline-offset:2px; }
+.admin-active-label { color:var(--text-secondary); font-size:0.8rem; font-weight:600; }
+.course-table .admin-active-toggle-wrap { justify-content:center; margin-bottom:0; }
+
 .crud-card-header { display:flex; align-items:center; gap:0.9rem; margin-bottom:0.9rem; }
 .crud-card-icon { width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem; }
 .crud-card-title { font-size:1rem; font-weight:700; color: var(--text-primary); }

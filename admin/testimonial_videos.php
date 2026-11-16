@@ -213,9 +213,7 @@ try {
             $is_local = (strpos($yt_url, 'uploads/') === 0);
         ?>
             <div class="crud-card <?php echo $isActive ? 'crud-card-active' : 'crud-card-inactive'; ?>">
-                <div class="crud-card-badge-icon">
-                    <i class="fa-solid <?php echo $isActive ? 'fa-check' : 'fa-eye-slash'; ?>"></i>
-                </div>
+                <?php echo render_admin_active_toggle('testimonial_videos', $v['id'], $isActive, $v['student_name']); ?>
                 
                 <div style="height: 140px; background: #0f172a; border-radius: 12px; margin-bottom: 1rem; overflow: hidden; position: relative; border: 1px solid var(--border);">
                     <?php if ($is_local): ?>

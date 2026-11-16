@@ -94,10 +94,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Fetch all popups
 $popups = [];
 try {
-    $stmt = $pdo->query("SELECT * FROM site_popup ORDER BY id DESC");
+    $totalCount = intval($pdo->query("SELECT COUNT(*) FROM site_popup")->fetchColumn());
+    $pagination = get_pagination_params($totalCount);
+    $limit = $pagination['limit'];
+    $page = $pagination['page'];
+    $totalPages = $pagination['totalPages'];
+    $stmt = $pdo->prepare("SELECT * FROM site_popup ORDER BY id DESC LIMIT :limit OFFSET :offset");
+    $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+    $stmt->bindValue(':offset', $pagination['offset'], PDO::PARAM_INT);
+    $stmt->execute();
     $popups = $stmt->fetchAll();
 } catch (PDOException $e) {
     $alertError = 'Could not fetch popups: ' . $e->getMessage();
+    $limit = 10;
+    $page = 1;
+    $totalPages = 1;
 }
 ?>
 
@@ -126,6 +137,8 @@ try {
     </div>
 <?php endif; ?>
 
+<?php echo render_limit_dropdown($limit); ?>
+
 <?php if (empty($popups)): ?>
     <div class="panel-card" style="text-align: center; padding: 5rem 2rem; color: var(--text-secondary);">
         <i class="fa-regular fa-image" style="font-size: 3rem; margin-bottom: 1.5rem; color: var(--text-muted);"></i>
@@ -140,9 +153,7 @@ try {
             $link_url = clean_output($popup['link_url']);
         ?>
             <div class="crud-card <?php echo $isActive ? 'crud-card-active' : 'crud-card-inactive'; ?>">
-                <div class="crud-card-badge-icon">
-                    <i class="fa-solid <?php echo $isActive ? 'fa-check' : 'fa-eye-slash'; ?>"></i>
-                </div>
+                <?php echo render_admin_active_toggle('site_popup', $popup['id'], $isActive, 'site popup ' . $popup['id']); ?>
                 
                 <div style="height: 250px; background: #e0f2fe; border-radius: 12px; margin-bottom: 1rem; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center;">
                     <?php if (!empty($image_path)): ?>
@@ -176,6 +187,7 @@ try {
             </div>
         <?php endforeach; ?>
     </div>
+    <?php echo render_pagination_buttons($page, $totalPages, ['limit' => $limit]); ?>
 <?php endif; ?>
 
 <!-- 1. ADD / EDIT DIALOG MODAL -->

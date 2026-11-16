@@ -2,6 +2,7 @@
 // admin/leads.php - CRM Lead and Enquiry Manager
 $pageTitle = 'Leads CRM';
 require_once __DIR__ . '/includes/header.php'; // automatically validates sessions and loads PDO
+require_once __DIR__ . '/../includes/crm_db.php';
 
 $alertSuccess = '';
 $alertError = '';
@@ -21,18 +22,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $remarks = isset($_POST['remarks']) ? trim($_POST['remarks']) : '';
             $interested_in = isset($_POST['interested_in']) ? trim($_POST['interested_in']) : '';
             
+            // App Status Fields
+            $assigned_to_name = isset($_POST['assigned_to_name']) ? trim($_POST['assigned_to_name']) : '';
+            $passport_no = isset($_POST['passport_no']) ? trim($_POST['passport_no']) : '';
+            $university_student_id = isset($_POST['university_student_id']) ? trim($_POST['university_student_id']) : '';
+            $university_name = isset($_POST['university_name']) ? trim($_POST['university_name']) : '';
+            $course_name = isset($_POST['course_name']) ? trim($_POST['course_name']) : '';
+            $primary_status = isset($_POST['primary_status']) ? trim($_POST['primary_status']) : '';
+
             if ($leadId <= 0) {
                 $alertError = 'Invalid Lead ID specified.';
             } else {
                 try {
-                    $stmt = $pdo->prepare("
+                    $crmPdo = get_central_crm_pdo();
+                    $stmt = $crmPdo->prepare("
                         UPDATE leads 
                         SET status = :status, 
                             payment_status = :payment_status, 
                             total_fees = :total_fees, 
                             paid_amount = :paid_amount, 
                             remarks = :remarks,
-                            interested_in = :interested_in
+                            interested_in = :interested_in,
+                            assigned_to_name = :assigned_to_name,
+                            passport_no = :passport_no,
+                            university_student_id = :university_student_id,
+                            university_name = :university_name,
+                            course_name = :course_name,
+                            primary_status = :primary_status
                         WHERE id = :id
                     ");
                     $stmt->execute([
@@ -42,6 +58,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         'paid_amount' => $paid_amount,
                         'remarks' => $remarks,
                         'interested_in' => $interested_in,
+                        'assigned_to_name' => $assigned_to_name,
+                        'passport_no' => $passport_no,
+                        'university_student_id' => $university_student_id,
+                        'university_name' => $university_name,
+                        'course_name' => $course_name,
+                        'primary_status' => $primary_status,
                         'id' => $leadId
                     ]);
                     $alertSuccess = 'Lead updated successfully!';
@@ -58,8 +80,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $alertError = 'Invalid Lead ID specified for deletion.';
             } else {
                 try {
+                    $crmPdo = get_central_crm_pdo();
                     // Hard delete for simple admin console management
-                    $stmt = $pdo->prepare("DELETE FROM leads WHERE id = :id");
+                    $stmt = $crmPdo->prepare("DELETE FROM leads WHERE id = :id");
                     $stmt->execute(['id' => $leadId]);
                     $alertSuccess = 'Lead deleted successfully!';
                 } catch (PDOException $e) {
@@ -101,8 +124,9 @@ if (!empty($sourceFilter)) {
 $whereSQL = implode(" AND ", $whereClauses);
 
 try {
+    $crmPdo = get_central_crm_pdo();
     // Get total rows count for pagination
-    $countStmt = $pdo->prepare("SELECT COUNT(*) FROM leads WHERE $whereSQL");
+    $countStmt = $crmPdo->prepare("SELECT COUNT(*) FROM leads WHERE $whereSQL");
     $countStmt->execute($params);
     $totalRows = $countStmt->fetchColumn();
     
@@ -115,9 +139,9 @@ try {
     
     // Get paginated leads
     if ($limit === 999999) {
-        $leadsStmt = $pdo->prepare("SELECT * FROM leads WHERE $whereSQL ORDER BY created_at DESC, id DESC");
+        $leadsStmt = $crmPdo->prepare("SELECT * FROM leads WHERE $whereSQL ORDER BY created_at DESC, id DESC");
     } else {
-        $leadsStmt = $pdo->prepare("SELECT * FROM leads WHERE $whereSQL ORDER BY created_at DESC, id DESC LIMIT :limit OFFSET :offset");
+        $leadsStmt = $crmPdo->prepare("SELECT * FROM leads WHERE $whereSQL ORDER BY created_at DESC, id DESC LIMIT :limit OFFSET :offset");
     }
     
     // Bind dynamic filter parameters
@@ -233,6 +257,7 @@ try {
                         <th>Code</th>
                         <th>Student Details</th>
                         <th>Interest</th>
+                        <th>Remarks</th>
                         <th>Financials</th>
                         <th>Status</th>
                         <th>Submitted At</th>
@@ -262,6 +287,19 @@ try {
                             <td>
                                 <strong style="display: block; font-size: 0.88rem;"><?php echo clean_output($lead['interested_in'] ?: 'Overseas'); ?></strong>
                                 <span style="font-size: 0.75rem; color: var(--text-muted);"><?php echo clean_output($lead['source']); ?></span>
+                            </td>
+                            <td style="max-width: 240px;">
+                                <?php
+                                    $remarkText = trim((string) ($lead['remarks'] ?? ''));
+                                    $remarkPreview = $remarkText === '' ? '' : (preg_split('/\R/', $remarkText, 2)[0] ?? $remarkText);
+                                ?>
+                                <?php if ($remarkPreview !== ''): ?>
+                                    <span title="<?php echo clean_output($remarkText); ?>" style="display: block; max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.82rem;">
+                                        <?php echo clean_output($remarkPreview); ?>
+                                    </span>
+                                <?php else: ?>
+                                    <span style="color: var(--text-muted); font-size: 0.82rem;">No remarks</span>
+                                <?php endif; ?>
                             </td>
                             <td>
                                 <?php if (floatval($lead['total_fees']) > 0): ?>
@@ -352,6 +390,39 @@ echo render_pagination_buttons($page, $totalPages, [
                 <div class="form-group">
                     <label for="edit_interested_in" class="form-label">Interested Destination / Program</label>
                     <input type="text" name="interested_in" id="edit_interested_in" class="form-control" placeholder="e.g., Study in Canada">
+                </div>
+
+                <div class="detail-grid" style="margin-bottom: 1.25rem;">
+                    <div class="form-group">
+                        <label for="edit_assigned_to_name" class="form-label">Assigned Counselor</label>
+                        <input type="text" name="assigned_to_name" id="edit_assigned_to_name" class="form-control" placeholder="e.g., Mega V">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_primary_status" class="form-label">Primary Status</label>
+                        <input type="text" name="primary_status" id="edit_primary_status" class="form-control" placeholder="e.g., Enrolled">
+                    </div>
+                </div>
+
+                <div class="detail-grid" style="margin-bottom: 1.25rem;">
+                    <div class="form-group">
+                        <label for="edit_university_name" class="form-label">University Name</label>
+                        <input type="text" name="university_name" id="edit_university_name" class="form-control" placeholder="e.g., Coventry">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_course_name" class="form-label">Course Name</label>
+                        <input type="text" name="course_name" id="edit_course_name" class="form-control" placeholder="e.g., Nursing">
+                    </div>
+                </div>
+
+                <div class="detail-grid" style="margin-bottom: 1.25rem;">
+                    <div class="form-group">
+                        <label for="edit_passport_no" class="form-label">Passport No</label>
+                        <input type="text" name="passport_no" id="edit_passport_no" class="form-control" placeholder="e.g., A1234567">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_university_student_id" class="form-label">Student ID</label>
+                        <input type="text" name="university_student_id" id="edit_university_student_id" class="form-control" placeholder="e.g., ST-9988">
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -447,6 +518,14 @@ function openLeadModal(lead) {
     document.getElementById('edit_paid_amount').value = lead.paid_amount || 0.00;
     document.getElementById('edit_payment_status').value = lead.payment_status || 'Pending payment';
     document.getElementById('edit_remarks').value = lead.remarks || '';
+
+    // Application Fields
+    document.getElementById('edit_assigned_to_name').value = lead.assigned_to_name || '';
+    document.getElementById('edit_primary_status').value = lead.primary_status || '';
+    document.getElementById('edit_university_name').value = lead.university_name || '';
+    document.getElementById('edit_course_name').value = lead.course_name || '';
+    document.getElementById('edit_passport_no').value = lead.passport_no || '';
+    document.getElementById('edit_university_student_id').value = lead.university_student_id || '';
     
     document.getElementById('leadModal').classList.add('active');
 }

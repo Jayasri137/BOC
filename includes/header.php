@@ -104,7 +104,7 @@ if (!isset($pageDesc) || empty(trim($pageDesc))) {
 $globalAnnouncements = [];
 try {
     if (isset($pdo)) {
-        $stmtAnn = $pdo->prepare("SELECT * FROM announcements WHERE is_active = 1 ORDER BY id DESC");
+        $stmtAnn = $pdo->prepare("SELECT `text`, `link` FROM announcements WHERE is_active = 1 ORDER BY id DESC");
         $stmtAnn->execute();
         $globalAnnouncements = $stmtAnn->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -114,7 +114,7 @@ try {
 $globalCountries = [];
 try {
     if (isset($pdo)) {
-        $stmtC = $pdo->prepare("SELECT * FROM countries WHERE is_active = 1 ORDER BY name ASC");
+        $stmtC = $pdo->prepare("SELECT `slug`, `name` FROM countries WHERE is_active = 1 ORDER BY name ASC");
         $stmtC->execute();
         $globalCountries = $stmtC->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -133,20 +133,11 @@ try {
 
     /* Google Analytics GA4 */
     gtag('config', 'G-29NKH1H779');
+    gtag('config', 'G-PZF0HBPB7K');
 
     /* Google Ads */
     gtag('config', 'AW-17065954362');
     gtag('config', 'AW-16603743701');
-  </script>
-
-  <!-- Google tag (gtag.js) for EO purpose -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PZF0HBPB7K"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-PZF0HBPB7K');
   </script>
 
   <!-- Facebook Pixel Code -->
@@ -217,6 +208,9 @@ try {
   <!-- Fonts & Icons Preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.14.0/css/flag-icons.min.css">
@@ -362,6 +356,26 @@ try {
       .announcement-banner { flex-direction: column; text-align: center; gap: 0.5rem; padding: 0.8rem; }
       .banner-btn, .banner-badge { display: none !important; }
       .marquee-content { animation: marquee 15s linear infinite; }
+
+      /* Bigger logo on mobile */
+      .navbar__logo-img {
+        height: 160px !important;
+      }
+
+      /* Smaller Join Bluestone button on mobile */
+      .nav-join-btn {
+        padding: 0.25rem 0.7rem !important;
+        font-size: 0.75rem !important;
+        gap: 0.25rem !important;
+      }
+      .nav-join-btn i {
+        font-size: 0.7rem;
+      }
+
+      /* Hide consultation button on mobile navbar (available in slide menu) */
+      #consultBtn {
+        display: none !important;
+      }
     }
   </style>
   <?= $extraCSS ?? '' ?>

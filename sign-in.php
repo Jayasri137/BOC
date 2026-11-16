@@ -1,5 +1,102 @@
 <?php
+session_start();
+
+// Session timeout: 30 minutes of inactivity
+$sessionTimeout = 1800;
+if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity']) > $sessionTimeout) {
+    session_unset();
+    session_destroy();
+    session_start();
+}
+$_SESSION['last_activity'] = time();
+
 require_once 'includes/config.php';
+
+$error = '';
+
+// Generate CSRF token if not present
+if (empty($_SESSION['login_csrf_token'])) {
+    $_SESSION['login_csrf_token'] = bin2hex(random_bytes(32));
+}
+$loginCsrfToken = $_SESSION['login_csrf_token'];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // CSRF validation
+    if (
+        !isset($_POST['csrf_token']) ||
+        !is_string($_POST['csrf_token']) ||
+        !hash_equals($_SESSION['login_csrf_token'] ?? '', $_POST['csrf_token'])
+    ) {
+        $error = "Your session expired. Please refresh the page and try again.";
+    } else {
+        $email = trim($_POST['email'] ?? '');
+        $password = $_POST['password'] ?? '';
+        $clientIp = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
+
+        if (empty($email) || empty($password)) {
+            $error = "Please enter email and password.";
+        } else {
+            // Rate limiting: max 10 attempts per 15 minutes per IP
+            $rateLimited = false;
+            try {
+                $rateStmt = $pdo->prepare("SELECT COUNT(*) FROM login_attempts WHERE ip_address = ? AND attempted_at > DATE_SUB(NOW(), INTERVAL 15 MINUTE)");
+                $rateStmt->execute([$clientIp]);
+                if ((int) $rateStmt->fetchColumn() >= 10) {
+                    $rateLimited = true;
+                    $error = "Too many login attempts. Please wait 15 minutes before trying again.";
+                }
+            } catch (PDOException $e) {
+                // If table doesn't exist yet, skip rate limiting
+                error_log('Login rate limit check failed: ' . $e->getMessage());
+            }
+
+            if (!$rateLimited) {
+                // Log this attempt
+                try {
+                    $logStmt = $pdo->prepare("INSERT INTO login_attempts (ip_address, email) VALUES (?, ?)");
+                    $logStmt->execute([$clientIp, $email]);
+                } catch (PDOException $e) {
+                    // Non-critical
+                }
+
+                $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
+                $stmt->execute([$email]);
+                $user = $stmt->fetch();
+
+                if ($user && password_verify($password, $user['password'])) {
+                    // Regenerate session ID to prevent session fixation
+                    session_regenerate_id(true);
+
+                    $_SESSION['user_id'] = $user['id'];
+                    $_SESSION['user_name'] = $user['first_name'] . ' ' . $user['last_name'];
+                    $_SESSION['user_role'] = $user['role'];
+                    $_SESSION['user_email'] = $user['email'];
+                    $_SESSION['user_phone'] = $user['phone'];
+                    $_SESSION['last_activity'] = time();
+
+                    // Clean up old login attempts for this IP on success
+                    try {
+                        $pdo->prepare("DELETE FROM login_attempts WHERE ip_address = ? AND attempted_at < DATE_SUB(NOW(), INTERVAL 15 MINUTE)")->execute([$clientIp]);
+                    } catch (PDOException $e) {}
+                    
+                    if ($user['role'] === 'admin') {
+                        header("Location: admin/index.php");
+                    } else {
+                        header("Location: student-dashboard.php");
+                    }
+                    exit;
+                } else {
+                    $error = "Invalid email or password.";
+                }
+            }
+        }
+    }
+
+    // Regenerate CSRF token after each attempt
+    $_SESSION['login_csrf_token'] = bin2hex(random_bytes(32));
+    $loginCsrfToken = $_SESSION['login_csrf_token'];
+}
+
 $pageTitle = 'Sign In - Bluestone Circle';
 require_once 'includes/header.php';
 ?>
@@ -186,19 +283,24 @@ require_once 'includes/header.php';
             <h1 class="auth-title">Sign in</h1>
             <p class="auth-subtitle">Welcome back! Please enter your details.</p>
             
-            <form action="#" method="POST">
+            <?php if($error): ?>
+                <div style="background:#fee2e2;color:#dc2626;padding:1rem;border-radius:8px;margin-bottom:1rem;"><?= htmlspecialchars($error) ?></div>
+            <?php endif; ?>
+            
+            <form action="sign-in.php" method="POST">
+                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($loginCsrfToken) ?>">
                 <div class="auth-form-group">
                     <label>Email</label>
-                    <input type="email" class="auth-input" placeholder="Enter your email" required>
+                    <input type="email" name="email" class="auth-input" placeholder="Enter your email" required>
                 </div>
                 
                 <div class="auth-form-group">
                     <label>Password</label>
                     <div class="password-wrap">
-                        <input type="password" class="auth-input" placeholder="Enter your password" required>
+                        <input type="password" name="password" class="auth-input" placeholder="Enter your password" required>
                         <i class="fa-regular fa-eye-slash password-toggle"></i>
                     </div>
-                    <a href="#" class="auth-forgot">Forgot password?</a>
+                    <a href="forgot-password.php" class="auth-forgot">Forgot password?</a>
                 </div>
                 
                 <button type="submit" class="auth-btn">Sign in</button>
@@ -210,5 +312,25 @@ require_once 'includes/header.php';
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const togglePasswords = document.querySelectorAll('.password-toggle');
+    togglePasswords.forEach(function(icon) {
+        icon.addEventListener('click', function() {
+            const input = this.previousElementSibling;
+            if (input.type === 'password') {
+                input.type = 'text';
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+            } else {
+                input.type = 'password';
+                this.classList.remove('fa-eye');
+                this.classList.add('fa-eye-slash');
+            }
+        });
+    });
+});
+</script>
 
 <?php require_once 'includes/footer.php'; ?>

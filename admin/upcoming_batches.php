@@ -74,8 +74,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     }
+
+    // 3. TOGGLE BATCH STATUS
+    elseif ($action === 'toggle') {
+        $id = isset($_POST['batch_id']) ? intval($_POST['batch_id']) : 0;
+        $is_active = isset($_POST['is_active']) ? filter_var($_POST['is_active'], FILTER_VALIDATE_INT) : false;
+
+        if ($id <= 0 || !in_array($is_active, [0, 1], true)) {
+            $alertError = 'Invalid batch status update.';
+        } else {
+            try {
+                $stmt = $pdo->prepare("UPDATE upcoming_batches SET is_active = :is_active WHERE id = :id");
+                $stmt->execute(['is_active' => $is_active, 'id' => $id]);
+                if ($stmt->rowCount() === 0) {
+                    $exists = $pdo->prepare("SELECT 1 FROM upcoming_batches WHERE id = :id");
+                    $exists->execute(['id' => $id]);
+                    if (!$exists->fetchColumn()) {
+                        $alertError = 'Batch not found.';
+                    }
+                }
+                if ($alertError === '') {
+                    $alertSuccess = 'Batch status updated successfully.';
+                }
+            } catch (PDOException $e) {
+                $alertError = 'Failed to update batch status: ' . $e->getMessage();
+            }
+        }
+    }
     
-    // 3. DELETE BATCH
+    // 4. DELETE BATCH
     elseif ($action === 'delete') {
         $id = isset($_POST['batch_id']) ? intval($_POST['batch_id']) : 0;
         if ($id > 0) {
@@ -91,23 +118,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // --- FETCH ALL BATCHES FOR DISPLAY ---
-$limit = 50; 
-$page = isset($_GET['p']) ? max(1, intval($_GET['p'])) : 1;
-$offset = ($page - 1) * $limit;
-
 try {
     $countQuery = $pdo->query("SELECT COUNT(*) FROM upcoming_batches");
-    $total_records = $countQuery->fetchColumn();
-    $total_pages = ceil($total_records / $limit);
+    $totalRecords = intval($countQuery->fetchColumn());
+    $pagination = get_pagination_params($totalRecords);
+    $limit = $pagination['limit'];
+    $page = $pagination['page'];
+    $totalPages = $pagination['totalPages'];
 
     $stmt = $pdo->prepare("SELECT * FROM upcoming_batches ORDER BY id DESC LIMIT :limit OFFSET :offset");
     $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+    $stmt->bindValue(':offset', $pagination['offset'], PDO::PARAM_INT);
     $stmt->execute();
     $batches = $stmt->fetchAll();
 } catch (PDOException $e) {
     $batches = [];
-    $total_pages = 1;
+    $limit = 10;
+    $page = 1;
+    $totalPages = 1;
 }
 
 $courses = [
@@ -145,6 +173,8 @@ $courses = [
             <i class="fa-solid fa-circle-exclamation"></i> <?php echo $alertError; ?>
         </div>
     <?php endif; ?>
+
+    <?php echo render_limit_dropdown($limit); ?>
 
     <!-- Data Display Area -->
     <?php if (empty($batches)): ?>
@@ -192,11 +222,20 @@ $courses = [
                                 </span>
                             </td>
                             <td style="padding: 1rem; text-align: center; border-bottom: 1px solid var(--border);">
-                                <?php if ($isActive): ?>
-                                    <span style="color: #10b981;"><i class="fa-solid fa-check"></i></span>
-                                <?php else: ?>
-                                    <span style="color: #64748b;"><i class="fa-solid fa-xmark"></i></span>
-                                <?php endif; ?>
+                                <form method="POST" action="upcoming_batches.php?page=<?php echo $page; ?>&amp;limit=<?php echo $limit === 999999 ? 'all' : $limit; ?>" class="batch-status-form">
+                                    <input type="hidden" name="action" value="toggle">
+                                    <input type="hidden" name="batch_id" value="<?php echo intval($b['id']); ?>">
+                                    <input type="hidden" name="is_active" value="<?php echo $isActive ? '0' : '1'; ?>">
+                                    <label class="batch-status-switch">
+                                        <input type="checkbox"
+                                               onchange="this.form.elements.is_active.value = this.checked ? '1' : '0'; this.form.submit();"
+                                               <?php echo $isActive ? 'checked' : ''; ?>
+                                               aria-label="<?php echo $isActive ? 'Deactivate' : 'Activate'; ?> <?php echo clean_output($courseName . ' batch starting ' . $b['start_date']); ?>"
+                                               aria-checked="<?php echo $isActive ? 'true' : 'false'; ?>">
+                                        <span class="batch-status-slider"></span>
+                                    </label>
+                                    <span class="batch-status-label"><?php echo $isActive ? 'Active' : 'Inactive'; ?></span>
+                                </form>
                             </td>
                             <td style="padding: 1rem; text-align: right; border-bottom: 1px solid var(--border);">
                                 <button class="btn-action action-edit" style="width: 32px; height: 32px; border-radius: 6px; background: rgba(59,130,246,0.1); color: #3b82f6; border: none; cursor: pointer; margin-right: 0.5rem;" title="Edit Batch" onclick="openEditModal(<?php echo htmlspecialchars(json_encode($b)); ?>)">
@@ -212,14 +251,8 @@ $courses = [
             </table>
         </div>
 
-        <?php if ($total_pages > 1): ?>
-        <div class="pagination" style="margin-top: 2rem; display: flex; justify-content: center; gap: 0.5rem;">
-            <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                <a href="?p=<?php echo $i; ?>" class="btn <?php echo $i === $page ? 'btn-primary' : 'btn-outline'; ?>" style="padding: 0.5rem 1rem;"><?php echo $i; ?></a>
-            <?php endfor; ?>
-        </div>
-        <?php endif; ?>
     <?php endif; ?>
+    <?php echo render_pagination_buttons($page, $totalPages, ['limit' => $limit]); ?>
 
 </div>
 
@@ -294,6 +327,35 @@ $courses = [
         </div>
     </form>
 </div>
+
+<style>
+.batch-status-form { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; }
+.batch-status-switch { position: relative; display: inline-block; width: 44px; height: 24px; flex: 0 0 auto; }
+.batch-status-switch input { width: 0; height: 0; opacity: 0; }
+.batch-status-slider {
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+    background: #cbd5e1;
+    border-radius: 24px;
+    transition: background-color 0.2s ease;
+}
+.batch-status-slider::before {
+    position: absolute;
+    content: "";
+    width: 18px;
+    height: 18px;
+    left: 3px;
+    bottom: 3px;
+    border-radius: 50%;
+    background: #fff;
+    transition: transform 0.2s ease;
+}
+.batch-status-switch input:checked + .batch-status-slider { background: #10b981; }
+.batch-status-switch input:checked + .batch-status-slider::before { transform: translateX(20px); }
+.batch-status-switch input:focus-visible + .batch-status-slider { outline: 3px solid rgba(16, 185, 129, 0.3); outline-offset: 2px; }
+.batch-status-label { color: var(--text-secondary); font-size: 0.8rem; font-weight: 600; }
+</style>
 
 <!-- Hidden form for deleting -->
 <form id="deleteForm" action="upcoming_batches.php" method="POST" style="display:none;">

@@ -168,7 +168,7 @@ require_once 'includes/header.php';
                 </li>
                 <li class="legal-list-item">
                   <i class="fa-solid fa-circle-check"></i>
-                  <span><strong>Website Analytics Data:</strong> IP addresses, browser types, cookies, session durations, and general browsing behavior on our platform.</span>
+                  <span><strong>Website Analytics Data:</strong> Browser and cookie information and general browsing behavior. Our own visit counter uses a random first-party cookie to count daily unique browsers and page views; it does not store your IP address or page history.</span>
                 </li>
               </ul>
             </div>
@@ -264,7 +264,7 @@ require_once 'includes/header.php';
               6. Cookies Policy
             </h3>
             <div class="legal-content">
-              <p>Our website utilizes cookies to recognize your browser, remember critical preferences, and analyze visitor traffic patterns. This helps us customize and enhance your overall browsing experience. If you prefer, you can modify your web browser settings to block or decline cookies; however, some sections of the website may not function optimally as a result.</p>
+              <p>Our website utilizes cookies to recognize your browser, remember critical preferences, and analyze visitor traffic patterns. The first-party cookie used for our visit counter is a random identifier stored for up to one year; it is used only to distinguish a browser when counting daily unique visitors and page views. We do not use this counter to store your IP address or browsing history. Third-party analytics providers may use their own cookies. If you prefer, you can modify your browser settings to block or decline cookies; the visit counter will then count visits without reliably identifying returning browsers.</p>
             </div>
           </div>
 

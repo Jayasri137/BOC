@@ -175,9 +175,7 @@ try {
                 $icon = clean_output($srv['icon']);
             ?>
                 <div class="crud-card <?php echo $isActive ? 'crud-card-active' : 'crud-card-inactive'; ?>">
-                    <div class="crud-card-badge-icon">
-                        <i class="fa-solid <?php echo $isActive ? 'fa-check' : 'fa-eye-slash'; ?>"></i>
-                    </div>
+                    <?php echo render_admin_active_toggle('services', $srv['id'], $isActive, $srv['title']); ?>
                     
                     <div class="crud-card-header">
                         <div class="crud-card-icon icon-<?php echo $color; ?>">

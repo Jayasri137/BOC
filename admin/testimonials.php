@@ -198,9 +198,7 @@ try {
                 $name = clean_output($t['name']);
             ?>
                 <div class="crud-card <?php echo $isActive ? 'crud-card-active' : 'crud-card-inactive'; ?>">
-                    <div class="crud-card-badge-icon">
-                        <i class="fa-solid <?php echo $isActive ? 'fa-check' : 'fa-eye-slash'; ?>"></i>
-                    </div>
+                    <?php echo render_admin_active_toggle('testimonials', $t['id'], $isActive, $t['name']); ?>
                     
                     <div class="crud-card-header">
                         <div class="user-avatar user-avatar--<?php echo $color; ?>" style="width: 48px; height: 48px; font-weight: 700;">

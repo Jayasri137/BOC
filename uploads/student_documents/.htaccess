@@ -1,0 +1,8 @@
+# Deny direct access to uploaded student documents
+# They should only be served through a PHP script with auth checks
+
+<FilesMatch ".*">
+    # Allow access only to PHP files (if any are placed here)
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>

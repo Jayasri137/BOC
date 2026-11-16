@@ -1,1 +1,4 @@
-<?php require 'includes/db.php'; print_r(\->query('SHOW COLUMNS FROM team_members')->fetchAll(PDO::FETCH_ASSOC));
+<?php
+require 'includes/config.php';
+$stmt = $pdo->query('DESCRIBE leads');
+print_r($stmt->fetchAll(PDO::FETCH_ASSOC));

@@ -108,8 +108,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     }
+
+    // 3. TOGGLE TEAM MEMBER STATUS
+    elseif ($action === 'toggle') {
+        $id = isset($_POST['member_id']) ? intval($_POST['member_id']) : 0;
+        $status = isset($_POST['status']) ? filter_var($_POST['status'], FILTER_VALIDATE_INT) : false;
+        if ($id <= 0 || !in_array($status, [0, 1], true)) {
+            $alertError = 'Invalid team member status update.';
+        } else {
+            try {
+                $stmt = $pdo->prepare("UPDATE team_members SET is_active = :status WHERE id = :id");
+                $stmt->execute(['status' => $status, 'id' => $id]);
+                if ($stmt->rowCount() === 0) {
+                    $exists = $pdo->prepare("SELECT 1 FROM team_members WHERE id = :id");
+                    $exists->execute(['id' => $id]);
+                    if (!$exists->fetchColumn()) {
+                        $alertError = 'Team member not found.';
+                    }
+                }
+                if ($alertError === '') {
+                    $alertSuccess = 'Team member status updated successfully.';
+                }
+            } catch (PDOException $e) {
+                $alertError = 'Failed to update team member status: ' . $e->getMessage();
+            }
+        }
+    }
     
-    // 3. DELETE TEAM MEMBER
+    // 4. DELETE TEAM MEMBER
     elseif ($action === 'delete') {
         $id = isset($_POST['member_id']) ? intval($_POST['member_id']) : 0;
         if ($id <= 0) {
@@ -197,8 +223,21 @@ try {
             $isActive = intval($m['is_active']) === 1;
         ?>
             <div class="crud-card <?php echo $isActive ? 'crud-card-active' : 'crud-card-inactive'; ?>">
-                <div class="crud-card-badge-icon">
-                    <i class="fa-solid <?php echo $isActive ? 'fa-check' : 'fa-eye-slash'; ?>"></i>
+                <div class="member-status-control">
+                    <form class="member-status-form" method="POST" action="team_members.php">
+                        <input type="hidden" name="action" value="toggle">
+                        <input type="hidden" name="member_id" value="<?php echo intval($m['id']); ?>">
+                        <input type="hidden" name="status" value="<?php echo $isActive ? '0' : '1'; ?>">
+                        <label class="member-status-switch">
+                            <input type="checkbox"
+                                   onchange="this.form.elements.status.value = this.checked ? '1' : '0'; this.form.submit();"
+                                   <?php echo $isActive ? 'checked' : ''; ?>
+                                   aria-label="<?php echo $isActive ? 'Deactivate' : 'Activate'; ?> <?php echo clean_output($m['name']); ?>"
+                                   aria-checked="<?php echo $isActive ? 'true' : 'false'; ?>">
+                            <span class="member-status-slider"></span>
+                        </label>
+                        <span class="member-status-label"><?php echo $isActive ? 'Active' : 'Inactive'; ?></span>
+                    </form>
                 </div>
                 
                 <div style="height: 180px; background: #0f172a; border-radius: 12px; margin-bottom: 1rem; overflow: hidden; position: relative; border: 1px solid var(--border);">
@@ -383,5 +422,34 @@ function closeDeleteModal() {
     document.getElementById('deleteModal').classList.remove('active');
 }
 </script>
+<style>
+.member-status-control { display: flex; justify-content: flex-end; margin-bottom: 0.75rem; }
+.member-status-form { display: flex; align-items: center; gap: 0.5rem; }
+.member-status-switch { position: relative; display: inline-block; width: 44px; height: 24px; flex: 0 0 auto; }
+.member-status-switch input { width: 0; height: 0; opacity: 0; }
+.member-status-slider {
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+    background: #cbd5e1;
+    border-radius: 24px;
+    transition: background-color 0.2s ease;
+}
+.member-status-slider::before {
+    position: absolute;
+    content: "";
+    width: 18px;
+    height: 18px;
+    left: 3px;
+    bottom: 3px;
+    border-radius: 50%;
+    background: #fff;
+    transition: transform 0.2s ease;
+}
+.member-status-switch input:checked + .member-status-slider { background: #10b981; }
+.member-status-switch input:checked + .member-status-slider::before { transform: translateX(20px); }
+.member-status-switch input:focus-visible + .member-status-slider { outline: 3px solid rgba(16, 185, 129, 0.3); outline-offset: 2px; }
+.member-status-label { color: var(--text-secondary); font-size: 0.75rem; font-weight: 600; }
+</style>
 
 <?php require_once __DIR__ . '/includes/footer.php'; ?>

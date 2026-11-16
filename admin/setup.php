@@ -195,6 +195,167 @@ $queries = [
           `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
           PRIMARY KEY (`id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ",
+    'community_users' => "
+        CREATE TABLE IF NOT EXISTS `community_users` (
+          `id` INT(11) NOT NULL AUTO_INCREMENT,
+          `name` VARCHAR(150) NOT NULL,
+          `avatar_url` VARCHAR(255) DEFAULT NULL,
+          `subtitle` VARCHAR(255) DEFAULT NULL,
+          `destination_tag` VARCHAR(100) DEFAULT NULL,
+          `is_active` TINYINT(1) DEFAULT 1,
+          `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+          PRIMARY KEY (`id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ",
+    'community_groups' => "
+        CREATE TABLE IF NOT EXISTS `community_groups` (
+          `id` INT(11) NOT NULL AUTO_INCREMENT,
+          `name` VARCHAR(150) NOT NULL,
+          `description` TEXT DEFAULT NULL,
+          `image_url` VARCHAR(255) DEFAULT NULL,
+          `is_active` TINYINT(1) DEFAULT 1,
+          `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+          PRIMARY KEY (`id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ",
+    'community_group_members' => "
+        CREATE TABLE IF NOT EXISTS `community_group_members` (
+          `id` INT(11) NOT NULL AUTO_INCREMENT,
+          `group_id` INT(11) NOT NULL,
+          `student_id` INT(11) NOT NULL,
+          `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+          PRIMARY KEY (`id`),
+          UNIQUE KEY `uk_group_student` (`group_id`, `student_id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ",
+    'community_group_messages' => "
+        CREATE TABLE IF NOT EXISTS `community_group_messages` (
+          `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+          `group_id` INT(11) NOT NULL,
+          `user_id` INT(11) NOT NULL,
+          `message` TEXT NOT NULL,
+          `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          PRIMARY KEY (`id`),
+          KEY `idx_group_message` (`group_id`, `id`),
+          KEY `idx_group_message_sender` (`group_id`, `user_id`, `id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ",
+    'student_community_settings' => "
+        CREATE TABLE IF NOT EXISTS `student_community_settings` (
+          `user_id` INT(11) NOT NULL,
+          `discoverable` TINYINT(1) NOT NULL DEFAULT 1,
+          `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+          PRIMARY KEY (`user_id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ",
+    'student_community_connections' => "
+        CREATE TABLE IF NOT EXISTS `student_community_connections` (
+          `id` INT(11) NOT NULL AUTO_INCREMENT,
+          `user_one` INT(11) NOT NULL,
+          `user_two` INT(11) NOT NULL,
+          `requester_id` INT(11) NOT NULL,
+          `recipient_id` INT(11) NOT NULL,
+          `status` ENUM('pending', 'accepted', 'declined', 'blocked') NOT NULL DEFAULT 'pending',
+          `blocked_by` INT(11) DEFAULT NULL,
+          `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+          PRIMARY KEY (`id`),
+          UNIQUE KEY `uk_student_connection_pair` (`user_one`, `user_two`),
+          KEY `idx_student_connection_recipient` (`recipient_id`, `status`, `updated_at`),
+          KEY `idx_student_connection_requester` (`requester_id`, `status`, `updated_at`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ",
+    'student_community_reports' => "
+        CREATE TABLE IF NOT EXISTS `student_community_reports` (
+          `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+          `reporter_id` INT(11) NOT NULL,
+          `reported_user_id` INT(11) NOT NULL,
+          `reason` TEXT NOT NULL,
+          `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          PRIMARY KEY (`id`),
+          KEY `idx_community_report_target` (`reported_user_id`, `created_at`),
+          KEY `idx_community_reporter` (`reporter_id`, `created_at`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ",
+    'student_direct_messages' => "
+        CREATE TABLE IF NOT EXISTS `student_direct_messages` (
+          `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+          `sender_id` INT(11) NOT NULL,
+          `recipient_id` INT(11) NOT NULL,
+          `message` TEXT NOT NULL,
+          `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          PRIMARY KEY (`id`),
+          KEY `idx_direct_message_pair` (`sender_id`, `recipient_id`, `id`),
+          KEY `idx_direct_message_inbox` (`recipient_id`, `sender_id`, `id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ",
+    'community_posts' => "
+        CREATE TABLE IF NOT EXISTS `community_posts` (
+          `id` INT(11) NOT NULL AUTO_INCREMENT,
+          `user_id` INT(11) NOT NULL,
+          `content` TEXT NOT NULL,
+          `media_path` VARCHAR(255) DEFAULT NULL,
+          `avatar_url` VARCHAR(255) DEFAULT NULL,
+          `author_name` VARCHAR(150) DEFAULT NULL,
+          `destination` VARCHAR(150) DEFAULT NULL,
+          `student_created` TINYINT(1) NOT NULL DEFAULT 0,
+          `destination_tag` VARCHAR(100) DEFAULT NULL,
+          `is_active` TINYINT(1) DEFAULT 1,
+          `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+          PRIMARY KEY (`id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ",
+    'community_dreamwall' => "
+        CREATE TABLE IF NOT EXISTS `community_dreamwall` (
+          `id` INT(11) NOT NULL AUTO_INCREMENT,
+          `student_id` INT(11) NOT NULL,
+          `student_name` VARCHAR(150) NOT NULL,
+          `student_avatar` VARCHAR(500) DEFAULT NULL,
+          `title` VARCHAR(255) NOT NULL,
+          `university_name` VARCHAR(255) NOT NULL,
+          `country` VARCHAR(100) NOT NULL,
+          `country_flag` VARCHAR(20) DEFAULT NULL,
+          `milestone_type` VARCHAR(50) NOT NULL,
+          `story` TEXT NOT NULL,
+          `proof_image_url` VARCHAR(1000) DEFAULT NULL,
+          `intake` VARCHAR(100) NOT NULL,
+          `cheer_count` INT(10) UNSIGNED NOT NULL DEFAULT 0,
+          `review_status` ENUM('pending', 'approved', 'rejected') NOT NULL DEFAULT 'pending',
+          `is_active` TINYINT(1) NOT NULL DEFAULT 1,
+          `reviewed_by` VARCHAR(150) DEFAULT NULL,
+          `reviewed_at` DATETIME DEFAULT NULL,
+          `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          PRIMARY KEY (`id`),
+          KEY `idx_dreamwall_review_active_created` (`review_status`, `is_active`, `created_at`),
+          KEY `idx_dreamwall_student` (`student_id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ",
+    'community_dreamwall_cheers' => "
+        CREATE TABLE IF NOT EXISTS `community_dreamwall_cheers` (
+          `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+          `dreamwall_id` INT(11) NOT NULL,
+          `student_id` INT(11) NOT NULL,
+          `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          PRIMARY KEY (`id`),
+          UNIQUE KEY `uk_dreamwall_student_cheer` (`dreamwall_id`, `student_id`),
+          KEY `idx_dreamwall_cheers_student` (`student_id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ",
+    'website_visit_daily' => "
+        CREATE TABLE IF NOT EXISTS `website_visit_daily` (
+          `visit_date` DATE NOT NULL,
+          `page_views` BIGINT UNSIGNED NOT NULL DEFAULT 0,
+          `unique_visitors` BIGINT UNSIGNED NOT NULL DEFAULT 0,
+          PRIMARY KEY (`visit_date`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ",
+    'website_visit_visitors' => "
+        CREATE TABLE IF NOT EXISTS `website_visit_visitors` (
+          `visit_date` DATE NOT NULL,
+          `visitor_hash` CHAR(64) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+          PRIMARY KEY (`visit_date`, `visitor_hash`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
     "
 ];
 
@@ -213,6 +374,106 @@ foreach ($queries as $tableName => $sql) {
             'message' => "Failed to build table '{$tableName}': " . $e->getMessage()
         ];
     }
+}
+
+// Migrate Dreamwall installations created before student submissions required moderation.
+try {
+    $dreamwallColumns = $pdo->query("SHOW COLUMNS FROM community_dreamwall")->fetchAll(PDO::FETCH_COLUMN);
+    $dreamwallMigrations = [
+        'student_id' => 'INT(11) DEFAULT NULL AFTER `id`',
+        'review_status' => "ENUM('pending', 'approved', 'rejected') NOT NULL DEFAULT 'pending' AFTER `cheer_count`",
+        'reviewed_by' => 'VARCHAR(150) DEFAULT NULL',
+        'reviewed_at' => 'DATETIME DEFAULT NULL',
+    ];
+
+    foreach ($dreamwallMigrations as $column => $definition) {
+        if (!in_array($column, $dreamwallColumns, true)) {
+            $pdo->exec("ALTER TABLE community_dreamwall ADD COLUMN `$column` $definition");
+            $dreamwallColumns[] = $column;
+        }
+    }
+
+    if (!in_array('idx_dreamwall_review_active_created', $pdo->query("SHOW INDEX FROM community_dreamwall")->fetchAll(PDO::FETCH_COLUMN, 2), true)) {
+        $pdo->exec('CREATE INDEX idx_dreamwall_review_active_created ON community_dreamwall (review_status, is_active, created_at)');
+    }
+    if (!in_array('idx_dreamwall_student', $pdo->query("SHOW INDEX FROM community_dreamwall")->fetchAll(PDO::FETCH_COLUMN, 2), true)) {
+        $pdo->exec('CREATE INDEX idx_dreamwall_student ON community_dreamwall (student_id)');
+    }
+
+    $pdo->exec("
+        UPDATE community_dreamwall
+        SET review_status = 'approved',
+            reviewed_by = COALESCE(reviewed_by, 'Legacy Dreamwall entry'),
+            reviewed_at = COALESCE(reviewed_at, created_at)
+        WHERE is_active = 1 AND review_status = 'pending'
+    ");
+    $status['community_dreamwall_migration'] = [
+        'success' => true,
+        'message' => 'Dreamwall submission and moderation columns are ready. Previously active milestones remain approved.'
+    ];
+} catch (PDOException $e) {
+    error_log('Dreamwall database migration failed: ' . $e->getMessage());
+    $status['community_dreamwall_migration'] = [
+        'success' => false,
+        'message' => 'Failed to migrate Dreamwall submissions: ' . $e->getMessage()
+    ];
+}
+
+// Keep existing community-post tables compatible with the feed manager.
+try {
+    $communityPostColumns = $pdo->query("SHOW COLUMNS FROM community_posts")->fetchAll(PDO::FETCH_COLUMN);
+    $communityPostMigrations = [
+        'avatar_url' => 'VARCHAR(255) DEFAULT NULL',
+        'author_name' => 'VARCHAR(150) DEFAULT NULL',
+        'destination' => 'VARCHAR(150) DEFAULT NULL',
+        'student_created' => 'TINYINT(1) NOT NULL DEFAULT 0',
+    ];
+    foreach ($communityPostMigrations as $column => $definition) {
+        if (!in_array($column, $communityPostColumns, true)) {
+            $pdo->exec("ALTER TABLE community_posts ADD COLUMN `$column` $definition");
+        }
+    }
+} catch (PDOException $e) {
+    $status['community_posts'] = [
+        'success' => false,
+        'message' => 'Failed to update community posts table: ' . $e->getMessage()
+    ];
+}
+
+try {
+    $pdo->exec("
+        CREATE TABLE IF NOT EXISTS student_crm_links (
+            student_user_id INT(11) NOT NULL,
+            crm_lead_id INT(11) NOT NULL,
+            linked_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            PRIMARY KEY (student_user_id),
+            UNIQUE KEY uq_student_crm_links_lead (crm_lead_id)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    ");
+} catch (PDOException $e) {
+    $status['student_crm_links'] = [
+        'success' => false,
+        'message' => 'Failed to create student-to-CRM links table: ' . $e->getMessage()
+    ];
+}
+
+try {
+    $pdo->exec("
+        CREATE TABLE IF NOT EXISTS student_crm_notification_cursors (
+            student_user_id INT NOT NULL PRIMARY KEY,
+            crm_lead_id INT NOT NULL,
+            last_history_id BIGINT UNSIGNED NOT NULL DEFAULT 0,
+            last_remarks LONGTEXT DEFAULT NULL,
+            last_lead_snapshot LONGTEXT DEFAULT NULL,
+            last_message_snapshot LONGTEXT DEFAULT NULL,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    ");
+} catch (PDOException $e) {
+    $status['student_crm_notification_cursors'] = [
+        'success' => false,
+        'message' => 'Failed to create CRM notification tracking table: ' . $e->getMessage()
+    ];
 }
 
 // 2. Seed default admin if empty

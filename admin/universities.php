@@ -504,6 +504,7 @@ if ($selected_country_id > 0) {
                         </div>
                         
                         <div style="display: flex; align-items: center; gap: 1rem;">
+                            <?php echo render_admin_active_toggle('universities', $uniId, intval($uni['is_active']) === 1, $uni['name']); ?>
                             <!-- Manage Courses trigger button -->
                             <button class="btn-outline" onclick="toggleCoursesAccordion(<?php echo $uniId; ?>)" style="padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem;">
                                 <i class="fa-solid fa-book-bookmark"></i>
@@ -550,6 +551,7 @@ if ($selected_country_id > 0) {
                                             <th>Duration</th>
                                             <th>Estimated Tuition Fee</th>
                                             <th>Intakes Available</th>
+                                            <th>Active</th>
                                             <th style="text-align: right;">Actions</th>
                                         </tr>
                                     </thead>
@@ -562,6 +564,7 @@ if ($selected_country_id > 0) {
                                                 <td><?php echo !empty($course['duration']) ? clean_output($course['duration']) : 'N/A'; ?></td>
                                                 <td><span style="color: #10b981; font-weight: 500;"><?php echo !empty($course['tuition_fee']) ? clean_output($course['tuition_fee']) : 'Consult Admin'; ?></span></td>
                                                 <td><span class="tag-qs" style="background: rgba(16,185,129,0.1); color: #10b981; border-color: rgba(16,185,129,0.2);"><?php echo !empty($course['intakes']) ? clean_output($course['intakes']) : 'General'; ?></span></td>
+                                                <td><?php echo render_admin_active_toggle('courses', $course['id'], intval($course['is_active']) === 1, $course['name']); ?></td>
                                                 <td style="text-align: right;">
                                                     <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
                                                         <button class="btn-action action-edit" style="width: 28px; height: 28px; font-size: 0.75rem;" title="Edit Course" onclick="openEditCourseModal(<?php echo htmlspecialchars($course_json); ?>, '<?php echo clean_output($uni['name']); ?>')">
@@ -607,6 +610,7 @@ if ($selected_country_id > 0) {
                                                 <th>Amount / Benefit</th>
                                                 <th>Eligibility</th>
                                                 <th>Deadline</th>
+                                                <th>Active</th>
                                                 <th style="text-align: right;">Actions</th>
                                             </tr>
                                         </thead>
@@ -619,6 +623,7 @@ if ($selected_country_id > 0) {
                                                     <td><span style="color: #f59e0b; font-weight: 600;"><?php echo clean_output($schol['amount']); ?></span></td>
                                                     <td style="max-width: 250px; font-size: 0.8rem;"><?php echo clean_output($schol['eligibility']); ?></td>
                                                     <td><span class="tag-qs" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b; border-color: rgba(245, 158, 11, 0.2);"><?php echo clean_output($schol['deadline']); ?></span></td>
+                                                    <td><?php echo render_admin_active_toggle('scholarships', $schol['id'], intval($schol['is_active']) === 1, $schol['name']); ?></td>
                                                     <td style="text-align: right;">
                                                         <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
                                                             <button class="btn-action action-edit" style="width: 28px; height: 28px; font-size: 0.75rem;" title="Edit Scholarship" onclick="openEditScholarshipModal(<?php echo htmlspecialchars($schol_json); ?>, '<?php echo clean_output($uni['name']); ?>')">

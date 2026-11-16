@@ -15,6 +15,12 @@ $stats = [
     'testimonials_total' => 0
 ];
 $recentLeads = [];
+$visitStats = [
+    'page_views' => 0,
+    'today_page_views' => 0,
+    'today_unique_visitors' => 0
+];
+$visitStatsAvailable = false;
 
 try {
     // Check if tables exist by querying them. If they fail, trigger setup notice.
@@ -41,6 +47,21 @@ try {
 } catch (PDOException $e) {
     // If table doesn't exist, we must guide them to run the setup script!
     $setupNeeded = true;
+}
+
+try {
+    $visitStmt = $pdo->prepare("
+        SELECT
+            COALESCE(SUM(page_views), 0) AS page_views,
+            COALESCE(SUM(CASE WHEN visit_date = :today THEN page_views ELSE 0 END), 0) AS today_page_views,
+            COALESCE(SUM(CASE WHEN visit_date = :today THEN unique_visitors ELSE 0 END), 0) AS today_unique_visitors
+        FROM website_visit_daily
+    ");
+    $visitStmt->execute(['today' => gmdate('Y-m-d')]);
+    $visitStats = $visitStmt->fetch(PDO::FETCH_ASSOC);
+    $visitStatsAvailable = true;
+} catch (PDOException $e) {
+    error_log('Could not load website visit metrics: ' . $e->getMessage());
 }
 ?>
 
@@ -116,6 +137,24 @@ try {
                 <i class="fa-solid fa-star"></i>
             </div>
         </a>
+
+        <div class="stat-card">
+            <div class="stat-info">
+                <div class="stat-label">Website Visits</div>
+                <?php if ($visitStatsAvailable): ?>
+                    <div class="stat-value"><?php echo number_format((int) $visitStats['page_views']); ?></div>
+                    <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.45rem; line-height: 1.5;">
+                        Today: <?php echo number_format((int) $visitStats['today_unique_visitors']); ?> visitors /
+                        <?php echo number_format((int) $visitStats['today_page_views']); ?> views
+                    </div>
+                <?php else: ?>
+                    <a href="setup.php" style="font-size: 0.85rem; color: var(--accent);">Run setup to enable</a>
+                <?php endif; ?>
+            </div>
+            <div class="stat-icon-wrap icon-teal">
+                <i class="fa-solid fa-chart-line"></i>
+            </div>
+        </div>
     </div>
 
     <!-- Main Dashboard Section -->

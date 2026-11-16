@@ -639,7 +639,7 @@ require_once 'includes/header.php';
         <!-- Office 1 -->
         <div class="office-card animate-on-scroll" style="background: white; border-radius: 16px; padding: 2rem; border-left: 4px solid #3b82f6; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
           <h4 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">Coimbatore (Head Office)</h4>
-          <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.5;">First Floor, Vignesh Park, Kalingarayan Street, Ram Nagar, Coimbatore - 641009</p>
+          <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.5;"><?php echo htmlspecialchars(SITE_ADDRESS, ENT_QUOTES, 'UTF-8'); ?></p>
           <a href="mailto:info@bluestoneoverseas.com" style="color: #3b82f6; text-decoration: none; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;"><i class="fa-solid fa-envelope"></i> info@bluestoneoverseas.com</a>
         </div>
         
@@ -717,4 +717,3 @@ require_once 'includes/header.php';
   </section>
 </main>
 <?php require_once 'includes/footer.php'; ?>
-

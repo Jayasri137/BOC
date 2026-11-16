@@ -421,9 +421,7 @@ try {
                 $name = clean_output($c['name']);
             ?>
                 <div class="crud-card <?php echo $isActive ? 'crud-card-active' : 'crud-card-inactive'; ?>">
-                    <div class="crud-card-badge-icon">
-                        <i class="fa-solid <?php echo $isActive ? 'fa-check' : 'fa-eye-slash'; ?>"></i>
-                    </div>
+                    <?php echo render_admin_active_toggle('countries', $c['id'], $isActive, $c['name']); ?>
                     
                     <div class="crud-card-header">
                         <div class="crud-card-icon icon-blue" style="font-size: 2rem; background: rgba(255,255,255,0.03); border: 1px solid var(--border);">

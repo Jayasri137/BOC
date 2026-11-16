@@ -187,9 +187,7 @@ try {
             $icon = clean_output($spec['icon']);
         ?>
             <div class="crud-card <?php echo $isActive ? 'crud-card-active' : 'crud-card-inactive'; ?>">
-                <div class="crud-card-badge-icon">
-                    <i class="fa-solid <?php echo $isActive ? 'fa-check' : 'fa-eye-slash'; ?>"></i>
-                </div>
+                <?php echo render_admin_active_toggle('specialist_services', $spec['id'], $isActive, $spec['title']); ?>
                 
                 <div class="crud-card-header">
                     <div class="crud-card-icon icon-<?php echo $color; ?>">
